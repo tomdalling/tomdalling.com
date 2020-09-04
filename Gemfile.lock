@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (11.1.3)
+    value_semantics (3.6.0)
+    zeitwerk (2.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  byebug
+  value_semantics
+  zeitwerk
+
+BUNDLED WITH
+   2.1.4
