@@ -6,6 +6,7 @@ module Statue
     end
 
     def write!(path)
+      FileUtils.mkdir_p(path.dirname)
       FileUtils.cp(source, path)
     end
   end
