@@ -5,7 +5,12 @@ module Statue
       destination RelativePathname
     end
 
-    def write!(path)
+    def description
+      "Copy #{destination}"
+    end
+
+    def call(output_dir)
+      path = output_dir / destination
       FileUtils.mkdir_p(path.dirname)
       FileUtils.cp(source, path)
     end

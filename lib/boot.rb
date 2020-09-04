@@ -1,5 +1,6 @@
 # require standard libraries
 require 'pathname'
+require 'forwardable'
 
 # require gems
 ENV['BUNDLE_GEMFILE'] ||= Pathname(__dir__).parent.join('Gemfile').to_path

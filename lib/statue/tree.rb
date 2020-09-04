@@ -1,13 +1,21 @@
 module Statue
   class Tree
-    def outputs(input_dir)
-      static_dir = input_dir / 'static'
-      static_dir.glob('**/*').select(&:file?).map do |input_path|
-        Copy.new(
-          source: input_path,
-          destination: input_path.relative_path_from(static_dir),
-        )
-      end
+    def actions_for(changeset)
+      static_dir = changeset.dir / 'static'
+      changeset.glob(static_dir/'**/*').map do |change|
+        if change.added? || change.modified?
+          Copy.new(
+            source: change.path,
+            destination: change.path.relative_path_from(static_dir),
+          )
+        elsif change.removed?
+          Delete.new(
+            destination: change.path.relative_path_from(static_dir),
+          )
+        else
+          nil
+        end
+      end.compact
     end
   end
 end
