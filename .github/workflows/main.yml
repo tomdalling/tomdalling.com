@@ -20,4 +20,4 @@ jobs:
         run: bundle install
 
       - name: Run tests
-        run: bin/test
+        run: bin/test test/automated
