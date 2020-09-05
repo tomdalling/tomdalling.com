@@ -1,0 +1,222 @@
+{:title "OpenGL in 2014"
+ :disqus-id "com.tomdalling.blog.opengl-in-2014"
+ :main-image {:uri "/images/posts/opengl-in-2014/main-image.png"
+              :artist {:name "Dhatfield"
+                       :url "http://commons.wikimedia.org/wiki/File:Utah_teapot_simple_2.png"}}
+ :category :modern-opengl}
+
+Valve is investing in OpenGL to hedge themselves against Microsoft. Some
+well-known developers have written about the deficiencies in the API. A few
+competing, proprietary APIs have popped up. In an effort to remain competitive,
+Khronos announces glnext: a ground-up rethinking of the OpenGL and OpenGL ES
+APIs. This post will look at developments in the OpenGL ecosystem over the last
+couple of years.
+
+<!--more-->
+
+Valve
+-----
+
+In July of 2012, Valve announced that they were developing a Linux version of
+Steam. In late 2013, Valve further announced their new Linux-based operating
+system [SteamOS][].
+
+On Linux, OpenGL is the only API available for hardware accellerated 3D.
+Therefore, an investment in Linux necessarily means an investment in OpenGL.
+While porting Left 4 Dead 2 to Linux, Valve stated: ["We've been working with
+Nvidia, AMD, and Intel to improve graphic driver performance on
+Linux"][left4dead2_port].
+
+On top of that, Valve have developed and open-sourced a couple of OpenGL tools.
+[ToGL][] is a Direct3D to OpenGL translation layer, including a HLSL to GLSL
+converter. [Vogl][] provides some sorely-needed debugging facilities.  These
+two projects were dumped onto github in a somewhat hasty manner.  Nevertheless,
+these are welcome additions, considering the historical lack of tooling in the
+OpenGL ecosystem.
+
+On top of _that_, Valve are also [funding some development][mesa_funding] of
+Mesa, an open-source implementation of OpenGL.
+
+This is all great news for OpenGL in general. Everyone benefits from such a
+large and influential company pushing for better performance, tooling, and
+stability. As long a Valve's long-term strategy continues to involves Linux,
+they will be a boon to OpenGL.
+
+Criticism
+---------
+
+It wasn't all roses from Valve, though. [Rich Geldreich][], who developed
+Vogl as a Valve employee, started a storm with his blog post: [Things that
+drive me nuts about OpenGL][rich_first_post]. His post is a laundry list
+of OpenGL criticisms, compared to other modern graphics APIs. It set off
+a [cascade of reactions][]. The pains that Rich identified resonated with a lot
+of OpenGL developers, although some dismissed them with a [big middle
+finger][].
+
+In June of 2014, [Rich wrote][rich_leave]:
+
+> BTW - I'm no longer at Valve or working on vogl. And no, I'm not being paid
+> by, nor do I know anyone still at Apple, lol. 
+
+To me, Vogl represented real progress in an ecosystem that was maybe a bit
+stagnant, so it's a little disheartening to see Rich leaving so soon.
+
+Mantle, Metal, and DirectX 12
+-----------------------------
+
+In September of 2013, AMD announced a new, low-level graphics API called
+[Mantle][], designed to be an alternative to OpenGL and Direct3D. The idea with
+Mantle was to allow direct access to AMD hardware with an absolute minimum of
+driver overhead, something that OpenGL and DirectX didn't really offer at the
+time. AMD boasted that Mantle offered large performance gains compared to "other
+APIs." A few large names, such as Crytek and DICE, jumped on board, and
+implemented Mantle in their game engines. AMD also claimed that Mantle would
+eventually be an open standard, but currently, a year after its announcement,
+we are still yet to see any progress towards this.
+
+A few months later, Microsoft announces DirectX 12, which sounds a lot like
+Mantle. The main difference from DX11 is the significantly reduced driver
+overhead, and more direct access to hardware.
+
+Then, in July of 2014, Apple follows suit and releases its own low-level
+graphics API called [Metal][].  Prior to Metal, OpenGL ES was the only option
+for iOS devices. In fact, Apple's use of OpenGL ES in their iPhones was one of
+the major factors contributing to the OpenGL renaissance that we see today. And
+now, having been such an ally, Apple turns around and creates a competitor.
+Some speculate that Apple dislikes the cross-platform nature of OpenGL, and
+would prefer to lock developers into the iOS ecosystem.  Others say that Metal
+is just a better API, and OpenGL was ripe for replacement.
+
+With three cutting-edge competitors announced within a year of eachother, while
+OpenGL still carries 20 years of baggage along with it, it's not unreasonable
+to beleive that OpenGL may be fighting for its survival over the next few
+years.
+
+Joshua Barczak explains this new taste for low-level graphics APIs in his
+excellent blog post: [The Race to the Metal][].
+
+AZDO
+----
+
+At GDC 2014, back in March, developers from AMD, Nvidia, and Intel came
+together to give a presentation called [Approaching Zero Driver Overhead][]
+(AZDO).  The premise of the presentation is that OpenGL 4.4 does actually
+provide low-level functionality, sort of like Mantle, if you know where to find
+it. This presentation is a fantastic overview of the cutting-edge features of
+OpenGL.
+
+glnext
+------
+
+Last month, in a [presentation at SIGGRAPH 2014][siggraph_pres],
+Khronos announced the "Next Generation OpenGL Initiative" (which I'm going to
+refer to as "glnext" here).
+
+<figure>
+  <img src="/images/posts/opengl-in-2014/glnext.png" />
+  <figcaption>
+    Source: [Khronos SIGGRAPH 2014 presentation][siggraph_pres]
+  </figcaption>
+</figure>
+
+Here are a few excerpts from the presentation, relating to glnext:
+
+ - After twenty two years -- need ground up design of API for high-efficiency
+   access to graphics and compute on modern GPUs.
+ - Incremental change is not enough. GL has a good track record of adaptive
+   evolution... but structural problems can’t be fixed by accretion.
+ - Who's on board: Valve, Apple, AMD, Intel, Nvidia, and others.
+ - Fast-paced work on detailed proposals and designs are already underway
+ - NOT your father’s multi-year design-by-committee process
+ - Goals:
+    - Clean, modern architecture
+    - Greatly reduced CPU overhead
+    - Multi-thread / multicore-friendly
+    - Improved reliability and consistency between implementations
+    - Unify OpenGL and OpenGL ES
+
+In the presentation, Khronos directly mentions [Rich Gelrich's
+criticisms][rich_first_post] under the heading "OpenGL needs to change", and I
+think that this is a great indication that we will see some real improvements
+baked into glnext. John McDonald from Valve states that "glnext is shaping up
+to be _amazing_."
+
+Richard Huddy [says][huddy] that AMD is giving Khronos full access to Mantle,
+and will impose no restrictions or licensing fees if glnext takes ideas from
+the architecture of Mantle.
+
+OpenGL 4.5 And The Current Ecosystem
+------------------------------------
+
+But wait, there's more! While we wait for glnext, OpenGL development rolls on.
+In the same SIGGRAPH 2014 presentation, Khronos announced OpenGL 4.5, and gave
+an overview of the whole OpenGL ecosystem.
+
+Among other things, 4.5 finally, **finally**, brings Direct State Access (DSA)
+into core. It's my personal opinion that a lot of the perceived cruft in OpenGL
+stems from being forced to constantly manipulate the state machine, which is
+basically a huge collection of mutable global variables, and DSA alleviates a
+lot of this pain. In addition to the developer-frendliness that DSA brings,
+it also enables a set of possible performance improvements.
+
+<figure>
+  <img src="/images/posts/opengl-in-2014/dsa.png" />
+  <figcaption>
+    Source: [Khronos SIGGRAPH 2014 presentation][siggraph_pres]
+  </figcaption>
+</figure>
+
+In tooling news, Vogl development continues, and it now runs on Windows. AMD,
+Nvidia, and Intel are all improving performance profiling through their own
+proprietary tools. The GLSL reference validator is getting better, helping to
+fix headaches around cross-platform shader compilation.
+
+Conformance testing is also being ramped up. One of OpenGL's uglier problems
+is driver conformance, but it appears that this situation is improving.
+
+Conclusion
+----------
+
+The AZDO presentation showed that OpenGL is still competitive when compared to
+Mantle, Metal, and DirectX 12. Also, glnext is poised to clean up a lot of the
+crusty parts, and unify OpenGL and OpenGL ES into a single, modern,
+ultra-cross-platform API.
+
+I think this slide from the SIGGRAPH presentation sums up why OpenGL is, and
+will remain to be, relevant:
+
+<figure>
+  <img src="/images/posts/opengl-in-2014/cross-platform.png" />
+  <figcaption>
+    Source: [Khronos SIGGRAPH 2014 presentation][siggraph_pres]
+  </figcaption>
+</figure>
+
+Mantle only currently works with certain AMD hardware on Windows. Metal only
+works on iOS. DirectX 12 will only work on Windows. **OpenGL is the only truly
+cross-platform option**.  It's the only option that works on all hardware
+across Windows, OSX, Linux, Android and iOS. It's the _only_ option on Linux,
+so if Valve's vision for Linux comes to fruition, OpenGL will be more relevant
+than ever.
+
+I'm optimistic about the future of OpenGL/glnext. We just have to wait and see
+if the vendors play nice together.
+
+[SteamOS]: http://store.steampowered.com/livingroom/SteamOS/
+[big middle finger]: https://twitter.com/grahamsellers/status/472418068660887553
+[gabe_catastrophe]: http://www.computerandvideogames.com/359898/newell-windows-8-is-a-catastrophe-for-everyone-in-the-pc-space/
+[left4dead2_port]: http://blogs.valvesoftware.com/linux/faster-zombies/ 
+[ToGL]: https://github.com/ValveSoftware/ToGL
+[Vogl]: https://github.com/ValveSoftware/vogl
+[Rich Geldreich]: http://richg42.blogspot.com/
+[mesa_funding]: http://lunarg.com/glassymesa/
+[rich_first_post]: http://richg42.blogspot.hu/2014/05/things-that-drive-me-nuts-about-opengl.html
+[cascade of reactions]: http://www.dayonepatch.com/index.php?/topic/107633-a-pretty-huge-debate-about-opengl-has-erupted-in-the-dev-community-involving-devs-from-valve-epic-firaxis-and-amd/
+[Mantle]: http://www.amd.com/en-gb/innovations/software-technologies/mantle
+[Metal]: https://developer.apple.com/metal/
+[rich_leave]: http://richg42.blogspot.co.uk/2014/06/article-directx-creator-says-apples.html
+[The Race to the Metal]: http://www.joshbarczak.com/blog/?p=99
+[Approaching Zero Driver Overhead]: http://gdcvault.com/play/1020791/
+[siggraph_pres]: https://www.khronos.org/assets/uploads/developers/library/2014-siggraph-bof/OpenGL-Ecosystem-BOF_Aug14.pdf
+[huddy]: http://techreport.com/news/26922/amd-hopes-to-put-a-little-mantle-in-opengl-next
+

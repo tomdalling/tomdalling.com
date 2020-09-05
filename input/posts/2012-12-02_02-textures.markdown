@@ -1,0 +1,368 @@
+{:title "Modern OpenGL 02 - Textures"
+ :disqus-id "821 http://tomdalling.com/?p=821"
+ :main-image {:uri "/images/posts/modern-opengl-02/main-image.png"}
+ :category :modern-opengl}
+
+In this article, we will be adding a texture to the triangle. This will involve
+adding new variables to the vertex and fragment shaders, creating and using
+texture objects, and learning a bit about texture units and texture
+coordinates.
+
+This article introduces two new classes to the `tdogl` namespace:
+`tdogl::Bitmap` and `tdogl::Texture`. These will allow us to load an image from
+a jpg, png, or bmp file into video memory, for use in the shaders. Also, the
+`tdogl::Program` class has some new methods for setting shader variables.
+
+<!--more-->
+
+<widget type="modern-opengl-preamble">02_textures</widget>
+
+
+Uniform vs Attribute Shader Variables
+-------------------------------------
+
+All the variables in the previous article were *attribute* variables. In this
+article we will be introducing the other kind of variable: uniform variables.
+
+<blockquote class="pull-right">
+  Attribute variables can have a different value for each vertex. Uniform
+  variables keep the same value for multiple vertices.
+</blockquote>
+
+There are two kinds of shader variables: *uniform* variables and *attribute*
+variables. Attribute variables can have a different value for each vertex.
+Uniform variables keep the same value for multiple vertices. For example, if
+you want to set a colour for a whole triangle, you would use a uniform
+variable. If you want each corner of a triangle to be a different color, you
+would use an attribute variable. I will just refer to them as "uniforms" and
+"attributes" from now on.
+
+<blockquote class="pull-right">
+  Uniforms can be accessed from any shader, but attributes must enter the
+  <em>vertex</em> shader first, not the <em>fragment</em> shader. The vertex
+  shader can pass the value into the fragment shader if necessary.
+</blockquote>
+
+Uniforms can be accessed from any shader, but attributes must enter the
+*vertex* shader first, not the *fragment* shader. The vertex shader can pass
+the value into the fragment shader if necessary. This is because uniforms are
+like constants &ndash; they don't change so they can be accessed from any
+shader. However, attributes are not constant. The vertex shader can change the
+value of an attribute before it gets to the fragment shader. The output of the
+vertex shader is the input to the fragment shader.
+
+To set the value of a uniform, we use one of the [glUniform*][] functions. To
+set the value of an attribute, we store the values in a VBO and send them to
+the shader with a VAO and [glVertexAttribPointer][] like we saw in the previous
+article. It is also possible to set the value of an attribute using one of the
+[glVertexAttrib*][] functions, if you are not storing the values in a VBO.
+
+Textures
+--------
+
+<blockquote class="pull-right">
+  Textures are basically 2D images that you can apply to your 3D objects.
+</blockquote>
+
+Textures are basically 2D images that you can apply to your 3D objects. They
+have other uses, but displaying a 2D image on 3D geometry is the most common
+use. There are 1D, 2D and 3D textures, but we will only be looking at 2D
+textures in this article. For a more in-depth look at textures, see the
+[Textures are not Pictures][] chapter of the [Learning Modern 3D Graphics
+Programming][] book.
+
+Textures live in video memory. That is, you upload the data for the texture to
+the graphics card before you can use it. This is similar to how we saw VBOs
+working in the previous article &ndash; VBOs are used to store data in video
+memory before that data gets used.
+
+<blockquote class="pull-right">
+  The pixel width and height of a texture should be a power of two.
+</blockquote>
+
+The pixel width and height of a texture should be a power of two, for example:
+16, 32, 64, 128, 256, 512. In this article we will use the 256x256 image
+"hazard.png" as a texture, which is shown below.
+
+<figure>
+  <img src="/images/posts/modern-opengl-02/hazard.png" />
+</figure>
+
+We will use the `tdogl::Bitmap` class to load the raw pixel data from
+"hazard.png" into memory, with the help of [stb_image][]. Then we will use
+`tdogl::Texture` to upload the raw pixel data into an OpenGL texture object.
+Fortunately, texture creation in OpenGL has not really changed since it was
+first introduced, so there are plenty of good articles online that will show
+you how to create a texture. The way that texture coordinates are sent to the
+graphics card has changed, but the creation of the texture is the same.
+
+Below is the constructor code for `tdogl::Texture`, which handles the creation
+of an OpenGL texture.
+
+```cpp
+Texture::Texture(const Bitmap& bitmap, GLint minMagFiler, GLint wrapMode) :
+    _originalWidth((GLfloat)bitmap.width()),
+    _originalHeight((GLfloat)bitmap.height())
+{
+    glGenTextures(1, &_object);
+    glBindTexture(GL_TEXTURE_2D, _object);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+    glTexImage2D(GL_TEXTURE_2D,
+                 0, 
+                 TextureFormatForBitmapFormat(bitmap.format()),
+                 (GLsizei)bitmap.width(), 
+                 (GLsizei)bitmap.height(),
+                 0, 
+                 TextureFormatForBitmapFormat(bitmap.format()), 
+                 GL_UNSIGNED_BYTE, 
+                 bitmap.pixelBuffer());
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+```
+
+Texture Coordinates
+-------------------
+
+<blockquote class="pull-right">
+  The strange thing about texture coordinates is that they are not in pixels.
+  They range from zero to one, where (0,0) is the bottom left and (1,1) is the
+  top right.
+</blockquote>
+
+Texture coordinates are, unsurprisingly, coordinates on a texture. The strange
+thing about texture coordinates is that they are not in pixels. They range from
+zero to one, where (0,0) is the bottom left and (1,1) is the top right. If you
+load the image into OpenGL upside down, then (0,0) will be the top left, not
+the bottom left. To turn pixel coordinates into texture coordinates, you must
+divide by the width and height of the texture. For example, in a 256x256 image,
+the pixel coordinates (128, 256) become (0.5, 1) in texture coordinates.
+
+<figure>
+  <img src="/images/posts/modern-opengl-02/uv_coords.png" />
+</figure>
+
+Texture coordinates are commonly referred to as UV coordinates. You could call
+them XY coordinates, but XYZ is commonly used to represent a vertex, and we
+don't want to confuse texture coordinates with vertex coordinates.
+
+Texture Image Units
+-------------------
+
+<blockquote class="pull-right">
+  You can't just send a texture straight to a shader. First you bind the
+  texture to a texture unit, then you send the <em>index of the texture
+  unit</em> to the shader.
+</blockquote>
+
+Texture image units, or just "texture units" for short, are a slightly weird
+part of OpenGL. You can't just send a texture straight to a shader. First you
+bind the texture to a texture unit, then you send the *index of the texture
+unit* to the shader.
+
+There are a limited number of texture units. On less-powerful devices such as
+phones, there might only be two texture units. In that case, even though we
+could have dozens of textures, we could only use two of them at the same time
+in the shaders. We will only be using one texture in this article, so we only
+need one texture unit, but it is possible to blend multiple different textures
+together inside the fragment shader.
+
+Implementing Textures
+---------------------
+
+First, let's make a new global for the texture.
+
+```cpp
+tdogl::Texture* gTexture = NULL;
+```
+
+We'll make a new function to load "hazard.png" into the global. This gets
+called from the `AppMain` function.
+
+```cpp
+static void LoadTexture() {
+    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile(ResourcePath("hazard.png"));
+    bmp.flipVertically();
+    gTexture = new tdogl::Texture(bmp);
+}
+```
+
+Next we will give each vertex of the triangle a texture coordinate. If you
+compare the UV coords to the image above, you will see that the coordinates
+represent (middle,top), (left,bottom), and (right,bottom) in that order.
+
+```cpp
+GLfloat vertexData[] = {
+    //  X     Y     Z       U     V
+     0.0f, 0.8f, 0.0f,   0.5f, 1.0f,
+    -0.8f,-0.8f, 0.0f,   0.0f, 0.0f,
+     0.8f,-0.8f, 0.0f,   1.0f, 0.0f,
+};
+```
+
+Now we need to modify the fragment shader so that it takes a texture and a
+texture coordinate as input. The new fragment shader looks like this:
+
+```cpp
+#version 150
+uniform sampler2D tex; //this is the texture
+in vec2 fragTexCoord; //this is the texture coord
+out vec4 finalColor; //this is the output color of the pixel
+
+void main() {
+    finalColor = texture(tex, fragTexCoord);
+}
+```
+
+The `uniform` keyword indications that `tex` is a *uniform* variable. The
+texture is a uniform because all the vertices of the triangle will have the
+same texture. `sampler2D` is the variable type, indicating that it holds a 2D
+texture.
+
+The `fragTexCoord` is an *attribute* variable, because each vertex of the
+triangle will have a different texture coordinate.
+
+The `texture` function finds the color of the pixel at the given texture
+coordinate. In older versions of GLSL, you would use the `texture2D` function
+to do this.
+
+We can't pass an attribute straight into the fragment shader, because
+attributes must first go through the vertex shader. Here is the modified vertex
+shader:
+
+```cpp
+#version 150
+in vec3 vert;
+in vec2 vertTexCoord;
+out vec2 fragTexCoord;
+
+void main() {
+    // Pass the tex coord straight through to the fragment shader
+    fragTexCoord = vertTexCoord;
+    
+    gl_Position = vec4(vert, 1);
+}
+```
+
+This vertex shader takes `vertTexCoord` as input, and passes it straight into
+the `fragTexCoord` attribute of the fragment shader without modifying it.
+
+The shaders now have two variables we need to set: the `vertTexCoord` attribute
+and `tex` uniform. Let's start by setting the `tex` variable. Open up main.cpp
+and find the `Render()` function. We will set the `tex` uniform just before we
+draw the triangle:
+
+```cpp
+glActiveTexture(GL_TEXTURE0);
+glBindTexture(GL_TEXTURE_2D, gTexture->object());
+gProgram->setUniform("tex", 0); //set to 0 because the texture is bound to GL_TEXTURE0
+```
+
+The texture can't be used until it is bound to a texture unit.
+`glActiveTexture` tells OpenGL which texture unit we want to use. `GL_TEXTURE0`
+is the first texture unit, so we will just use that.
+
+Next, we use `glBindTexture` bind our texture into the active texture unit.
+
+Then we set the `tex` uniform of the shaders to the *index of the texture
+unit*. We used texture unit zero, so we set the `tex` uniform to the integer
+value `0`. The `setUniform` method just calls the `glUniform1i` function.
+
+The final step is to get the texture coordinates into the `vertTexCoord`
+attribute. To do this, we will modify the VAO inside the `LoadTriangle()`
+function. This is what the code used to look like:
+
+```cpp
+// Put the three triangle vertices into the VBO
+GLfloat vertexData[] = {
+    //  X     Y     Z
+     0.0f, 0.8f, 0.0f,
+    -0.8f,-0.8f, 0.0f,
+     0.8f,-0.8f, 0.0f
+};
+
+// connect the xyz to the "vert" attribute of the vertex shader
+glEnableVertexAttribArray(gProgram->attrib("vert"));
+glVertexAttribPointer(gProgram->attrib("vert"), 3, GL_FLOAT, GL_FALSE, 0, NULL);
+```
+
+And this is what we need to change it to:
+
+```cpp
+// Put the three triangle vertices (XYZ) and texture coordinates (UV) into the VBO
+GLfloat vertexData[] = {
+    //  X     Y     Z       U     V
+     0.0f, 0.8f, 0.0f,   0.5f, 1.0f,
+    -0.8f,-0.8f, 0.0f,   0.0f, 0.0f,
+     0.8f,-0.8f, 0.0f,   1.0f, 0.0f,
+};
+
+// connect the xyz to the "vert" attribute of the vertex shader
+glEnableVertexAttribArray(gProgram->attrib("vert"));
+glVertexAttribPointer(gProgram->attrib("vert"), 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), NULL);
+    
+// connect the uv coords to the "vertTexCoord" attribute of the vertex shader
+glEnableVertexAttribArray(gProgram->attrib("vertTexCoord"));
+glVertexAttribPointer(gProgram->attrib("vertTexCoord"), 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
+```
+
+We've added a second call to `glVertexAttribPointer`, but we've also modified
+the first call as well. The most important arguments to look at are the last
+two. 
+
+The second last argument to both `glVertexAttribPointer` calls is
+`5*sizeof(GLfloat)`. This is the "stride" argument. This argument wants to know
+how many bytes are between the start of one value, and the start of the next
+value. In both cases, each value is five `GLfloat`s away from the next value.
+For example, if we start at the "X" value and count forward five values, we
+will be at the next "X" value. The same is true if we start at a "U" value, and
+count forward five. This argument is in *bytes*, not floats, so we must
+multiply the number of floats by the number of bytes per float.
+
+The last argument to `glVertexAttribPointer` is the "offset" argument. This
+argument wants to know how many bytes from the start is the first value. The
+first **XYZ** value is right at the beginning, so the offset is set to NULL
+which means "zero bytes from the start". The first **UV** value is not at the
+beginning &ndash; it is three floats away from the beginning. Once again, this
+argument is in *bytes*, not floats, so we must multiply the number of floats by
+the number of bytes per float. We must cast the number of bytes to a `const
+GLvoid*`, because in older versions of OpenGL this argument used to be
+something different to the "offset" that it is now.
+
+Now, when you run the program, you should see a textured triangle like the one
+shown at the top of this article.
+
+Future Article Sneak Peek
+-------------------------
+
+In the next article we will learn a bit about matrix math, and use matrices to
+spin a cube, move the camera, and add a perspective projection. We will also
+learn about depth buffering, and how a typical program does time-based updates
+such as animation.
+
+Additional OpenGL Texture Resources
+-----------------------------------
+
+ -  [The texture page on the OpenGL wiki][] 
+ -  [The texturing chapters][] of the Learning Modern 3D Graphics Programming book.
+ -  [Tutorial 16 - Basic Texture Mapping][] by Etay Meiri
+ -  [The texturing example code][] by Jakob Progsch
+
+Translations Of This Article
+----------------------------
+ -  [Serbo-Croatian][] 
+
+[glUniform*]: http://www.opengl.org/sdk/docs/man/xhtml/glUniform.xml
+[glVertexAttribPointer]: http://www.opengl.org/sdk/docs/man/xhtml/glVertexAttribPointer.xml
+[glVertexAttrib*]: http://www.opengl.org/sdk/docs/man/xhtml/glVertexAttrib.xml
+[Textures are not Pictures]: http://www.arcsynthesis.org/gltut/Texturing/Tutorial%2014.html
+[Learning Modern 3D Graphics Programming]: http://www.arcsynthesis.org/gltut/
+[stb_image]: https://github.com/nothings/stb
+[Serbo-Croatian]: http://science.webhostinggeeks.com/Moderne-OpenGL02%E2%80%93Teksture
+[The texturing example code]: https://github.com/progschj/OpenGL-Examples/blob/master/03texture.cpp
+[Tutorial 16 - Basic Texture Mapping]: http://ogldev.atspace.co.uk/www/tutorial16/tutorial16.html
+[The texturing chapters]: http://www.arcsynthesis.org/gltut/Texturing/Texturing.html
+[The texture page on the OpenGL wiki]: http://www.opengl.org/wiki/Texture
+
