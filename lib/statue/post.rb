@@ -41,7 +41,7 @@ module Statue
     end
 
     def html
-      @html ||= Kramdown::Document.new(content).to_html
+      @html ||= Markdown.to_html(content)
     end
 
     def preview_html
