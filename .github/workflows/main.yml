@@ -16,8 +16,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Bundle
-        run: bundle install
-
-      - name: Run tests
-        run: bin/test test/automated
+      - run: bundle install
+      - run: bundle exec rubocop
+      - run: bin/test test/automated
