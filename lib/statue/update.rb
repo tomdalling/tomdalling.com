@@ -5,7 +5,7 @@ module Statue
     end
 
     def actions
-      static_actions + rss_actions
+      static_actions + post_actions + rss_actions
     end
 
     private
@@ -35,6 +35,24 @@ module Statue
         elsif change.removed?
           Delete.new(
             destination: change.path.relative_path_from(static_dir),
+          )
+        else
+          nil
+        end
+      end
+
+      def post_actions
+        changeset.glob(posts_dir/'*.{md,markdown}')
+          .map { post_action_for(_1) }
+          .compact
+      end
+
+      def post_action_for(change)
+        if change.added? || change.modified?
+          RenderPost.new(change.path)
+        elsif change.removed?
+          Delete.new(
+            destination: Post.new(change.path).url_path / 'index.html'
           )
         else
           nil

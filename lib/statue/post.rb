@@ -22,6 +22,10 @@ module Statue
       basename.partition('_').last
     end
 
+    def url_path
+      Pathname.new("blog").join(category.to_s, url_basename)
+    end
+
     def basename
       input_path.basename.sub_ext('').to_s
     end
@@ -40,13 +44,31 @@ module Statue
       @content
     end
 
-    def shortened_content
+    def html
+      @html ||= Kramdown::Document.new(content).to_html
+    end
+
+    def human_category
+      {
+        'software-design': "Software Design",
+        'coding-tips': "Coding Tips",
+        'cocoa': "Cocoa",
+        'coding-styleconventions': "Coding Style/Conventions",
+        'software-processes': "Software Processes",
+        'web': "Web",
+        'modern-opengl': "Modern OpenGL Series",
+        'ruby': "Ruby",
+        'random-stuff': "Miscellaneous",
+      }.fetch(category)
+    end
+
+    def preview_html
       more_separator = '<!--more-->'
-      @shortened_content ||=
-        if @content.include?(more_separator)
-          @content.partition(more_separator).first
+      @preview_html ||=
+        if html.include?(more_separator)
+          html.partition(more_separator).first
         else
-          @content
+          html
         end
     end
 

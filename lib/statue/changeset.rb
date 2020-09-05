@@ -7,7 +7,7 @@ module Statue
 
     def glob(pattern)
       changes.select do
-        File.fnmatch?(pattern.to_s, _1.path.to_path, File::FNM_PATHNAME)
+        File.fnmatch?(pattern.to_s, _1.path.to_path, File::FNM_PATHNAME | File::FNM_EXTGLOB)
       end
     end
 

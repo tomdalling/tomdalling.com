@@ -7,20 +7,25 @@ module Statue
     end
 
     def description
-      "Generate RSS #{destination}"
+      "Generate RSS feed"
     end
 
     def call(output_dir)
-      path = output_dir / destination
-      FileUtils.mkdir_p(path.dirname)
-      path.write(rss.to_xml)
+      xml = rss.to_xml
+      [
+        output_dir / 'feed/index.xml',
+        output_dir / 'blog/feed/index.xml',
+      ].each do |path|
+        FileUtils.mkdir_p(path.dirname)
+        path.write(xml)
+      end
     end
 
     def rss
       RSS.new(
         title: "Tom Dalling",
         site_url: BASE_URL + "/?utm_source=rss&utm_medium=rss",
-        rss_url: BASE_URL + "/feed/",
+        rss_url: BASE_URL + "/blog/feed/",
         description: "Web & software developer",
         language: "en",
         generator: "Tom Dalling's fingertips",
@@ -33,16 +38,12 @@ module Statue
     def rss_item(post)
       RSS::Item.new(
         title: post.title,
-        url: "#{BASE_URL}/#{post.url_basename}?utm_source=rss&utm_medium=rss",
-        description: post.shortened_content,
-        published_at: post.date.to_time,
-        category: post.category,
+        url: "#{BASE_URL}/#{post.url_path}?utm_source=rss&utm_medium=rss",
+        description: post.preview_html,
+        published_at: Time.utc(post.date.year, post.date.month, post.date.day),
+        category: post.human_category,
         guid: RSS::GUID.new(value: post.disqus_id, permalink?: false),
       )
-    end
-
-    def destination
-      Pathname.new('feed/index.xml')
     end
   end
 end

@@ -13,7 +13,7 @@ module Statue
         url String
         description String
         published_at Time
-        category Symbol
+        category String
         guid GUID
       end
 
@@ -25,8 +25,8 @@ module Statue
             item.link(url)
             item.description { fragment.cdata(description) }
             item.pubDate(published_at.rfc822)
-            item.category { fragment.cdata(category.to_s) } # TODO: need to look up the human name
-            item.guid(guid.value, isPermalink: guid.permalink?)
+            item.category { fragment.cdata(category) }
+            item.guid(guid.value, isPermaLink: guid.permalink?)
           end
         end
         doc.to_xml
@@ -49,8 +49,8 @@ module Statue
       Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
         xml.rss(
           'version' => '2.0',
-          'xmlns:sy' => 'http://purl.org/rss/1.0/modules/syndication/',
           'xmlns:atom' => "http://www.w3.org/2005/Atom",
+          'xmlns:sy' => 'http://purl.org/rss/1.0/modules/syndication/',
         ) do |rss|
           rss.channel do |channel|
             channel.title(title)
