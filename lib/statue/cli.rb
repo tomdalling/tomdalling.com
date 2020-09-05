@@ -10,7 +10,7 @@ module Statue
       puts "Watching #{watcher.dir}"
       loop do
         process_changes(watcher)
-        break
+        break if argv.include?('--once')
         sleep(1)
       rescue Interrupt
         puts "Interrupt!"

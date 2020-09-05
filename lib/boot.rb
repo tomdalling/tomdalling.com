@@ -4,6 +4,7 @@ require 'forwardable'
 require 'date'
 require 'strscan'
 require 'time'
+require 'json'
 
 # require gems
 ENV['BUNDLE_GEMFILE'] ||= Pathname(__dir__).parent.join('Gemfile').to_path

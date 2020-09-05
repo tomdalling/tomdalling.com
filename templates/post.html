@@ -1,0 +1,59 @@
+<article class="post post-single">
+
+  <header>
+    <h1><a href="/example-blog-post/">Example Blog Post</a></h1>
+    <small class="meta">
+      <span class="post-date">31 May, 2009.</span>
+      &mdash;
+      Category: <a class="category" href="/blog/category/whatever/">Whatever</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/example-post.png" class="img-responsive" />
+      <span class="credit">Image courtesy of <a class="artist" href="http://example.com/">Tom Dalling</a>.</span>
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>Short description goes here. This is the part that is shown in
+    a list of posts.</p>
+
+    <!--more-->
+
+    <h2>Example Heading</h2>
+
+    <p>This part appears in the full-length view of a post</p>
+
+    <pre><code class="cpp">//Example 1:
+void Person::setPicture(Picture pict){
+m_picture = pict; //set the member variable
+m_listView-&gt;reloadData(); //update the view
+}</code></pre>
+  </div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p><strong>Enjoy this post?</strong></p>
+      <a href="/feed/" class="btn btn-success">
+        Subscribe via RSS
+      </a>
+      <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" id="disqus_script">
+      var disqus_shortname = "tomdalling";
+      var disqus_identifier = ${disqus-id};
+      var disqus_title = ${disqus-title};
+      var disqus_url = ${disqus-url};
+
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
+  </footer>
+</article>

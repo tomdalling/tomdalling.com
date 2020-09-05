@@ -2,8 +2,9 @@
 
 Static website generator
 
-Testing binding:
+Testing:
 
 ```vim
-nmap <leader>tt :tabnew term://bin/build<cr>
+let test#ruby#testbench#executable = 'bin/test'
 ```
+

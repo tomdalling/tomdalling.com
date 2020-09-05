@@ -19,6 +19,7 @@ module Statue
         when ':' then read_keyword
         when '"' then read_string
         when '[' then read_vector
+        when /[a-z]/i then read_var
         when nil then fail!("Expected to read value")
         else fail!("Unhandled value")
         end
@@ -54,6 +55,16 @@ module Statue
             ch = getch
             result << ch
           end
+        end
+      end
+
+      def read_var
+        var = scan!(/[a-z]+/i)
+        case var
+        when 'true' then true
+        when 'false' then false
+        when 'nil' then nil
+        else fail!("Unrecognised var: #{var}")
         end
       end
 

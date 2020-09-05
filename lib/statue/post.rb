@@ -15,7 +15,11 @@ module Statue
     end
 
     def url_path
-      Pathname.new("blog").join(category.to_s, url_basename)
+      Pathname.new("blog").join(category.machine_name, url_basename)
+    end
+
+    def canonical_url
+      "#{BASE_URL}/#{url_path}/"
     end
 
     def basename
@@ -40,20 +44,6 @@ module Statue
       @html ||= Kramdown::Document.new(content).to_html
     end
 
-    def human_category
-      {
-        'software-design' => "Software Design",
-        'coding-tips' => "Coding Tips",
-        'cocoa' => "Cocoa",
-        'coding-styleconventions' => "Coding Style/Conventions",
-        'software-processes' => "Software Processes",
-        'web' => "Web",
-        'modern-opengl' => "Modern OpenGL Series",
-        'ruby' => "Ruby",
-        'random-stuff' => "Miscellaneous",
-      }.fetch(category)
-    end
-
     def preview_html
       more_separator = '<!--more-->'
       @preview_html ||=
@@ -71,6 +61,8 @@ module Statue
         @frontmatter = Frontmatter.from_edn(EDN.read(scanner))
         @content = scanner.rest
         nil
+      rescue => ex
+        raise "Failed to load #{input_path}: #{ex}"
       end
 
       class Artist
@@ -99,9 +91,17 @@ module Statue
         value_semantics do
           title String
           disqus_id String
-          category String
+          category Category, coerce: true
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
+        end
+
+        def self.coerce_category(obj)
+          if obj.is_a?(String)
+            Category.lookup(obj) || obj
+          else
+            obj
+          end
         end
 
         def self.coerce_main_image(obj)

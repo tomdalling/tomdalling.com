@@ -41,7 +41,7 @@ module Statue
         url: "#{BASE_URL}/#{post.url_path}?utm_source=rss&utm_medium=rss",
         description: post.preview_html,
         published_at: Time.utc(post.date.year, post.date.month, post.date.day),
-        category: post.human_category,
+        category: post.category.human_name,
         guid: RSS::GUID.new(value: post.disqus_id, permalink?: false),
       )
     end

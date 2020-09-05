@@ -1,0 +1,14 @@
+{
+  "lib/*.rb": {
+    "type": "source",
+    "alternate": "test/automated/{}.rb"
+  },
+  "test/automated/*.rb": {
+    "type": "test",
+    "alternate": "lib/{}.rb",
+    "template": [
+      "RootContext.context {camelcase|capitalize|colons} do",
+      "end"
+    ]
+  },
+}

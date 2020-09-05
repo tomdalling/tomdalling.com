@@ -11,7 +11,8 @@ module Statue
     def call(output_dir)
       path = output_dir / post.url_path / 'index.html'
       FileUtils.mkdir_p(path.dirname)
-      path.write(post.html)
+      html = PostTemplate.new.call(post)
+      path.write(html)
     end
 
     private

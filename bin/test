@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
+
+# require test_init.rb implicitly (without writing it in the test file)
+require_relative '../test/test_init'
+
+# Run the normal `bench` CLI
+TestBench::CLI.()
