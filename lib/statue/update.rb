@@ -1,0 +1,60 @@
+module Statue
+  class Update
+    def self.actions_for(changeset)
+      new(changeset).actions
+    end
+
+    def actions
+      static_actions + rss_actions
+    end
+
+    private
+
+      attr_reader :changeset
+
+      def initialize(changeset)
+        @changeset = changeset
+      end
+
+      def static_actions
+        changeset.glob(static_dir/'**/*')
+          .map { static_action_for(_1) }
+          .compact
+      end
+
+      def static_dir
+        changeset.dir / 'static'
+      end
+
+      def static_action_for(change)
+        if change.added? || change.modified?
+          Copy.new(
+            source: change.path,
+            destination: change.path.relative_path_from(static_dir),
+          )
+        elsif change.removed?
+          Delete.new(
+            destination: change.path.relative_path_from(static_dir),
+          )
+        else
+          nil
+        end
+      end
+
+      def rss_actions
+        if changeset.glob(posts_dir/'**/*').any?
+          [GenerateRSS.new(posts)]
+        else
+          []
+        end
+      end
+
+      def posts_dir
+        changeset.dir / 'posts'
+      end
+
+      def posts
+        posts_dir.glob('*.{md,markdown}').map { Post.new(_1) }
+      end
+  end
+end

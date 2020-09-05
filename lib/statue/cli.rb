@@ -6,11 +6,11 @@ module Statue
       FileUtils.mkdir_p(Statue::OUTPUT_DIR)
 
       watcher = Watcher.new(Statue::INPUT_DIR)
-      tree = Tree.new
 
       puts "Watching #{watcher.dir}"
       loop do
-        process_changes(watcher, tree)
+        process_changes(watcher)
+        break
         sleep(1)
       rescue Interrupt
         puts "Interrupt!"
@@ -22,7 +22,8 @@ module Statue
 
     private
 
-      def process_changes(watcher, tree)
+      def process_changes(watcher)
+        started_at = Time.now
         changeset = watcher.next_changeset
         return if changeset.empty?
 
@@ -33,10 +34,13 @@ module Statue
         end
 
         puts "Actions:"
-        tree.actions_for(changeset).each do |action|
+        Update.actions_for(changeset).each do |action|
           puts "  #{action.description}"
           action.(Statue::OUTPUT_DIR)
         end
+
+        duration = Time.now - started_at
+        puts "Completed in #{duration.round(3)} seconds"
       end
   end
 end

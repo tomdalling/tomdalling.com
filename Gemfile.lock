@@ -2,6 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     byebug (11.1.3)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
     value_semantics (3.6.0)
     zeitwerk (2.4.0)
 
@@ -10,6 +13,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  nokogiri
   value_semantics
   zeitwerk
 

@@ -1,6 +1,9 @@
 # require standard libraries
 require 'pathname'
 require 'forwardable'
+require 'date'
+require 'strscan'
+require 'time'
 
 # require gems
 ENV['BUNDLE_GEMFILE'] ||= Pathname(__dir__).parent.join('Gemfile').to_path
@@ -12,6 +15,9 @@ Bundler.require(:default)
 Zeitwerk::Loader.new.tap do |loader|
   loader.inflector.inflect(
     'cli' => 'CLI',
+    'generate_rss' => 'GenerateRSS',
+    'rss' => 'RSS',
+    'edn' => 'EDN',
   )
   loader.push_dir(__dir__)
   loader.setup # ready!
