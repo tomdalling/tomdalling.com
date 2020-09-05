@@ -6,17 +6,9 @@ module Statue
       @input_path = input_path
     end
 
-    def title
-      metadata.fetch(:title)
-    end
-
-    def category
-      metadata.fetch(:category)
-    end
-
-    def disqus_id
-      metadata.fetch(:'disqus-id')
-    end
+    extend Forwardable
+    def_delegators :frontmatter,
+      *%i(title category disqus_id draft? main_image)
 
     def url_basename
       basename.partition('_').last
@@ -34,9 +26,9 @@ module Statue
       Date.iso8601(basename.partition('_').first)
     end
 
-    def metadata
-      load_from_disk unless @metadata
-      @metadata
+    def frontmatter
+      load_from_disk unless @frontmatter
+      @frontmatter
     end
 
     def content
@@ -50,15 +42,15 @@ module Statue
 
     def human_category
       {
-        'software-design': "Software Design",
-        'coding-tips': "Coding Tips",
-        'cocoa': "Cocoa",
-        'coding-styleconventions': "Coding Style/Conventions",
-        'software-processes': "Software Processes",
-        'web': "Web",
-        'modern-opengl': "Modern OpenGL Series",
-        'ruby': "Ruby",
-        'random-stuff': "Miscellaneous",
+        'software-design' => "Software Design",
+        'coding-tips' => "Coding Tips",
+        'cocoa' => "Cocoa",
+        'coding-styleconventions' => "Coding Style/Conventions",
+        'software-processes' => "Software Processes",
+        'web' => "Web",
+        'modern-opengl' => "Modern OpenGL Series",
+        'ruby' => "Ruby",
+        'random-stuff' => "Miscellaneous",
       }.fetch(category)
     end
 
@@ -76,9 +68,60 @@ module Statue
 
       def load_from_disk
         scanner = StringScanner.new(input_path.read)
-        @metadata = EDN.read(scanner)
+        @frontmatter = Frontmatter.from_edn(EDN.read(scanner))
         @content = scanner.rest
         nil
       end
+
+      class Artist
+        value_semantics do
+          name String
+          url String
+        end
+      end
+
+      class MainImage
+        value_semantics do
+          uri Pathname, coerce: PathnameCoercer
+          artist Either(Artist, nil), coerce: true, default: nil
+        end
+
+        def self.coerce_artist(obj)
+          if obj
+            Artist.coercer.(obj)
+          else
+            obj
+          end
+        end
+      end
+
+      class Frontmatter
+        value_semantics do
+          title String
+          disqus_id String
+          category String
+          draft? Bool()
+          main_image Either(MainImage, nil), coerce: true, default: nil
+        end
+
+        def self.coerce_main_image(obj)
+          if obj
+            MainImage.coercer.(obj)
+          else
+            obj
+          end
+        end
+
+        def self.from_edn(edn)
+          new(
+            title: edn.fetch(:title),
+            disqus_id: edn.fetch(:'disqus-id'),
+            category: edn.fetch(:category).to_s,
+            draft?: edn.fetch(:draft, false),
+            main_image: edn.fetch(:'main-image', nil),
+          )
+        end
+      end
+
   end
 end
