@@ -9,7 +9,7 @@ module Statue
     def call(post)
       xform('h1 a') do
         _1.content = post.title
-        _1[:href] = post.url_path
+        _1[:href] = "/#{post.url_path}"
       end
 
       xform('header .main-image') do
