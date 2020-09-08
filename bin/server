@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ruby -run -e httpd output -p 5000
