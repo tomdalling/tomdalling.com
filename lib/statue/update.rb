@@ -5,7 +5,7 @@ module Statue
     end
 
     def actions
-      static_actions + post_actions + rss_actions
+      static_actions + post_actions + rss_actions + page_actions
     end
 
     private
@@ -73,6 +73,29 @@ module Statue
 
       def posts
         posts_dir.glob('*.{md,markdown}').map { Post.new(_1) }
+      end
+
+      def page_actions
+        changeset.glob(pages_dir / '*.html')
+          .map { page_action_for(_1) }
+          .compact
+      end
+
+      def pages_dir
+        changeset.dir / 'pages'
+      end
+
+      def page_action_for(change)
+        if change.added? || change.modified?
+          RenderPage.new(
+            input_path: change.path,
+            destination_path: change.path.relative_path_from(pages_dir),
+          )
+        elsif change.removed?
+          Delete.new(destination: change.path.relative_path_from(pages_dir))
+        else
+          nil
+        end
       end
   end
 end
