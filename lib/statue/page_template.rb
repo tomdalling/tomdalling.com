@@ -52,14 +52,17 @@ module Statue
         _1.content = Date.today.year
       end
 
-      doc.to_html
+      html = doc.to_html
+      # wtf libxml2. get outa hea
+      html.gsub!(/\<meta http-equiv=.Content-Type. [^>]+\>/, '')
+      html
     end
 
     private
 
       #TODO: gross
       def reset!
-        @original_doc ||= Nokogiri::HTML(template_file.read)
+        @original_doc ||= Nokogiri::HTML.parse(template_file.read)
         @doc = @original_doc.clone
       end
 

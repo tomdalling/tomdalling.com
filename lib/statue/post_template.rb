@@ -64,7 +64,7 @@ module Statue
 
       # TODO: gross
       def reset!
-        @original_doc ||= Nokogiri::HTML(template_file.read)
+        @original_doc ||= Nokogiri::HTML.fragment(template_file.read)
         @doc = @original_doc.clone
       end
 
