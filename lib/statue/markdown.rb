@@ -16,6 +16,7 @@ module Statue
           fenced_code_blocks: true,
           autolink: true,
           strikethrough: true,
+          tables: true,
         )
       end
 
