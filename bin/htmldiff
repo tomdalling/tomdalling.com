@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+standardize() {
+  prettyhtml --sortAttributes "$1"
+  prettier \
+    --html-whitespace-sensitivity ignore \
+    --print-width 100 \
+    --write \
+    "$1"
+}
+
+cp "$HOME/proj/tomdalling.com/master/$1" old.html
+cp "output/$1" new.html
+standardize old.html
+standardize new.html
+git diff --no-index old.html new.html
