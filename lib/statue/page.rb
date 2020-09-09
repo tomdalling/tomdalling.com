@@ -1,17 +1,29 @@
 module Statue
   class Page
-    attr_reader :html_content
+    attr_reader :input_file
 
-    def initialize(html_content)
-      @html_content = html_content
+    def initialize(input_file)
+      @input_file = input_file
+    end
+
+    def url_path
+      input_file.path
     end
 
     def title
       'TODO' # TODO: here
     end
 
+    def html_content
+      @html_content ||= input_file.full_path.read
+    end
+
     def canonical_url
       nil #TODO: here
+    end
+
+    def modified_since?(mtime)
+      input_file.modified_since?(mtime)
     end
   end
 end

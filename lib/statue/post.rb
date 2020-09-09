@@ -1,29 +1,32 @@
 module Statue
   class Post
-    attr_reader :input_path
+    attr_reader :markdown_file
 
-    def initialize(input_path)
-      @input_path = input_path
+    def initialize(markdown_file)
+      @markdown_file = markdown_file
     end
 
     extend Forwardable
     def_delegators :frontmatter,
       *%i(title category disqus_id draft? main_image)
 
+    def_delegator :markdown_file, :modified_since?
+
     def url_basename
       basename.partition('_').last
     end
 
-    def url_path
+    def canonical_path
       Pathname.new("blog").join(category.machine_name, url_basename)
     end
 
     def canonical_url
-      "#{BASE_URL}/#{url_path}/"
+      # TODO: return a real URL object
+      "#{BASE_URL}/#{canonical_path}/"
     end
 
     def basename
-      input_path.basename.sub_ext('').to_s
+      markdown_file.path.basename.sub_ext('').to_s
     end
 
     def date
@@ -57,12 +60,12 @@ module Statue
     private
 
       def load_from_disk
-        scanner = StringScanner.new(input_path.read)
+        scanner = StringScanner.new(markdown_file.full_path.read)
         @frontmatter = Frontmatter.from_edn(EDN.read(scanner))
         @content = scanner.rest
         nil
       rescue => ex
-        raise "Failed to load #{input_path}: #{ex}"
+        raise "Failed to load #{markdown_file.path}: #{ex}"
       end
 
       class Artist
