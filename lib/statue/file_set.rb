@@ -38,6 +38,10 @@ module Statue
       files.find { _1.path == relative_path }
     end
 
+    def get!(relative_path)
+      self[relative_path] or fail("Input path not found: #{relative_path}")
+    end
+
     class File
       value_semantics do
         path RelativePathname

@@ -7,25 +7,25 @@ module Statue
       @doc = nil
     end
 
-    def call(page)
+    # TODO: posts are not optional
+    def call(title:, html_content:, canonical_url: nil, posts: [])
       reset!
 
-      if page.canonical_url
-        at_css('head').add_child('<link />').tap do
+      if canonical_url
+        doc.at_css('head').add_child('<link />').first.tap do
           _1[:rel] = "canonical"
-          _1[:href] = page.canonical_url
+          _1[:href] = canonical_url
         end
       end
 
       xform('title') do
-        _1.content = page.title + _1.content
+        _1.content = title + _1.content
       end
 
       xform('main') do
-        _1.inner_html = page.html_content
+        _1.inner_html = html_content
       end
 
-      posts = [] # TODO: need to get posts
       clone_each('ul.recent-posts li', posts.take(5)) do |node, post|
         xform('a', within: node) do
           _1.content = post.title

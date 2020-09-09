@@ -12,8 +12,12 @@ module Statue
     end
 
     def write_to(output_path)
-      html = template.(page)
-      output_path.write(html)
+      output_path.write(
+        template.(
+          title: page.title,
+          html_content: page.html_content,
+        )
+      )
     end
 
     def modified_since?(mtime)

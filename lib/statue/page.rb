@@ -18,10 +18,6 @@ module Statue
       @html_content ||= input_file.read
     end
 
-    def canonical_url
-      nil #TODO: here
-    end
-
     def modified_since?(mtime)
       input_file.modified_since?(mtime)
     end

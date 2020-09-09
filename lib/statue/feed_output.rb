@@ -15,6 +15,7 @@ module Statue
     end
 
     def modified_since?(mtime)
+      # TODO: doesn't detect deleted files
       @posts.any? { _1.modified_since?(mtime) }
     end
 

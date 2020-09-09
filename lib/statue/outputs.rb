@@ -63,7 +63,7 @@ module Statue
       def post_output_for(post)
         {
           post.canonical_path.join('index.html') =>
-          PostOutput.new(post, template: PostTemplate.new(template_file('post')))
+          PostOutput.new(post, template: post_page_template)
         }
       end
 
@@ -85,7 +85,7 @@ module Statue
       def page_output_for(page)
         {
           page.url_path.relative_path_from(pages_dir) =>
-          PageOutput.new(page, template: PageTemplate.new(template_file('page')))
+          PageOutput.new(page, template: page_template)
         }
       end
 
@@ -99,8 +99,23 @@ module Statue
         end
       end
 
-      def template_file(name)
-        inputs["templates/#{name}.html"] or fail("Template not found: #{name}")
+      def page_template
+        @page_template ||= PageTemplate.new(
+          inputs.get!("templates/page.html"),
+        )
+      end
+
+      def post_template
+        @post_template ||= PostTemplate.new(
+          inputs.get!("templates/post.html"),
+        )
+      end
+
+      def post_page_template
+        @post_page_template ||= PostPageTemplate.new(
+          post_template: post_template,
+          page_template: page_template,
+        )
       end
   end
 end
