@@ -15,7 +15,7 @@ module Statue
     end
 
     def html_content
-      @html_content ||= input_file.full_path.read
+      @html_content ||= input_file.read
     end
 
     def canonical_url

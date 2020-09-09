@@ -1,12 +1,15 @@
 module Statue
   class PostTemplate
-    attr_reader :doc
+    attr_reader :doc, :template_file
 
-    def initialize
-      @doc = File.open(TEMPLATES_DIR / 'post.html') { Nokogiri::HTML(_1) }
+    def initialize(template_file)
+      @template_file = template_file
+      @doc = nil
     end
 
     def call(post)
+      reset!
+
       xform('h1 a') do
         _1.content = post.title
         _1[:href] = "/#{post.canonical_path}/"
@@ -58,6 +61,12 @@ module Statue
     end
 
     private
+
+      # TODO: gross
+      def reset!
+        @original_doc ||= Nokogiri::HTML(template_file.read)
+        @doc = @original_doc.clone
+      end
 
       def xform(css_specifier)
         doc.css(css_specifier).each do

@@ -33,6 +33,10 @@ module Statue
         Pathname.new('static')
       end
 
+      def templates_dir
+        Pathname.new('templates')
+      end
+
       def static_outputs
         inputs.descendants_of(static_dir)
           .map { static_output_for(_1) }
@@ -59,7 +63,7 @@ module Statue
       def post_output_for(post)
         {
           post.canonical_path.join('index.html') =>
-          PostOutput.new(post)
+          PostOutput.new(post, template: PostTemplate.new(template_file('post')))
         }
       end
 
@@ -81,7 +85,7 @@ module Statue
       def page_output_for(page)
         {
           page.url_path.relative_path_from(pages_dir) =>
-          PageOutput.new(page)
+          PageOutput.new(page, template: PageTemplate.new(template_file('page')))
         }
       end
 
@@ -93,6 +97,10 @@ module Statue
         {}.merge!(*hashes) do |key, v1, v2|
           fail "Duplicate key #{key.inspect}: #{v1.inspect} AND #{v2.inspect}"
         end
+      end
+
+      def template_file(name)
+        inputs["templates/#{name}.html"] or fail("Template not found: #{name}")
       end
   end
 end

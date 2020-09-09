@@ -1,9 +1,10 @@
 module Statue
   class PageOutput
-    attr_reader :page
+    attr_reader :page, :template
 
-    def initialize(page)
+    def initialize(page, template:)
       @page = page
+      @template = template
     end
 
     def description
@@ -11,13 +12,12 @@ module Statue
     end
 
     def write_to(output_path)
-      html = PageTemplate.new.call(page)
+      html = template.(page)
       output_path.write(html)
     end
 
     def modified_since?(mtime)
-      page.modified_since?(mtime)
-      # TODO: check if template is modified too
+      [page, template].any? { _1.modified_since?(mtime) }
     end
   end
 end

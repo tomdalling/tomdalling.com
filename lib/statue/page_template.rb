@@ -1,12 +1,15 @@
 module Statue
   class PageTemplate
-    attr_reader :doc
+    attr_reader :doc, :template_file
 
-    def initialize
-      @doc = File.open(TEMPLATES_DIR / 'page.html') { Nokogiri::HTML(_1) }
+    def initialize(template_file)
+      @template_file = template_file
+      @doc = nil
     end
 
     def call(page)
+      reset!
+
       if page.canonical_url
         at_css('head').add_child('<link />').tap do
           _1[:rel] = "canonical"
@@ -30,6 +33,7 @@ module Statue
         end
       end
 
+      # TODO:
       # [:ul.archives :li]
       # (clone-for [[yearmonth posts] (post/archived all-posts)]
       #            [:a] (set-attr :href (post/archive-uri yearmonth))
@@ -51,6 +55,12 @@ module Statue
     end
 
     private
+
+      #TODO: gross
+      def reset!
+        @original_doc ||= Nokogiri::HTML(template_file.read)
+        @doc = @original_doc.clone
+      end
 
       def xform(css_specifier, within: doc)
         within.css(css_specifier).each do

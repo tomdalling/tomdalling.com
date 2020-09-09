@@ -60,7 +60,7 @@ module Statue
     private
 
       def load_from_disk
-        scanner = StringScanner.new(markdown_file.full_path.read)
+        scanner = StringScanner.new(markdown_file.read)
         @frontmatter = Frontmatter.from_edn(EDN.read(scanner))
         @content = scanner.rest
         nil

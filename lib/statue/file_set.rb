@@ -2,8 +2,7 @@ module Statue
   class FileSet
     include Enumerable
     extend Forwardable
-    def_delegators :files,
-      *%i(any? empty? each)
+    def_delegator :files, :each
 
     attr_reader :base_dir
 
@@ -35,6 +34,7 @@ module Statue
     end
 
     def [](relative_path)
+      relative_path = Pathname.new(relative_path)
       files.find { _1.path == relative_path }
     end
 
@@ -43,6 +43,9 @@ module Statue
         path RelativePathname
         base_dir AbsolutePathname
       end
+
+      extend Forwardable
+      def_delegators :full_path, *%i(read write delete)
 
       def self.from_abs_path(abs_path, base_dir:)
         new(

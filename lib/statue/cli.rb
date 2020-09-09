@@ -85,7 +85,7 @@ module Statue
       def delete(file)
         assert_output_path!(file.full_path)
         puts "  Deleting #{file.path}"
-        file.full_path.delete
+        file.delete
       end
 
       def assert_output_path!(path)
