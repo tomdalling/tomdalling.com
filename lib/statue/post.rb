@@ -17,12 +17,12 @@ module Statue
     end
 
     def canonical_path
-      Pathname.new("blog").join(category.machine_name, url_basename)
+      Pathname.new("blog").join(category.machine_name, url_basename + '/')
     end
 
     def canonical_url
       # TODO: return a real URL object
-      "#{BASE_URL}/#{canonical_path}/"
+      "#{BASE_URL}/#{canonical_path}"
     end
 
     def basename
