@@ -72,7 +72,7 @@ module Statue
         xform(css_specifier, within: within) do |template_node|
           collection.each do |element|
             cloned_node = template_node.clone
-            template_node.after(cloned_node)
+            template_node.before(cloned_node)
             yield cloned_node, element
           end
 
