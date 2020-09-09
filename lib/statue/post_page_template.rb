@@ -3,7 +3,8 @@ module Statue
     attr_reader :post_template, :page_template
 
     def initialize(post_template:, page_template:)
-      @post_template, @page_template = post_template, page_template
+      @post_template = post_template
+      @page_template = page_template
     end
 
     def call(post)

@@ -1,14 +1,15 @@
 module Statue
   class PageTemplate
-    attr_reader :doc, :template_file
+    attr_reader :doc, :template_file, :posts
 
-    def initialize(template_file)
+    def initialize(template_file, posts:)
       @template_file = template_file
+      @posts = posts
       @doc = nil
     end
 
     # TODO: posts are not optional
-    def call(title:, html_content:, canonical_url: nil, posts: [])
+    def call(title:, html_content:, canonical_url: nil)
       reset!
 
       if canonical_url
@@ -26,19 +27,19 @@ module Statue
         _1.inner_html = html_content
       end
 
-      clone_each('ul.recent-posts li', posts.take(5)) do |node, post|
+      clone_each('ul.recent-posts li', recent_posts) do |node, post|
         xform('a', within: node) do
           _1.content = post.title
-          _1[:href] = post.url_path
+          _1[:href] = "/#{post.canonical_path}"
         end
       end
 
-      # TODO:
-      # [:ul.archives :li]
-      # (clone-for [[yearmonth posts] (post/archived all-posts)]
-      #            [:a] (set-attr :href (post/archive-uri yearmonth))
-      #            [:.month] (content (str (unparse-yearmonth yearmonth)))
-      #            [:.post-count] (content (str (count posts))))
+      # TODO: MonthlyArchive array should be cached once per build
+      clone_each('ul.archives li', MonthlyArchive.all_for(posts)) do |node, archive|
+        xform('a', within: node) { _1[:href] = archive.uri }
+        xform('.month', within: node) { _1.content = archive.human_month }
+        xform('.post-count', within: node) { _1.content = archive.size }
+      end
 
       # [:ul.categories :li]
       # (clone-for [[cat posts] (post/categorized all-posts)]
@@ -78,6 +79,10 @@ module Statue
 
           template_node.remove
         end
+      end
+
+      def recent_posts
+        posts.sort_by(&:date).reverse.take(5)
       end
   end
 end

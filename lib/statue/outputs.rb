@@ -102,6 +102,7 @@ module Statue
       def page_template
         @page_template ||= PageTemplate.new(
           inputs.get!("templates/page.html"),
+          posts: posts,
         )
       end
 
