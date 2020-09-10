@@ -11,6 +11,7 @@ module Statue
         .group_by { [_1.date.year, _1.date.month] }
         .map { |ym, posts| new(year: ym.first, month: ym.last, posts: posts) }
         .sort
+        .reverse
     end
 
     def uri
