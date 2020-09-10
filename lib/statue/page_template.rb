@@ -41,6 +41,7 @@ module Statue
         xform('.post-count', within: node) { _1.content = archive.size }
       end
 
+      # TODO: CategoryArchive array should be cached once per build
       clone_each('ul.categories li', CategoryArchive.all_for(posts)) do |node, archive|
         xform('a.category', within: node) do
           _1[:href] = archive.uri
