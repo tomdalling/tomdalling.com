@@ -7,9 +7,9 @@ module Statue
     def outputs
       uniq_merge([
         static_outputs,
+        page_outputs,
         post_outputs,
         feed_outputs,
-        page_outputs,
       ])
     end
 
@@ -48,26 +48,38 @@ module Statue
       def post_outputs
         uniq_merge(
           posts.map do
-            path = _1.canonical_path.join('index.html')
-            output = PostOutput.new(_1, template: post_page_template)
-            {path => output}
+            {_1.path => PostOutput.new(_1, template: post_page_template)}
           end
         )
       end
 
       def feed_outputs
-        # TODO: feeds per category
-        feed = FeedOutput.new(posts)
+        uniq_merge([full_feed_outputs, category_feed_outputs])
+      end
+
+      def full_feed_outputs
+        feed = FeedOutput.new(posts: posts, uri: '/blog/feed/')
         {
           Pathname('feed/index.xml') => feed,
           Pathname('blog/feed/index.xml') => feed,
         }
       end
 
+      def category_feed_outputs
+        uniq_merge(
+          category_archives.map do
+            {
+              _1.feed_path =>
+              FeedOutput.new(posts: _1.posts, uri: _1.feed_uri)
+            }
+          end
+        )
+      end
+
       def page_outputs
         uniq_merge(
           pages.map do
-            path = _1.url_path.relative_path_from(PAGES_DIR)
+            path = _1.input_file.path.relative_path_from(PAGES_DIR)
             output = PageOutput.new(_1, template: page_template)
             {path => output}
           end

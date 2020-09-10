@@ -1,7 +1,7 @@
 module Statue
   class PostTransform < DOMTransform
     def transform(post)
-      at('h1 a', post.title, href: "/#{post.canonical_path}/")
+      at('h1 a', post.title, href: post.uri)
 
       at(:header) do
         at('.main-image') { transform_main_image(post.main_image) }
@@ -19,7 +19,7 @@ module Statue
           interpolate_text!({
             'disqus-id' => JSON.dump(post.disqus_id),
             'disqus-title' => JSON.dump(post.title),
-            'disqus-url' => JSON.dump(post.canonical_url),
+            'disqus-url' => JSON.dump(post.url),
           })
         end
       end

@@ -5,12 +5,20 @@ module Statue
       posts ArrayOf(Post)
     end
 
+    def path
+      Pathname("blog/category") / category.machine_name / 'index.html'
+    end
+
+    def feed_path
+      path.dirname / 'feed/index.xml'
+    end
+
     def uri
-      "/blog/category/#{category.machine_name}/"
+      "/#{path.dirname}/"
     end
 
     def feed_uri
-      "#{uri}feed/"
+      "/#{feed_path.dirname}/"
     end
 
     def size

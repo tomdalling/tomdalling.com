@@ -1,9 +1,10 @@
 module Statue
   class FeedOutput
-    attr_reader :posts
+    attr_reader :posts, :uri
 
-    def initialize(posts)
+    def initialize(posts:, uri:)
       @posts = posts
+      @uri = uri
     end
 
     def description
@@ -29,7 +30,7 @@ module Statue
         RSS.new(
           title: "Tom Dalling",
           site_url: BASE_URL + "/?utm_source=rss&utm_medium=rss",
-          rss_url: BASE_URL + "/blog/feed/",
+          rss_url: BASE_URL + uri,
           description: "Web & software developer",
           language: "en",
           generator: "Tom Dalling's fingertips",
@@ -42,7 +43,7 @@ module Statue
       def rss_item(post)
         RSS::Item.new(
           title: post.title,
-          url: "#{BASE_URL}/#{post.canonical_path}/?utm_source=rss&utm_medium=rss",
+          url: "#{post.url}?utm_source=rss&utm_medium=rss",
           description: post.preview_html,
           published_at: Time.utc(post.date.year, post.date.month, post.date.day),
           category: post.category.human_name,

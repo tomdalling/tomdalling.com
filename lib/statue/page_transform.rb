@@ -19,7 +19,7 @@ module Statue
         at(:title) { prepend_text!(title) }
 
         clone_each('ul.recent-posts li', recent_posts) do |post|
-          at(:a, post.title, href: "/#{post.canonical_path}")
+          at(:a, post.title, href: post.uri)
         end
 
         clone_each('ul.archives li', monthly_archives) do |archive|

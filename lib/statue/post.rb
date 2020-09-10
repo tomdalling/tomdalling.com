@@ -12,17 +12,20 @@ module Statue
 
     def_delegator :markdown_file, :modified_since?
 
-    def url_basename
+    def machine_name
       basename.partition('_').last
     end
 
-    def canonical_path
-      Pathname.new("blog").join(category.machine_name, url_basename + '/')
+    def path
+      Pathname.new("blog") / category.machine_name / machine_name / 'index.html'
     end
 
-    def canonical_url
-      # TODO: return a real URL object
-      "#{BASE_URL}/#{canonical_path}"
+    def uri
+      "/#{path.dirname}/"
+    end
+
+    def url
+      "#{BASE_URL}#{uri}"
     end
 
     def basename
@@ -34,13 +37,11 @@ module Statue
     end
 
     def frontmatter
-      load_from_disk unless @frontmatter
-      @frontmatter
+      @frontmatter ||= Frontmatter.from_edn(loaded.first)
     end
 
     def content
-      load_from_disk unless @content
-      @content
+      loaded.last
     end
 
     def html
@@ -64,11 +65,8 @@ module Statue
 
     private
 
-      def load_from_disk
-        scanner = StringScanner.new(markdown_file.read)
-        @frontmatter = Frontmatter.from_edn(EDN.read(scanner))
-        @content = scanner.rest
-        nil
+      def loaded
+        @loaded ||= EDN.split_frontmatter(markdown_file.read)
       rescue => ex
         raise "Failed to load #{markdown_file.path}: #{ex}"
       end

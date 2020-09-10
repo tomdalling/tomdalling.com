@@ -11,7 +11,7 @@ module Statue
       page_template.html(
         title: post.title,
         content: post_template.dom(post),
-        canonical_url: post.canonical_url,
+        canonical_url: post.url,
       )
     end
 

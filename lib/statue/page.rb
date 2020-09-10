@@ -6,10 +6,6 @@ module Statue
       @input_file = input_file
     end
 
-    def url_path
-      input_file.path
-    end
-
     def title
       frontmatter.title
     end
