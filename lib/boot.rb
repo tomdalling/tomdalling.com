@@ -12,16 +12,20 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
 
-# setup zetwork loader
+# setup zeitwork loader
+module Inflector
+  ACRONYMS = %w(CLI DOM RSS EDN)
+
+  def self.camelize(basename, _abspath)
+    @dry_inflector ||= Dry::Inflector.new { _1.acronym(*ACRONYMS) }
+    @dry_inflector.camelize(basename)
+  end
+end
+
 Zeitwerk::Loader.new.tap do |loader|
-  loader.inflector.inflect(
-    'cli' => 'CLI',
-    'dom_transformer' => 'DOMTransformer',
-    'rss' => 'RSS',
-    'edn' => 'EDN',
-  )
+  loader.inflector = Inflector
   loader.push_dir(__dir__)
-  loader.setup # ready!
+  loader.setup
 end
 
 # boot stuff that the codebase expects to be globally available
