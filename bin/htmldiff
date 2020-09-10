@@ -14,4 +14,5 @@ cp "$HOME/proj/tomdalling.com/master/$1" old.html
 cp "output/$1" new.html
 standardize old.html
 standardize new.html
-git diff --no-index old.html new.html
+git diff --no-index old.html new.html || true
+rm old.html new.html
