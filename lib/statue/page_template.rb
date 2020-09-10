@@ -41,12 +41,14 @@ module Statue
         xform('.post-count', within: node) { _1.content = archive.size }
       end
 
-      # [:ul.categories :li]
-      # (clone-for [[cat posts] (post/categorized all-posts)]
-      #            [:a.category] (do-> (set-attr :href (category/uri cat))
-      #                                (content (:name cat)))
-      #            [:a.feed] (set-attr :href (category/feed-uri cat))
-      #            [:.post-count] (content (str (count posts))))
+      clone_each('ul.categories li', CategoryArchive.all_for(posts)) do |node, archive|
+        xform('a.category', within: node) do
+          _1[:href] = archive.uri
+          _1.content = archive.human_name
+        end
+        xform('a.feed', within: node) { _1[:href] = archive.feed_uri }
+        xform('.post-count', within: node) { _1.content = archive.size }
+      end
 
       xform('.current-year') do
         _1.content = Date.today.year
