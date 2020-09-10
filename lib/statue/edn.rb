@@ -2,6 +2,12 @@ module Statue
   module EDN
     extend self
 
+    def split_frontmatter(str)
+      scanner = StringScanner.new(str)
+      frontmatter = read(scanner)
+      [frontmatter, scanner.rest]
+    end
+
     def read(scanner)
       Parser.new(scanner).read
     end
