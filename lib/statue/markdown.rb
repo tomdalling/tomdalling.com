@@ -22,7 +22,8 @@ module Statue
 
       class Renderer < Redcarpet::Render::HTML
         include Rouge::Plugins::Redcarpet
-        include Redcarpet::Render::SmartyPants
+        # TODO: turn this on after getting to parity with old impl
+        # include Redcarpet::Render::SmartyPants
       end
   end
 end
