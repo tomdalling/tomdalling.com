@@ -1,20 +1,21 @@
 module Statue
-  class DOMTransformer
-    def initialize(document)
-      @stack = [document]
+  class DOMTransform
+    def initialize
+      @stack = []
     end
 
-    # override in subclass
-    def setup(**kwargs)
-      unless kwargs.empty?
-        raise NoMethodError, "#{self.class}##{__method__} not implemented for given params"
+    def call(dom, *args, **kwargs, &block)
+      with_current_node(dom) do
+        transform(*args, **kwargs, &block)
       end
     end
 
-    # override in subclass
-    def transform
-      raise NoMethodError, "#{self.class}##{__method__} is not implemented"
-    end
+    protected
+
+      # override in subclass
+      def transform(...)
+        raise NoMethodError, "#{self.class}##{__method__} is not implemented"
+      end
 
     private
 
@@ -27,10 +28,14 @@ module Statue
       end
 
       def with_current_node(node)
+        fail "#{self.class} did not call `super` in #initialize" unless @stack
+
         @stack.push(node)
-        yield(node)
-      ensure
-        @stack.pop
+        begin
+          yield(node)
+        ensure
+          @stack.pop
+        end
       end
 
       def at(css_specifier, text=nil, **attrs)

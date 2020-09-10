@@ -5,13 +5,6 @@ module Statue
       posts ArrayOf(Post)
     end
 
-    def self.all_for(posts)
-      posts
-        .group_by(&:category)
-        .map { new(category: _1, posts: _2) }
-        .sort
-    end
-
     def uri
       "/blog/category/#{category.machine_name}/"
     end

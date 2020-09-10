@@ -1,9 +1,9 @@
 module Statue
   class Template
-    attr_reader :transformer, :html_file, :setup
+    attr_reader :transform, :html_file, :setup
 
-    def initialize(transformer:, html_file:, is_document: false, setup: {})
-      @transformer = transformer
+    def initialize(transform:, html_file:, is_document: false, setup: {})
+      @transform = transform
       @html_file = html_file
       @setup = setup
       @is_document = is_document
@@ -17,11 +17,9 @@ module Statue
       @is_document
     end
 
-    def dom(...)
-      original_dom.clone.tap do |dom|
-        tf = transformer.new(dom)
-        tf.setup(**setup)
-        tf.transform(...)
+    def dom(*args, **kwargs, &block)
+      original_dom.clone.tap do
+        transform.(_1, *args, **kwargs, &block)
       end
     end
 

@@ -6,14 +6,6 @@ module Statue
       posts ArrayOf(Post)
     end
 
-    def self.all_for(posts)
-      posts
-        .group_by { [_1.date.year, _1.date.month] }
-        .map { |ym, posts| new(year: ym.first, month: ym.last, posts: posts) }
-        .sort
-        .reverse
-    end
-
     def uri
       "/blog/#{year}/#{month.to_s.rjust(2, '0')}/"
     end
@@ -27,7 +19,7 @@ module Statue
     end
 
     def <=>(other)
-      start_date <=> other.start_date
+      -(start_date <=> other.start_date)
     end
 
     def size

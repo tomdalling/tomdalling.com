@@ -57,6 +57,11 @@ module Statue
         end
     end
 
+    def <=>(other)
+      # most recent to oldest
+      -(date <=> other.date)
+    end
+
     private
 
       def load_from_disk

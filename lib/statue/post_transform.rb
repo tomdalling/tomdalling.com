@@ -1,5 +1,5 @@
 module Statue
-  class PostTransformer < DOMTransformer
+  class PostTransform < DOMTransform
     def transform(post)
       at('h1 a', post.title, href: "/#{post.canonical_path}/")
 

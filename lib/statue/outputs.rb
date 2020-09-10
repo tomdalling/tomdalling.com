@@ -15,82 +15,15 @@ module Statue
 
     private
 
+      POSTS_DIR = Pathname.new('posts')
+      PAGES_DIR = Pathname.new('pages')
+      STATIC_DIR = Pathname.new('static')
+      TEMPLATES_DIR = Pathname.new('templates')
+
       attr_reader :inputs
 
       def initialize(inputs)
         @inputs = inputs
-      end
-
-      def posts_dir
-        Pathname.new('posts')
-      end
-
-      def pages_dir
-        Pathname.new('pages')
-      end
-
-      def static_dir
-        Pathname.new('static')
-      end
-
-      def templates_dir
-        Pathname.new('templates')
-      end
-
-      def static_outputs
-        inputs.descendants_of(static_dir)
-          .map { static_output_for(_1) }
-          .then { uniq_merge(_1) }
-      end
-
-      def static_output_for(input_file)
-        {
-          input_file.path.relative_path_from(static_dir) =>
-          StaticOutput.new(input_file)
-        }
-      end
-
-      def post_outputs
-        posts
-          .map { post_output_for(_1) }
-          .then { uniq_merge(_1) }
-      end
-
-      def posts
-        @posts ||= inputs.descendants_of(posts_dir).map { Post.new(_1) }
-      end
-
-      def post_output_for(post)
-        {
-          post.canonical_path.join('index.html') =>
-          PostOutput.new(post, template: post_page_template)
-        }
-      end
-
-      def feed_outputs
-        # TODO: i think there is a feed per category too
-        feed = FeedOutput.new(posts)
-        {
-          Pathname('feed/index.xml') => feed,
-          Pathname('blog/feed/index.xml') => feed,
-        }
-      end
-
-      def page_outputs
-        pages
-          .map { page_output_for(_1) }
-          .then { uniq_merge(_1) }
-      end
-
-      def page_output_for(page)
-        {
-          page.url_path.relative_path_from(pages_dir) =>
-          PageOutput.new(page, template: page_template)
-        }
-      end
-
-      def pages
-        @pages ||= inputs.descendants_of(pages_dir).map { Page.new(_1) }
       end
 
       def uniq_merge(hashes)
@@ -99,19 +32,67 @@ module Statue
         end
       end
 
+      ##########################################################################
+      # Outputs
+
+      def static_outputs
+        uniq_merge(
+          inputs.descendants_of(STATIC_DIR).map do
+            path = _1.path.relative_path_from(STATIC_DIR)
+            output = StaticOutput.new(_1)
+            {path => output}
+          end
+        )
+      end
+
+      def post_outputs
+        uniq_merge(
+          posts.map do
+            path = _1.canonical_path.join('index.html')
+            output = PostOutput.new(_1, template: post_page_template)
+            {path => output}
+          end
+        )
+      end
+
+      def feed_outputs
+        # TODO: feeds per category
+        feed = FeedOutput.new(posts)
+        {
+          Pathname('feed/index.xml') => feed,
+          Pathname('blog/feed/index.xml') => feed,
+        }
+      end
+
+      def page_outputs
+        uniq_merge(
+          pages.map do
+            path = _1.url_path.relative_path_from(PAGES_DIR)
+            output = PageOutput.new(_1, template: page_template)
+            {path => output}
+          end
+        )
+      end
+
+      ##########################################################################
+      # Templates
+
       def page_template
         @page_template ||= Template.new(
-          transformer: PageTransformer,
-          html_file: inputs.get!("templates/page.html"),
+          html_file: inputs.get!(TEMPLATES_DIR/"page.html"),
           is_document: true,
-          setup: { posts: posts },
+          transform: PageTransform.new(
+            recent_posts: recent_posts,
+            monthly_archives: monthly_archives,
+            category_archives: category_archives,
+          ),
         )
       end
 
       def post_template
         @post_template ||= Template.new(
-          transformer: PostTransformer,
-          html_file: inputs.get!("templates/post.html"),
+          transform: PostTransform.new,
+          html_file: inputs.get!(TEMPLATES_DIR/"post.html"),
         )
       end
 
@@ -120,6 +101,39 @@ module Statue
           post_template: post_template,
           page_template: page_template,
         )
+      end
+
+      ##########################################################################
+      # Models
+
+      def posts
+        @posts ||= inputs.descendants_of(POSTS_DIR)
+          .map { Post.new(_1) }
+          .sort
+      end
+
+      def pages
+        @pages ||= inputs.descendants_of(PAGES_DIR).map { Page.new(_1) }
+      end
+
+      def recent_posts
+        posts.take(5)
+      end
+
+      def monthly_archives
+        @monthly_archives ||=
+          posts
+            .group_by { [_1.date.year, _1.date.month] }
+            .map { MonthlyArchive.new(year: _1.first, month: _1.last, posts: _2) }
+            .sort
+      end
+
+      def category_archives
+        @category_archives ||=
+          posts
+            .group_by(&:category)
+            .map { CategoryArchive.new(category: _1, posts: _2) }
+            .sort
       end
   end
 end
