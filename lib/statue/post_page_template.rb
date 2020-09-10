@@ -7,10 +7,10 @@ module Statue
       @page_template = page_template
     end
 
-    def call(post)
-      page_template.(
+    def html(post)
+      page_template.html(
         title: post.title,
-        html_content: post_template.(post),
+        content: post_template.dom(post),
         canonical_url: post.canonical_url,
       )
     end

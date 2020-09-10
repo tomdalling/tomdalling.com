@@ -13,9 +13,9 @@ module Statue
 
     def write_to(output_path)
       output_path.write(
-        template.(
+        template.html(
           title: page.title,
-          html_content: page.html_content,
+          content: page.html_content,
         )
       )
     end

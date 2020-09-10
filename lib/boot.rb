@@ -16,7 +16,7 @@ Bundler.require(:default)
 Zeitwerk::Loader.new.tap do |loader|
   loader.inflector.inflect(
     'cli' => 'CLI',
-    'generate_rss' => 'GenerateRSS',
+    'dom_transformer' => 'DOMTransformer',
     'rss' => 'RSS',
     'edn' => 'EDN',
   )

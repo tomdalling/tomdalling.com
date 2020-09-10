@@ -100,15 +100,18 @@ module Statue
       end
 
       def page_template
-        @page_template ||= PageTemplate.new(
-          inputs.get!("templates/page.html"),
-          posts: posts,
+        @page_template ||= Template.new(
+          transformer: PageTransformer,
+          html_file: inputs.get!("templates/page.html"),
+          is_document: true,
+          setup: { posts: posts },
         )
       end
 
       def post_template
-        @post_template ||= PostTemplate.new(
-          inputs.get!("templates/post.html"),
+        @post_template ||= Template.new(
+          transformer: PostTransformer,
+          html_file: inputs.get!("templates/post.html"),
         )
       end
 
