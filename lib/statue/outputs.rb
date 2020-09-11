@@ -7,13 +7,15 @@ module Statue
     end
 
     def outputs
-      uniq_merge([
-        static_outputs,
-        page_outputs,
-        post_outputs,
-        post_index_outputs,
-        feed_outputs,
-      ])
+      duplicate_mvc_article(
+        uniq_merge([
+          static_outputs,
+          page_outputs,
+          post_outputs,
+          post_index_outputs,
+          feed_outputs,
+        ])
+      )
     end
 
     private
@@ -33,6 +35,13 @@ module Statue
         {}.merge!(*hashes) do |key, v1, v2|
           fail "Duplicate key #{key.inspect}: #{v1.inspect} AND #{v2.inspect}"
         end
+      end
+
+      def duplicate_mvc_article(outputs)
+        canonical_path = Pathname("blog/software-design/model-view-controller-explained/index.html")
+        legacy_path = Pathname("software-design/model-view-controller-explained/index.html")
+        outputs[legacy_path] = outputs.fetch(canonical_path)
+        outputs
       end
 
       ##########################################################################
