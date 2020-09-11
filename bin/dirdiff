@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+lsall() {
+  find "$1" | grep -v '/\.' | sed "s/^.\{${#1}\}//" | sort
+}
+
+lsall "$HOME/proj/tomdalling.com/master" > old.html
+lsall output > new.html
+git diff --no-index old.html new.html || true
+rm old.html new.html
