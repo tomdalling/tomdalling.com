@@ -6,7 +6,7 @@ module Statue
     end
 
     def path
-      Pathname("blog") / category.machine_name / 'index.html'
+      Pathname("blog/category") / category.machine_name / 'index.html'
     end
 
     def uri
@@ -29,19 +29,21 @@ module Statue
       category.human_name <=> other.category.human_name
     end
 
+    # TODO: this legacy index isn't so legacy. I should move it over.
+    # legacy url is used as the canonical, and the rss feed is under the legacy
+    # path too.
     def legacy_post_index
-      @legacy_post_index ||= post_index.with(
-        path: Pathname('blog/category') / category.machine_name / 'index.html',
-        feed?: true,
+      @legacy_post_index ||= PostIndex.new(
+        title: "Category: #{human_name}",
+        posts: posts,
+        path: path,
       )
     end
 
     def post_index
-      @post_index ||= PostIndex.new(
-        title: "Category: #{human_name}",
-        posts: posts,
-        path: path,
-        feed?: false, # why is this false, and legacy is true?
+      @post_index ||= legacy_post_index.with(
+        path: Pathname('blog') / category.machine_name / 'index.html',
+        feed?: false,
       )
     end
   end
