@@ -6,8 +6,12 @@ module Statue
       posts ArrayOf(Post)
     end
 
+    def path
+      Pathname('blog') / year.to_s / month.to_s.rjust(2, '0') / 'index.html'
+    end
+
     def uri
-      "/blog/#{year}/#{month.to_s.rjust(2, '0')}/"
+      "/#{path.dirname}/"
     end
 
     def start_date
@@ -24,6 +28,15 @@ module Statue
 
     def size
       posts.size
+    end
+
+    def post_index
+      @post_index ||= PostIndex.new(
+        title: "Archives: #{human_month}",
+        posts: posts,
+        path: path,
+        has_feed?: false,
+      )
     end
   end
 end

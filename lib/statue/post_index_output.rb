@@ -1,12 +1,10 @@
 module Statue
   class PostIndexOutput
-    attr_reader :template, :title, :posts, :feed_uri
+    attr_reader :post_index, :template
 
-    def initialize(template:, title:, posts:, feed_uri: nil)
+    def initialize(post_index, template:)
+      @post_index = post_index
       @template = template
-      @title = title
-      @posts = posts
-      @feed_uri = feed_uri
     end
 
     def description
@@ -15,11 +13,7 @@ module Statue
 
     def write_to(output_path)
       output_path.write(
-        template.html(
-          title: title,
-          posts: posts,
-          feed_uri: feed_uri,
-        )
+        template.html(post_index)
       )
     end
   end

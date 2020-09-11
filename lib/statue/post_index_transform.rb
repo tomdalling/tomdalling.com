@@ -1,17 +1,16 @@
 module Statue
   class PostIndexTransform < DOMTransform
-    def transform(title:, posts:, feed_uri: nil)
-      at('h1 .title', title)
-
+    def transform(post_index)
+      at('h1 .title', post_index.title)
       at('h1 a.rss') do
-        if feed_uri
-          attrs!(href: feed_uri)
+        if post_index.has_feed?
+          attrs!(href: post_index.feed_uri)
         else
           remove!
         end
       end
 
-      clone_each('article', posts) do |p|
+      clone_each('article', post_index.posts) do |p|
         at('h2 a', p.title, href: p.uri)
         at('header a.category', p.category.human_name, href: p.category.uri)
         at('.listed-main-image', src: p.main_image&.uri)

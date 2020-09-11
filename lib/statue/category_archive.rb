@@ -9,16 +9,12 @@ module Statue
       Pathname("blog/category") / category.machine_name / 'index.html'
     end
 
-    def feed_path
-      path.dirname / 'feed/index.xml'
-    end
-
     def uri
       "/#{path.dirname}/"
     end
 
     def feed_uri
-      "/#{feed_path.dirname}/"
+      post_index.feed_uri
     end
 
     def size
@@ -31,6 +27,14 @@ module Statue
 
     def <=>(other)
       category.human_name <=> other.category.human_name
+    end
+
+    def post_index
+      @post_index ||= PostIndex.new(
+        title: "Category: #{human_name}",
+        posts: posts,
+        path: path,
+      )
     end
   end
 end

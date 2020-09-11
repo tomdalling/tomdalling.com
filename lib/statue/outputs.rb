@@ -57,65 +57,27 @@ module Statue
       end
 
       def post_index_outputs
-        uniq_merge([
-          recent_post_index_outputs,
-          monthly_archive_index_outputs,
-          category_index_outputs,
-        ])
-      end
-
-      def recent_post_index_outputs
-        {
-          Pathname('blog/index.html') =>
-          PostIndexOutput.new(
-            title: 'Recent Posts',
-            posts: posts.take(10),
-            template: post_index_template,
-          )
-        }
-      end
-
-      def monthly_archive_index_outputs
-        {} # TODO: here
-      end
-
-      def category_index_outputs
         uniq_merge(
-          category_archives.map do |archive|
-            {
-              archive.path =>
-              PostIndexOutput.new(
-                title: "Category: #{archive.human_name}",
-                posts: archive.posts,
-                feed_uri: archive.feed_uri,
-                template: post_index_template,
-              )
-            }
+          post_indexes.map do
+            {_1.path => PostIndexOutput.new(_1, template: post_index_template)}
           end
         )
       end
 
       def feed_outputs
-        uniq_merge([full_feed_outputs, category_feed_outputs])
-      end
-
-      def full_feed_outputs
-        feed = FeedOutput.new(posts: posts, uri: '/blog/feed/')
-        {
-          Pathname('feed/index.xml') => feed,
-          Pathname('blog/feed/index.xml') => feed,
-        }
-      end
-
-      def category_feed_outputs
         uniq_merge(
-          category_archives.map do
+          post_indexes.select(&:has_feed?).map do |index|
             {
-              _1.feed_path =>
-              FeedOutput.new(posts: _1.posts, uri: _1.feed_uri)
+              index.feed_path =>
+              FeedOutput.new(posts: index.posts, uri: index.feed_uri)
             }
           end
-        )
+        ).tap do |outputs|
+          # duplicate the "recent" feed to the old URL
+          canonical_path = Pathname('blog/feed/index.xml')
+          legacy_path = Pathname('feed/index.xml')
+          outputs[legacy_path] = outputs.fetch(canonical_path)
+        end
       end
 
       def page_outputs
@@ -136,7 +98,7 @@ module Statue
           html_file: inputs.get!(TEMPLATES_DIR/"page.html"),
           is_document: true,
           transform: PageTransform.new(
-            recent_posts: recent_posts,
+            recent_posts: posts.take(5),
             monthly_archives: monthly_archives,
             category_archives: category_archives,
           ),
@@ -144,20 +106,33 @@ module Statue
       end
 
       memoize def post_index_template
-        Template.new(
-          html_file: inputs.get!(TEMPLATES_DIR/"post-list.html"),
-          transform: PostIndexTransform.new,
-        )
+        LayoutTemplate.new(
+          page_template: page_template,
+          content_template: Template.new(
+            html_file: inputs.get!(TEMPLATES_DIR/"post-list.html"),
+            transform: PostIndexTransform.new,
+          )
+        ) do |index|
+          {
+            title: index.title,
+            canonical_url: index.uri,
+          }
+        end
       end
 
       memoize def post_template
-        PostPageTemplate.new(
+        LayoutTemplate.new(
           page_template: page_template,
-          post_template: Template.new(
+          content_template: Template.new(
             transform: PostTransform.new,
             html_file: inputs.get!(TEMPLATES_DIR/"post-single.html"),
           )
-        )
+        ) do |post|
+          {
+            title: post.title,
+            canonical_url: post.url,
+          }
+        end
       end
 
       ##########################################################################
@@ -173,10 +148,6 @@ module Statue
         inputs.descendants_of(PAGES_DIR).map { Page.new(_1) }
       end
 
-      def recent_posts
-        posts.take(5)
-      end
-
       memoize def monthly_archives
         posts
           .group_by { [_1.date.year, _1.date.month] }
@@ -189,6 +160,20 @@ module Statue
           .group_by(&:category)
           .map { CategoryArchive.new(category: _1, posts: _2) }
           .sort
+      end
+
+      memoize def post_indexes
+        [recent_post_index] +
+          category_archives.map(&:post_index) +
+          monthly_archives.map(&:post_index)
+      end
+
+      def recent_post_index
+        PostIndex.new(
+          title: 'Recent Posts',
+          posts: posts.take(10),
+          path: 'blog/index.html',
+        )
       end
   end
 end
