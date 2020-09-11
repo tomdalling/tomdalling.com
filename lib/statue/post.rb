@@ -36,6 +36,10 @@ module Statue
       Date.iso8601(basename.partition('_').first)
     end
 
+    def human_date
+      date.strftime("%-d %b, %Y")
+    end
+
     def frontmatter
       @frontmatter ||= Frontmatter.from_edn(loaded.first)
     end

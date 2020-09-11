@@ -8,7 +8,7 @@ module Statue
         at('a.category', post.category.human_name, href: post.category.uri)
       end
 
-      at('.post-date', post.date.strftime("%-d %b, %Y"))
+      at('.post-date', post.human_date)
 
       at('.post-content') { html!(post.html) }
 

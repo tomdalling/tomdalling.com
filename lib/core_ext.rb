@@ -1,3 +1,5 @@
+ValueSemantics.monkey_patch!
+
 class Pathname
   def descendant_of?(other)
     other = Pathname(other)

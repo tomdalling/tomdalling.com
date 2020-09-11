@@ -1,5 +1,7 @@
 module Statue
   class Outputs
+    include Memery
+
     def self.for(inputs)
       new(inputs).outputs
     end
@@ -9,6 +11,7 @@ module Statue
         static_outputs,
         page_outputs,
         post_outputs,
+        post_index_outputs,
         feed_outputs,
       ])
     end
@@ -48,7 +51,46 @@ module Statue
       def post_outputs
         uniq_merge(
           posts.map do
-            {_1.path => PostOutput.new(_1, template: post_page_template)}
+            {_1.path => PostOutput.new(_1, template: post_template)}
+          end
+        )
+      end
+
+      def post_index_outputs
+        uniq_merge([
+          recent_post_index_outputs,
+          monthly_archive_index_outputs,
+          category_index_outputs,
+        ])
+      end
+
+      def recent_post_index_outputs
+        {
+          Pathname('blog/index.html') =>
+          PostIndexOutput.new(
+            title: 'Recent Posts',
+            posts: posts.take(10),
+            template: post_index_template,
+          )
+        }
+      end
+
+      def monthly_archive_index_outputs
+        {} # TODO: here
+      end
+
+      def category_index_outputs
+        uniq_merge(
+          category_archives.map do |archive|
+            {
+              archive.path =>
+              PostIndexOutput.new(
+                title: "Category: #{archive.human_name}",
+                posts: archive.posts,
+                feed_uri: archive.feed_uri,
+                template: post_index_template,
+              )
+            }
           end
         )
       end
@@ -89,8 +131,8 @@ module Statue
       ##########################################################################
       # Templates
 
-      def page_template
-        @page_template ||= Template.new(
+      memoize def page_template
+        Template.new(
           html_file: inputs.get!(TEMPLATES_DIR/"page.html"),
           is_document: true,
           transform: PageTransform.new(
@@ -101,51 +143,52 @@ module Statue
         )
       end
 
-      def post_template
-        @post_template ||= Template.new(
-          transform: PostTransform.new,
-          html_file: inputs.get!(TEMPLATES_DIR/"post.html"),
+      memoize def post_index_template
+        Template.new(
+          html_file: inputs.get!(TEMPLATES_DIR/"post-list.html"),
+          transform: PostIndexTransform.new,
         )
       end
 
-      def post_page_template
-        @post_page_template ||= PostPageTemplate.new(
-          post_template: post_template,
+      memoize def post_template
+        PostPageTemplate.new(
           page_template: page_template,
+          post_template: Template.new(
+            transform: PostTransform.new,
+            html_file: inputs.get!(TEMPLATES_DIR/"post-single.html"),
+          )
         )
       end
 
       ##########################################################################
       # Models
 
-      def posts
-        @posts ||= inputs.descendants_of(POSTS_DIR)
+      memoize def posts
+        inputs.descendants_of(POSTS_DIR)
           .map { Post.new(_1) }
           .sort
       end
 
-      def pages
-        @pages ||= inputs.descendants_of(PAGES_DIR).map { Page.new(_1) }
+      memoize def pages
+        inputs.descendants_of(PAGES_DIR).map { Page.new(_1) }
       end
 
       def recent_posts
         posts.take(5)
       end
 
-      def monthly_archives
-        @monthly_archives ||=
-          posts
-            .group_by { [_1.date.year, _1.date.month] }
-            .map { MonthlyArchive.new(year: _1.first, month: _1.last, posts: _2) }
-            .sort
+      memoize def monthly_archives
+        posts
+          .group_by { [_1.date.year, _1.date.month] }
+          .map { MonthlyArchive.new(year: _1.first, month: _1.last, posts: _2) }
+          .sort
       end
 
-      def category_archives
-        @category_archives ||=
-          posts
-            .group_by(&:category)
-            .map { CategoryArchive.new(category: _1, posts: _2) }
-            .sort
+      memoize def category_archives
+        posts
+          .group_by(&:category)
+          .map { CategoryArchive.new(category: _1, posts: _2) }
+          .sort
       end
   end
 end

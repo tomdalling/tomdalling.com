@@ -29,5 +29,4 @@ Zeitwerk::Loader.new.tap do |loader|
 end
 
 # boot stuff that the codebase expects to be globally available
-ValueSemantics.monkey_patch!
 require_relative 'core_ext'
