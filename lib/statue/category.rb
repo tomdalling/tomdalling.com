@@ -6,7 +6,7 @@ module Statue
     end
 
     def uri
-      "/blog/#{machine_name}/"
+      "/blog/category/#{machine_name}/"
     end
 
     def self.lookup(name)
