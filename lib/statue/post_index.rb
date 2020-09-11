@@ -4,7 +4,7 @@ module Statue
       path RelativePathname, coerce: Pathname.method(:new)
       posts ArrayOf(Post)
       title String
-      has_feed? Bool(), default: true
+      feed? Bool(), default: true
     end
 
     def uri

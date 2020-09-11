@@ -66,7 +66,7 @@ module Statue
 
       def feed_outputs
         uniq_merge(
-          post_indexes.select(&:has_feed?).map do |index|
+          post_indexes.select(&:feed?).map do |index|
             {
               index.feed_path =>
               FeedOutput.new(posts: index.posts, uri: index.feed_uri)
@@ -164,6 +164,7 @@ module Statue
 
       memoize def post_indexes
         [recent_post_index] +
+          category_archives.map(&:legacy_post_index) +
           category_archives.map(&:post_index) +
           monthly_archives.map(&:post_index)
       end
