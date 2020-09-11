@@ -11,6 +11,7 @@ standardize() {
 }
 
 rel_path="${1:7}" # string off "output/"
+echo "$rel_path"
 cp "$HOME/proj/tomdalling.com/master/$rel_path" old.html
 cp "output/$rel_path" new.html
 standardize old.html
