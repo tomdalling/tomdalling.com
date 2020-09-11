@@ -37,7 +37,7 @@ module Statue
     end
 
     def human_date
-      date.strftime("%-d %b, %Y")
+      date.strftime("%d %b, %Y")
     end
 
     def frontmatter
