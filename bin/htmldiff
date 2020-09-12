@@ -8,6 +8,10 @@ standardize() {
     --print-width 100 \
     --write \
     "$1"
+  # remove empty lines
+  sed -i '' '/^[[:space:]]*$/d' "$1"
+  # ignore %20 in mailto
+  sed -i '' 's/mailto:tom%20at%20tomdalling%20com/mailto:tom at tomdalling com/' "$1"
 }
 
 rel_path="${1:7}" # string off "output/"
