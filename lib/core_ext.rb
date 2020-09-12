@@ -6,3 +6,15 @@ class Pathname
     descend.any? { _1 == other }
   end
 end
+
+class Addressable::URI
+  def with_query(query)
+    dup.tap do |uri|
+      uri.query = query
+    end
+  end
+
+  def /(other)
+    join(other)
+  end
+end

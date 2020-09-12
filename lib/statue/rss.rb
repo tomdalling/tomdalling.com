@@ -10,7 +10,7 @@ module Statue
     class Item
       value_semantics do
         title String
-        url String
+        url Addressable::URI
         description String
         published_at Time
         category String
@@ -35,8 +35,8 @@ module Statue
 
     value_semantics do
       title String
-      site_url String #TODO: actual URL
-      rss_url String #TODO: actual URL
+      site_url Addressable::URI
+      rss_url Addressable::URI
       description String
       language String
       generator String

@@ -29,8 +29,8 @@ module Statue
       def rss
         RSS.new(
           title: "Tom Dalling",
-          site_url: BASE_URL + "/?utm_source=rss&utm_medium=rss",
-          rss_url: BASE_URL + uri,
+          site_url: BASE_URL.with_query("utm_source=rss&utm_medium=rss"),
+          rss_url: BASE_URL.join(uri),
           description: "Web & software developer",
           language: "en",
           generator: "Tom Dalling's fingertips",
@@ -43,7 +43,7 @@ module Statue
       def rss_item(post)
         RSS::Item.new(
           title: post.title,
-          url: "#{post.url}?utm_source=rss&utm_medium=rss",
+          url: post.url.with_query('utm_source=rss&utm_medium=rss'),
           description: post.preview_html,
           published_at: Time.utc(post.date.year, post.date.month, post.date.day),
           category: post.category.human_name,

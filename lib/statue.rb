@@ -5,5 +5,5 @@ module Statue
   TEMPLATES_DIR = PROJECT_ROOT / 'templates'
 
   #TODO: move this to config
-  BASE_URL = "https://www.tomdalling.com"
+  BASE_URL = Addressable::URI.parse("https://www.tomdalling.com/")
 end

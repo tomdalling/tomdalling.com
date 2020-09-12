@@ -25,7 +25,7 @@ module Statue
     end
 
     def url
-      "#{BASE_URL}#{uri}"
+      BASE_URL / uri
     end
 
     def basename
