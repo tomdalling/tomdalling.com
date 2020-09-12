@@ -355,7 +355,7 @@ profile spec][] says that VAOs are required, but I hear that only ATI drivers
 throw errors if no VAO is bound. Here are some quotes from the [OpenGL 3.2 core
 profile specification][]:
 
-> All state related to the deﬁnition of data used by the vertex processor is
+> All state related to the definition of data used by the vertex processor is
 > encapsulated in a vertex array object.
 
 > The currently bound vertex array object is used for all commands which modify
@@ -373,7 +373,7 @@ VAO, it's just that you're modifying the default VAO instead of one you created
 yourself.
 
 There is a bit more of a discussion here:
-http://www.opengl.org/discussion_boards/showthread.php/174577-Questions-on-VAOs
+<http://www.opengl.org/discussion_boards/showthread.php/174577-Questions-on-VAOs>
 
 
 <h2><a name="explaining_the_code">Explaining The Code</a></h2>

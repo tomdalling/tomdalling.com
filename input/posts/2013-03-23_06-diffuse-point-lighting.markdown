@@ -47,12 +47,14 @@ crates.
 There are other common types of lights, such as directional lights and
 spotlights, but we will cover those in a later article.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/point-light.jpg" />
-  <figcaption>
-    Image by <a href="http://commons.wikimedia.org/wiki/File:Teelicht_2009.JPG">4028mdk09</a>
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/point-light.jpg" />
+    <figcaption>
+      Image by <a href="http://commons.wikimedia.org/wiki/File:Teelicht_2009.JPG">4028mdk09</a>
+    </figcaption>
+  </figure>
+</p>
 
 Phong Reflection Model
 ----------------------
@@ -70,12 +72,14 @@ color/intensity of the light. The surface parameters include the color of the
 surface, the direction the surface is facing (a.k.a the normal), and the
 "shininess" of the surface.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/800px-Phong_components_version_4.png" />
-  <figcaption>
-    Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>.
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/800px-Phong_components_version_4.png" />
+    <figcaption>
+      Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>.
+    </figcaption>
+  </figure>
+</p>
 
 The Phong reflection model has three components: ambient, diffuse, and
 specular. The diffuse component is the most important one, as you can see from
@@ -160,23 +164,29 @@ We know that white light contains all colors, so what happened to the green and
 blue? The green and blue light was **absorbed** by the surface, and the red
 light was **reflected**.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/red-reflectance.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/red-reflectance.png" />
+  </figure>
+</p>
 
 What if we were to shine a pure cyan (blue + green) light on the red car? If
 the car was pure red, it would look *black*, because it would absorb 100% of
 the light.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/red-reflectance-of-cyan.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/red-reflectance-of-cyan.png" />
+  </figure>
+</p>
 
 What about a cyan (blue + green) light on a magenta (red + blue) surface?
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/magenta-reflectance-of-cyan.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/magenta-reflectance-of-cyan.png" />
+  </figure>
+</p>
 
 So if you shine a light-blue flashlight onto a purply-pink surface, the surface
 will appear to be dark blue. It's strange, but true.
@@ -202,27 +212,33 @@ Calculating the reflected color is simple. The basic formula is: `intensities
 The multiplication is done by multiplying each of the RGB components
 individually, like so:
 
-<figure>
-  [blockmath] (X, Y, Z) (A,B,C) = (XA, YB, ZC) [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath] (X, Y, Z) (A,B,C) = (XA, YB, ZC) [/blockmath]
+  </figure>
+</p>
 
 Angle of Incidence
 ------------------
 
 Here is a lovely animation of me spinning a notepad in front of a light:
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/angle_of_incidence_anim.gif" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/angle_of_incidence_anim.gif" />
+  </figure>
+</p>
 
 This animation demonstrates how the *angle of incidence* (AoI) of the light
 affects the color of the surface (the notepad). Notice how the notepad is
 brightest when it is facing the light front-on. As the notepad rotates away
 from it's brightest position, the surface gets darker.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/angle_of_incidence_comparison2.jpg" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/angle_of_incidence_comparison2.jpg" />
+  </figure>
+</p>
 
 <blockquote class="pull-right">
   The angle at which the rays of light hit the surface is called the <em>angle
@@ -238,9 +254,11 @@ article.
 Let's look at the the AoI at the two extremes: maximum brightness and complete
 darkness.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/aoi_min_max.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/aoi_min_max.png" />
+  </figure>
+</p>
 
 Maximum brightness occurs when the surface is *perpendicular* to the light rays
 (AoI = 0&deg;). Complete darkness occurs when the surface is *parallel* to the
@@ -288,21 +306,25 @@ right angle, 90&deg;) to a surface.
 The angle of incidence is defined as the angle between the surface normal, and
 the direction to the light source.
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/normal_aoi.png" />
-  <figcaption>
-      <em>N</em> = the surface normal vector<br />
-      <em>L</em> = a vector from the surface to the light source<br />
-      <em>θ</em> = the angle of incidence
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/normal_aoi.png" />
+    <figcaption>
+        <em>N</em> = the surface normal vector<br />
+        <em>L</em> = a vector from the surface to the light source<br />
+        <em>θ</em> = the angle of incidence
+    </figcaption>
+  </figure>
+</p>
 
 The vector from the surface to the light source, *L*, can be calculated with
 vector subtraction, like so:
 
-<figure>
-  [blockmath] L = lightPosition - surfacePosition [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath] L = lightPosition - surfacePosition [/blockmath]
+  </figure>
+</p>
 
 You may wish to read [article 04][] of this series if you need to brush up on
 vector math.
@@ -329,15 +351,17 @@ v2)`.
 The result of the dot product is related to the angle between the two vectors.
 The exact relationship is:
 
-<figure>
-  [blockmath]
-    \begin{align}
-      \vec {v_1} \bullet \vec {v_2} &= \|\vec {v_1}\|\|\vec {v_2}\|cos(\theta) \\\\
-      \frac{\vec {v_1} \bullet \vec {v_2}}{\|\vec {v_1}\|\|\vec {v_2}\|} &= cos(\theta) \\\\
-      cos^{-1}\left(\frac{\vec {v_1} \bullet \vec {v_2}}{\|\vec {v_1}\|\|\vec {v_2}\|}\right) &= \theta
-    \end{align}
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      \begin{align}
+        \vec {v_1} \bullet \vec {v_2} &= \|\vec {v_1}\|\|\vec {v_2}\|cos(\theta) \\\\
+        \frac{\vec {v_1} \bullet \vec {v_2}}{\|\vec {v_1}\|\|\vec {v_2}\|} &= cos(\theta) \\\\
+        cos^{-1}\left(\frac{\vec {v_1} \bullet \vec {v_2}}{\|\vec {v_1}\|\|\vec {v_2}\|}\right) &= \theta
+      \end{align}
+    [/blockmath]
+  </figure>
+</p>
 
 Where $$\vec{v_1}$$ and $$\vec{v_2}$$ are vectors, $$\theta$$ is the angle
 between the two vectors, and $$\|\vec v\|$$ is the magnitude of $$\vec v$$.
@@ -746,9 +770,11 @@ one corner was dark, and the other was bright, the pixels in between  the two
 corners would fade from dark to bright. Now let's look at one of the crates in
 the screenshot for this article:
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/sucky-for-per-vertex.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/sucky-for-per-vertex.png" />
+  </figure>
+</p>
 
 Notice how all of the corners are dark, because the bright area is right in the
 middle of the surface. If we had implemented per-vertex lighting, this would
@@ -761,13 +787,15 @@ number of vertices in the model. The two images below show per-vertex lighting
 applied to two spheres: one with few vertices (low-poly), and one with lots of
 vertices (high-poly).
 
-<figure>
-  <img src="/images/posts/modern-opengl-06/Gouraud_low.gif" />
-  <img src="/images/posts/modern-opengl-06/Gouraud_high.gif" />
-  <figcaption>
-    Images by <a href="http://en.wikipedia.org/wiki/File:Gouraud_high.gif">Zom-B</a>
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-06/Gouraud_low.gif" />
+    <img src="/images/posts/modern-opengl-06/Gouraud_high.gif" />
+    <figcaption>
+      Images by <a href="http://en.wikipedia.org/wiki/File:Gouraud_high.gif">Zom-B</a>
+    </figcaption>
+  </figure>
+</p>
 
 The low-poly sphere has a weird pentagon-shaped highlight, but the high-poly
 sphere has a circular highlight that looks more correct.

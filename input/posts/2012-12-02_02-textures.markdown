@@ -84,9 +84,11 @@ The pixel width and height of a texture should be a power of two, for example:
 16, 32, 64, 128, 256, 512. In this article we will use the 256x256 image
 "hazard.png" as a texture, which is shown below.
 
-<figure>
-  <img src="/images/posts/modern-opengl-02/hazard.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-02/hazard.png" />
+  </figure>
+</p>
 
 We will use the `tdogl::Bitmap` class to load the raw pixel data from
 "hazard.png" into memory, with the help of [stb_image][]. Then we will use
@@ -140,9 +142,11 @@ the bottom left. To turn pixel coordinates into texture coordinates, you must
 divide by the width and height of the texture. For example, in a 256x256 image,
 the pixel coordinates (128, 256) become (0.5, 1) in texture coordinates.
 
-<figure>
-  <img src="/images/posts/modern-opengl-02/uv_coords.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-02/uv_coords.png" />
+  </figure>
+</p>
 
 Texture coordinates are commonly referred to as UV coordinates. You could call
 them XY coordinates, but XYZ is commonly used to represent a vertex, and we

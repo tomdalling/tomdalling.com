@@ -53,9 +53,11 @@ drawn as arrows. The arrow head tells you the direction of the vector, and the
 length of the arrow is the magnitude. The illustrations in this article will be
 of 2D vectors, but the theory applies to both 2D and 3D vectors.
 
-<figure>
-  <img src="/images/posts/modern-opengl-04/visual_rep_of_vector.gif" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/visual_rep_of_vector.gif" />
+  </figure>
+</p>
 
 Below are a few examples of vectors used to represent different concepts.
 
@@ -104,13 +106,15 @@ what it used to be.
 
 For example:
 
-<figure>
-  <img src="/images/posts/modern-opengl-04/vector_negation.gif" />
-  <figcaption>
-    A = 5km north<br />
-    -A = 5km south
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/vector_negation.gif" />
+    <figcaption>
+      A = 5km north<br />
+      -A = 5km south
+    </figcaption>
+  </figure>
+</p>
 
 We will be using vector negation to calculate the direction to the left of the
 camera, based on the direction to the right. Something like this: 
@@ -135,14 +139,16 @@ multiplication."
 
 For example:
 
-<figure>
-  <img src="/images/posts/modern-opengl-04/scalar_mult.gif" />
-  <figcaption>
-    A = 5km north<br />
-    0.5 × A = 2.5km north<br />
-    2 × A = 10km north
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/scalar_mult.gif" />
+    <figcaption>
+      A = 5km north<br />
+      0.5 × A = 2.5km north<br />
+      2 × A = 10km north
+    </figcaption>
+  </figure>
+</p>
 
 We will be using scalar multiplication to calculate the [displacement][] of the
 cameras position based on the "move speed" of the camera &ndash; something like
@@ -162,9 +168,11 @@ representation in 2D. To add vectors together, place them head (arrow end) to
 tail (non-arrow end). Order is not important. The result of the addition is: a
 vector from the tail of the first vector to the head of the last vector.
 
-<figure>
-  <img src="/images/posts/modern-opengl-04/vector-addition.gif" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/vector-addition.gif" />
+  </figure>
+</p>
 
 Notice how the magnitude (length) and direction of the vectors never changes,
 even though they appear in different positions. Remember that vectors have a

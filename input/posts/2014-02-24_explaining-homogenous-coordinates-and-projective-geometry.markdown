@@ -135,11 +135,13 @@ the image becomes three times smaller. If we take the original coordinate
 vector and divide all the values by three, we get the new vector where $$W
 = 1$$:
 
-<figure>
-  [blockmath]
-    (\frac{15}{3}, \frac{21}{3}, \frac{3}{3}) = (5, 7, 1)
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      (\frac{15}{3}, \frac{21}{3}, \frac{3}{3}) = (5, 7, 1)
+    [/blockmath]
+  </figure>
+</p>
 
 The dot is now at coordinate $$\(5,7)$$.
 
@@ -154,11 +156,13 @@ same for 2D and 3D coordinates.
 Dividing all the values in a vector is done by scalar multiplication with the
 reciprocal of the divisor. Here is a 4D example:
 
-<figure>
-  [blockmath]
-    \frac{1}{5} (10, 20, 30, 5) = (\frac{10}{5}, \frac{20}{5}, \frac{30}{5}, \frac{5}{5}) = (2,4,6,1)
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      \frac{1}{5} (10, 20, 30, 5) = (\frac{10}{5}, \frac{20}{5}, \frac{30}{5}, \frac{5}{5}) = (2,4,6,1)
+    [/blockmath]
+  </figure>
+</p>
 
 Written in C++ using GLM, The example above would look like this:
 
@@ -223,18 +227,20 @@ projection matrix just changes the $$W$$ value based on the
 $$Z$$ value. Here is an example of a perspective projection matrix
 being applied to a homogeneous coordinate:
 
-<figure>
-  [blockmath]
-    \begin{bmatrix}
-      1 & 0 & 0 & 0 \\\\
-      0 & 1 & 0 & 0 \\\\
-      0 & 0 & 1 & 0 \\\\
-      0 & 0 & 1 & 0
-    \end{bmatrix}
-    \begin{bmatrix} 2 \\\\ 3 \\\\ 4 \\\\ 1 \end{bmatrix} =
-    \begin{bmatrix} 2 \\\\ 3 \\\\ 4 \\\\ 4 \end{bmatrix}
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      \begin{bmatrix}
+        1 & 0 & 0 & 0 \\\\
+        0 & 1 & 0 & 0 \\\\
+        0 & 0 & 1 & 0 \\\\
+        0 & 0 & 1 & 0
+      \end{bmatrix}
+      \begin{bmatrix} 2 \\\\ 3 \\\\ 4 \\\\ 1 \end{bmatrix} =
+      \begin{bmatrix} 2 \\\\ 3 \\\\ 4 \\\\ 4 \end{bmatrix}
+    [/blockmath]
+  </figure>
+</p>
 
 Notice how the $$W$$ value is changed to $$4$$, which comes
 from the $$Z$$ value.
@@ -250,11 +256,13 @@ converting the homogeneous coordinate back to $$W = 1$$, as explained
 earlier in the article. Continuing with the example above, the perspective
 division step would look like this:
 
-<figure>
-  [blockmath]
-    \frac{1}{4} (2, 3, 4, 4) = (0.5, 0.75, 1, 1)
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      \frac{1}{4} (2, 3, 4, 4) = (0.5, 0.75, 1, 1)
+    [/blockmath]
+  </figure>
+</p>
 
 After perspective division, the $$W$$ value is discarded, and we are
 left with a 3D coordinate that has been correctly scaled according to a 3D
@@ -275,11 +283,13 @@ Points at infinity occur when $$W = 0$$. If you try and convert a
 $$W = 0$$ homogeneous coordinate into a normal $$W = 1$$
 coordinate, it results in a bunch of divide-by-zero operations:
 
-<figure>
-  [blockmath]
-    \frac{1}{0} (2, 3, 4, 0) = (\frac{2}{0}, \frac{3}{0}, \frac{4}{0}, \frac{0}{0})
-  [/blockmath]
-</figure>
+<p>
+  <figure>
+    [blockmath]
+      \frac{1}{0} (2, 3, 4, 0) = (\frac{2}{0}, \frac{3}{0}, \frac{4}{0}, \frac{0}{0})
+    [/blockmath]
+  </figure>
+</p>
 
 This means that homogeneous coordinates with $$W = 0$$ can not be
 converted into 3D coordinates.

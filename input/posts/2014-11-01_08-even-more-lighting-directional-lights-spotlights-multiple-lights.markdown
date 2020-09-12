@@ -530,15 +530,17 @@ single color.
 
 ### Normal Mapping
 
-<figure>
-  <img src="/images/posts/modern-opengl-08/normal-map.png" />
-  <figcaption>
-    Image courtesy of 
-    <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
-      Paolo Cignoni
-    </a>
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-08/normal-map.png" />
+    <figcaption>
+      Image courtesy of 
+      <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
+        Paolo Cignoni
+      </a>
+    </figcaption>
+  </figure>
+</p>
 
 3D meshes have limits to the number of vertices they can contain, due to performance.
 Making a surface rough or bumpy with geometry can take a lot of vertices, so

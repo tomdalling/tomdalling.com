@@ -14,10 +14,12 @@ implications of each.
 What is FizzBuzz?
 -----------------
 
-<figure>
-  <img src="/images/posts/fizzbuzz/let-me-tell-you-about-fizzbuzz.jpg" />
-  <figcaption>Hey guys, have you heard about this new FizzBuzz thing?</figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/fizzbuzz/let-me-tell-you-about-fizzbuzz.jpg" />
+    <figcaption>Hey guys, have you heard about this new FizzBuzz thing?</figcaption>
+  </figure>
+</p>
 
 FizzBuzz is a very simple programming task, used in software developer job
 interviews, to determine whether the job candidate can actually write code. It
@@ -195,9 +197,11 @@ This implementation is actually more DRY than the last one. We can now see that
 into a single array, we can get rid of the `FIZZ` and `BUZZ` constants, and
 also the `fizz` and `buzz` variables, from the previous implementation.
 
-<figure>
-  <img src="/images/posts/fizzbuzz/but-wait-theres-more.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/fizzbuzz/but-wait-theres-more.png" />
+  </figure>
+</p>
 
 There are more potential parameters than just `range` and `triggers`. What if
 we wanted to "Zazz" on all numbers less than 10? Our current implementation is

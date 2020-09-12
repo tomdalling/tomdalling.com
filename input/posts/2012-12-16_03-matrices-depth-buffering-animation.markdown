@@ -6,13 +6,15 @@
 In this article, we will replace our immobile 2D triangle with a spinning 3D
 cube. The end result will look like this: 
 
-<figure class="black">
-  <img src="/images/posts/modern-opengl-03/rotating-crate.gif" />
-</figure>
+<p>
+  <figure class="black">
+    <img src="/images/posts/modern-opengl-03/rotating-crate.gif" />
+  </figure>
+</p>
 
 Now that we're finally getting something interesting on the screen, I can
 include more pictures! An album of animated gifs is available here:
-http://imgur.com/a/x8q7R
+<http://imgur.com/a/x8q7R>
 
 In order to make this spinning cube, we will learn a bit about matrix math, and
 how it is used to create perspective projections, rotation, translation, and
@@ -48,9 +50,11 @@ Matrices are used to transform 3D coordinates. Possible transformations include
 
 A matrix is a grid/table of numbers, like this:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/mat4x4.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/mat4x4.png" />
+  </figure>
+</p>
 
 The plural of matrix is "matrices" (pronounced "[mey-tri-seez][]"). For
 example, "I have one matrix" and "I have have two matrices."
@@ -90,9 +94,11 @@ For example, if you multiply a rotation matrix by a translation matrix, the
 result is a "combined" matrix that does *both* rotation *and* translation.
 Below is an example of this type of matrix multiplication:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/mat-x-mat.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/mat-x-mat.png" />
+  </figure>
+</p>
 
 <blockquote class="pull-right">
   Unlike normal multiplication, order is important in matrix multiplication.
@@ -103,19 +109,23 @@ example, if `A` and `B` are matrices, then `A &times; B` is **not** necessarily
 equal to `B &times; A`. The multiplication below is the same as the one above,
 but with the order changed:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/mat-x-mat-commutative.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/mat-x-mat-commutative.png" />
+  </figure>
+</p>
 
 Notice how the result is different if the order is changed. The animations
 below show why order is important. They perform the same transformations, but
 in a different order. The transformations are: a translation up the Y axis, and
 a 45&deg; rotation.
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/rotate-translate.gif" />
-  <img src="/images/posts/modern-opengl-03/translate-rotate.gif" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/rotate-translate.gif" />
+    <img src="/images/posts/modern-opengl-03/translate-rotate.gif" />
+  </figure>
+</p>
 
 If, while you are coding, you see that a transformation is wrong, then go back
 and check that your matrix multiplication is in the correct order.
@@ -131,9 +141,11 @@ coordinate (1,1,0) the result is the "transformed" coordinate (-1,1,0). The
 transformed coordinate is the original coordinate after being rotated 90&deg;
 around the Z axis. Below is an example of this type of matrix multiplication:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/mat-x-vec.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/mat-x-vec.png" />
+  </figure>
+</p>
 
 Why We Use 4D Coordinates
 -------------------------
@@ -141,9 +153,11 @@ Why We Use 4D Coordinates
 You will notice that the coordinates above are 4D, not 3D. They are in the
 format:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/homo-coord-letters.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/homo-coord-letters.png" />
+  </figure>
+</p>
 
 <blockquote class="pull-right">
   We need to use 4D coordinates because 4x4 matrices *require* them in order to
@@ -169,9 +183,11 @@ represents. At this point, however, we only need to know how to convert from 3D
 to 4D. When you convert a 3D coordinate into 4D, always set the 4<sup>th</sup>
 dimension, 'W', to 1. For example, the coordinate (22,33,44) will look like:
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/homo-coord.png" />
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/homo-coord.png" />
+  </figure>
+</p>
 
 When you convert a 4D coordinate back to 3D, if the 'W' dimension is still set
 to 1 then you can just ignore it and use the X, Y and Z values like you
@@ -268,9 +284,11 @@ tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile(ResourcePath("wooden-crate.jpg
 That's it! We've provided all the data necessary to make a textured cube. If
 you run the program now, you will see this:
 
-<figure class="nopadding black">
-  <img src="/images/posts/modern-opengl-03/crate-stretched.jpg" />
-</figure>
+<p>
+  <figure class="nopadding black">
+    <img src="/images/posts/modern-opengl-03/crate-stretched.jpg" />
+  </figure>
+</p>
 
 At this point, we have a couple of problems. Firstly, the cube is looking
 awfully 2D because we can only see one side of it. We need to "move the camera"
@@ -500,21 +518,25 @@ near plane. The field of view is the skinniness or fatness of the frustum.
 Anything inside the frustum will be displayed on the screen, and anything
 outside will be hidden.
 
-<figure>
-  <img src="/images/posts/modern-opengl-03/frustum.png" />
-  <figcaption>
-    A viewing frustum. Image by <a href="http://commons.wikimedia.org/wiki/File:Frustum_clipping.svg">Tetromino</a>.
-  </figcaption>
-</figure>
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-03/frustum.png" />
+    <figcaption>
+      A viewing frustum. Image by <a href="http://commons.wikimedia.org/wiki/File:Frustum_clipping.svg">Tetromino</a>.
+    </figcaption>
+  </figure>
+</p>
 
 
 With the combination of the camera matrix and the projection matrix, we should
 be able to see the cube now. If you run the program at this point you will see
 this:
 
-<figure class="nopadding black">
-  <img src="/images/posts/modern-opengl-03/depth-buffer-disabled.png" />
-</figure>
+<p>
+  <figure class="nopadding black">
+    <img src="/images/posts/modern-opengl-03/depth-buffer-disabled.png" />
+  </figure>
+</p>
 
 That looks&hellip; almost correct.
 
@@ -579,9 +601,11 @@ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 Finally, with depth buffering enabled, if you run the program the cube will be
 rendered correctly:
 
-<figure class="nopadding black">
-  <img src="/images/posts/modern-opengl-03/depth-buffer-correct.png" />
-</figure>
+<p>
+  <figure class="nopadding black">
+    <img src="/images/posts/modern-opengl-03/depth-buffer-correct.png" />
+  </figure>
+</p>
 
 Rotating The Cube
 -----------------
@@ -650,9 +674,11 @@ so the cube will rotate like it is sitting on a flat table.
 
 If you run the program now, you will see that the cube has been rotated:
 
-<figure class="nopadding black">
-  <img src="/images/posts/modern-opengl-03/not-animated.png" />
-</figure>
+<p>
+  <figure class="nopadding black">
+    <img src="/images/posts/modern-opengl-03/not-animated.png" />
+  </figure>
+</p>
 
 It isn't spinning yet, because the matrix doesn't change &ndash; it is always
 set to rotate 45&deg;. The last step is the change the rotation angle a little
