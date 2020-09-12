@@ -14,7 +14,7 @@ module Statue
     end
 
     def feed_uri
-      legacy_post_index.feed_uri
+      "/#{path.dirname}/feed/"
     end
 
     def size
@@ -37,13 +37,16 @@ module Statue
         title: "Category: #{human_name}",
         posts: posts,
         path: path,
+        feed_uri: '/blog/feed/',
       )
     end
 
     def post_index
       @post_index ||= legacy_post_index.with(
         path: Pathname('blog') / category.machine_name / 'index.html',
-        feed?: false,
+        canonical_path: legacy_post_index.path, #TODO: clean this hacky stuff up
+        feed_uri: legacy_post_index.feed_uri, #TODO: clean this hacky stuff up
+        generate_feed?: false,
       )
     end
   end

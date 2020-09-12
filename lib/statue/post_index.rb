@@ -2,21 +2,27 @@ module Statue
   class PostIndex
     value_semantics do
       path RelativePathname, coerce: Pathname.method(:new)
+      canonical_path Either(RelativePathname, nil), default: nil
       posts ArrayOf(Post)
       title String
-      feed? Bool(), default: true
+      feed_uri Either(String, nil), default: nil
+      generate_feed? Bool(), default: true
     end
 
-    def uri
-      "/#{path.dirname}/"
+    def canonical_path
+      super || path
+    end
+
+    def canonical_uri
+      "/#{canonical_path.dirname}/"
     end
 
     def feed_path
-      path.dirname / 'feed/index.xml'
+      canonical_path.dirname / 'feed/index.xml'
     end
 
     def feed_uri
-      "/#{feed_path.dirname}/"
+      super || "/#{feed_path.dirname}/"
     end
   end
 end

@@ -33,7 +33,7 @@ module Statue
 
       def uniq_merge(hashes)
         {}.merge!(*hashes) do |key, v1, v2|
-          fail "Duplicate key #{key.inspect}: #{v1.inspect} AND #{v2.inspect}"
+          fail "Duplicate key #{key.inspect}"
         end
       end
 
@@ -75,7 +75,7 @@ module Statue
 
       def feed_outputs
         uniq_merge(
-          post_indexes.select(&:feed?).map do |index|
+          post_indexes.select(&:generate_feed?).map do |index|
             {
               index.feed_path =>
               FeedOutput.new(posts: index.posts, uri: index.feed_uri)
@@ -124,7 +124,7 @@ module Statue
         ) do |index|
           {
             title: index.title,
-            canonical_url: index.uri,
+            canonical_url: index.canonical_uri,
           }
         end
       end

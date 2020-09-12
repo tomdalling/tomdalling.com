@@ -3,7 +3,7 @@ module Statue
     def transform(post_index)
       at('h1 .title', post_index.title)
       at('h1 a.rss') do
-        if post_index.feed?
+        if post_index.feed_uri
           attrs!(href: post_index.feed_uri)
         else
           remove!

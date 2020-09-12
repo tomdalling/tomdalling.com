@@ -21,6 +21,9 @@ module Statue
     end
 
     private
+      def inspect
+        "#<#{self.class} #{uri}>"
+      end
 
       def xml
         @xml ||= rss.to_xml
