@@ -12,6 +12,10 @@ standardize() {
   sed -i '' '/^[[:space:]]*$/d' "$1"
   # ignore %20 in mailto
   sed -i '' 's/mailto:tom%20at%20tomdalling%20com/mailto:tom at tomdalling com/' "$1"
+  # ignore superfluos js escapine
+  sed -i '' 's|http:\\\/\\\/tomdalling.com\\\/blog\\\/|http://tomdalling.com/blog/|' "$1"
+  sed -i '' 's|http:\\\/\\\/tomdalling.com\\\/|http://tomdalling.com/|' "$1"
+  sed -i '' -E 's|"http:\\\/\\\/www.tomdalling.com\\\/blog\\\/([a-z-]+)\\\/(.+)\\\/"|"https://www.tomdalling.com/blog/\1/\2/"|' "$1"
 }
 
 rel_path="${1:7}" # string off "output/"
