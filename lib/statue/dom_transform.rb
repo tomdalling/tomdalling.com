@@ -64,6 +64,11 @@ module Statue
         attrs.each { current_node[_1] = _2 }
       end
 
+      def add_classes!(classes)
+        existing = (current_node[:class] || '').split
+        attrs!(class: (existing + classes).uniq.join(' '))
+      end
+
       def text!(str)
         current_node.content = str
       end

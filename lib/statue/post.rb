@@ -49,7 +49,7 @@ module Statue
     end
 
     def html
-      @html ||= Markdown.to_html(content)
+      @html ||= transform_html(Markdown.to_html(content))
     end
 
     def preview_html
@@ -73,6 +73,12 @@ module Statue
         @loaded ||= EDN.split_frontmatter(markdown_file.read)
       rescue => ex
         raise "Failed to load #{markdown_file.path}: #{ex}"
+      end
+
+      def transform_html(html)
+        Nokogiri::HTML.fragment(html)
+          .tap { PostContentTransform.new.call(_1) }
+          .to_html
       end
 
       class Artist
