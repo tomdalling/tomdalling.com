@@ -2,7 +2,7 @@
 set -euo pipefail
 
 lsall() {
-  find "$1" | grep -v '/\.' | sed "s/^.\{${#1}\}//" | sort
+  find "$1" -type f | grep -v '/\.' | sed "s/^.\{${#1}\}//" | sort
 }
 
 lsall "$HOME/proj/tomdalling.com/master" > old.html
