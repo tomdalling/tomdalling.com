@@ -139,7 +139,7 @@ module Statue
         ) do |post|
           {
             title: post.title,
-            canonical_url: post.url,
+            canonical_url: post.url.path,
           }
         end
       end
