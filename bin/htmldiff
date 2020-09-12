@@ -2,6 +2,7 @@
 set -euo pipefail
 
 standardize() {
+  bundle exec bin/remove_code_elements "$1"
   prettyhtml --sortAttributes "$1"
   prettier \
     --html-whitespace-sensitivity ignore \
@@ -16,6 +17,9 @@ standardize() {
   sed -i '' 's|http:\\\/\\\/tomdalling.com\\\/blog\\\/|http://tomdalling.com/blog/|' "$1"
   sed -i '' 's|http:\\\/\\\/tomdalling.com\\\/|http://tomdalling.com/|' "$1"
   sed -i '' -E 's|"http:\\\/\\\/www.tomdalling.com\\\/blog\\\/([a-z-]+)\\\/(.+)\\\/"|"https://www.tomdalling.com/blog/\1/\2/"|' "$1"
+  # ignore unicode escaping
+  sed -i '' -E 's/Caf\\u00e9/Café/g' "$1"
+  sed -i '' -E 's/ \\u2013 / – /g' "$1"
 }
 
 rel_path="${1:7}" # string off "output/"

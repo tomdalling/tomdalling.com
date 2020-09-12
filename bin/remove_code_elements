@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/boot'
+
+class CodeElementStripper < Statue::DOMTransform
+  def transform
+    at_each('div.highlighter-rouge') { remove! }
+    at_each('div.highlight') { remove! }
+  end
+end
+
+doc = Nokogiri::HTML.fragment(File.read(ARGV.first))
+CodeElementStripper.new.call(doc)
+File.write(ARGV.first, doc.to_html)
