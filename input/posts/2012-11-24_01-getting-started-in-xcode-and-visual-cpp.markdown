@@ -5,7 +5,7 @@
 
 Welcome to the first of a series of articles about modern OpenGL.  All the code
 will be open source, and downloadable from github:
-https://github.com/tomdalling/opengl-series.
+<https://github.com/tomdalling/opengl-series>.
 
 By the end of this article, you will have a working OpenGL 3.2 project in
 Visual Studio 2013 on Windows, and Xcode on OSX. The app will have a vertex

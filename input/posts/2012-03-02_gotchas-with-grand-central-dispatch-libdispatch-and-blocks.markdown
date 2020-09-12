@@ -3,8 +3,8 @@
  :category :cocoa}
 
 [GCD][] is a nice replacement for the old
-<code>[performSelectorInBackground:withObject:][]</code> and
-<code>[performSelectorOnMainThread:withObject:waitUntilDone:][]</code> methods
+<code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
+<code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods
 and [NSOperation][]. It's also a nice supplement to [NSThread][]. 
 
 However, I think it was over-hyped a little bit by Apple when it was first
@@ -102,8 +102,6 @@ time. You'll be fine as long as you don't have 512 serial queues all running at
 once.
 
 [GCD]: http://en.wikipedia.org/wiki/Grand_Central_Dispatch "Grand Central Dispatch"
-[performSelectorInBackground:withObject:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:
-[performSelectorOnMainThread:withObject:waitUntilDone:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:
 [NSOperation]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/NSOperation_class/Reference/Reference.html
 [NSThread]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/nsthread_Class/Reference/Reference.html
 [abstraction is leaky]: http://en.wikipedia.org/wiki/Leaky_abstraction "Leaky abstraction"

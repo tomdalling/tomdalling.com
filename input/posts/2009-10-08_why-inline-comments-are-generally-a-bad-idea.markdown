@@ -21,7 +21,6 @@ NSString* MD5StringOfString(NSString* inputStr)
  
     return hashStr;
 }
-
 ```
 
 ```objc
@@ -43,7 +42,6 @@ NSString* MD5StringOfString(NSString* inputStr)
     //return the hexadecimal string
     return hashStr;
 }
-
 ```
 
 <!--more-->
