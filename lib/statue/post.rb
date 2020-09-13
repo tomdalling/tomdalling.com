@@ -1,9 +1,10 @@
 module Statue
   class Post
-    attr_reader :markdown_file
+    attr_reader :markdown_file, :content_transform
 
-    def initialize(markdown_file)
+    def initialize(markdown_file, content_transform:)
       @markdown_file = markdown_file
+      @content_transform = content_transform
     end
 
     extend Forwardable
@@ -49,7 +50,7 @@ module Statue
     end
 
     def html
-      @html ||= transform_html(Markdown.to_html(content))
+      @html ||= transform_content_html(Markdown.to_html(content))
     end
 
     def preview_html
@@ -75,9 +76,9 @@ module Statue
         raise "Failed to load #{markdown_file.path}: #{ex}"
       end
 
-      def transform_html(html)
+      def transform_content_html(html)
         Nokogiri::HTML.fragment(html)
-          .tap { PostContentTransform.new.call(_1) }
+          .tap { content_transform.(_1) }
           .to_html
       end
 

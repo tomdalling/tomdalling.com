@@ -77,6 +77,10 @@ module Statue
         text!(str + current_node.content)
       end
 
+      def append_text!(str)
+        text!(current_node.content + str)
+      end
+
       def interpolate_text!(substitutions)
         text = current_node.content.dup
         substitutions.each do |(var, value)|
@@ -86,13 +90,11 @@ module Statue
       end
 
       def html!(content)
-        if content.is_a?(String)
-          current_node.inner_html = content
-        elsif content.is_a?(Nokogiri::HTML::DocumentFragment)
-          current_node.children = content.children
-        else
-          fail("Can't make HTML from a #{content.class}")
-        end
+        current_node.children = coerce_to_node_set(content)
+      end
+
+      def outer_html!(content)
+        current_node.replace(coerce_to_node_set(content))
       end
 
       def remove!
@@ -121,6 +123,16 @@ module Statue
           with_current_node(new_node) do
             yield thing
           end
+        end
+      end
+
+      def coerce_to_node_set(content)
+        if content.is_a?(String)
+          Nokogiri::HTML.fragment(content).children
+        elsif content.is_a?(Nokogiri::HTML::DocumentFragment)
+          content.children
+        else
+          fail("Can't make HTML from a #{content.class}")
         end
       end
   end

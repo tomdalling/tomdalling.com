@@ -100,7 +100,7 @@ module Statue
       end
 
       ##########################################################################
-      # Templates
+      # Templates & Transforms
 
       memoize def page_template
         Template.new(
@@ -144,12 +144,21 @@ module Statue
         end
       end
 
+      memoize def post_content_transform
+        PostContentTransform.new(
+          modern_opengl_preamble_template: Template.new(
+            transform: ModernOpenglPreambleTransform.new,
+            html_file: inputs.get!(TEMPLATES_DIR/'modern-opengl-preamble-widget.html'),
+          )
+        )
+      end
+
       ##########################################################################
       # Models
 
       memoize def posts
         inputs.descendants_of(POSTS_DIR)
-          .map { Post.new(_1) }
+          .map { Post.new(_1, content_transform: post_content_transform) }
           .sort
       end
 
