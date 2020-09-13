@@ -14,7 +14,7 @@ a jpg, png, or bmp file into video memory, for use in the shaders. Also, the
 `tdogl::Program` class has some new methods for setting shader variables.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">02_textures</widget>
 
 
@@ -51,7 +51,7 @@ shader. However, attributes are not constant. The vertex shader can change the
 value of an attribute before it gets to the fragment shader. The output of the
 vertex shader is the input to the fragment shader.
 
-To set the value of a uniform, we use one of the [glUniform*][] functions. To
+To set the value of a uniform, we use one of the [glUniform\*][glUniform_] functions. To
 set the value of an attribute, we store the values in a VBO and send them to
 the shader with a VAO and [glVertexAttribPointer][] like we saw in the previous
 article. It is also possible to set the value of an attribute using one of the
@@ -358,7 +358,7 @@ Translations Of This Article
 ----------------------------
  -  [Serbo-Croatian][] 
 
-[glUniform*]: http://www.opengl.org/sdk/docs/man/xhtml/glUniform.xml
+[glUniform_]: http://www.opengl.org/sdk/docs/man/xhtml/glUniform.xml
 [glVertexAttribPointer]: http://www.opengl.org/sdk/docs/man/xhtml/glVertexAttribPointer.xml
 [glVertexAttrib*]: http://www.opengl.org/sdk/docs/man/xhtml/glVertexAttrib.xml
 [Textures are not Pictures]: http://www.arcsynthesis.org/gltut/Texturing/Tutorial%2014.html

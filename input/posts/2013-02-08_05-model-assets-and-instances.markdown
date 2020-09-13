@@ -10,7 +10,7 @@ single wooden crate asset, and five instances of that asset arranged to spell
 out "Hi" in 3D.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">05_asset_instance</widget>
 
 Assets, In General
@@ -99,6 +99,7 @@ actually just one tree that is drawn 100 times.
 
 
 <a name="instances-vs-entities"></a>
+
 Instances vs Entities
 ---------------------
 

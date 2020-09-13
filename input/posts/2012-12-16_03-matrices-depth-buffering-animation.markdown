@@ -23,7 +23,7 @@ is necessary. We will also see how a typical 3D application implements changes
 over time, such as animation.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">03_matrices</widget>
 
 

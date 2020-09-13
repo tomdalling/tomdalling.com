@@ -8,15 +8,17 @@ for multiple lights instead of just one. This is the final article on lighting
 – at least for a while.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">08_even_more_lighting</widget>
 
 Directional Lights
 ------------------
 
-<figure class="nopadding">
-  <img src="/images/posts/modern-opengl-08/directional-light.jpg" />
-</figure>
+<p>
+  <figure class="nopadding">
+    <img src="/images/posts/modern-opengl-08/directional-light.jpg" />
+  </figure>
+</p>
 
 Directional lights are lights that shine in a single, uniform direction. That
 is, all rays of light are parallel to each other. Pure directional lights do
@@ -51,9 +53,9 @@ Unlike point lights, directional lights do not need a position coordinate. A
 directional light only needs a single 3D vector that represents the direction
 of all the rays of light.  However, the GLSL lighting code in our shader
 expects every light to have a position. Luckily, we can represent the direction
-of a directional light with a homogeneous coordinate by setting $$W = 0$$.  As
+of a directional light with a homogeneous coordinate by setting \$\$W = 0\$\$.  As
 explained in the [previous article on homogeneous
-coordinates][homo_coords_article], when $$W = 0$$ in a 4D coordinate, it
+coordinates][homo_coords_article], when \$\$W = 0\$\$ in a 4D coordinate, it
 represents the direction towards a point that is infinitely far away.  So if the
 coordinate represents the direction _towards_ the Sun, we can just negate it to
 produce the direction _away_ from the Sun, which is the direction of the light
@@ -73,10 +75,10 @@ if(lightPosition.w == 0.0) {
 }
 ```
 
-As an example, let's say that `lightPosition` coordinate is $$(1, 0, 0, 0)$$,
+As an example, let's say that `lightPosition` coordinate is \$\$(1, 0, 0, 0)\$\$,
 which represents a point infinitely far away down the _positive_ X axis.  If we
-take the $$X$$, $$Y$$, and $$Z$$ values then negate them, we get $$(-1, 0,
-0)$$, which indicates that the light is shining down the _negative_ X axis.
+take the \$\$X\$\$, \$\$Y\$\$, and \$\$Z\$\$ values then negate them, we get \$\$(-1, 0,
+0)\$\$, which indicates that the light is shining down the _negative_ X axis.
 
 The GLSL lighting code we implemented in the previous article uses the
 direction from the surface to the light (in a variable named `surfaceToLight`),
@@ -104,9 +106,11 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
 Spotlights
 ----------
 
-<figure class="nopadding">
-  <img src="/images/posts/modern-opengl-08/spotlight.jpg" />
-</figure>
+<p>
+  <figure class="nopadding">
+    <img src="/images/posts/modern-opengl-08/spotlight.jpg" />
+  </figure>
+</p>
 
 The final type of light we will be implementing is spotlights. Spotlights are
 very similar to point lights, except that instead of radiating light out in all
@@ -141,9 +145,11 @@ There are two new variables that were added in order to implement spotlights:
 from the point of the cone, through the center of the cone. The `coneAngle`
 variable is the angle between the center and the side of the cone, in degrees.
 
-<figure class="black nopadding">
-  <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg" />
-</figure>
+<p>
+  <figure class="black nopadding">
+    <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg" />
+  </figure>
+</p>
 
 <blockquote class="pull-right">
   If the pixel is outside of the cone, then we set the attenuation
@@ -420,9 +426,11 @@ sample a flashlight texture to stop the light from looking so circular and flat.
 
 ### Deferred Rendering
 
-<figure class="youtube">
-  <iframe src="//www.youtube.com/embed/vooznqE-XMM" frameborder="0" allowfullscreen></iframe>
-</figure>
+<p>
+  <figure class="youtube">
+    <iframe src="//www.youtube.com/embed/vooznqE-XMM" frameborder="0" allowfullscreen></iframe>
+  </figure>
+</p>
 
 The way we have implemented lighting is known as _forward rendering_,
 and there are a couple of annoying issues associated with it. Firstly, there
@@ -444,9 +452,11 @@ but it is more complicated than forward rendering.
 
 ### Shadows
 
-<figure class="youtube">
-  <iframe src="//www.youtube.com/embed/0EjvtQdTHB0" frameborder="0" allowfullscreen></iframe>
-</figure>
+<p>
+  <figure class="youtube">
+    <iframe src="//www.youtube.com/embed/0EjvtQdTHB0" frameborder="0" allowfullscreen></iframe>
+  </figure>
+</p>
 
 Despite that fact that everyone loves the look of them, nice shadows are a huge
 can of worms, and can be extremely complicated. All the following techniques
@@ -465,15 +475,17 @@ Don't even get me started on [ambient occlusion][].
 
 ### High-dynamic-range (HDR)
 
-<figure class="nopadding">
-  <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg" />
-  <figcaption>
-    Image courtesy of 
-    <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
-      Richard Huber
-    </a>
-  </figcaption>
-</figure>
+<p>
+  <figure class="nopadding">
+    <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg" />
+    <figcaption>
+      Image courtesy of 
+      <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
+        Richard Huber
+      </a>
+    </figcaption>
+  </figure>
+</p>
 
 Notice how the colors from all the lights are added together in our fragment
 shader. The RGBA values are supposed to be within the 0.0 to 1.0 range, so what
@@ -493,15 +505,17 @@ rescaled so that they fit nicely within the 0.0&ndash;1.0 range.
 
 ### Subsurface Scattering
 
-<figure class="black">
-  <img src="/images/posts/modern-opengl-08/sss.png" />
-  <figcaption>
-    Image courtesy of 
-    <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
-      Piotrek Chwała
-    </a>
-  </figcaption>
-</figure>
+<p>
+  <figure class="black">
+    <img src="/images/posts/modern-opengl-08/sss.png" />
+    <figcaption>
+      Image courtesy of 
+      <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
+        Piotrek Chwała
+      </a>
+    </figcaption>
+  </figure>
+</p>
 
 
 Light doesn't just reflect _off_ of surfaces, it can travel _through_ them too.
@@ -514,10 +528,12 @@ plastic.
 
 ### Emissive Surfaces
 
-<figure class="nopadding">
-  <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png" />
-  <figcaption>Emissive surfaces from the game Borderlands</figcaption>
-</figure>
+<p>
+  <figure class="nopadding">
+    <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png" />
+    <figcaption>Emissive surfaces from the game Borderlands</figcaption>
+  </figure>
+</p>
 
 In our implementation, only lights can illuminate a surface. Some surfaces, however,
 provide their own illumination, which makes it look like they are glowing. Think of

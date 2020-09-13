@@ -357,7 +357,7 @@ profile specification][]:
 
 > All state related to the definition of data used by the vertex processor is
 > encapsulated in a vertex array object.
-
+>
 > The currently bound vertex array object is used for all commands which modify
 > vertex array state, such as VertexAttribPointer and EnableVertexAttribArray;
 > all commands which draw from vertex arrays, such as DrawArrays and

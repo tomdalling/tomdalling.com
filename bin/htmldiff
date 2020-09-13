@@ -20,6 +20,7 @@ standardize() {
   # ignore unicode escaping
   sed -i '' -E 's/Caf\\u00e9/Café/g' "$1"
   sed -i '' -E 's/ \\u2013 / – /g' "$1"
+  sed -i '' -E 's/\\u2011life/‑life/g' "$1"
 }
 
 rel_path="${1:7}" # string off "output/"

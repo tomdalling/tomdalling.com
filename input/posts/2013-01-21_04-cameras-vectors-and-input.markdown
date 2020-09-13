@@ -11,7 +11,7 @@ This will involve learning a bit of vector math. We will also learn about
 inverting matrices, which was not mentioned in the previous article.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">04_camera</widget>
 
 Vector Theory
@@ -682,9 +682,9 @@ glfwSetInputMode(gWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 glfwSetCursorPos(gWindow, 0, 0);
 ```
 
-This makes the mouse invisible and moves it to the pixel coordinate $$(0,0)$$.
+This makes the mouse invisible and moves it to the pixel coordinate \$\$(0,0)\$\$.
 Inside `Update` we will get the position of the mouse, update the camera, then
-set the mouse back to $$(0,0)$$ again. This is an easy way to see how far the mouse
+set the mouse back to \$\$(0,0)\$\$ again. This is an easy way to see how far the mouse
 has moved every frame, while also stopping the mouse from leaving the window.
 Add this code to the bottom of the `Update` function:
 

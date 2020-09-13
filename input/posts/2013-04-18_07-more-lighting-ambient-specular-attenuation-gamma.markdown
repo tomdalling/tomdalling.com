@@ -8,7 +8,7 @@ ambient and specular components of the Phong reflection model, attenuation, and
 gamma correction.
 
 <!--more-->
-
+<p></p>
 <widget type="modern-opengl-preamble">07_more_lighting</widget>
 
 Diffuse Component
@@ -69,8 +69,8 @@ We will calculate the ambient component using a percentage of the original
 intensities of the light source. We will store this ambient percentage as a
 float with a value between zero (0%) and one (100%), in a variable named
 `ambientCoefficient`. For example if `ambientCoefficient` is 0.05 (5%) and the
-reflected light intensities are $$\(1, 0, 0)$$, which is pure red light, then
-the ambient component will be $$\(0.05, 0, 0)$$, which is very dim red light. 
+reflected light intensities are \$\$\(1, 0, 0)\$\$, which is pure red light, then
+the ambient component will be \$\$\(0.05, 0, 0)\$\$, which is very dim red light. 
 
 The GLSL to calculate the ambient component in the fragment shader looks like
 this:
@@ -103,8 +103,8 @@ Let's start by looking at how a mirror reflects light.
   </figure>
 </p>
 
-$$N$$ and $$I$$ are the normal and the angle of incidence (AoI), which we saw
-in the last article. $$R$$ is new, and it represents *the angle of reflection*
+\$\$N\$\$ and \$\$I\$\$ are the normal and the angle of incidence (AoI), which we saw
+in the last article. \$\$R\$\$ is new, and it represents *the angle of reflection*
 (AoR). The angle of reflection is the angle between the reflected ray, and the
 surface normal. It is sort of the opposite of the angle of incidence.
 
@@ -299,14 +299,14 @@ slightly to get this:
   </figure>
 </p>
 
-Now, if $$d$$ is zero, then $$a$$ will be 1, which means that
+Now, if \$\$d\$\$ is zero, then \$\$a\$\$ will be 1, which means that
 the light is at maximum intensity.
 
 Secondly, we might want to control how fast the intensity decreases over
 distance. Maybe we want some lights to shine over very long distances without
 much attenuation, and other lights to only shine short distances with lots of
 attenuation. To control the attenuation we will add a variable, which we will
-just call $$k$$:
+just call \$\$k\$\$:
 
 <p>
   <figure>
@@ -327,7 +327,7 @@ The formula above, implemented in our fragment shader, looks like this:
 float attenuation = 1.0 / (1.0 + light.attenuation * pow(distanceToLight, 2));
 ```
 
-The `light.attenuation` variable is the $$k$$ in the formula above.
+The `light.attenuation` variable is the \$\$k\$\$ in the formula above.
 
 We will apply attenuation to the diffuse and specular components, but not the
 ambient component. Remember that the ambient component is a constant minimum
@@ -349,8 +349,8 @@ Gamma Correction
 All of our lighting calculations so far have assumed that we are working a
 _linear color space_. In a linear color space, if you double one of the RGB
 color values, then the pixel on the screen should be twice as bright. For
-example, the 100% red color $$\(1,0,0)$$ should be twice as bright as
-the 50% red color $$\(0.5,0,0)$$.
+example, the 100% red color \$\$\(1,0,0)\$\$ should be twice as bright as
+the 50% red color \$\$\(0.5,0,0)\$\$.
 
 The problem is that computer screens do *not* display colors in a linear color
 space. The 100% red is actually about 4.5 times brighter than the 50% red,
@@ -392,7 +392,7 @@ makes all the lighting look correct, instead of looking too dark.
 Gamma correction is pretty simple to implement. You take each of the RGB values
 and raise them to the power of _gamma_. Some games give the user a brightness
 setting which allows them to change the gamma value, but we will just use the
-constant value $$\frac{1}{2.2}$$ in this article, which is the correct
+constant value \$\$\frac{1}{2.2}\$\$ in this article, which is the correct
 value for CRT monitors.
 
 We will do gamma correction using the GLSL function `pow`. The GLSL looks
@@ -517,12 +517,12 @@ There is a new uniform called `cameraPosition`, which is necessary to calculate
 the specular component. You may come across other fragment shaders that don't
 have the camera position as a uniform. If the lighting calculations are done in
 camera space, instead of world space, then the position of the camera is always
-the origin $$\(0,0,0)$$. This is fairly common, but we'll continue to work in
+the origin \$\$\(0,0,0)\$\$. This is fairly common, but we'll continue to work in
 world space for the moment, because it's a bit more intuitive and similar to
 the code in the previous article.
 
 There are two new elements of the `Light` struct: `attenuation` and
-`ambientCoefficient`. The `attenuation` variable is the $$k$$ value we saw in
+`ambientCoefficient`. The `attenuation` variable is the \$\$k\$\$ value we saw in
 the attenuation section, earlier in the article. The `ambientCoefficient`
 variable is the percentage of the light to use for the ambient component, also
 explained earlier in this article.
