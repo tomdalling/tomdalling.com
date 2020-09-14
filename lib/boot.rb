@@ -1,3 +1,9 @@
+# require gems
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path("#{__dir__}/../Gemfile")
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
 # require standard libraries
 require 'pathname'
 require 'forwardable'
@@ -5,12 +11,6 @@ require 'date'
 require 'strscan'
 require 'time'
 require 'json'
-
-# require gems
-ENV['BUNDLE_GEMFILE'] ||= Pathname(__dir__).parent.join('Gemfile').to_path
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require(:default)
 
 # setup zeitwork loader
 module Inflector
