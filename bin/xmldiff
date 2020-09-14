@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/boot'
+
+def standardize(path)
+  Nokogiri::XML
+    .parse(File.read(path)) { _1.noblanks }
+    .tap { standardize_whitespace(_1) }
+    .to_xml(indent: 2)
+    .then { _1.gsub('-0000', '+0000') }
+    .then { _1.gsub('http://www.tomdalling', 'https://www.tomdalling') }
+    .then { File.write(path, _1) }
+end
+
+def standardize_whitespace(doc)
+  doc.traverse do |node|
+    if node.cdata?
+      node.content = node.content
+        .gsub(/\s*\n\s*/, ' ')
+        .then { _1.start_with?('<') ? standardize_html(_1) : _1 }
+        .gsub(/\<\/p\>\s+\<p\>/, '</p><p>')
+        .gsub(/\. \<\/p\>/, '.</p>')
+    end
+  end
+end
+
+def standardize_html(html)
+  Nokogiri::HTML
+    .fragment(html)
+    .tap { _1.traverse { |node| order_attributes(node) } }
+    .to_html
+end
+
+def order_attributes(node)
+  attrs = node.attributes.values
+  return unless attrs.size > 1
+
+  attrs.each { node.remove_attribute(_1.name) }
+  attrs.sort_by!(&:name)
+  attrs.each { node[_1.name] = _1.value }
+end
+
+OLD_DIR = Pathname("~/proj/tomdalling.com/master/").expand_path
+NEW_DIR = Pathname(__dir__).join('../output').expand_path
+
+rel_path = Pathname(ARGV.first.delete_prefix('output/'))
+puts
+puts "======================================================================="
+puts rel_path
+
+FileUtils.cp(OLD_DIR/rel_path, 'old.xml')
+FileUtils.cp(NEW_DIR/rel_path, 'new.xml')
+standardize('old.xml')
+standardize('new.xml')
+
+system('git diff --no-index old.xml new.xml')
+
+FileUtils.rm('old.xml')
+FileUtils.rm('new.xml')

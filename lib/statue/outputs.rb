@@ -78,7 +78,7 @@ module Statue
           post_indexes.select(&:generate_feed?).map do |index|
             {
               index.feed_path =>
-              FeedOutput.new(posts: index.posts, uri: index.feed_uri)
+              FeedOutput.new(posts: index.posts, uri: index.feed_path.dirname.to_s + "/")
             }
           end
         ).tap do |outputs|

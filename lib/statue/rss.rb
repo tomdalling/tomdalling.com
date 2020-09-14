@@ -17,19 +17,15 @@ module Statue
         guid GUID
       end
 
-      def to_xml
-        doc = Nokogiri::HTML::DocumentFragment.parse("")
-        Nokogiri::XML::Builder.with(doc) do |fragment|
-          fragment.item do |item|
-            item.title(title)
-            item.link(url)
-            item.description { fragment.cdata(description) }
-            item.pubDate(published_at.rfc822)
-            item.category { fragment.cdata(category) }
-            item.guid(guid.value, isPermaLink: guid.permalink?)
-          end
+      def build(parent)
+        parent.item do
+          _1.title(title)
+          _1.link(url)
+          _1.description { parent.cdata(description.strip + "\n") }
+          _1.pubDate(published_at.rfc822)
+          _1.category { parent.cdata(category) }
+          _1.guid(guid.value, isPermaLink: guid.permalink?)
         end
-        doc.to_xml
       end
     end
 
@@ -65,7 +61,7 @@ module Statue
             channel.generator(generator)
             channel.send('sy:updatePeriod', update_period)
             channel.send('sy:updateFrequency', update_frequency.to_s)
-            items.sort_by(&:published_at).reverse.each { xml << _1.to_xml }
+            items.sort_by(&:published_at).reverse.each { _1.build(channel) }
           end
         end
       end.to_xml
