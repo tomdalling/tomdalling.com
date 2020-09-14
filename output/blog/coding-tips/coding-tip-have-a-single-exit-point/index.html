@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coding Tip: Have A Single Exit Point — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="/blog/coding-tips/coding-tip-have-a-single-exit-point/">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/coding-tips/coding-tip-have-a-single-exit-point/">Coding Tip: Have A Single Exit Point</a></h1>
+    <small class="meta">
+      <span class="post-date">30 Jun, 2009</span>
+      —
+      Category: <a class="category" href="/blog/category/coding-tips/">Coding Tips</a>
+    </small>
+    
+  </header>
+
+  <div class="post-content">
+<p>Having one exit point (return) from a function is a good thing. Here is an
+example of a single exit point:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">indexOfElement</span><span class="p">(</span><span class="kt">int</span> <span class="n">elementToFind</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">foundIndex</span> <span class="o">=</span> <span class="n">ELEMENT_NOT_FOUND</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_numberOfElements</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">elementAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">elementToFind</span><span class="p">){</span>
+      <span class="n">foundIndex</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">foundIndex</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Having multiple exit points can be bad. Here is an example of multiple exit
+points:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">indexOfElement</span><span class="p">(</span><span class="kt">int</span> <span class="n">elementToFind</span><span class="p">){</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_numberOfElements</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">elementAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">elementToFind</span><span class="p">){</span>
+      <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">ELEMENT_NOT_FOUND</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The main reason multiple exit points are bad is that they complicate control
+flow. The more complicated the control flow is, the harder the code is to
+understand. The harder the code is to understand, the greater the change of
+introduction bugs whenever the code is modified.</p>
+
+<!--more-->
+
+<p>Before I make my argument against multiple exit points, I will admit that the
+examples provided are rather trivial. A six line function with two exit points
+isn't particularly dangerous or unreadable — especially considering that
+it's very common to see an early return in functions that search a collection
+of objects. However, the problems increase exponentially with the number of
+exit points and the size of the function. When you're making changes to a 70
+line function with a generous sprinkling of return statements, the problems are
+quite obvious.</p>
+
+<p>There is some controversy surrounding returning early versus having a single
+exit point, and both sides have decent arguments. However, it is my belief that
+<strong>robustness is more important than insignificant performance gains</strong>, and
+<strong>having a single exit point improves maintainability for any non-trivial
+function</strong>.</p>
+
+<h2>Fragility</h2>
+
+<p>Here is an example of a modification to the above function where having two
+exit points causes a bunch of problems, demonstrating the fragility of the
+function:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">indexOfElement</span><span class="p">(</span><span class="kt">int</span> <span class="n">elementToFind</span><span class="p">){</span>
+  <span class="n">FooBar</span><span class="o">*</span> <span class="n">fb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FooBar</span><span class="p">;</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">openSomeFile</span><span class="p">();</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">startSomeWorkerThread</span><span class="p">();</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_numberOfElements</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">elementAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">elementToFind</span><span class="p">){</span>
+      <span class="c1">//this return causes:</span>
+      <span class="c1">//  1. a memory leak</span>
+      <span class="c1">//  2. a permanently open file</span>
+      <span class="c1">//  3. a rogue worker thread that could disrupt the application later</span>
+      <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">closeSomeFile</span><span class="p">();</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">waitForWorkerThreadToFinish</span><span class="p">();</span>
+  <span class="k">delete</span> <span class="n">fb</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">ELEMENT_NOT_FOUND</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You could duplicate the clean up code, but duplication will make the function
+even more fragile. Any change to the clean up code must be done in multiple
+places, and if you forget one, you get problems all over again. As a rule of
+thumb, you should never duplicate code. Here is an example with the duplicated
+clean up code:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">indexOfElement</span><span class="p">(</span><span class="kt">int</span> <span class="n">elementToFind</span><span class="p">){</span>
+  <span class="n">FooBar</span><span class="o">*</span> <span class="n">fb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FooBar</span><span class="p">;</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">openSomeFile</span><span class="p">();</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">startSomeWorkerThread</span><span class="p">();</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_numberOfElements</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">elementAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">elementToFind</span><span class="p">){</span>
+      <span class="n">fb</span><span class="o">-&gt;</span><span class="n">closeSomeFile</span><span class="p">();</span> <span class="c1">//yuck</span>
+      <span class="n">fb</span><span class="o">-&gt;</span><span class="n">waitForWorkerThreadToFinish</span><span class="p">();</span> <span class="c1">//yuck</span>
+      <span class="k">delete</span> <span class="n">fb</span><span class="p">;</span> <span class="c1">//and yuck</span>
+      <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">closeSomeFile</span><span class="p">();</span>
+  <span class="n">fb</span><span class="o">-&gt;</span><span class="n">waitForWorkerThreadToFinish</span><span class="p">();</span>
+  <span class="k">delete</span> <span class="n">fb</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">ELEMENT_NOT_FOUND</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2>Maintainability</h2>
+
+<p>Have you ever:</p>
+
+<ul>
+  <li>
+    <p>modified a function only to find that it behaves exactly the same as before
+because of an early return statement?</p>
+  </li>
+  <li>
+    <p>introduced a bug like in the code example above and spent forever finding
+it because the early return statement only happens under certain
+conditions?</p>
+  </li>
+</ul>
+
+<p>If so, then you've experienced how extra return statements can make it
+difficult to read and understand a section of code. If you accidentally miss
+the extra return statements, then you're likely to introduce bugs. If you
+<em>do</em> catch the return statements, then you have to constantly ask
+yourself <em>"will this line be executed, or has it already
+returned?"</em> The larger the function and number of return statements,
+the greater the potential for error.</p>
+
+<h2>The Exceptions</h2>
+
+<p>Having said how great single exit points are, I will mention that there are
+certain situations where multiple exit points are safe and improve readability.
+I think it is good to return early in function guards like so:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">insertElementAtIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">element</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="n">m_numberOfElements</span><span class="p">)</span>
+		<span class="k">return</span><span class="p">;</span>
+
+	<span class="c1">//code for inserting element goes here</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is only because the return effectively stops the whole function from
+executing. Adding a FooBar object is perfectly safe, as you can see here:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">MyArray</span><span class="o">::</span><span class="n">insertElementAtIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">element</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="n">m_numberOfElements</span><span class="p">)</span>
+		<span class="k">return</span><span class="p">;</span>
+
+	<span class="n">FooBar</span><span class="o">*</span> <span class="n">fb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FooBar</span><span class="p">;</span>
+
+	<span class="c1">//code for inserting element goes here</span>
+
+	<span class="k">delete</span> <span class="n">fb</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Returning early can also be used instead of deeply nested 'if' statements. In
+such a situation, returning early can be the lesser of two evils.</p>
+
+<p>This post was inspired by <a href="http://blog.wilshipley.com/2005/08/pimp-my-code-part-4-returning-late-to.html" title="Pimp My Code, Part 4: Returning late to return early">Wil Shipley's post about why he likes returning
+early</a>. I love your work, Wil, but I have to disagree with you on
+this one. Those goto statements give me a bad feeling.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p><strong>Enjoy this post?</strong></p>
+      <a href="/feed/" class="btn btn-success">
+        Subscribe via RSS
+      </a>
+      <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" id="disqus_script">
+      var disqus_shortname = "tomdalling";
+      var disqus_identifier = "75 http://tomdalling.com/?p=75";
+      var disqus_title = "Coding Tip: Have A Single Exit Point";
+      var disqus_url = "https://www.tomdalling.com/blog/coding-tips/coding-tip-have-a-single-exit-point/";
+
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/fizzbuzz-in-too-much-detail/">FizzBuzz In Too Much Detail</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/">Making Fruity Bat (a Flappy Bird clone) in Ruby</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/">Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/opengl-in-2014/">OpenGL in 2014</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/category/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/category/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/category/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/category/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/category/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/category/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-design/" class="category">Software Design</a>
+                (<span class="post-count">9</span>
+                <a class="feed" href="/blog/category/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+  <channel>
+    <title>Tom Dalling</title>
+    <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
+    <atom:link href="https://www.tomdalling.com/blog/category/web/feed/" rel="self" type="application/rss+xml"/>
+    <description>Web &amp; software developer</description>
+    <language>en</language>
+    <generator>Tom Dalling's fingertips</generator>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>Thoughts On Bootstrap</title>
+      <link>https://www.tomdalling.com/blog/web/thoughts-on-bootstrap/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>You may have noticed that I redesigned the site recently. The new design uses
+<a href="http://getbootstrap.com/">Boostrap</a>, mainly to make the site work better on tablets and phones. This
+post will be about the good and the bad parts of my recent encounter with
+Bootstrap.</p>
+
+<p>Bootstrap is basically a CSS and JavaScript framework that gives you
+nice-looking components such as buttons, menus, grid-based layout, etc. One of
+more interesting parts of Bootstrap is the responsive design functionality,
+which automatically rearranges and resizes the page to fit nicely on smaller
+screens, such as phones and tablets.</p>
+]]></description>
+      <pubDate>Sun, 04 Nov 2012 00:00:00 -0000</pubDate>
+      <category><![CDATA[Web]]></category>
+      <guid isPermaLink="false">697 http://tomdalling.com/?p=697</guid>
+    </item>
+  </channel>
+</rss>

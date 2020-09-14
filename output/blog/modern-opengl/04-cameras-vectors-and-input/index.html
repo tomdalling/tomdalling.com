@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern OpenGL 04 - Cameras, Vectors &amp; Input — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="/blog/modern-opengl/04-cameras-vectors-and-input/">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/modern-opengl/04-cameras-vectors-and-input/">Modern OpenGL 04 - Cameras, Vectors &amp; Input</a></h1>
+    <small class="meta">
+      <span class="post-date">21 Jan, 2013</span>
+      —
+      Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/modern-opengl-04/main-image.png" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+<p>In this article, we will be consolidating the matrix and camera knowledge from
+the previous article into the new <code>tdogl::Camera</code> class, which will be a
+first-person shooter type of camera. Then, we will connect the camera to
+keyboard and mouse input, so we can move within the 3D scene and look around.
+This will involve learning a bit of vector math. We will also learn about
+inverting matrices, which was not mentioned in the previous article.</p>
+
+<!--more-->
+<p></p>
+<div class="modern-opengl-preamble">
+  <h2>Accessing The Code</h2>
+
+  <p>
+    Download all the code as a zip from here:
+    <a href="https://github.com/tomdalling/opengl-series/archive/master.zip">
+      https://github.com/tomdalling/opengl-series/archive/master.zip
+    </a>
+  </p>
+
+  <p>
+    All the code in this series of articles is available from github:
+    <a href="https://github.com/tomdalling/opengl-series">https://github.com/tomdalling/opengl-series</a>.
+    You can download a zip of all the files from that page, or you can clone the
+    repository if you are familiar with git.
+  </p>
+
+  <p class="builds-on-previous">
+    This article builds on the code from the previous article.
+  </p>
+
+  <p>
+    The code for this article can be found in the
+    <a class="source_folder" href="https://github.com/tomdalling/opengl-series/tree/master/source/04_camera">
+      <code>source/04_camera</code>
+    </a>
+    folder. On OS X, open the <code>opengl-series.xcodeproj</code> file in the
+    root folder, and select the target that corresponds with this article. On
+    Windows, open the <code>opengl-series.sln</code> file in Visual Studio 2013,
+    and open the project that corresponds with this article.
+  </p>
+
+  <p>
+    The project includes all of its dependencies, so you shouldn't have to
+    install or configure anything extra. Please let me know if you have
+    any issues compiling and running the code.
+  </p>
+</div>
+
+
+<h2>Vector Theory</h2>
+
+<p>Just when you thought the mathematical theory lesson was over, after learning
+matrix theory in the previous article, here comes the next instalment:
+<a href="http://en.wikipedia.org/wiki/Euclidean_vector">vectors</a>. A decent understanding of vectors is fundamental to 3D
+programming. When we get to the code later, we will be using vectors to move
+the camera in various different directions using the keyboard.</p>
+
+<p>In 3D (and also 2D), vectors are used to represent a few different things, such
+as:</p>
+
+<ul>
+  <li>Position (i.e. coordinates)</li>
+  <li>Displacement (e.g. movement)</li>
+  <li>Direction (e.g. north, south, up, down, etc.)</li>
+  <li>Velocity (e.g. the speed and direction of a car)</li>
+  <li>Acceleration (e.g. gravity)</li>
+</ul>
+
+<p>You may have noticed that the above concepts are usually implemented in physics
+engines. We will not be implementing any physics in this article, but a good
+understanding of vectors is the first step towards implementing some physics.</p>
+
+<blockquote class="pull-right">
+  To use a pseudo-mathematical sort of definition, a vector is a
+  <em>direction</em> with a <em>magnitude</em>.
+</blockquote>
+
+<p>So, what is a vector? To use a pseudo-mathematical sort of definition, a vector
+is a <em>direction</em> with a <em>magnitude</em>. A vector can point in any direction. It
+can be up, down, left, right, towards the donut shop, north, south-south west,
+etc. Any direction you can point your finger is a valid direction for a 3D
+vector.  The other part of a vector, the magnitude, is the length or size of
+the vector.</p>
+
+<p>The easiest way to visualise a vector is to draw it. Vectors are typically
+drawn as arrows. The arrow head tells you the direction of the vector, and the
+length of the arrow is the magnitude. The illustrations in this article will be
+of 2D vectors, but the theory applies to both 2D and 3D vectors.</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/visual_rep_of_vector.gif">
+  </figure>
+</p>
+
+<p>Below are a few examples of vectors used to represent different concepts.</p>
+
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Direction</th>
+      <th>Magnitude</th>
+      <th>Represents</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5km north</td>
+      <td>North</td>
+      <td>5km</td>
+      <td>Location</td>
+    </tr>
+    <tr>
+      <td>10cm above your head</td>
+      <td>Up (above your head)</td>
+      <td>10cm</td>
+      <td>Location</td>
+    </tr>
+    <tr>
+      <td>Driving at 50km/hour towards the lake</td>
+      <td>Towards the lake</td>
+      <td>50km/hour</td>
+      <td>Velocity</td>
+    </tr>
+    <tr>
+      <td>Earth's gravity pulls at 9.8m/s<sup>2</sup>
+</td>
+      <td>Towards the earth's center of mass</td>
+      <td>9.8m/s<sup>2</sup>
+</td>
+      <td>Acceleration</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote class="pull-right">
+  When it comes to programming, a vector is just an array of numbers. Each
+  number is a "dimension" of the vector. For example, a
+  three-dimensional (3D) vector is an array of three numbers.
+</blockquote>
+
+<p>When it comes to programming, a vector is just an array of numbers. Each number
+is a "dimension" of the vector. For example, a three-dimensional (3D) vector is
+an array of three numbers, a 2D vector is an array of two numbers, and so on.
+Because we're working in 3D, we will mostly be dealing with 3D vectors, but we
+will also need 4D vectors in some situations. Whenever I say "vector," I mean a
+3D vector. We are using GLM as our vector math library, so the 2D, 3D, and 4D
+vector types are <code>glm::vec2</code>, <code>glm::vec3</code>, and <code>glm::vec4</code>, respectively.</p>
+
+<blockquote class="pull-right">
+  The three dimensions of a 3D vector are the X, Y, and Z values.
+</blockquote>
+
+<p>It is easy to see how a 3D vector is used to represent a vertex, a coordinate,
+or a position. The three dimensions of a 3D vector are the X, Y, and Z values.
+When a vector represents a position, the direction and magnitude are measured
+from the origin (coordinate (0,0,0)). For example, if an object has the XYZ
+coordinate of (0,2,0), then the magnitude is 2, and the direction is "up the Y
+axis."</p>
+
+<h3>Vector Negation</h3>
+
+<blockquote class="pull-right">
+  When you negate a vector the magnitude stays the same, but the direction
+  becomes the opposite of what it used to be.
+</blockquote>
+
+<p>When you negate a vector – that is, when you make a vector negative
+– the magnitude stays the same, but the direction becomes the opposite of
+what it used to be.</p>
+
+<p>For example:</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/vector_negation.gif">
+    <figcaption>
+      A = 5km north<br>
+      -A = 5km south
+    </figcaption>
+  </figure>
+</p>
+
+<p>We will be using vector negation to calculate the direction to the left of the
+camera, based on the direction to the right. Something like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">rightDirection</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">right</span><span class="p">();</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">leftDirection</span> <span class="o">=</span> <span class="o">-</span><span class="n">rightDirection</span><span class="p">;</span> <span class="c1">//vector negation</span>
+</code></pre></div></div>
+
+<h3>Scalar Multiplication</h3>
+
+<blockquote class="pull-right">
+  When you multiply a vector by a single number, the result is a new vector
+  with the same direction, but the magnitude has been multiplied by the single
+  number.
+</blockquote>
+
+<p>When you multiply a vector by a single number, the result is a new vector with
+the same direction, but the magnitude has been multiplied by the single number.
+The single number is called a "scalar," which is why this is called "scalar
+multiplication."</p>
+
+<p>For example:</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/scalar_mult.gif">
+    <figcaption>
+      A = 5km north<br>
+      0.5 × A = 2.5km north<br>
+      2 × A = 10km north
+    </figcaption>
+  </figure>
+</p>
+
+<p>We will be using scalar multiplication to calculate the <a href="http://en.wikipedia.org/wiki/Displacement_(vector)">displacement</a> of the
+cameras position based on the "move speed" of the camera – something like
+this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">float</span> <span class="n">moveSpeed</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="c1">//units per second</span>
+<span class="kt">float</span> <span class="n">distanceMoved</span> <span class="o">=</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">secondsElapsed</span><span class="p">;</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">forwardDirection</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">();</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">displacement</span> <span class="o">=</span> <span class="n">distanceMoved</span> <span class="o">*</span> <span class="n">forwardDirection</span><span class="p">;</span> <span class="c1">//scalar multiplication</span>
+</code></pre></div></div>
+
+<h3>Vector Addition</h3>
+
+<p>Vector addition is most easily understood by looking at a graphical
+representation in 2D. To add vectors together, place them head (arrow end) to
+tail (non-arrow end). Order is not important. The result of the addition is: a
+vector from the tail of the first vector to the head of the last vector.</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/modern-opengl-04/vector-addition.gif">
+  </figure>
+</p>
+
+<p>Notice how the magnitude (length) and direction of the vectors never changes,
+even though they appear in different positions. Remember that vectors have a
+direction and a magnitude <em>only</em>. They don't have a start point, so they can be
+visually represented at different positions and still be identical.</p>
+
+<p>For example:</p>
+
+<pre><code>A = 1km north
+B = 1km east
+A + B = 1.41km northeast
+</code></pre>
+
+<p>Vector subtraction is the same as adding a negative vector, for example:</p>
+
+<pre><code>A = 1km north
+B = 1km east
+A - B = 1.41km northwest
+A + (-B) = 1.41km northwest
+</code></pre>
+
+<p>We will be using vector addition to calculate the new position of the camera,
+after it has been displaced (moved). Something like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">displacement</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">()</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">secondsElapsed</span><span class="p">;</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">oldPosition</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">position</span><span class="p">();</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">newPosition</span> <span class="o">=</span> <span class="n">oldPosition</span> <span class="o">+</span> <span class="n">displacement</span><span class="p">;</span> <span class="c1">//vector addition</span>
+<span class="n">gCamera</span><span class="p">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">newPosition</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3>Unit Vectors</h3>
+
+<blockquote class="pull-right">
+  Unit vectors are vectors with a magnitude equal to one. They are often used
+  to represent a direction.
+</blockquote>
+
+<p>Unit vectors are vectors with a magnitude equal to one. They are often used to
+represent a direction.</p>
+
+<p>It doesn't really matter what the magnitude is when a vector is only used to
+represent a direction. However, if the magnitude is equal to one, it allows us
+to do calculations more easily.</p>
+
+<p>When you perform scalar multiplication on a unit vector, the direction stays
+the same, but the magnitude will be equal to the scalar. So if you multiply a
+unit vector by five, then the magnitude of the resulting vector is also five.
+If you multiply by 123, the magnitude will be 123. It basically allows us to
+set the exact magnitude of a vector, without affecting the direction.</p>
+
+<p>This allows us to do things like moving the camera 12 units to the left. We
+take the unit vector for the left direction, set the magnitude to 12 using
+scalar multiplication, then use that to calculate the new position. The code
+would look something like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// `gCamera.right()` returns a unit vector, therefore `leftDirection` will also be a unit vector.</span>
+<span class="c1">// Negation only affects the direction, not the magnitude.</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">leftDirection</span> <span class="o">=</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">right</span><span class="p">();</span>
+<span class="c1">//`displacement` will have a magnitude of 12</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">displacement</span> <span class="o">=</span> <span class="n">leftDirection</span> <span class="o">*</span> <span class="mi">12</span><span class="p">;</span>
+<span class="c1">//`newPosition` will be 12 units to the left of `oldPosition`</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">newPosition</span> <span class="o">=</span> <span class="n">oldPosition</span> <span class="o">+</span> <span class="n">displacement</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Any vector can be turned into a unit vector. This operation is called
+<em>normalisation</em>. This is how to normalise a vector using GLM:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">someRandomVector</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="mi">456</span><span class="p">,</span><span class="mi">789</span><span class="p">);</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">unitVector</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">someRandomVector</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2>The tdogl::Camera Class</h2>
+
+<p>Congratulations if you've made it this far! You now understand enough about
+vectors to get into the code.</p>
+
+<p>The <a href="https://github.com/tomdalling/opengl-series/blob/master/source/04_camera/source/tdogl/Camera.h">interface for the <code>tdogl::Camera</code> class</a> is available <a href="https://github.com/tomdalling/opengl-series/blob/master/source/04_camera/source/tdogl/Camera.h">here</a>,
+and the implementation is <a href="https://github.com/tomdalling/opengl-series/blob/master/source/04_camera/source/tdogl/Camera.cpp">here</a>.</p>
+
+<p>As we learnt in the previous article, a camera in OpenGL can be represented as
+a matrix. The purpose of the <code>tdogl::Camera</code> class is to create this matrix
+based on a bunch of attributes, such as:</p>
+
+<ul>
+  <li>Camera position</li>
+  <li>Camera orientation (direction)</li>
+  <li>Zoom (field of view)</li>
+  <li>Maximum and minimum viewing distances (near and far planes)</li>
+  <li>The aspect ratio of the viewport/window</li>
+</ul>
+
+<p>There are setters and getters for each of the attributes above. These
+attributes were explained in the previous article.</p>
+
+<p>Let's look at the <code>matrix</code> and <code>orientation</code> methods to see how all of these
+attributes are combined into a single matrix.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">Camera</span><span class="o">::</span><span class="n">matrix</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">perspective</span><span class="p">(</span><span class="n">_fieldOfView</span><span class="p">,</span> <span class="n">_viewportAspectRatio</span><span class="p">,</span> <span class="n">_nearPlane</span><span class="p">,</span> <span class="n">_farPlane</span><span class="p">);</span>
+    <span class="n">camera</span> <span class="o">*=</span> <span class="n">orientation</span><span class="p">();</span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">translate</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="o">-</span><span class="n">_position</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">camera</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">Camera</span><span class="o">::</span><span class="n">orientation</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">orientation</span><span class="p">;</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">rotate</span><span class="p">(</span><span class="n">orientation</span><span class="p">,</span> <span class="n">_verticalAngle</span><span class="p">,</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">rotate</span><span class="p">(</span><span class="n">orientation</span><span class="p">,</span> <span class="n">_horizontalAngle</span><span class="p">,</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">orientation</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As you can see, the final camera matrix is a combination of four different
+transformations. In order, the transformations are:</p>
+
+<ul>
+  <li>Translate, based on the position of the camera</li>
+  <li>Rotate, based on the horizontal (left/right) angle of the camera</li>
+  <li>Rotate, based on the vertical (up/down) angle of the camera</li>
+  <li>Perspective, based on the field of view, near plane, far plane, and aspect ratio.</li>
+</ul>
+
+<p>If the order looks reversed to you, then remember that matrix multiplication
+works from right to left – or, in the code above, bottom to top.</p>
+
+<p>Notice that the translation uses the <em>negated</em> position of the camera. Again,
+remember the previous article, where it explains that instead of moving the
+camera forward we would pull the whole 3D scene backward. The vector negation
+will reverse the direction, so "forward" will become "backward."</p>
+
+<p>The <code>tdogl::Camera</code> class also has methods that return directions as unit
+vectors: <code>up</code>, <code>right</code> and <code>forward</code>. We need to know these directions in order
+to move the camera with the keyboard.</p>
+
+<h2>Inverting the Camera Orientation Matrix</h2>
+
+<p>Let's have a look at the implementation of the <code>tdogl::Camera::up</code> method,
+because it contains two things that we haven't come across before.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">Camera</span><span class="o">::</span><span class="n">up</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span> <span class="n">up</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">inverse</span><span class="p">(</span><span class="n">orientation</span><span class="p">())</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="n">up</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote class="pull-right">
+  An inverse matrix is a matrix that does the *exact opposite* of another
+  matrix, which means it can <em>undo</em> the transformation that the other
+  matrix produces.
+</blockquote>
+
+<p>The first thing we will look at is the use of <code>glm::inverse</code>. From the last
+article, we know that matrices transform coordinates. In certain situations, we
+also want to "untransform" coordinates. That is, we want to take a transformed
+coordinate and calculate what it used to be, before it was transformed by
+matrix multiplication. To do this, we need to calculate the <em>inverse</em> of the
+matrix. An inverse matrix is a matrix that does the <em>exact opposite</em> of another
+matrix, which means it can <em>undo</em> the transformation that the other matrix
+produces. For example, if matrix <code>A</code> rotates 90° around the Y axis, then
+the inverse of matrix <code>A</code> will rotate <strong>-</strong>90° around the Y axis.</p>
+
+<p>When the direction of the camera changes, so does the "up" direction. For
+example, imagine that there is an arrow pointing out of the top of your head.
+If you rotate your head to look down at the ground, then the arrow tilts
+forward. If you rotate your head to look up at the sky, the arrow tilts
+backwards. If you look straight ahead, then your head is completely
+"unrotated," so the arrow points directly upwards. The way we calculate the up
+direction of the camera is by taking the "directly upwards" unit vector (0,1,0)
+and "unrotate" it by using the inverse of the camera's orientation matrix. Or,
+to explain it differently, the up direction is always (0,1,0) <em>after</em> the
+camera rotation has been applied, so we multiply (0,1,0) by the inverse
+rotation, which gives us the up direction <em>before</em> the camera rotation was
+applied.</p>
+
+<p>(0,1,0) is a unit vector, and when you rotate a unit vector the result will
+still be a unit vector. If the result was <em>not</em> a unit vector, we would have to
+use <code>glm::normalize</code> on the return value.</p>
+
+<p>The same trick is used to calculate the <code>forward</code> and <code>right</code> directions of the
+camera.</p>
+
+<p>You may have noticed that it uses a 4D vector – a <code>glm::vec4</code>. As explained in
+the last article, 4x4 matrices (<code>glm::mat4</code>) require 4D vectors for matrix
+multiplication – using a <code>glm::vec3</code> will result in a compile error. The
+way we get around this is by turning the 3D vector (0,1,0) into the 4D vector
+(0,1,0,1), then we do the matrix multiplication, then we convert the 4D vector
+back into 3D before returning it.</p>
+
+<h2>Integrating the tdogl::Camera Class</h2>
+
+<p>Now we are ready to actually <em>use</em> the <code>tdogl::Camera</code> class.</p>
+
+<p>In the previous article, we had separate shader variables for the projection
+matrix and the camera matrix. In this article, <code>tdogl::Camera</code> combines both
+matrices, so let's remove the <code>projection</code> shader variable and just use the
+<code>camera</code> variable. This is the updated vertex shader:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
+</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">camera</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">model</span><span class="p">;</span>
+
+<span class="k">in</span> <span class="kt">vec3</span> <span class="n">vert</span><span class="p">;</span>
+<span class="k">in</span> <span class="kt">vec2</span> <span class="n">vertTexCoord</span><span class="p">;</span>
+
+<span class="k">out</span> <span class="kt">vec2</span> <span class="n">fragTexCoord</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Pass the tex coord straight through to the fragment shader</span>
+    <span class="n">fragTexCoord</span> <span class="o">=</span> <span class="n">vertTexCoord</span><span class="p">;</span>
+    
+    <span class="c1">// Apply all matrix transformations to vert</span>
+    <span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">camera</span> <span class="o">*</span> <span class="n">model</span> <span class="o">*</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we will integrate <code>tdogl::Camera</code> into the code in <code>main.cpp</code>.
+Let's include the class header:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "tdogl/Camera.h"
+</span></code></pre></div></div>
+
+<p>And declare the camera as a global:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tdogl</span><span class="o">::</span><span class="n">Camera</span> <span class="n">gCamera</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>In the previous article, the camera and projection matrices never changed, so
+we set them once in the <code>LoadShaders</code> function. The camera matrix will change
+in this article, because we will be controlling it with the mouse and keyboard,
+so we will have to set the camera matrix every frame inside the <code>Render</code>
+function. First, let's remove the old code from <code>LoadShaders</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">LoadShaders</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">tdogl</span><span class="o">::</span><span class="n">Shader</span><span class="o">&gt;</span> <span class="n">shaders</span><span class="p">;</span>
+    <span class="n">shaders</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tdogl</span><span class="o">::</span><span class="n">Shader</span><span class="o">::</span><span class="n">shaderFromFile</span><span class="p">(</span><span class="n">ResourcePath</span><span class="p">(</span><span class="s">"vertex-shader.txt"</span><span class="p">),</span> <span class="n">GL_VERTEX_SHADER</span><span class="p">));</span>
+    <span class="n">shaders</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tdogl</span><span class="o">::</span><span class="n">Shader</span><span class="o">::</span><span class="n">shaderFromFile</span><span class="p">(</span><span class="n">ResourcePath</span><span class="p">(</span><span class="s">"fragment-shader.txt"</span><span class="p">),</span> <span class="n">GL_FRAGMENT_SHADER</span><span class="p">));</span>
+    <span class="n">gProgram</span> <span class="o">=</span> <span class="k">new</span> <span class="n">tdogl</span><span class="o">::</span><span class="n">Program</span><span class="p">(</span><span class="n">shaders</span><span class="p">);</span>
+
+    <span class="c1">// the commented-out code below was removed</span>
+    <span class="cm">/* 
+    gProgram-&gt;use();
+
+    //set the "projection" uniform in the vertex shader, because it's not going to change
+    glm::mat4 projection = glm::perspective&lt;float&gt;(50.0, SCREEN_SIZE.x/SCREEN_SIZE.y, 0.1, 10.0);
+    //glm::mat4 projection = glm::ortho&lt;float&gt;(-2, 2, -2, 2, 0.1, 10);
+    gProgram-&gt;setUniform("projection", projection);
+
+    //set the "camera" uniform in the vertex shader, because it's also not going to change
+    glm::mat4 camera = glm::lookAt(glm::vec3(3,3,3), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    gProgram-&gt;setUniform("camera", camera);
+
+    gProgram-&gt;stopUsing();
+    */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And let's set the <code>camera</code> shader variable inside of <code>Render</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// draws a single frame</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">Render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// clear everything</span>
+    <span class="n">glClearColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// black</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>
+    
+    <span class="c1">// bind the program (the shaders)</span>
+    <span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">use</span><span class="p">();</span>
+
+    <span class="c1">// set the "camera" uniform</span>
+    <span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">setUniform</span><span class="p">(</span><span class="s">"camera"</span><span class="p">,</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">matrix</span><span class="p">());</span>
+
+</code></pre></div></div>
+
+<p>The call to <code>gCamera.matrix()</code> returns a <code>glm::mat4</code>, and the <code>setUniform</code>
+method uses <code>glUniformMatrix4fv</code> to set the camera matrix uniform variable in
+the vertex shader.</p>
+
+<p>Let's set the initial position of the camera and the aspect ratio of the window
+inside of <code>AppMain</code>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
+<span class="n">gCamera</span><span class="p">.</span><span class="n">setViewportAspectRatio</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">SCREEN_SIZE</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>For all the other properties of the camera, we will just use the default
+values.</p>
+
+<p>If you run the program now, you should see the spinning cube that we made in
+the previous article. The last step is to make the camera controllable via the
+keyboard and mouse.</p>
+
+<h2>Keyboard Input</h2>
+
+<p>Let's do the keyboard controls first. Every time we update the scene, we will
+check if the 'W', 'A', 'S', or 'D' keys are down, and move the camera a little
+bit. The function <code>glfwGetKey</code> will return a boolean indicating whether a key
+is held down or not. The new <code>Update</code> function looks like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// update the scene based on the time elapsed since last update</span>
+<span class="kt">void</span> <span class="nf">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//rotate the cube</span>
+    <span class="k">const</span> <span class="n">GLfloat</span> <span class="n">degreesPerSecond</span> <span class="o">=</span> <span class="mf">180.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="n">gDegreesRotated</span> <span class="o">+=</span> <span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">degreesPerSecond</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">gDegreesRotated</span> <span class="o">&gt;</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">)</span> <span class="n">gDegreesRotated</span> <span class="o">-=</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">;</span>
+
+    <span class="c1">//move position of camera based on WASD keys</span>
+    <span class="k">const</span> <span class="kt">float</span> <span class="n">moveSpeed</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="c1">//units per second</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'S'</span><span class="p">)){</span>
+        <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'W'</span><span class="p">)){</span>
+        <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'A'</span><span class="p">)){</span>
+        <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">right</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'D'</span><span class="p">)){</span>
+        <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">right</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Rotating the cube is from the previous article, so we'll ignore that.</p>
+
+<p>Let's have a closer look at what happens when the <kbd>S</kbd> key is held
+down:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>There is a lot happening on that single line, so let's rewrite it to understand
+it better, in a new function called <code>MoveCameraBackwards</code>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//TODO: finish writing this function</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Backwards is a direction, so it will be represented as a unit vector. There is
+no method called <code>backward</code> in the camera class, but there is a method called
+<code>forward</code>. Backward is the opposite direction of forward, so if we negate the
+forward unit vector, we get the backward unit vector.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//`direction` is a unit vector, set to the "backwards" direction</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">();</span>
+
+    <span class="c1">//TODO: finish writing this function</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Next, we have to know how <em>far</em> to move the camera. We have the speed that the
+camera is moving, in the <code>moveSpeed</code> constant. We also have the amount of time
+that has elapsed since the last frame, in the argument <code>secondsElapsed</code> which
+comes from the <code>Update</code> function. Multiplying these two values will give us the
+total distance to move the camera.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//`direction` is a unit vector, set to the "backwards" direction</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forwards</span><span class="p">();</span>
+
+    <span class="c1">//`distance` is the total distance to move the camera</span>
+    <span class="kt">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">secondsElapsed</span><span class="p">;</span>
+
+    <span class="c1">//TODO: finish writing this function</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now that we know the distance and direction of the movement, we can make a
+displacement vector. The magnitude will be <code>distance</code>, and the direction comes
+from <code>direction</code>. Because <code>direction</code> is a unit vector, we can use scalar
+multiplication to set the magnitude.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//`direction` is a unit vector, set to the "backwards" direction</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forwards</span><span class="p">();</span> <span class="c1">//vector negation</span>
+
+    <span class="c1">//`distance` is the total distance to move the camera</span>
+    <span class="kt">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">secondsElapsed</span><span class="p">;</span>
+
+    <span class="c1">//`displacement` is a combination of `distance` and `direction`</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">displacement</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">*</span> <span class="n">direction</span><span class="p">;</span> <span class="c1">//scalar multiplication</span>
+
+    <span class="c1">//TODO: finish writing this function</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lastly, we have to move (a.k.a. displace) the original position of the camera.
+This is done by vector addition. The basic formula is <code>newPosition =
+oldPosition + displacement</code>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//`direction` is a unit vector, set to the "backwards" direction</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forwards</span><span class="p">();</span> <span class="c1">//vector negation</span>
+
+    <span class="c1">//`distance` is the total distance to move the camera</span>
+    <span class="kt">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">secondsElapsed</span><span class="p">;</span>
+
+    <span class="c1">//`displacement` is a combination of `distance` and `direction`</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">displacement</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">*</span> <span class="n">direction</span><span class="p">;</span> <span class="c1">//scalar multiplication</span>
+
+    <span class="c1">//change the position of the camera</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">oldPosition</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">position</span><span class="p">();</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">newPosition</span> <span class="o">=</span> <span class="n">oldPosition</span> <span class="o">+</span> <span class="n">displacement</span><span class="p">;</span> <span class="c1">//vector addition</span>
+    <span class="n">gCamera</span><span class="p">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">newPosition</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Done! The <code>MoveCameraBackwards</code> function does exactly the same thing as the
+single line:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>The <code>offsetPosition</code> method does the vector addition, and it takes a
+displacement vector as its argument. Let's keep using the single line instead
+of the <code>MoveCameraBackwards</code> function, because less code is better.</p>
+
+<p>All the other keys work in exactly the same way, except the direction is
+different. While we're at it, let's make the <kbd>Z</kbd> and <kbd>X</kbd> keys
+move the camera up and down.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'Z'</span><span class="p">)){</span>
+    <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">}</span> <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'X'</span><span class="p">)){</span>
+    <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice how it uses the vector (0,1,0) instead of <code>gCamera.up()</code>. Remember that
+the "up" direction will change depending on the direction that the camera
+looks. If the camera looks at the ground, the "up" direction will be tilted
+forwards. If the camera looks at the sky, the "up" direction will be tilted
+backwards. That's not exactly the behaviour that we want, so we use the
+"directly up" direction (0,1,0) instead, which does not depend on the direction
+that camera is looking.</p>
+
+<p>If you run the program now, you can use the <kbd>W</kbd>, <kbd>A</kbd>,
+<kbd>S</kbd>, <kbd>D</kbd>, <kbd>X</kbd>, and <kbd>Z</kbd> keys to move
+forward, left, backwards, right, up and down, respectively. You still can't
+change the direction that the camera is looking, because that will be
+controlled by the mouse.</p>
+
+<h2>Mouse Input</h2>
+
+<p>At the moment, our window doesn't capture the mouse. That is, you can still see
+the mouse moving over the top of the window. We want the mouse to be invisible,
+and we also don't want it to go outside of the window while we're using it to
+look around. To achieve this, we have to change some of the GLFW settings.</p>
+
+<p>Before we capture the mouse, let's make the escape key quit the program. We
+won't be able to click the close button anymore, because the mouse will be
+invisible and can't leave the window. Let's do this at the bottom of the main
+loop inside <code>AppMain</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// run while the window is open</span>
+<span class="kt">double</span> <span class="n">lastTime</span> <span class="o">=</span> <span class="n">glfwGetTime</span><span class="p">();</span>
+<span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">glfwWindowShouldClose</span><span class="p">(</span><span class="n">gWindow</span><span class="p">)){</span>
+    <span class="c1">// process pending events</span>
+    <span class="n">glfwPollEvents</span><span class="p">();</span>
+
+    <span class="c1">// update the scene based on the time elapsed since last update</span>
+    <span class="kt">double</span> <span class="n">thisTime</span> <span class="o">=</span> <span class="n">glfwGetTime</span><span class="p">();</span>
+    <span class="n">Update</span><span class="p">((</span><span class="kt">float</span><span class="p">)(</span><span class="n">thisTime</span> <span class="o">-</span> <span class="n">lastTime</span><span class="p">));</span>
+    <span class="n">lastTime</span> <span class="o">=</span> <span class="n">thisTime</span><span class="p">;</span>
+    
+    <span class="c1">// draw one frame</span>
+    <span class="n">Render</span><span class="p">();</span>
+
+    <span class="c1">// check for errors</span>
+    <span class="n">GLenum</span> <span class="n">error</span> <span class="o">=</span> <span class="n">glGetError</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="n">GL_NO_ERROR</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">"OpenGL Error "</span> <span class="o">&lt;&lt;</span> <span class="n">error</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">//exit program if escape key is pressed</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="n">GLFW_KEY_ESCAPE</span><span class="p">))</span>
+        <span class="n">glfwSetWindowShouldClose</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we can capture the mouse. Just after we open the window with
+<code>glfwCreateWindow</code>, do this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// GLFW settings</span>
+<span class="n">glfwSetInputMode</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="n">GLFW_CURSOR</span><span class="p">,</span> <span class="n">GLFW_CURSOR_DISABLED</span><span class="p">);</span>
+<span class="n">glfwSetCursorPos</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This makes the mouse invisible and moves it to the pixel coordinate $$(0,0)$$.
+Inside <code>Update</code> we will get the position of the mouse, update the camera, then
+set the mouse back to $$(0,0)$$ again. This is an easy way to see how far the mouse
+has moved every frame, while also stopping the mouse from leaving the window.
+Add this code to the bottom of the <code>Update</code> function:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//rotate camera based on mouse movement</span>
+<span class="k">const</span> <span class="kt">float</span> <span class="n">mouseSensitivity</span> <span class="o">=</span> <span class="mf">0.1</span><span class="n">f</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">mouseX</span><span class="p">,</span> <span class="n">mouseY</span><span class="p">;</span>
+<span class="n">glfwGetCursorPos</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mouseX</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mouseY</span><span class="p">);</span>
+<span class="n">gCamera</span><span class="p">.</span><span class="n">offsetOrientation</span><span class="p">(</span><span class="n">mouseSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">mouseY</span><span class="p">,</span> <span class="n">mouseSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">mouseX</span><span class="p">);</span>
+<span class="n">glfwSetCursorPos</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">//reset the mouse, so it doesn't go out of the window</span>
+</code></pre></div></div>
+
+<p>The mouse coordinates are in pixels, but the camera direction is based on two
+angles. This is why we use the <code>mouseSensitivity</code> constant to convert pixels to
+angles. The larger the mouse sensitivity, the faster the camera direction
+changes. The smaller the sensitivity, the slower the direction changes. With
+the sensitivity set to <code>0.1f</code>, the camera will rotate 1° for every 10 pixels
+of mouse movement.</p>
+
+<p>The <code>offsetOrientation</code> method is sort of like the <code>offsetPosition</code> method we
+saw earlier. It will displace the direction of the camera by updating the
+horizontal and vertical angles.</p>
+
+<p>Ok! We are basically finished. If you run the program now, you can fly around
+and look in <a href="http://en.wikipedia.org/wiki/Gimbal_lock">almost</a> any direction. The animated rotation of the cube can be
+a bit disorientating while flying around, so you might want to disable that.</p>
+
+<h2>Controlling Field of View With Mouse Wheel</h2>
+
+<p>As the icing on the cake, let's make scrolling the mouse/touchpad affect
+the camera zoom by changing the field of view. Field of view was explained in
+the previous article.</p>
+
+<p>We will use the same trick that we used for the mouse position, and reset the
+scroll amount to zero every frame. First, we make a global that holds the
+scroll amount:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">gScrollY</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>To receive scroll input using GLFW, we first have to create a callback:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// records how far the y axis has been scrolled</span>
+<span class="kt">void</span> <span class="nf">OnScroll</span><span class="p">(</span><span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span><span class="p">,</span> <span class="kt">double</span> <span class="n">deltaX</span><span class="p">,</span> <span class="kt">double</span> <span class="n">deltaY</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">gScrollY</span> <span class="o">+=</span> <span class="n">deltaY</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then we register the callback with GLFW in <code>AppMain</code> like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glfwSetScrollCallback</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="n">OnScroll</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now, for every frame we render, we use the <code>gScrollY</code> value to change the field of view.
+This happens at the bottom of the <code>Update</code> function:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">float</span> <span class="n">zoomSensitivity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="n">f</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">fieldOfView</span><span class="p">()</span> <span class="o">+</span> <span class="n">zoomSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">gScrollY</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&gt;</span> <span class="mf">130.0</span><span class="n">f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">130.0</span><span class="n">f</span><span class="p">;</span>
+<span class="n">gCamera</span><span class="p">.</span><span class="n">setFieldOfView</span><span class="p">(</span><span class="n">fieldOfView</span><span class="p">);</span>
+<span class="n">gScrollY</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The <code>zoomSensitivity</code> constant works the same way as the <code>mouseSensitivity</code>
+constant. The field of view can be anything between 0° and 180°, but if
+you get too close to those limits then the 3D scene looks very weird, so we
+restrict the value to between 5° and 130°. Just like we did with the
+mouse position, we set <code>gScrollY = 0</code> after every frame.</p>
+
+<h2>Future Article Sneak Peek</h2>
+
+<p>In the next article, we will restructure the code into a very primitive
+"engine." We will split the code into assets (a.k.a. resources) and instances,
+like a typical 3D engine, and make a 3D scene out of multiple,
+slightly-different wooden crates.</p>
+
+<h2>Additional Resources</h2>
+
+<ul>
+  <li>
+<a href="http://www.arcsynthesis.org/gltut/Basics/Introduction.html">The vector math chapter of Learning Modern 3D Graphics Programming</a> by
+Jason L. McKesson</li>
+  <li><a href="http://www.wildbunny.co.uk/blog/vector-maths-a-primer-for-games-programmers/">Vector maths – a primer for games programmers</a></li>
+  <li>
+<a href="http://www.matrix44.net/cms/notes/opengl-3d-graphics/basic-3d-math-vectors">Basic 3D Math: Vectors</a> by Egon Rath</li>
+  <li>
+<a href="http://en.wikipedia.org/wiki/Euclidean_vector">Wikipedia article on vectors</a>, which isn't very beginner-friendly</li>
+  <li>The GLFW <a href="http://www.glfw.org/docs/3.0.4/pages.html">guides</a> and <a href="http://www.glfw.org/docs/3.0.4/modules.html">references</a>.</li>
+  <li>If you know of any beginner-friendly articles about vectors, please send
+them to me so that I can add them here.</li>
+</ul>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p><strong>Enjoy this post?</strong></p>
+      <a href="/feed/" class="btn btn-success">
+        Subscribe via RSS
+      </a>
+      <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" id="disqus_script">
+      var disqus_shortname = "tomdalling";
+      var disqus_identifier = "989 http://tomdalling.com/?p=989";
+      var disqus_title = "Modern OpenGL 04 - Cameras, Vectors & Input";
+      var disqus_url = "https://www.tomdalling.com/blog/modern-opengl/04-cameras-vectors-and-input/";
+
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/fizzbuzz-in-too-much-detail/">FizzBuzz In Too Much Detail</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/">Making Fruity Bat (a Flappy Bird clone) in Ruby</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/">Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/opengl-in-2014/">OpenGL in 2014</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/category/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/category/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/category/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/category/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/category/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/category/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-design/" class="category">Software Design</a>
+                (<span class="post-count">9</span>
+                <a class="feed" href="/blog/category/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

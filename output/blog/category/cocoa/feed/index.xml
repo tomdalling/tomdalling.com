@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+  <channel>
+    <title>Tom Dalling</title>
+    <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
+    <atom:link href="https://www.tomdalling.com/blog/category/cocoa/feed/" rel="self" type="application/rss+xml"/>
+    <description>Web &amp; software developer</description>
+    <language>en</language>
+    <generator>Tom Dalling's fingertips</generator>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>An In-depth Look At Manual Memory Management In Objective-C</title>
+      <link>https://www.tomdalling.com/blog/cocoa/an-in-depth-look-at-manual-memory-management-in-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>It feels like fleets of new developers dash themselves upon the rocky shores of
+Objective-C memory management every day on StackOverflow. I can't bear to write
+the same answers over and over again, so this article will be my final,
+unabridged explanation of: <code>retain</code>, <code>release</code>, <code>autorelease</code>, <code>alloc</code>,
+<code>dealloc</code>, <code>copy</code>, and <code>NSAutoreleasePool</code>. There will be some rules to
+memorize, but we will also take a journey under the hood for a deeper
+understanding.</p>
+
+<p>This article is intended for people who are new to Objective-C, or who never
+fully learnt how manual reference counting works. It does assume that you have
+some programming experience, possibly in another language. If you are a
+beginner programmer and Objective-C is your first language, I will try to keep
+the explanations clear, but it may become confusing the more in-depth we get.</p>
+
+<p>We will be covering:</p>
+
+<ul>
+  <li>A Quick Mention Of ARC And Garbage Collection</li>
+  <li>Coming From C/C++</li>
+  <li>Coming From a Garbage Collected Language (Java, Python, C#, etc.)</li>
+  <li>What Is Reference Counting?</li>
+  <li>How Does Reference Counting Work In Objective-C?</li>
+  <li>
+<code>NSAutoreleasePool</code> And <code>autorelease</code>
+</li>
+  <li>Common Mistakes</li>
+</ul>
+
+<p>If something is not explained, or not explained very well, post a question in
+the comments and I'll expand the article to cover it.</p>
+]]></description>
+      <pubDate>Sat, 26 May 2012 00:00:00 -0000</pubDate>
+      <category><![CDATA[Cocoa]]></category>
+      <guid isPermaLink="false">608 http://tomdalling.com/blog/?p=608</guid>
+    </item>
+    <item>
+      <title>Gotchas With Grand Central Dispatch (libdispatch) And Blocks</title>
+      <link>https://www.tomdalling.com/blog/cocoa/gotchas-with-grand-central-dispatch-libdispatch-and-blocks/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch" title="Grand Central Dispatch">GCD</a> is a nice replacement for the old
+<code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
+<code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods
+and <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/NSOperation_class/Reference/Reference.html">NSOperation</a>. It's also a nice supplement to <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/nsthread_Class/Reference/Reference.html">NSThread</a>.</p>
+
+<p>However, I think it was over-hyped a little bit by Apple when it was first
+released. You probably have all these random deadlocks and race conditions and
+stuff whenever you use multiple threads, but GCD is <em>soooooo good</em> that you
+don't have to worry about that anymore. Just use these magic blocks.</p>
+
+<p>The problem is that concurrent programming is notoriously hard to get right.
+Maybe GCD helps to make it easier, but It doesn't solve all of your problems.
+In fact, GCD and blocks introduce some problems of their own. This article will
+focus on some of those problems.</p>
+]]></description>
+      <pubDate>Fri, 02 Mar 2012 00:00:00 -0000</pubDate>
+      <category><![CDATA[Cocoa]]></category>
+      <guid isPermaLink="false">563 http://tomdalling.com/blog/?p=563</guid>
+    </item>
+    <item>
+      <title>How Cocoa Bindings Work (via KVC and KVO)</title>
+      <link>https://www.tomdalling.com/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
+have an understanding of the underlying concepts, bindings aren't too hard. In
+this article, I'm going to explain the concepts behind bindings from the ground
+up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
+and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
+]]></description>
+      <pubDate>Fri, 05 Nov 2010 00:00:00 -0000</pubDate>
+      <category><![CDATA[Cocoa]]></category>
+      <guid isPermaLink="false">490 http://tomdalling.com/blog/?p=490</guid>
+    </item>
+    <item>
+      <title>Why performSelector: Is More Dangerous Than I Thought</title>
+      <link>https://www.tomdalling.com/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
+test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
+about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
+it dawned on me that <code>performSelector:</code> <strong>was corrupting memory</strong>. It was
+particularly hard to track down because the crash would happen a couple of
+lines <em>after</em> the call to <code>performSelector:</code>, when the corrupted memory was
+actually accessed.</p>
+
+<p>I've never had a problem with <code>performSelector:</code> before, but this time I was
+using it a little differently. The return value of the selector was an
+<code>NSRect</code>.</p>
+
+<p>Now for the gory explanation.</p>
+]]></description>
+      <pubDate>Fri, 14 May 2010 00:00:00 -0000</pubDate>
+      <category><![CDATA[Cocoa]]></category>
+      <guid isPermaLink="false">425 http://tomdalling.com/?p=425</guid>
+    </item>
+    <item>
+      <title>Implementing Your Own Cocoa Bindings</title>
+      <link>https://www.tomdalling.com/blog/cocoa/implementing-your-own-cocoa-bindings/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>This post is the result of investigation into a <a href="http://stackoverflow.com/questions/1169097/can-you-manually-implement-cocoa-bindings" title="Can you manually implement Cocoa bindings?">stackoverflow.com question of
+mine</a>.</p>
+
+<p>So, you've created a spiffy <code>NSView</code> of your own, and have decided to make it
+compatible with bindings. Great! So you go and read the <a href="http://developer.apple.com/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/HowDoBindingsWork.html" title="How Do Bindings Work?">documentation</a>, and
+you look at mmalc's GraphicsBindings examples. You override
+<code>bind:toObject:withKeyPath:options:</code> and everything works. But wait! Why isn't
+the <code>NSWindowController</code> ever being deallocated anymore?</p>
+
+<p>Now you've got a nasty retain cycle on your hands. You do a little research and
+discover that not only do <a href="http://www.cocoabuilder.com/archive/message/cocoa/2004/6/12/109600" title="Retain cycle problem with bindings &amp; NSWindowController">other people have the same problem</a>, but even
+<a href="http://theocacao.com/document.page/18" title="Bindings and File's Owner">Apple's bindings used to have it</a> a few years ago. How did Apple fix the
+problem? With the magic, undocumented class <code>NSAutounbinder</code>, which <a href="http://www.google.com/search?q=nsautounbinder">nobody
+seems to know much about</a>.</p>
+
+<p>Other people will tell you that you don't need to override
+<code>bind:toObject:withKeyPath:options:</code> and that bindings work automatically. This
+is only a half truth. <code>NSObject</code> does provide an implementation of
+<code>bind:toObject:withKeyPath:options:</code>, but it only half works. Using the default
+<code>NSObject</code> implementation, changes in the model will update the view, but the
+reverse is not true. When the bound property of the view changes, nothing
+happens to the model.</p>
+
+<p>So, what is a Cocoa developer to do? I'll explain how to implement your own
+bindings that work exactly like Apple's, with no retain cycles. <del>I haven't
+found this solution anywhere else, so as far as I know, I'm the discoverer. I
+feel so special.</del> It has been <a href="http://www.cocoabuilder.com/archive/message/cocoa/2008/6/30/211682" title="Why aren't my bindings firing?">mentioned before</a> at least once. The solution
+is hard to find, though.</p>
+]]></description>
+      <pubDate>Fri, 31 Jul 2009 00:00:00 -0000</pubDate>
+      <category><![CDATA[Cocoa]]></category>
+      <guid isPermaLink="false">119 http://tomdalling.com/?p=119</guid>
+    </item>
+  </channel>
+</rss>

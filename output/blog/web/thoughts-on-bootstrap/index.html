@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thoughts On Bootstrap — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="/blog/web/thoughts-on-bootstrap/">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/web/thoughts-on-bootstrap/">Thoughts On Bootstrap</a></h1>
+    <small class="meta">
+      <span class="post-date">04 Nov, 2012</span>
+      —
+      Category: <a class="category" href="/blog/category/web/">Web</a>
+    </small>
+    
+  </header>
+
+  <div class="post-content">
+<p>You may have noticed that I redesigned the site recently. The new design uses
+<a href="http://getbootstrap.com/">Boostrap</a>, mainly to make the site work better on tablets and phones. This
+post will be about the good and the bad parts of my recent encounter with
+Bootstrap.</p>
+
+<p>Bootstrap is basically a CSS and JavaScript framework that gives you
+nice-looking components such as buttons, menus, grid-based layout, etc. One of
+more interesting parts of Bootstrap is the responsive design functionality,
+which automatically rearranges and resizes the page to fit nicely on smaller
+screens, such as phones and tablets.</p>
+
+<!--more-->
+
+<h2>Not Your Usual "Web Framework"</h2>
+
+<p>For me, the term "web framework" conjures up nightmarish visions of shoddy,
+untested, tangled messes of PHP, CSS, and Javascript. However, while you could
+call Bootstrap a "web framework" of sorts, it is a very high quality project
+that doesn't deserve to be lumped into the same category. Bootstrap is
+currently the most popular project on github.</p>
+
+<h2>Build System For Flexibility</h2>
+
+<p>The typographic CSS in Bootstrap looks nice, but I found the default 14px font
+size too small. Thankfully, Bootstrap has a build system that takes parameters
+such as base font size into account. I set a larger base font size on the
+<a href="http://getbootstrap.com/customize/">customize page</a>, and downloaded a custom build without any hassles. As part
+of the build, the custom font size cascades through all the CSS rules so that
+everything gets proportionally bigger. The fact that it has a build system at
+all is great evidence of the project's quality.</p>
+
+<h2>Easy To Integrate</h2>
+
+<p>Getting started is as simple as including <code>bootstrap.js</code> and <code>bootstrap.css</code>,
+and add specific classes to your html elements. Want to turn a link into a
+nice-looking button? Just add <code>class="btn"</code>. That's all there is to it.</p>
+
+<h2>Lightweight</h2>
+
+<p>Everything claims to be "lightweight" these days, but bootstrap really is.
+Apart from the use of common CSS names, it's very unobtrusive. I was able to
+integrate it into a Wordpress theme without any problems. The hardest parts
+involved wrestling with Wordpress to make it spit out the HTML that I wanted.</p>
+
+<p>Think of Bootstrap as limited to the front end of a website. It will work with
+anything that can generate HTML, whether it's Wordpress, Ruby on Rails, or
+<a href="http://www.pylonsproject.org/">Pyramid</a>.</p>
+
+<h2>No CSS Namespace</h2>
+
+<p>I worry about conflicts in the CSS classes Bootstrap has chosen, because the
+names are too generic. For example, Bootstrap has CSS classes named
+<code>container</code>, <code>navbar</code>, <code>nav</code>, and <code>btn</code>. Chances are good that other projects
+use the exact same names, which will cause compatibility problems. Personally,
+I would like to see Bootstrap CSS classes namespaced with a <code>bs-</code> prefix to
+help avoid this, like <code>bs-container</code> or <code>bs-navbar</code>. A common prefix would also
+help developers to distinguish between classes that come from Bootstrap, and
+classes that don't.</p>
+
+<p>The beauty of having a build system is that theoretically you could add a
+"class prefix" parameter that can be prepended to all the classes. If you
+prefer the short names, then you make a build where "class prefix" is empty. If
+you want a namespace, then set "class prefix" to whatever you want.</p>
+
+<h2>Not-so-semantic HTML</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Semantic_HTML">Semantic HTML</a> purists may not like Bootstrap. It's not that Bootstrap is
+opposed to semantic HTML. It doesn't use tables for layout, or anything like
+that. It's just that sometimes semantic correctness is sacrificed in the name
+of appearance and functionality. If appearance is King, then semantic HTML is
+probably 3<sup>rd</sup> or 4<sup>th</sup> in line to the throne.</p>
+
+<p>In purely semantic HTML, you never change the HTML to make it look different.
+If you want to change the appearance, that is done in CSS only. If you need to
+add CSS classes to your HTML, then they should describe what the element <em>is</em>
+not what it <em>looks like</em>. For example, if you want all your "read more" links
+to look like cool buttons, then you set <code>class="read-more"</code> in your HTML, and
+then you alter the appearance in CSS. In Bootstrap, if you want it to look like
+a button, you change the HTML and tell it to look like a button with
+<code>class="btn"</code>. In Bootstrap, instead of styling in CSS you end up adding a
+bunch of classes to the HTML, or even restructuring the HTML to turn it into a
+certain Bootstrap component.</p>
+
+<p>Historically, semantic correctness has swung from being ignored (<em>"just use 34
+tables to make it look right"</em>), to being taken too far (<em>"just write CSS to
+make 34 divs look like a table"</em>). Nowadays, I think we've come to a pragmatic
+middle ground where Bootstrap fits in nicely. It turns out that adding classes
+to the HTML is just a simpler solution.</p>
+
+<p>Update: Matt Polichette commented on using Bootstrap semantically:</p>
+
+<blockquote>
+  <p>Instead of just including the Bootstrap CSS file, you can use the LESS files
+from github and then use LESS to apply Bootstrap styles onto your own class
+names. This is great for styling, though it doesn't always solve the problem
+for javascript.</p>
+</blockquote>
+
+<h2>Conclusion</h2>
+
+<p>Overall, I'm very happy with Bootstrap. I think I'll be using it in every site
+that I make from now on.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p><strong>Enjoy this post?</strong></p>
+      <a href="/feed/" class="btn btn-success">
+        Subscribe via RSS
+      </a>
+      <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" id="disqus_script">
+      var disqus_shortname = "tomdalling";
+      var disqus_identifier = "697 http://tomdalling.com/?p=697";
+      var disqus_title = "Thoughts On Bootstrap";
+      var disqus_url = "https://www.tomdalling.com/blog/web/thoughts-on-bootstrap/";
+
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/fizzbuzz-in-too-much-detail/">FizzBuzz In Too Much Detail</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/">Making Fruity Bat (a Flappy Bird clone) in Ruby</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/">Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/opengl-in-2014/">OpenGL in 2014</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/category/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/category/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/category/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/category/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/category/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/category/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-design/" class="category">Software Design</a>
+                (<span class="post-count">9</span>
+                <a class="feed" href="/blog/category/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/category/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/category/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+  <channel>
+    <title>Tom Dalling</title>
+    <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
+    <atom:link href="https://www.tomdalling.com/blog/category/coding-styleconventions/feed/" rel="self" type="application/rss+xml"/>
+    <description>Web &amp; software developer</description>
+    <language>en</language>
+    <generator>Tom Dalling's fingertips</generator>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>Why camelCaps Are Superior To_Underscores</title>
+      <link>https://www.tomdalling.com/blog/coding-styleconventions/why-camelcaps-are-superior-to_underscores/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>I've always preferred camel caps to underscores when it comes to naming
+conventions, but I've never really known why. Recently I've been writing a lot
+of Python, where the standard is to use underscores for most names, and now I
+realise why I don't like underscores. I hope to make my argument for camel caps
+objective — or, failing that, at least better than the mouth-frothing,
+religious reactions you normally get in these “X is better than Y”
+type of discussions.</p>
+]]></description>
+      <pubDate>Wed, 25 Jul 2012 00:00:00 -0000</pubDate>
+      <category><![CDATA[Coding Style/Conventions]]></category>
+      <guid isPermaLink="false">660 http://tomdalling.com/blog/?p=660</guid>
+    </item>
+    <item>
+      <title>For Those Who Have Never Used Objective-C</title>
+      <link>https://www.tomdalling.com/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>There is one feature of the Objective-C language that I really love: the method
+naming. Let me explain with an example.</p>
+
+<p>Here is a nasty call to a C function from the Win32 API that has 12 arguments:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hwnd</span> <span class="o">=</span> <span class="n">CreateWindowEx</span><span class="p">(</span><span class="n">WS_EX_LAYERED</span><span class="p">,</span>
+                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">),</span>
+                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"World"</span><span class="p">),</span>
+                      <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
+                      <span class="mi">10</span><span class="p">,</span> 
+                      <span class="mi">10</span><span class="p">,</span>
+                      <span class="mi">400</span><span class="p">,</span> 
+                      <span class="mi">400</span><span class="p">,</span>
+                      <span class="nb">NULL</span><span class="p">,</span> 
+                      <span class="nb">NULL</span><span class="p">,</span>
+                      <span class="n">hInstance</span><span class="p">,</span> 
+                      <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pick an argument, any argument. What does it do? You can probably guess a
+couple of them, but basically you're forced to look up the documentation. Sure,
+12 arguments is a bit excessive, but even three or for argument functions can
+be ambiguous. What if you're trying to understand a function call that is being
+passed three number literals as arguments? Even if you know the function,
+you'll probably have to look up the documentation just to remember the order of
+the arguments.</p>
+
+<p>Now for the equivalent in Objective C:</p>
+]]></description>
+      <pubDate>Wed, 28 Apr 2010 00:00:00 -0000</pubDate>
+      <category><![CDATA[Coding Style/Conventions]]></category>
+      <guid isPermaLink="false">411 http://tomdalling.com/?p=411</guid>
+    </item>
+    <item>
+      <title>Why Inline Comments Are Generally a Bad Idea</title>
+      <link>https://www.tomdalling.com/blog/coding-styleconventions/why-inline-comments-are-generally-a-bad-idea/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Bellow is a single function commented in two different ways. Which one is
+better?</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="nf">MD5StringOfString</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">inputStr</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//UTF8 encoding is used so the hash can be compared with hashes of ASCII strings</span>
+    <span class="n">NSData</span><span class="o">*</span> <span class="n">inputData</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputStr</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">outputData</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
+    <span class="n">CC_MD5</span><span class="p">([</span><span class="n">inputData</span> <span class="nf">bytes</span><span class="p">],</span> <span class="p">[</span><span class="n">inputData</span> <span class="nf">length</span><span class="p">],</span> <span class="n">outputData</span><span class="p">);</span>
+
+    <span class="n">NSMutableString</span><span class="o">*</span> <span class="n">hashStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableString</span> <span class="nf">string</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">CC_MD5_DIGEST_LENGTH</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">[</span><span class="n">hashStr</span> <span class="nf">appendFormat</span><span class="p">:</span><span class="s">@"%02x"</span><span class="p">,</span> <span class="n">outputData</span><span class="p">[</span><span class="nf">i</span><span class="p">]];</span>
+ 
+    <span class="k">return</span> <span class="n">hashStr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="nf">MD5StringOfString</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">inputStr</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//convert the string to UTF8 encoded byte data</span>
+    <span class="n">NSData</span><span class="o">*</span> <span class="n">inputData</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputStr</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+
+    <span class="c1">//calculate the hash</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">outputData</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
+    <span class="n">CC_MD5</span><span class="p">([</span><span class="n">inputData</span> <span class="nf">bytes</span><span class="p">],</span> <span class="p">[</span><span class="n">inputData</span> <span class="nf">length</span><span class="p">],</span> <span class="n">outputData</span><span class="p">);</span>
+
+    <span class="c1">//convert hash to a hexadecimal string</span>
+    <span class="n">NSMutableString</span><span class="o">*</span> <span class="n">hashStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableString</span> <span class="nf">string</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">CC_MD5_DIGEST_LENGTH</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">[</span><span class="n">hashStr</span> <span class="nf">appendFormat</span><span class="p">:</span><span class="s">@"%02x"</span><span class="p">,</span> <span class="n">outputData</span><span class="p">[</span><span class="nf">i</span><span class="p">]];</span>
+ 
+    <span class="c1">//return the hexadecimal string</span>
+    <span class="k">return</span> <span class="n">hashStr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+]]></description>
+      <pubDate>Thu, 08 Oct 2009 00:00:00 -0000</pubDate>
+      <category><![CDATA[Coding Style/Conventions]]></category>
+      <guid isPermaLink="false">208 http://tomdalling.com/?p=208</guid>
+    </item>
+  </channel>
+</rss>
