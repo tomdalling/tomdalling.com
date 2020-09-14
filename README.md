@@ -1,14 +1,12 @@
-# Statue
+# TomDalling.com
 
-Static website generator
+Static website generator for tomdalling.com, including output.
 
-Testing:
+## Testing Stuff
 
 ```vim
 let test#ruby#testbench#executable = 'bin/test'
 ```
-
-Big diff:
 
 ```bash
 find -E output -iname "*.html"| sort | xargs -n 1 bin/htmldiff | tee diff.txt
@@ -20,7 +18,7 @@ find -E output -iname "*.html"| sort | xargs -n 1 bin/htmldiff | tee diff.txt
  - [ ] check that URLs are being rendered correctly into every page
  - [ ] check if canonical urls should have hostname, or just path
  - [ ] category index canonical urls are wrong
- - [ ] Upgrade mathml
+ - [ ] Upgrade mathjax
  - [ ] Found mistake in old website: `B &times; A`
    (https://www.tomdalling.com/blog/modern-opengl/03-matrices-depth-buffering-animation/)
  - [ ] Found mistake in old website: `*require*` in an aside
