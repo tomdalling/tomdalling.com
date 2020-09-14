@@ -1,5 +1,5 @@
 module Statue
-  class ModernOpenglPreambleTransform < DOMTransform
+  class ModernOpenGLPreambleTransform < DOMTransform
     def transform(node)
       is_first = !!node['first-article']
       machine_name = node.content

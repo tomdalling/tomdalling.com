@@ -147,7 +147,7 @@ module Statue
       memoize def post_content_transform
         PostContentTransform.new(
           modern_opengl_preamble_template: Template.new(
-            transform: ModernOpenglPreambleTransform.new,
+            transform: ModernOpenGLPreambleTransform.new,
             html_file: inputs.get!(TEMPLATES_DIR/'modern-opengl-preamble-widget.html'),
           )
         )
