@@ -24,5 +24,9 @@ module Statue
     def feed_uri
       super || "/#{feed_path.dirname}/"
     end
+
+    def modified_since?(mtime)
+      posts.any? { _1.modified_since?(mtime) }
+    end
   end
 end

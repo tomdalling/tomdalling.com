@@ -17,8 +17,10 @@ module Statue
       loop do
         build
         break if @argv.include?('--once')
+        sleep(2)
       rescue Interrupt
         puts "Interrupt received"
+        break
       end
       puts "Done"
     end
@@ -66,7 +68,7 @@ module Statue
           FileUtils.mkdir_p(full_path.dirname)
           output.write_to(full_path)
         else
-          puts "  Skipping #{path}"
+          # puts "  Skipping #{path}"
         end
       end
 

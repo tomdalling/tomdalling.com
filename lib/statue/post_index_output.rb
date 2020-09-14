@@ -16,5 +16,9 @@ module Statue
         template.html(post_index)
       )
     end
+
+    def modified_since?(mtime)
+      [template, post_index].any? { _1.modified_since?(mtime) }
+    end
   end
 end

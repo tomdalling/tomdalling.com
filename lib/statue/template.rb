@@ -32,6 +32,10 @@ module Statue
       end
     end
 
+    def modified_since?(mtime)
+      html_file.modified_since?(mtime)
+    end
+
     private
 
       def original_dom
