@@ -10,6 +10,21 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>What's Stopping You From Coding Like This?</title>
+      <link>https://www.tomdalling.com/blog/random-stuff/whats-stopping-you-from-coding-like-this/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>I made a <a href="https://gist.github.com/tomdalling/2540a1c785d51da2bf0d57164bd26d96">quick-and-dirty Ruby script</a> that animates the <a href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar">GitHub
+contributions calendar</a>, for the express purpose of making this
+satirical video:</p>
+
+<figure class="youtube">
+  <iframe src="https://www.youtube.com/embed/5wbtCyZTbTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</figure>
+]]></description>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Miscellaneous]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.whats-stopping-you-from-coding-like-this</guid>
+    </item>
+    <item>
       <title>The Pure Function As An Object (PFAAO) Ruby Pattern</title>
       <link>https://www.tomdalling.com/blog/ruby/pure-function-as-an-object-PFAAO-pattern/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, I want to demonstrate a nice way to write functional-style code in Ruby.
@@ -122,20 +137,6 @@ out "Hi" in 3D.</p>
       <pubDate>Fri, 08 Feb 2013 00:00:00 -0000</pubDate>
       <category><![CDATA[Modern OpenGL Series]]></category>
       <guid isPermaLink="false">1104 http://tomdalling.com/?p=1104</guid>
-    </item>
-    <item>
-      <title>Modern OpenGL 04 - Cameras, Vectors &amp; Input</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/04-cameras-vectors-and-input/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>In this article, we will be consolidating the matrix and camera knowledge from
-the previous article into the new <code>tdogl::Camera</code> class, which will be a
-first-person shooter type of camera. Then, we will connect the camera to
-keyboard and mouse input, so we can move within the 3D scene and look around.
-This will involve learning a bit of vector math. We will also learn about
-inverting matrices, which was not mentioned in the previous article.</p>
-]]></description>
-      <pubDate>Mon, 21 Jan 2013 00:00:00 -0000</pubDate>
-      <category><![CDATA[Modern OpenGL Series]]></category>
-      <guid isPermaLink="false">989 http://tomdalling.com/?p=989</guid>
     </item>
   </channel>
 </rss>

@@ -10,6 +10,21 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>What's Stopping You From Coding Like This?</title>
+      <link>https://www.tomdalling.com/blog/random-stuff/whats-stopping-you-from-coding-like-this/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>I made a <a href="https://gist.github.com/tomdalling/2540a1c785d51da2bf0d57164bd26d96">quick-and-dirty Ruby script</a> that animates the <a href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar">GitHub
+contributions calendar</a>, for the express purpose of making this
+satirical video:</p>
+
+<figure class="youtube">
+  <iframe src="https://www.youtube.com/embed/5wbtCyZTbTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</figure>
+]]></description>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Miscellaneous]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.whats-stopping-you-from-coding-like-this</guid>
+    </item>
+    <item>
       <title>Using Git For Hacky Archive Deduplication</title>
       <link>https://www.tomdalling.com/blog/random-stuff/using-git-for-hacky-archive-deduplication/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Have you ever wished that <code>tar</code> or <code>zip</code> would deduplicate files when creating
