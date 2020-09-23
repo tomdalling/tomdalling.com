@@ -12,15 +12,18 @@ module Statue
       at_each('a.post-github', href: post.github_url)
       at('.post-content') { html!(post.html) }
 
-      at('#disqus_script') do
+      at('#post-comments') do
         if post.draft? || post.disqus_id.nil?
           remove!
         else
-          interpolate_text!({
-            'disqus-id' => JSON.dump(post.disqus_id),
-            'disqus-title' => JSON.dump(post.title),
-            'disqus-url' => JSON.dump(post.url),
-          })
+          at('#disqus_script') do
+            interpolate_text!({
+              'disqus-id' => JSON.dump(post.disqus_id),
+              'disqus-title' => JSON.dump(post.title),
+              'disqus-url' => JSON.dump(post.url),
+            })
+          end
+          unwrap!
         end
       end
     end

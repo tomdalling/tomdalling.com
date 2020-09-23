@@ -116,6 +116,10 @@ module Statue
         end
       end
 
+      def unwrap!
+        current_node.replace(current_node.children)
+      end
+
       def clone_each(css_specifier, collection)
         node = at(css_specifier)
         parent = node.parent
