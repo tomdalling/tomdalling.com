@@ -9,7 +9,7 @@ module Statue
       end
 
       at('.post-date', post.human_date)
-
+      at_each('a.post-github', href: post.github_url)
       at('.post-content') { html!(post.html) }
 
       at('#disqus_script') do

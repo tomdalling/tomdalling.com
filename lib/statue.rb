@@ -6,4 +6,5 @@ module Statue
 
   #TODO: move this to config
   BASE_URL = Addressable::URI.parse("https://www.tomdalling.com/")
+  GITHUB_BASE_URL = Addressable::URI.parse("https://github.com/tomdalling/tomdalling.com/tree/main/")
 end

@@ -15,6 +15,12 @@ class Addressable::URI
   end
 
   def /(other)
-    join(other)
+    join(
+      case other
+      when Pathname then other.to_path
+      when String then other
+      else fail("Can't join to URL: #{other.inspect}")
+      end
+    )
   end
 end

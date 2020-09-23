@@ -38,14 +38,10 @@ module Statue
         end
       end
 
-      def at(css_specifier, text=nil, **attrs)
+      def at(css_specifier, text=nil, **attrs, &block)
         found = current_node.css(css_specifier.to_s)
         if found.size == 1
-          with_current_node(found.first) do |n|
-            text!(text) if text
-            attrs!(attrs)
-            yield(n) if block_given?
-          end
+          yield_at(found.first, text, attrs, block)
           found.first
         elsif found.empty?
           fail "No elements found for: #{css_specifier}"
@@ -54,9 +50,17 @@ module Statue
         end
       end
 
-      def at_each(css_specifier, &block)
+      def at_each(css_specifier, text=nil, **attrs, &block)
         current_node.css(css_specifier.to_s).each do
-          with_current_node(_1, &block)
+          yield_at(_1, text, attrs, block)
+        end
+      end
+
+      def yield_at(node, text=nil, attrs={}, block)
+        with_current_node(node) do
+          text!(text) if text
+          attrs!(attrs)
+          block.(node) if block
         end
       end
 

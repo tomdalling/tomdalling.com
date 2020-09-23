@@ -29,6 +29,10 @@ module Statue
       BASE_URL / uri
     end
 
+    def github_url
+      GITHUB_BASE_URL / markdown_file.full_path.relative_path_from(PROJECT_ROOT)
+    end
+
     def basename
       markdown_file.path.basename.sub_ext('').to_s
     end
