@@ -13,7 +13,7 @@ module Statue
       at('.post-content') { html!(post.html) }
 
       at('#disqus_script') do
-        if post.draft?
+        if post.draft? || post.disqus_id.nil?
           remove!
         else
           interpolate_text!({

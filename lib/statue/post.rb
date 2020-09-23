@@ -29,6 +29,10 @@ module Statue
       BASE_URL / uri
     end
 
+    def unique_id
+      disqus_id || "com.tomdalling.blog.#{machine_name}"
+    end
+
     def github_url
       GITHUB_BASE_URL / markdown_file.full_path.relative_path_from(PROJECT_ROOT)
     end
@@ -111,7 +115,7 @@ module Statue
       class Frontmatter
         value_semantics do
           title String
-          disqus_id String
+          disqus_id Either(String, nil)
           category Category, coerce: true
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
@@ -136,7 +140,7 @@ module Statue
         def self.from_edn(edn)
           new(
             title: edn.fetch(:title),
-            disqus_id: edn.fetch(:'disqus-id'),
+            disqus_id: edn.fetch(:'disqus-id', nil),
             category: edn.fetch(:category).to_s,
             draft?: edn.fetch(:draft, false),
             main_image: edn.fetch(:'main-image', nil),

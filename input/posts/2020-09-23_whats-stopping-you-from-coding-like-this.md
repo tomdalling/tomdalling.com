@@ -1,5 +1,4 @@
 {:title "What's Stopping You From Coding Like This?"
- :disqus-id "com.tomdalling.blog.whats-stopping-you-from-coding-like-this"
  :category :random-stuff}
 
 I made a [quick-and-dirty Ruby script][gist] that animates the [GitHub

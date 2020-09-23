@@ -50,7 +50,7 @@ module Statue
           description: post.preview_html,
           published_at: Time.utc(post.date.year, post.date.month, post.date.day),
           category: post.category.human_name,
-          guid: RSS::GUID.new(value: post.disqus_id, permalink?: false),
+          guid: RSS::GUID.new(value: post.unique_id, permalink?: false),
         )
       end
     end
