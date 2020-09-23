@@ -27,3 +27,8 @@
 .post .subscribe-bait p {
   line-height: 28px;
 }
+
+.post figure .twitter-tweet {
+  margin-left: auto;
+  margin-right: auto;
+}
