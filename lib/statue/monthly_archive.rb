@@ -35,7 +35,6 @@ module Statue
         title: "Archives: #{human_month}",
         posts: posts,
         path: path,
-        feed_uri: '/blog/feed/',
         generate_feed?: false,
       )
     end

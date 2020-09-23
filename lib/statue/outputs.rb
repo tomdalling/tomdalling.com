@@ -7,15 +7,10 @@ module Statue
     end
 
     def outputs
-      duplicate_mvc_article(
-        uniq_merge([
-          static_outputs,
-          page_outputs,
-          post_outputs,
-          post_index_outputs,
-          feed_outputs,
-        ])
-      )
+      uniq_merge([
+        canonical_outputs,
+        duplicate_outputs,
+      ])
     end
 
     private
@@ -37,15 +32,58 @@ module Statue
         end
       end
 
-      def duplicate_mvc_article(outputs)
-        canonical_path = Pathname("blog/software-design/model-view-controller-explained/index.html")
-        legacy_path = Pathname("software-design/model-view-controller-explained/index.html")
-        outputs[legacy_path] = outputs.fetch(canonical_path)
-        outputs
-      end
-
       ##########################################################################
       # Outputs
+
+      memoize def canonical_outputs
+        uniq_merge([
+          static_outputs,
+          page_outputs,
+          post_outputs,
+          post_index_outputs,
+          feed_outputs,
+        ])
+      end
+
+      def duplicate_outputs
+        uniq_merge([
+          mvc_article_duplicate,
+          category_archive_duplicates,
+        ])
+      end
+
+      def mvc_article_duplicate
+        duplicate_output(
+          canonical: "blog/software-design/model-view-controller-explained/index.html",
+          duplicate: "software-design/model-view-controller-explained/index.html",
+        )
+      end
+
+      def category_archive_duplicates
+        uniq_merge(
+          categories.flat_map do |cat|
+            [
+              duplicate_output(
+                canonical: "blog/#{cat.machine_name}/index.html",
+                duplicate: "blog/category/#{cat.machine_name}/index.html",
+              ),
+              duplicate_output(
+                canonical: "blog/#{cat.machine_name}/feed/index.xml",
+                duplicate: "blog/category/#{cat.machine_name}/feed/index.xml",
+              ),
+            ]
+          end
+        )
+      end
+
+      def duplicate_output(canonical:, duplicate:)
+        canonical_path = Pathname.new(canonical)
+        duplicate_path = Pathname.new(duplicate)
+        output = canonical_outputs.fetch(canonical_path) do
+          fail "Can't duplicate non-existant output at #{canonical_path}"
+        end
+        { duplicate_path => output }
+      end
 
       def static_outputs
         uniq_merge(
@@ -180,9 +218,12 @@ module Statue
           .sort
       end
 
+      memoize def categories
+        posts.map(&:category).uniq
+      end
+
       memoize def post_indexes
         [recent_post_index] +
-          category_archives.map(&:legacy_post_index) +
           category_archives.map(&:post_index) +
           monthly_archives.map(&:post_index)
       end

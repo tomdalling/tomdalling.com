@@ -12,9 +12,11 @@ module Statue
     end
 
     def write_to(output_path)
-      output_path.write(
-        template.html(post_index)
-      )
+      output_path.write(html)
+    end
+
+    def html
+      @html ||= template.html(post_index)
     end
 
     def modified_since?(mtime)
