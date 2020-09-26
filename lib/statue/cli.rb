@@ -38,7 +38,7 @@ module Statue
         existing_outputs = FileSet.new(Statue::OUTPUT_DIR)
 
         # write outputs
-        outputs.each { write(_1, _2, existing_outputs) }
+        filter(outputs).each { write(_1, _2, existing_outputs) }
 
         # remove existing outputs that shouldn't exist anymore
         existing_outputs
@@ -94,6 +94,16 @@ module Statue
         unless path.descendant_of?(output_dir)
           fail "Not an output path: #{path}"
         end
+      end
+
+      def filter(outputs)
+        return outputs
+
+        keys = [
+          'index.html',
+          # 'webpack.css',
+        ].map { Pathname(_1) }
+        outputs.slice(*keys)
       end
   end
 end

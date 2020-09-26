@@ -10,6 +10,7 @@
     "postcss-loader": "^4.0.2",
     "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^1.8.10",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   }

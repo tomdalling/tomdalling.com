@@ -3,12 +3,13 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: {
-    enabled: true,
-    content: ['../../docs/**/*.html'],
-  },
+  // purge: '../../docs/**/*.html',
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: theme => ({
+        'pixel-texture': "url('/images/bg-pattern.png')",
+      }),
+    },
   },
   variants: {},
   plugins: [],
