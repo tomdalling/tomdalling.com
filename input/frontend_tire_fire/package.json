@@ -1,0 +1,16 @@
+{
+  "name": "frontend_tire_fire",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^4.3.0",
+    "mini-css-extract-plugin": "^0.11.2",
+    "postcss": "^8.0.9",
+    "postcss-loader": "^4.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^1.8.10",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
