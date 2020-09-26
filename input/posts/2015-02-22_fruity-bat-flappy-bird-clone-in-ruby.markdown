@@ -12,18 +12,10 @@ github: <https://github.com/tomdalling/fruity_bat>
 Part 1
 ------
 
-<p>
-  <figure class="youtube">
-    <iframe src="//www.youtube.com/embed/QtIlyU2Br3o" frameborder="0" allowfullscreen></iframe>
-  </figure>
-</p>
+<widget type="youtube" video="QtIlyU2Br3o" />
 
 Part 2
 ------
 
-<p>
-  <figure class="youtube">
-    <iframe src="//www.youtube.com/embed/PlvMHqKVhfU" frameborder="0" allowfullscreen></iframe>
-  </figure>
-</p>
+<widget type="youtube" video="PlvMHqKVhfU" />
 

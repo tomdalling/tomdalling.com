@@ -426,11 +426,7 @@ sample a flashlight texture to stop the light from looking so circular and flat.
 
 ### Deferred Rendering
 
-<p>
-  <figure class="youtube">
-    <iframe src="//www.youtube.com/embed/vooznqE-XMM" frameborder="0" allowfullscreen></iframe>
-  </figure>
-</p>
+<widget type="youtube" video="vooznqE-XMM" />
 
 The way we have implemented lighting is known as _forward rendering_,
 and there are a couple of annoying issues associated with it. Firstly, there
@@ -452,11 +448,7 @@ but it is more complicated than forward rendering.
 
 ### Shadows
 
-<p>
-  <figure class="youtube">
-    <iframe src="//www.youtube.com/embed/0EjvtQdTHB0" frameborder="0" allowfullscreen></iframe>
-  </figure>
-</p>
+<widget type="youtube" video="0EjvtQdTHB0" />
 
 Despite that fact that everyone loves the look of them, nice shadows are a huge
 can of worms, and can be extremely complicated. All the following techniques

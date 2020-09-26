@@ -5,9 +5,7 @@ I made a [quick-and-dirty Ruby script][gist] that animates the [GitHub
 contributions calendar][], for the express purpose of making this
 satirical video:
 
-<figure class="youtube">
-  <iframe src="https://www.youtube.com/embed/5wbtCyZTbTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</figure>
+<widget type="youtube" video="5wbtCyZTbTU" />
 
 <!--more-->
 
