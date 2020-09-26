@@ -15,9 +15,7 @@ Twitter user Hays Stanford asked "what's stopping you from coding like
 this?", with a screenshot of a mostly-full GitHub contributions
 calendar.
 
-<figure class="naked">
-  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s stopping you from coding like this? <a href="https://t.co/ZBi5NIISUn">pic.twitter.com/ZBi5NIISUn</a></p>&mdash; Hays Stanford 🏜️ (@haysstanford) <a href="https://twitter.com/haysstanford/status/1306209477226569729?ref_src=twsrc%5Etfw">September 16, 2020</a></blockquote>
-</figure>
+<widget type="tweet" href="https://twitter.com/haysstanford/status/1306209477226569729" />
 
 I'm still not sure whether this tweet was deliberate trolling or
 accidental trolling, but it sure made a lot of people [feel some kind
@@ -25,23 +23,13 @@ of way][feel]. A couple of [big][hanselman] [names][booch] stepped in
 to denounce its message. Some people were leaving excessively spiteful
 and nasty replies. There was no need for that.
 
-<figure class="naked nopadding">
-  <img src="/images/posts/whats-stopping-you-from-coding-like-this/there-is-no-need.gif" alt="There is no need to be upset" />
-</figure>
-
-Others started joking around with it, and a meme was born.
-
-<figure class="naked">
-  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s stopping you from coding like this? <a href="https://t.co/jiJqUl3UwE">pic.twitter.com/jiJqUl3UwE</a></p>&mdash; Cassidy (@cassidoo) <a href="https://twitter.com/cassidoo/status/1306263579897688065?ref_src=twsrc%5Etfw">September 16, 2020</a></blockquote>
-</figure>
+<widget type="tweet" href="https://twitter.com/cassidoo/status/1306263579897688065" />
 
 I knew of [scripts that manipulate the GitHub contributions
 calendar][commit_script], and it occurred to me that I could take that
 one step further by animating it.
 
-<figure class="naked">
-  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s stopping you from coding like this? <a href="https://t.co/A55uFcm10S">pic.twitter.com/A55uFcm10S</a></p>&mdash; Tom Dalling (@tom_dalling) <a href="https://twitter.com/tom_dalling/status/1306855833519534080?ref_src=twsrc%5Etfw">September 18, 2020</a></blockquote>
-</figure>
+<widget type="tweet" href="https://twitter.com/tom_dalling/status/1306855833519534080" />
 
 I made a slapdash Ruby script that converts ASCII art strings into
 frames -- grids of colours -- and uses those to generate a video -- an
@@ -66,8 +54,6 @@ Optimal code quality is a return on investment calculation. Low
 quality code can be optimal, depending on the context.
 
 Memes.
-
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 [commit_script]: https://bd808.com/blog/2013/04/17/hacking-github-contributions-calendar/
 [GitHub contributions calendar]: https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar

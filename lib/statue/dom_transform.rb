@@ -116,6 +116,10 @@ module Statue
         end
       end
 
+      def append_html!(content)
+        current_node.children.after(coerce_to_node_set(content))
+      end
+
       def unwrap!
         current_node.replace(current_node.children)
       end
