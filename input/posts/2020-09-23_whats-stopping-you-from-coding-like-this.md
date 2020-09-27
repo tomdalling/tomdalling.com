@@ -32,7 +32,7 @@ one step further by animating it.
 <widget type="tweet" href="https://twitter.com/tom_dalling/status/1306855833519534080" />
 
 I made a slapdash Ruby script that converts ASCII art strings into
-frames -- grids of colours -- and uses those to generate a video -- an
+frames---grids of colours---and uses those to generate a video---an
 array of frames. The video is serialised and interpolated into some
 vanilla JavaScript that applies the next frame's colours to the DOM
 every few milliseconds. I pasted the JavaScript into the Chrome
