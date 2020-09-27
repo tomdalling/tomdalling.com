@@ -78,7 +78,7 @@ to depend upon interfaces that they do not use</em>.</p>
 <!--more-->
 
 <p>The Interface Segration Principle (ISP) is best demonstrated with an example,
-so let's dive right in.</p>
+so let’s dive right in.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//EXAMPLE 1</span>
 <span class="k">class</span> <span class="nc">SomeButton</span> <span class="p">{</span>
@@ -181,38 +181,38 @@ controller methods, yet <code>SomeController</code> objects can be plugged into 
 <p>Martin Fowler mentions the cost of recompiling as a reason to adhere to the
 ISP. In Example 1, if <code>SomeController</code> were to change, then both <code>SomeButton</code> and
 <code>SomeWindow</code> would need to be recompiled. In Example 2, this is not a problem. I
-don't think that's a huge deal, because <del>a fast compile time is the least of
-your worries when you're writing software</del>. <em>(2014 update: after compiling
-Boost a few times, one grows to appreciate fast build times. If you're the victim
+don’t think that’s a huge deal, because <del>a fast compile time is the least of
+your worries when you’re writing software</del>. <em>(2014 update: after compiling
+Boost a few times, one grows to appreciate fast build times. If you’re the victim
 of a monstrous, Boost-like codebase, then this could be important to you.)</em></p>
 
-<p>Martin also mentions that <strong>"fat interfaces" — interfaces with
+<p>Martin also mentions that <strong>“fat interfaces” — interfaces with
 additional useless methods — lead to inadvertent coupling between
 classes</strong>. This is the real reason why the SIP should be adhered to.</p>
 
 <p>Coupling is the bane of reusability. In Example 1, <code>SomeButton</code> and
 <code>SomeWindow</code> are not reusable, and can only be used in one window of the
-application. It's absurd to require different window and button classes for
+application. It’s absurd to require different window and button classes for
 every window in the application.</p>
 
-<p>Fat interfaces also introduce unnecessary complexity, which isn't good for
-maintainability or robustness. It's very clear in Example 2 that <code>SomeButton</code>
-will only call the two methods on <code>SomeButtonController</code>. It's nice and simple.
+<p>Fat interfaces also introduce unnecessary complexity, which isn’t good for
+maintainability or robustness. It’s very clear in Example 2 that <code>SomeButton</code>
+will only call the two methods on <code>SomeButtonController</code>. It’s nice and simple.
 However, the distinction is not so clear in Example 1.  In reality
 <code>SomeController</code> would have many more than five methods, and <code>SomeButton</code> could
 be using any number of them in weird and wonderful ways. I imagine that
-<a href="http://en.wikipedia.org/wiki/Dependency_hell">dependency hell</a> is full of developers running around saying <em>"this
-<code>SomeButton</code> closes the window, so I'll just call onWindowClose instead of
-onButtonDown."</em> I know that <em>I</em> would be wailing and gnashing my teeth.</p>
+<a href="http://en.wikipedia.org/wiki/Dependency_hell">dependency hell</a> is full of developers running around saying <em>“this
+<code>SomeButton</code> closes the window, so I’ll just call onWindowClose instead of
+onButtonDown.”</em> I know that <em>I</em> would be wailing and gnashing my teeth.</p>
 
-<h2>ISP, OCP, and DIP... OMG WTF BBQ?</h2>
+<h2>ISP, OCP, and DIP… OMG WTF BBQ?</h2>
 
-<p>The design flaw in Example 1 doesn't just violate the ISP, it also violates the
-DIP and OCP. This is quite common, so if you're adhering to the DIP and OCP
-properly then you won't come across many ISP violations. Having said that, the
+<p>The design flaw in Example 1 doesn’t just violate the ISP, it also violates the
+DIP and OCP. This is quite common, so if you’re adhering to the DIP and OCP
+properly then you won’t come across many ISP violations. Having said that, the
 ISP does gives you another handy way to evaluate your class design. <strong>It
-teaches you to ask yourself <em>"do I need all the methods on this interface
-I'm using?"</em></strong> If the answer is no, then you might want to use a
+teaches you to ask yourself <em>“do I need all the methods on this interface
+I’m using?”</em></strong> If the answer is no, then you might want to use a
 different interface and apply some of the other SOLID principles.</p>
 
 </div>

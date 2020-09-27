@@ -202,7 +202,7 @@ of a pixel, based on the parameters of a light source and a surface. The light
 source parameters include the position/direction of the light, and the
 color/intensity of the light. The surface parameters include the color of the
 surface, the direction the surface is facing (a.k.a the normal), and the
-"shininess" of the surface.</p>
+“shininess” of the surface.</p>
 
 <p>
   <figure>
@@ -218,7 +218,7 @@ specular. The diffuse component is the most important one, as you can see from
 the image above. The ambient component is used to stop the unlit, back sides of
 objects from being pure black, because pure black looks artificial in most 3D
 scenes. The specular component is what makes an object look shiny or dull.
-Because we're only implementing the diffuse component in this article, the
+Because we’re only implementing the diffuse component in this article, the
 wooden crates will be pure black on the back sides, and can not be shiny. We
 will implement the ambient and specular components in the next couple of
 articles.</p>
@@ -289,7 +289,7 @@ the light. When we set the color of the light in the code, we will be using a
 
 <h2>Absorption &amp; Reflection Of Color</h2>
 
-<p>Let's say you're looking at a red car. The sun emits a ray of white light. The
+<p>Let’s say you’re looking at a red car. The sun emits a ray of white light. The
 ray bounces off the car, and goes into your eye. Your eye detects that the ray
 only contains red light, which is why you see a red car instead of a white car.
 We know that white light contains all colors, so what happened to the green and
@@ -321,7 +321,7 @@ the light.</p>
 </p>
 
 <p>So if you shine a light-blue flashlight onto a purply-pink surface, the surface
-will appear to be dark blue. It's strange, but true.</p>
+will appear to be dark blue. It’s strange, but true.</p>
 
 <blockquote class="pull-right">
   The RGB color of a surface represents how light is absorbed and reflected by
@@ -364,7 +364,7 @@ individually, like so:</p>
 <p>This animation demonstrates how the <em>angle of incidence</em> (AoI) of the light
 affects the color of the surface (the notepad). Notice how the notepad is
 brightest when it is facing the light front-on. As the notepad rotates away
-from it's brightest position, the surface gets darker.</p>
+from it’s brightest position, the surface gets darker.</p>
 
 <p>
   <figure>
@@ -383,7 +383,7 @@ incidence</em> (AoI). The angle of incidence affects the brightness of the surfa
 The AoI is the basis of diffuse reflection, which we will implement in this
 article.</p>
 
-<p>Let's look at the the AoI at the two extremes: maximum brightness and complete
+<p>Let’s look at the the AoI at the two extremes: maximum brightness and complete
 darkness.</p>
 
 <p>
@@ -395,12 +395,12 @@ darkness.</p>
 <p>Maximum brightness occurs when the surface is <em>perpendicular</em> to the light rays
 (AoI = 0°). Complete darkness occurs when the surface is <em>parallel</em> to the
 light rays (AoI = 90°). If the AoI is greater than 90°, then the ray is
-hitting the <em>back</em> of the surface. If light is hitting the back, then it's
+hitting the <em>back</em> of the surface. If light is hitting the back, then it’s
 definitely not hitting the front, so the pixel should also be completely dark.</p>
 
 <p>If we represent the brightness as a single number, where 0.0 is completely dark
-and 1.0 is maximum brightness, then it's easy to calculate based on the cosine
-of the AoI. The formula is <code>brightness = cos(AoI)</code>. Let's have a look at the
+and 1.0 is maximum brightness, then it’s easy to calculate based on the cosine
+of the AoI. The formula is <code>brightness = cos(AoI)</code>. Let’s have a look at the
 cosine of some angles, just to prove that it works:</p>
 
 <pre><code>cos(  0°) =  1.00 (100% of maximum brightness)
@@ -421,8 +421,8 @@ is an example with cyan light:</p>
 0.0 × (0, 1, 1) = (0, 0, 0) (black)
 </code></pre>
 
-<p>This "brightness" value between 0 and 1 is sometimes called the "diffuse
-coefficient."</p>
+<p>This “brightness” value between 0 and 1 is sometimes called the “diffuse
+coefficient.”</p>
 
 <h2>Surface Normals</h2>
 
@@ -477,7 +477,7 @@ we will be adding a normal for each vertex in the VBO.</p>
 product</em> of the vectors. The dot product is an operation that takes two
 vectors, and results in a single number (a scalar). Shockingly, the dot product
 looks like a dot in mathematical notation: \(\vec{v_1}\bullet\vec{v_2}\). In
-GLSL and GLM, it is a function called "dot": <code>dot(v1, v2)</code>, and <code>glm::dot(v1,
+GLSL and GLM, it is a function called “dot”: <code>dot(v1, v2)</code>, and <code>glm::dot(v1,
 v2)</code>.</p>
 
 <p>The result of the dot product is related to the angle between the two vectors.
@@ -507,7 +507,7 @@ acos(dot(v1,v2)/(length(v1)*length(v2))) == angle
 
 <p><code>length</code> is a GLSL function that returns the magnitude of a vector.</p>
 
-<p>We don't actually need to know the AoI, we just need <code>cos(AoI)</code>, which
+<p>We don’t actually need to know the AoI, we just need <code>cos(AoI)</code>, which
 represents brightness. The brightness calculation in the fragment shader is
 based on the middle line of the formulas above.</p>
 
@@ -523,9 +523,9 @@ However, when we calculate the vector from the surface to the light, that is
 done in <em>world space</em>. World space is where all the 3D objects have been
 positioned/scaled/rotated into their places inside the 3D scene. For example,
 in model space, the center of our wooden crate asset is (0,0,0). After we
-position and resize the crates to spell out "Hi" in the 3D scene, those crates
+position and resize the crates to spell out “Hi” in the 3D scene, those crates
 are in world space. The transformation from model space to world space is done
-by the "model matrix" of each instance in the scene, which is the
+by the “model matrix” of each instance in the scene, which is the
 <code>ModelInstance::transform</code> variable in the code for this article.</p>
 
 <blockquote class="pull-right">
@@ -543,7 +543,7 @@ have to transform the normals.</p>
   Scaling or translating a normal will result in an incorrect normal.
 </blockquote>
 
-<p>So far, we've only used matrices to transform coordinates. The problem is that
+<p>So far, we’ve only used matrices to transform coordinates. The problem is that
 normals are <em>not</em> coordinates, they are unit vectors representing directions.
 Rotation transformations are fine, because the rotating a unit vector results
 in another unit vector, but scaling or translating a normal will result in an
@@ -552,7 +552,7 @@ incorrect normal. The solution is to multiply the normals by a different matrix
 
 <p>Removing the translation part of a 4x4 matrix is simple: we just remove the
 4<sup>th</sup> column and row, converting it to a 3x3 matrix. Fixing the
-scaling is a bit trickier, but I'll jump straight to the answer, which is to
+scaling is a bit trickier, but I’ll jump straight to the answer, which is to
 invert and transpose the matrix. We will also need to renormalise each normal
 after it has been transformed, to ensure that it is still a unit vector. The
 GLSL to do this looks like:</p>
@@ -576,7 +576,7 @@ ensure that the transformed normal is a unit vector.</p>
 
 <h2>The Vertex Shader</h2>
 
-<p>Phew! That was a lot of reading, but now we get into the code. Let's start by
+<p>Phew! That was a lot of reading, but now we get into the code. Let’s start by
 looking at the vertex shader.</p>
 
 <div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
@@ -610,7 +610,7 @@ them: the vertex, the normal, and the texture coordinate.</p>
 
 <h2>The Fragment Shader</h2>
 
-<p>Now let's look at the fragment shader, where all of the lighting calculations
+<p>Now let’s look at the fragment shader, where all of the lighting calculations
 are done.</p>
 
 <div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
@@ -657,7 +657,7 @@ are done.</p>
 position and the intensities/color of the light.</p>
 
 <p>The variables <code>fragTexCoord</code>, <code>fragNormal</code> and <code>fragVert</code> all come straight
-from the vertex shader. <code>fragTexCoord</code> is the texture coordinate, as we've seen
+from the vertex shader. <code>fragTexCoord</code> is the texture coordinate, as we’ve seen
 in previous articles. <code>fragNormal</code> is the <em>untransformed</em> surface normal for
 this fragment/pixel. <code>fragVert</code> is the <em>untransformed</em> coordinate of the
 surface that we are drawing.</p>
@@ -798,9 +798,9 @@ the VAO as well. This is the old VAO setup code:</p>
 <span class="n">glVertexAttribPointer</span><span class="p">(</span><span class="n">gWoodenCrate</span><span class="p">.</span><span class="n">shaders</span><span class="o">-&gt;</span><span class="n">attrib</span><span class="p">(</span><span class="s">"vertNormal"</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">,</span>  <span class="mi">8</span><span class="o">*</span><span class="nf">sizeof</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">),</span> <span class="p">(</span><span class="k">const</span> <span class="n">GLvoid</span><span class="o">*</span><span class="p">)(</span><span class="mi">5</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">)));</span>
 </code></pre></div></div>
 
-<p>It's basically the same, with the addition of the normals.</p>
+<p>It’s basically the same, with the addition of the normals.</p>
 
-<p>Now let's look at how rendering has changed inside the <code>RenderInstance</code>
+<p>Now let’s look at how rendering has changed inside the <code>RenderInstance</code>
 function. Before we render each instance, all we have to do is set the position
 and color of the light in the shaders. We take the position and intensities
 straight out of the <code>gLight</code> global.</p>
@@ -809,7 +809,7 @@ straight out of the <code>gLight</code> global.</p>
 <span class="n">shaders</span><span class="o">-&gt;</span><span class="n">setUniform</span><span class="p">(</span><span class="s">"light.intensities"</span><span class="p">,</span> <span class="n">gLight</span><span class="p">.</span><span class="n">intensities</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Next, let's look at the new keyboard controls to change the light inside of the
+<p>Next, let’s look at the new keyboard controls to change the light inside of the
 <code>Update</code> function.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//move light</span>
@@ -848,7 +848,7 @@ wooden crates.</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">setNearAndFarPlanes</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">100.0</span><span class="n">f</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>That's it! We now have a single, diffuse, point light. This is the first step
+<p>That’s it! We now have a single, diffuse, point light. This is the first step
 in 3D lighting, and we will build upon it in the next couple of articles.</p>
 
 <h2>Per-vertex Vs Per-fragment Lighting</h2>
@@ -858,7 +858,7 @@ in 3D lighting, and we will build upon it in the next couple of articles.</p>
   good reason to switch from the old fixed-function pipeline to shaders.
 </blockquote>
 
-<p>In this article we've implemented per-fragment lighting, also known as <a href="http://en.wikipedia.org/wiki/Phong_shading">Phong
+<p>In this article we’ve implemented per-fragment lighting, also known as <a href="http://en.wikipedia.org/wiki/Phong_shading">Phong
 shading</a> – not to be confused with the <a href="http://en.wikipedia.org/wiki/Phong_reflection_model">Phong reflection model</a>. We could
 have chosen, instead, to implement per-vertex lighting, also known as <a href="http://en.wikipedia.org/wiki/Gouraud_shading">Gouraud
 shading</a>. The difference between the two implementations is where the
@@ -872,7 +872,7 @@ reason to switch from the old fixed-function pipeline to shaders.</p>
 vertex – that is, at each corner of the wooden crates. Then, the brightness
 would be <em>interpolated</em> across all the pixels in each triangle. For example, if
 one corner was dark, and the other was bright, the pixels in between  the two
-corners would fade from dark to bright. Now let's look at one of the crates in
+corners would fade from dark to bright. Now let’s look at one of the crates in
 the screenshot for this article:</p>
 
 <p>
@@ -908,7 +908,7 @@ sphere has a circular highlight that looks more correct.</p>
 <p>Using per-fragment lighting, we sidestep this problem. Instead of calculating
 the brightness at each corner of the wooden crates, we calculate the brightness
 at <em>each pixel</em>. This why per-fragment lighting looks better than per-vertex
-lighting: it's doing more lighting calculations per surface, so it's more
+lighting: it’s doing more lighting calculations per surface, so it’s more
 accurate.</p>
 
 <blockquote class="pull-right">
@@ -937,7 +937,7 @@ lights, and spotlights.</p>
   <li>
 <a href="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-8-basic-shading/">Tutorial 8 : Basic shading</a> from opengl-tutorial.org</li>
   <li>
-<a href="http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-4:-Rendering-a-Dynamic-3D-Scene-with-Phong-Shading.html">Chapter 4: Rendering a Dynamic 3D Scene with Phong Shading</a> of Joe Groff's <em>An intro to modern OpenGL</em>.</li>
+<a href="http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-4:-Rendering-a-Dynamic-3D-Scene-with-Phong-Shading.html">Chapter 4: Rendering a Dynamic 3D Scene with Phong Shading</a> of Joe Groff’s <em>An intro to modern OpenGL</em>.</li>
   <li>From the <em>Learning Modern 3D Graphics Programming</em> book:
     <ul>
       <li><a href="http://www.arcsynthesis.org/gltut/Illumination/Tutorial%2009.html">Lights On</a></li>

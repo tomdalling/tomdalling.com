@@ -132,8 +132,8 @@ variables. Attribute variables can have a different value for each vertex.
 Uniform variables keep the same value for multiple vertices. For example, if
 you want to set a colour for a whole triangle, you would use a uniform
 variable. If you want each corner of a triangle to be a different color, you
-would use an attribute variable. I will just refer to them as "uniforms" and
-"attributes" from now on.</p>
+would use an attribute variable. I will just refer to them as “uniforms” and
+“attributes” from now on.</p>
 
 <blockquote class="pull-right">
   Uniforms can be accessed from any shader, but attributes must enter the
@@ -144,7 +144,7 @@ would use an attribute variable. I will just refer to them as "uniforms" and
 <p>Uniforms can be accessed from any shader, but attributes must enter the
 <em>vertex</em> shader first, not the <em>fragment</em> shader. The vertex shader can pass
 the value into the fragment shader if necessary. This is because uniforms are
-like constants – they don't change so they can be accessed from any
+like constants – they don’t change so they can be accessed from any
 shader. However, attributes are not constant. The vertex shader can change the
 value of an attribute before it gets to the fragment shader. The output of the
 vertex shader is the input to the fragment shader.</p>
@@ -179,7 +179,7 @@ memory before that data gets used.</p>
 
 <p>The pixel width and height of a texture should be a power of two, for example:
 16, 32, 64, 128, 256, 512. In this article we will use the 256x256 image
-"hazard.png" as a texture, which is shown below.</p>
+“hazard.png” as a texture, which is shown below.</p>
 
 <p>
   <figure>
@@ -188,7 +188,7 @@ memory before that data gets used.</p>
 </p>
 
 <p>We will use the <code>tdogl::Bitmap</code> class to load the raw pixel data from
-"hazard.png" into memory, with the help of <a href="https://github.com/nothings/stb">stb_image</a>. Then we will use
+“hazard.png” into memory, with the help of <a href="https://github.com/nothings/stb">stb_image</a>. Then we will use
 <code>tdogl::Texture</code> to upload the raw pixel data into an OpenGL texture object.
 Fortunately, texture creation in OpenGL has not really changed since it was
 first introduced, so there are plenty of good articles online that will show
@@ -245,7 +245,7 @@ the pixel coordinates (128, 256) become (0.5, 1) in texture coordinates.</p>
 
 <p>Texture coordinates are commonly referred to as UV coordinates. You could call
 them XY coordinates, but XYZ is commonly used to represent a vertex, and we
-don't want to confuse texture coordinates with vertex coordinates.</p>
+don’t want to confuse texture coordinates with vertex coordinates.</p>
 
 <h2>Texture Image Units</h2>
 
@@ -255,8 +255,8 @@ don't want to confuse texture coordinates with vertex coordinates.</p>
   unit</em> to the shader.
 </blockquote>
 
-<p>Texture image units, or just "texture units" for short, are a slightly weird
-part of OpenGL. You can't just send a texture straight to a shader. First you
+<p>Texture image units, or just “texture units” for short, are a slightly weird
+part of OpenGL. You can’t just send a texture straight to a shader. First you
 bind the texture to a texture unit, then you send the <em>index of the texture
 unit</em> to the shader.</p>
 
@@ -269,12 +269,12 @@ together inside the fragment shader.</p>
 
 <h2>Implementing Textures</h2>
 
-<p>First, let's make a new global for the texture.</p>
+<p>First, let’s make a new global for the texture.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tdogl</span><span class="o">::</span><span class="n">Texture</span><span class="o">*</span> <span class="n">gTexture</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>We'll make a new function to load "hazard.png" into the global. This gets
+<p>We’ll make a new function to load “hazard.png” into the global. This gets
 called from the <code>AppMain</code> function.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">LoadTexture</span><span class="p">()</span> <span class="p">{</span>
@@ -321,7 +321,7 @@ triangle will have a different texture coordinate.</p>
 coordinate. In older versions of GLSL, you would use the <code>texture2D</code> function
 to do this.</p>
 
-<p>We can't pass an attribute straight into the fragment shader, because
+<p>We can’t pass an attribute straight into the fragment shader, because
 attributes must first go through the vertex shader. Here is the modified vertex
 shader:</p>
 
@@ -342,7 +342,7 @@ shader:</p>
 the <code>fragTexCoord</code> attribute of the fragment shader without modifying it.</p>
 
 <p>The shaders now have two variables we need to set: the <code>vertTexCoord</code> attribute
-and <code>tex</code> uniform. Let's start by setting the <code>tex</code> variable. Open up main.cpp
+and <code>tex</code> uniform. Let’s start by setting the <code>tex</code> variable. Open up main.cpp
 and find the <code>Render()</code> function. We will set the <code>tex</code> uniform just before we
 draw the triangle:</p>
 
@@ -351,7 +351,7 @@ draw the triangle:</p>
 <span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">setUniform</span><span class="p">(</span><span class="s">"tex"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">//set to 0 because the texture is bound to GL_TEXTURE0</span>
 </code></pre></div></div>
 
-<p>The texture can't be used until it is bound to a texture unit.
+<p>The texture can’t be used until it is bound to a texture unit.
 <code>glActiveTexture</code> tells OpenGL which texture unit we want to use. <code>GL_TEXTURE0</code>
 is the first texture unit, so we will just use that.</p>
 
@@ -397,28 +397,28 @@ function. This is what the code used to look like:</p>
 <span class="n">glVertexAttribPointer</span><span class="p">(</span><span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">attrib</span><span class="p">(</span><span class="s">"vertTexCoord"</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">,</span>  <span class="mi">5</span><span class="o">*</span><span class="nf">sizeof</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">),</span> <span class="p">(</span><span class="k">const</span> <span class="n">GLvoid</span><span class="o">*</span><span class="p">)(</span><span class="mi">3</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">GLfloat</span><span class="p">)));</span>
 </code></pre></div></div>
 
-<p>We've added a second call to <code>glVertexAttribPointer</code>, but we've also modified
+<p>We’ve added a second call to <code>glVertexAttribPointer</code>, but we’ve also modified
 the first call as well. The most important arguments to look at are the last
 two.</p>
 
 <p>The second last argument to both <code>glVertexAttribPointer</code> calls is
-<code>5*sizeof(GLfloat)</code>. This is the "stride" argument. This argument wants to know
+<code>5*sizeof(GLfloat)</code>. This is the “stride” argument. This argument wants to know
 how many bytes are between the start of one value, and the start of the next
 value. In both cases, each value is five <code>GLfloat</code>s away from the next value.
-For example, if we start at the "X" value and count forward five values, we
-will be at the next "X" value. The same is true if we start at a "U" value, and
+For example, if we start at the “X” value and count forward five values, we
+will be at the next “X” value. The same is true if we start at a “U” value, and
 count forward five. This argument is in <em>bytes</em>, not floats, so we must
 multiply the number of floats by the number of bytes per float.</p>
 
-<p>The last argument to <code>glVertexAttribPointer</code> is the "offset" argument. This
+<p>The last argument to <code>glVertexAttribPointer</code> is the “offset” argument. This
 argument wants to know how many bytes from the start is the first value. The
 first <strong>XYZ</strong> value is right at the beginning, so the offset is set to NULL
-which means "zero bytes from the start". The first <strong>UV</strong> value is not at the
+which means “zero bytes from the start”. The first <strong>UV</strong> value is not at the
 beginning – it is three floats away from the beginning. Once again, this
 argument is in <em>bytes</em>, not floats, so we must multiply the number of floats by
 the number of bytes per float. We must cast the number of bytes to a <code>const
 GLvoid*</code>, because in older versions of OpenGL this argument used to be
-something different to the "offset" that it is now.</p>
+something different to the “offset” that it is now.</p>
 
 <p>Now, when you run the program, you should see a textured triangle like the one
 shown at the top of this article.</p>

@@ -62,8 +62,8 @@
   </header>
 
   <div class="post-content">
-<p>There was an interesting question on StackOverflow this morning: <a href="http://stackoverflow.com/questions/11278995/why-doesnt-nsorderedset-inherit-from-nsset">Why doesn't
-NSOrderedSet inherit from NSSet?</a> It's interesting because the reason is so
+<p>There was an interesting question on StackOverflow this morning: <a href="http://stackoverflow.com/questions/11278995/why-doesnt-nsorderedset-inherit-from-nsset">Why doesn’t
+NSOrderedSet inherit from NSSet?</a> It’s interesting because the reason is so
 easy to miss. I thought it would make a good blog post because it turned out to
 be a nice, real-life example of the <a href="http://tomdalling.com/blog/software-design/solid-class-design-the-liskov-substitution-principle">Liskov substitution principle</a> (herein
 abbreviated to LSP).</p>
@@ -81,9 +81,9 @@ Every single method looked fine to me. They could all be implemented in
 <p>Upon closer inspection, there is one little method that violates the LSP in a
 very subtle way. That method is <code>mutableCopy</code>. The return value of
 <code>mutableCopy</code> would have to be an <code>NSMutableSet</code>, but <code>NSMutableOrderedSet</code>
-should inherit from <code>NSOrderedSet</code>. It turns out that you can't have both.</p>
+should inherit from <code>NSOrderedSet</code>. It turns out that you can’t have both.</p>
 
-<p>Let me explain with some code. First, let's look at the correct behaviour of
+<p>Let me explain with some code. First, let’s look at the correct behaviour of
 <code>NSSet</code> and <code>NSMutableSet</code>:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span><span class="o">*</span> <span class="n">immutable</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSSet</span> <span class="nf">set</span><span class="p">];</span>
@@ -93,7 +93,7 @@ should inherit from <code>NSOrderedSet</code>. It turns out that you can't have 
 <span class="p">[</span><span class="n">mutable</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">NSMutableSet</span> <span class="nf">class</span><span class="p">]];</span> <span class="c1">// YES</span>
 </code></pre></div></div>
 
-<p>Now, let's pretend <code>NSOrderedSet</code> does inherit from <code>NSSet</code>, and
+<p>Now, let’s pretend <code>NSOrderedSet</code> does inherit from <code>NSSet</code>, and
 <code>NSMutableOrderedSet</code> inherits from <code>NSOrderedSet</code> as expected:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span><span class="o">*</span> <span class="n">immutable</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSOrderedSet</span> <span class="nf">orderedSet</span><span class="p">];</span>
@@ -103,9 +103,9 @@ should inherit from <code>NSOrderedSet</code>. It turns out that you can't have 
 <span class="p">[</span><span class="n">mutable</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">NSMutableSet</span> <span class="nf">class</span><span class="p">]];</span> <span class="c1">// NO (problem)</span>
 </code></pre></div></div>
 
-<p>The last line of the example above shows the problem. You wouldn't be able to
+<p>The last line of the example above shows the problem. You wouldn’t be able to
 pass an <code>NSOrderedSet</code> into a function expecting an <code>NSSet</code> because the
-behaviour is different. It's a violation of the LSP, which also makes it a
+behaviour is different. It’s a violation of the LSP, which also makes it a
 backwards compatibility problem.</p>
 
 <p>What if <code>NSMutableOrderedSet</code> inherited from <code>NSMutableSet</code> instead? Then we
@@ -119,7 +119,7 @@ get a different problem:</p>
 <span class="p">[</span><span class="n">mutable</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">NSOrderedSet</span> <span class="nf">class</span><span class="p">]];</span> <span class="c1">// NO (problem)</span>
 </code></pre></div></div>
 
-<p>Now, <code>NSMutableOrderedSet</code> doesn't inherit from <code>NSOrderedSet</code>. In Foundation,
+<p>Now, <code>NSMutableOrderedSet</code> doesn’t inherit from <code>NSOrderedSet</code>. In Foundation,
 every mutable class inherits from the immutable class. To break this rule would
 be a bad design decision. Imagine if you had to allocate a new <code>NSArray</code> every
 time you wanted to pass an <code>NSMutableArray</code> into a function that takes
@@ -143,8 +143,8 @@ an ordered set to an unordered set, for example:</p>
 
 <h2>Conclusion</h2>
 
-<p>This all boils down to the fact that <code>NSMutableOrderedSet</code> can't inherit from
-both <code>NSMutableSet</code> and <code>NSOrderedSet</code> because Objective-C doesn't have
+<p>This all boils down to the fact that <code>NSMutableOrderedSet</code> can’t inherit from
+both <code>NSMutableSet</code> and <code>NSOrderedSet</code> because Objective-C doesn’t have
 multiple inheritance. The usual way to get around this is to make protocols for
 <code>NSMutableSet</code> and <code>NSOrderedSet</code>, because then <code>NSMutableOrderedSet</code> can
 implement both protocols.</p>
@@ -152,7 +152,7 @@ implement both protocols.</p>
 <p>I guess the Apple developers just thought it was simpler without the extra
 protocols, and I agree with them. The addition of the new protocols would
 cascade into the API of other areas. You would have to change method signatures
-to take <code>id&lt;NSMutableSet&gt;</code> instead of <code>NSMutableSet*</code>.  It's just cleaner
+to take <code>id&lt;NSMutableSet&gt;</code> instead of <code>NSMutableSet*</code>.  It’s just cleaner
 to use <code>[myOrderedSet set]</code> when you really need to use the object as an
 <code>NSSet</code>.</p>
 

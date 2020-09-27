@@ -85,19 +85,19 @@ Closed Principle.</p>
 <p>Robert Martin sums up the rationale for the OCP like this:</p>
 
 <blockquote>
-  <p>"When a single change to a program results in a cascade of changes to dependent
+  <p>“When a single change to a program results in a cascade of changes to dependent
 modules, that program exhibits the undesirable attributes that we have come to
-associate with 'bad' design. The program becomes fragile, rigid, unpredictable
+associate with ‘bad’ design. The program becomes fragile, rigid, unpredictable
 and unreusable. The open-closed principle attacks this in a very
 straightforward way. It says that you should design modules that never change.
 When requirements change, you extend the behavior of such modules by adding new
-code, not by changing old code that already works." — Robert Martin</p>
+code, not by changing old code that already works.” — Robert Martin</p>
 </blockquote>
 
 <p>At first, the OCP can sound contradictory. How can you change the behavior of a
 class without modifying it? In a nutshell, the answer is the cornerstone of
 object oriented design: <a href="http://en.wikipedia.org/wiki/Polymorphism_in_object-oriented_programming">polymorphism</a>.  The example later in the article
-will show how polymorphism is used to achieve classes that are "closed" to
+will show how polymorphism is used to achieve classes that are “closed” to
 changes.</p>
 
 <h2>The Benefits</h2>
@@ -113,7 +113,7 @@ preferable to modifying the class every time requirements change.</p>
 <h2>An Example</h2>
 
 <p>Continuing on from the example in the previous post about <a href="http://tomdalling.com/software-design/solid-class-design-the-single-responsibility-principle">the Single
-Responsibility Principle</a>, I'm going to modify the code to allow for multiple
+Responsibility Principle</a>, I’m going to modify the code to allow for multiple
 export file formats.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/********* XMLConverter ************/</span>

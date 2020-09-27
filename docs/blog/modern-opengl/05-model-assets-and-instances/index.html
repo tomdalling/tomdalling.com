@@ -67,9 +67,9 @@
   <div class="post-content">
 <p>In this article, we will be refactoring the code to be more like a 3D
 engine/framework. Specifically, we will be replacing some of the globals with
-structs that represent "assets" and "instances." At the end, we will have a
+structs that represent “assets” and “instances.” At the end, we will have a
 single wooden crate asset, and five instances of that asset arranged to spell
-out "Hi" in 3D.</p>
+out “Hi” in 3D.</p>
 
 <!--more-->
 <p></p>
@@ -120,12 +120,12 @@ out "Hi" in 3D.</p>
   can be drawn – often just referred to as a "model."
 </blockquote>
 
-<p>The term "asset" is very broad and can mean a variety of things. Other 3D
-engines and frameworks might use the term "resources" instead of "assets."
-Often, the term "asset" includes things like music, sound effects, particle
+<p>The term “asset” is very broad and can mean a variety of things. Other 3D
+engines and frameworks might use the term “resources” instead of “assets.”
+Often, the term “asset” includes things like music, sound effects, particle
 emitters, shaders, meshes, game levels, etc. For the purpose of this article,
 we will define an asset as a 3D object that can be drawn – often just referred
-to as a "model."</p>
+to as a “model.”</p>
 
 <p>In more complicated 3D engines, a model is typically made up of <em>meshes</em> and
 <em>materials</em>. A mesh typically contains the per-vertex data: the vertices,
@@ -189,15 +189,15 @@ memory you need.</p>
 
 <p>For example, you can make a forest scene by creating 100 instances of a single
 tree asset. Each instance would be in a different position, with a slightly
-different size, and rotated a little bit. From the viewer's perspective, it
-looks like 100 different trees. From the programmer's perspective, it is
+different size, and rotated a little bit. From the viewer’s perspective, it
+looks like 100 different trees. From the programmer’s perspective, it is
 actually just one tree that is drawn 100 times.</p>
 
 <p><a name="instances-vs-entities"></a></p>
 
 <h2>Instances vs Entities</h2>
 
-<p>You may find that "instances" sound very similar to "entities" that you have
+<p>You may find that “instances” sound very similar to “entities” that you have
 seen in other frameworks and engines. Indeed, they both have a position, a
 size, a rotation, and you can draw them. You could design your code so that
 instances and entities are the same thing, or maybe the <code>Entity</code> class inherits
@@ -205,7 +205,7 @@ from the <code>Instance</code> class, or vice versa. However, we can come up wit
 design than that.</p>
 
 <p>In some situations it is nice to have entities that are not instances. For
-example, maybe your camera is an entity – or maybe you have a "trigger" entity
+example, maybe your camera is an entity – or maybe you have a “trigger” entity
 that is invisible, but something happens when the player collides with it.</p>
 
 <p>In other situations, you want to have instances that are not entities. For
@@ -215,11 +215,11 @@ features of entities, such as collision detection, animation, movement, etc.</p>
 
 <p>From the examples above, we can conclude that entities and instances are
 separate things, so one should not inherit from the other. A good rule of
-thumb, no matter what you're programming, is to <a href="http://www.learn-cocos2d.com/2010/06/prefer-composition-inheritance/">prefer composition to
-inheritance</a>, so let's do that.</p>
+thumb, no matter what you’re programming, is to <a href="http://www.learn-cocos2d.com/2010/06/prefer-composition-inheritance/">prefer composition to
+inheritance</a>, so let’s do that.</p>
 
 <p>A decent design would be for each entity to have an instance pointer. If the
-instance pointer is null, then the entity can't be drawn, and is invisible. If
+instance pointer is null, then the entity can’t be drawn, and is invisible. If
 you want instances that are <em>not</em> entities, you can do that too, because the
 instances do not depend on entities in any way. Basically, the instance class
 is <em>only used for drawing</em>, and the entity class contains the rest of the
@@ -241,8 +241,8 @@ in my opinion, and I might do an article about them in the future.</p>
 
 <p>This struct is very simple. It only contains an asset and a transformation
 matrix. A single matrix is all that is necessary to control the size, position,
-and rotation of the instance. This per-instance matrix is often call the "model
-matrix."</p>
+and rotation of the instance. This per-instance matrix is often call the “model
+matrix.”</p>
 
 <p>In the code for this article, we have one asset and five instances. This means
 the one asset will get drawn five times. Every time the asset gets drawn, it
@@ -273,7 +273,7 @@ GLuint gVBO = 0;
 </code></pre></div></div>
 
 <p>The deleted globals are all part of the <code>ModelAsset</code> struct now. We only have a
-single asset, so we'll keep it in the global <code>gWoodenCrate</code> for now. Lastly, we
+single asset, so we’ll keep it in the global <code>gWoodenCrate</code> for now. Lastly, we
 have a list of instances in the variable <code>gInstances</code>.</p>
 
 <p>Now lets look in the start of the <code>LoadWoodenCrateAsset</code> function to see how
@@ -298,7 +298,7 @@ now return a value instead of setting a global. The fact that we are removing
 the use of globals is an indication that the structure of the code is getting
 better.</p>
 
-<p>Now that we have seen how the asset is loaded, let's look at how the instances
+<p>Now that we have seen how the asset is loaded, let’s look at how the instances
 are made inside of the <code>CreateInstances</code> function:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateInstances</span><span class="p">()</span> <span class="p">{</span>
@@ -345,7 +345,7 @@ scale controls the size.</p>
 <p>Notice that the first instance does not have a transformation. The matrix for
 this instance is the <em>identity matrix</em>. The identity matrix is a special matrix
 that does <em>not</em> do any transformation. We are going to make this first instance
-spin like in the previous article, so let's look at the <code>Update</code> function to
+spin like in the previous article, so let’s look at the <code>Update</code> function to
 see how that is done.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
@@ -367,7 +367,7 @@ see how that is done.</p>
 <p>This takes the first instance in <code>gInstances</code>, and sets the transformation
 matrix based on the recently updated <code>gDegreesRotated</code> global.</p>
 
-<p>Now that we have a list of instances to draw, let's look at the <code>Render</code>
+<p>Now that we have a list of instances to draw, let’s look at the <code>Render</code>
 function:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">Render</span><span class="p">()</span> <span class="p">{</span>
@@ -387,7 +387,7 @@ function:</p>
 </code></pre></div></div>
 
 <p>This function is simpler than in the last article. Now, it just loops over the
-<code>gInstances</code> list, and calls <code>RenderInstance</code> for every instance. Let's look in
+<code>gInstances</code> list, and calls <code>RenderInstance</code> for every instance. Let’s look in
 <code>RenderInstance</code>:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">RenderInstance</span><span class="p">(</span><span class="k">const</span> <span class="n">ModelInstance</span><span class="o">&amp;</span> <span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
@@ -421,15 +421,15 @@ function:</p>
 this function is almost identical to the code inside <code>Render</code> in the previous
 article, except it uses a <code>ModelInstance</code> object instead of globals.</p>
 
-<p>That's pretty much it. We have restructured the code into assets and instances,
+<p>That’s pretty much it. We have restructured the code into assets and instances,
 which is much more flexible than using globals. To test out the flexibility,
-try adding some more instances. Or, if you're brave, try adding a new asset
+try adding some more instances. Or, if you’re brave, try adding a new asset
 with a different texture, or different shaders.</p>
 
 <h2>Optimisation</h2>
 
 <p>The code in this article is naïve, and unoptimised. It still runs fast enough,
-so it's not a problem at this stage. However, there are a few fairly simple
+so it’s not a problem at this stage. However, there are a few fairly simple
 optimisations that would make the rendering faster.</p>
 
 <p>The current implementation binds and unbinds the same shader five times. If the
@@ -451,7 +451,7 @@ In pseudocode, a more-optimised render loop would look something like this:</p>
 <span class="n">currentShader</span><span class="p">.</span><span class="n">stopUsing</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>This way, if the shader doesn't change, then it doesn't get unbound. Binding
+<p>This way, if the shader doesn’t change, then it doesn’t get unbound. Binding
 and unbinding shaders is a relatively expensive operation, so eliminating
 unnecessary shader bindings will speed up the loop.</p>
 
@@ -462,23 +462,23 @@ will be grouped together, so each shader will only get bound once.</p>
 <p>The next most expensive operation is binding the texture for each instance. We
 can optimise texture binding in the exact same way as shader binding. Sort the
 instances by shader, then by texture. Inside the loop, check if the correct
-texture is already bound, and, if so, don't unbind and rebind it.</p>
+texture is already bound, and, if so, don’t unbind and rebind it.</p>
 
 <h2>Scene Graphs</h2>
 
 <p>In other engines/frameworks, you may find that instances are stored
 <em>hierarchically</em> – that is, they are stored in a <em>tree</em> structure instead of
-the <code>std::list</code> that we are using. Instances might be referred to as "nodes."
+the <code>std::list</code> that we are using. Instances might be referred to as “nodes.”
 Each instance would have a parent and multiple children. This is basically the
 definition of a <a href="http://en.wikipedia.org/wiki/Scene_graph">scene graph</a>.</p>
 
-<p>It's possible to have both a list of instances <em>and</em> a scene graph. If you use
+<p>It’s possible to have both a list of instances <em>and</em> a scene graph. If you use
 the same design rationale explained in the <a href="#instances-vs-entities">Instances vs Entities</a> section of
 this article, the solution would be for each scene graph node to have a pointer
 to an instance. Keeping a list of instances separate to the scene graph could
 be helpful when it comes to optimisation.</p>
 
-<p>We don't require a scene graph yet, so let's ignore them for now.</p>
+<p>We don’t require a scene graph yet, so let’s ignore them for now.</p>
 
 <h2>OpenGL Instanced Rendering Functionality</h2>
 
@@ -490,7 +490,7 @@ thousands of instances of the same asset. It would be overkill to use it to
 draw five instances of a cube, but if you ever need to draw a fudge-tonne of
 instances then you should consider using it.</p>
 
-<p>This functionality became available in OpenGL ES 3, which means it's <em>not</em>
+<p>This functionality became available in OpenGL ES 3, which means it’s <em>not</em>
 available on most mobile devices that exist right now. On the desktop, it is
 available in OpenGL 2.1 as an extension, and became part of the core profile in
 OpenGL 3.1.</p>

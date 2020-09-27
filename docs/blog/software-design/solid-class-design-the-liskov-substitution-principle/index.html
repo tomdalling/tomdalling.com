@@ -79,23 +79,23 @@ it</em>.</p>
 <!--more-->
 
 <p>When first learning about object oriented programming, inheritance is usually
-described as an "is a" relationship. If a penguin "is a" bird, then the
-<code>Penguin</code> class should inherit from the <code>Bird</code> class. The "is a" technique of
+described as an “is a” relationship. If a penguin “is a” bird, then the
+<code>Penguin</code> class should inherit from the <code>Bird</code> class. The “is a” technique of
 determining inheritance relationships is simple and useful, but occasionally
 results in bad use of inheritance.</p>
 
 <p>The <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov Substitution Principle</a> is a way of ensuring that inheritance is
 used correctly.</p>
 
-<h2>Tom's Penguin Problem</h2>
+<h2>Tom’s Penguin Problem</h2>
 
-<p>The classic example of the "is a" technique causing problems is the
-<a href="http://en.wikipedia.org/wiki/Circle-ellipse_problem">circle-elipse problem</a> (a.k.a the rectangle-square problem). However, I'm
+<p>The classic example of the “is a” technique causing problems is the
+<a href="http://en.wikipedia.org/wiki/Circle-ellipse_problem">circle-elipse problem</a> (a.k.a the rectangle-square problem). However, I’m
 going use penguins.</p>
 
 <p>First, consider an application that shows birds flying around in patterns in
 the sky. There will be multiple types of birds, so the developer decides to use
-the <a href="/blog/software-design/solid-class-design-the-open-closed-principle" title="SOLID Class Design: the Open Closed Principle">Open Closed Principle</a> to "close" the code to the addition of new types
+the <a href="/blog/software-design/solid-class-design-the-open-closed-principle" title="SOLID Class Design: the Open Closed Principle">Open Closed Principle</a> to “close” the code to the addition of new types
 of birds. To do this, the following abstract <code>Bird</code> base class is created:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Bird</span> <span class="p">{</span>
@@ -119,7 +119,7 @@ penguins. The developer makes a new <code>Penguin</code> class that inherits fro
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p><strong>If an override method does nothing or just throws an exception, then you're
+<p><strong>If an override method does nothing or just throws an exception, then you’re
 probably violating the LSP.</strong></p>
 
 <p>When the app is run, all the flying patterns look wrong because the <code>Penguin</code>
@@ -127,7 +127,7 @@ objects ignore the <code>setAltitude</code> method. The penguins are just floppi
 on the ground. Even though the developer tried to follow the OCP, they failed.
 Existing code must be modified to accommodate the <code>Penguin</code> class.</p>
 
-<p>While a penguin <em>technically</em> "is a" bird, the <code>Bird</code> class makes
+<p>While a penguin <em>technically</em> “is a” bird, the <code>Bird</code> class makes
 the assumption that all birds can fly. Because the <code>Penguin</code> subclass violates
 the flying assumption, it does not satisfy the Liskov Substitution Principle
 for the <code>Bird</code> superclass.</p>
@@ -137,7 +137,7 @@ for the <code>Bird</code> superclass.</p>
 <p>The whole point of using an abstract base class is so that, in the future, you
 can write a new subclass and insert it into existing, working, tested code.
 This is the essence of the <a href="/blog/software-design/solid-class-design-the-open-closed-principle" title="SOLID Class Design: the Open Closed Principle">Open Closed Principle</a>. However, when the
-subclasses don't adhere properly to the interface of the abstract base class,
+subclasses don’t adhere properly to the interface of the abstract base class,
 you have to go through the existing code and account for the special cases
 involving the delinquent subclasses. This is a blatant violation of the <a href="/blog/software-design/solid-class-design-the-open-closed-principle" title="SOLID Class Design: the Open Closed Principle">Open
 Closed Principle</a>.</p>
@@ -182,11 +182,11 @@ so:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>This is really a band-aid solution. It hasn't fixed the underlying problem. It
+<p>This is really a band-aid solution. It hasn’t fixed the underlying problem. It
 just provides a way to check whether the problem exists for a particular
 object.</p>
 
-<p>A better solution would be to make sure flightless bird classes don't inherit
+<p>A better solution would be to make sure flightless bird classes don’t inherit
 flying functionality from their superclasses. This could be done like so:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Solution 3: Proper inheritance</span>
@@ -202,8 +202,8 @@ flying functionality from their superclasses. This could be done like so:</p>
 <span class="p">};</span>
 </code></pre></div></div>
 
-<p>I don't think the English language has a word that means the opposite of
-"flightless", but let's be Shakespearian and invent the word "flightful" to
+<p>I don’t think the English language has a word that means the opposite of
+“flightless”, but let’s be Shakespearian and invent the word “flightful” to
 fill the position. In the above solution the <code>Bird</code> base class does not contain
 any flying functionality, and the <code>FlightfulBird</code> subclass adds that
 functionality. This allows some functions to be applied to both <code>Bird</code> and

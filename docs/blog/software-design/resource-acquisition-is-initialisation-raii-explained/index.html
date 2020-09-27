@@ -103,11 +103,11 @@ exception-safe. Here are some common, yet unsafe, scenarios:</p>
 <span class="n">lock</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>Not only will exceptions break your code, it's also easy to just forget to
+<p>Not only will exceptions break your code, it’s also easy to just forget to
 close a file. Maybe you close the file 99% of the time but there is one rare
 edge case that you forgot about. It would be nice if there was a safeguard for
 these situations — something that was guaranteed to close the file so we
-can't forget to do it.</p>
+can’t forget to do it.</p>
 
 <h2>Finding A Solution</h2>
 
@@ -118,7 +118,7 @@ guarantees that the destructors of objects on the stack will be called, even if
 an exception is thrown</strong>.</p>
 
 <p>So we just need to get the file closing code into the destructor of some class,
-and then make an instance of that class on the stack. Let's try it out with the
+and then make an instance of that class on the stack. Let’s try it out with the
 file example:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FileCloser</span> <span class="p">{</span>
@@ -144,12 +144,12 @@ file example:</p>
 <span class="c1">//destructor will run at this point</span>
 </code></pre></div></div>
 
-<p>This is a very naive solution with a couple of problems, so don't copy it, but
+<p>This is a very naive solution with a couple of problems, so don’t copy it, but
 it does give you an idea of what we are trying to achieve.</p>
 
 <p>One problem with this is that we might forget to make a <code>FileCloser</code>, in the
 same way that we might forget to close the file. It would be much better if the
-<code>File</code> class could just close itself. Let's make a new class called <code>MyFile</code>
+<code>File</code> class could just close itself. Let’s make a new class called <code>MyFile</code>
 that closes itself:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyFile</span> <span class="p">{</span>
@@ -193,13 +193,13 @@ that closes itself:</p>
 </code></pre></div></div>
 
 <p>That is looking a lot better. Using <code>MyFile</code> is simpler and cleaner than
-<code>FileCloser</code>, and it's exception-safe as well. We can still do better, though.
-What if someone calls the <code>open</code> method twice? Also, it's annoying to check
+<code>FileCloser</code>, and it’s exception-safe as well. We can still do better, though.
+What if someone calls the <code>open</code> method twice? Also, it’s annoying to check
 <code>isOpen</code> everywhere.</p>
 
-<p>Let's take a different approach. What if we make a class that represents an
-open file? That way, we don't have to worry about opening twice, or closing
-twice, and we don't even have to check if the file is open.</p>
+<p>Let’s take a different approach. What if we make a class that represents an
+open file? That way, we don’t have to worry about opening twice, or closing
+twice, and we don’t even have to check if the file is open.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">OpenFile</span> <span class="p">{</span>
 <span class="nl">public:</span>
@@ -228,7 +228,7 @@ twice, and we don't even have to check if the file is open.</p>
 </code></pre></div></div>
 
 <p><code>OpenFile</code> is exception safe, and nice and simple. We have accidentally
-stumbled across RAII. Well it wasn't really accidental, but let's just pretend.</p>
+stumbled across RAII. Well it wasn’t really accidental, but let’s just pretend.</p>
 
 <h2>What is RAII?</h2>
 
@@ -240,8 +240,8 @@ stumbled across RAII. Well it wasn't really accidental, but let's just pretend.<
   <li>The resource is aquired in the constructor (e.g. opening a file). This part is optional, but common.</li>
 </ul>
 
-<p>RAII stands for "Resource Acquisition is Initialisation." The "resource
-acquisition" part of RAII is where you begin something that must be ended
+<p>RAII stands for “Resource Acquisition is Initialisation.” The “resource
+acquisition” part of RAII is where you begin something that must be ended
 later, such as:</p>
 
 <ul>
@@ -250,14 +250,14 @@ later, such as:</p>
   <li>Acquiring a lock (and releasing it later)</li>
 </ul>
 
-<p>The "is initialisation" part means that the acquisition happens inside the
+<p>The “is initialisation” part means that the acquisition happens inside the
 constructor of a class. Want to open a file? Then the opening should happen in
-the constructor like we saw in the <code>OpenFile</code> example above. This isn't totally
+the constructor like we saw in the <code>OpenFile</code> example above. This isn’t totally
 necessary, but I think it simplifies the classes. You could also argue that
-"initialisation" can happen outside of the constructor, shortly after the
+“initialisation” can happen outside of the constructor, shortly after the
 constructor is run.</p>
 
-<p>Ironically, the acronym RAII doesn't explain the most important part of the
+<p>Ironically, the acronym RAII doesn’t explain the most important part of the
 design, which is that the relinquishing of the resource (closing, deallocating,
 etc.) must be put into the destructor.</p>
 
@@ -278,10 +278,10 @@ not on the <em>heap</em>. It is easy to see why if you compare the two:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>A better name for RAII would be something like "Scope-bound Resources," because
-you're tieing the life of a resource to the life of a local variable, and the
-life of the local variable ends when it goes out of scope. Actually, let's
-change that to "Resources are bound irreversibly to scope," because then the
+<p>A better name for RAII would be something like “Scope-bound Resources,” because
+you’re tieing the life of a resource to the life of a local variable, and the
+life of the local variable ends when it goes out of scope. Actually, let’s
+change that to “Resources are bound irreversibly to scope,” because then the
 acronym is RABITS. Everybody likes rabbits.</p>
 
 <h2>Common Uses of RAII</h2>
@@ -292,16 +292,16 @@ type of design because it closes itself in its destructor.</p>
 <p>The Boost library uses RAII for locking and unlocking with classes like
 <a href="http://www.boost.org/doc/libs/1_49_0/doc/html/thread/synchronization.html#thread.synchronization.locks.lock_guard">boost::lock_guard</a> and <a href="http://www.boost.org/doc/libs/1_49_0/doc/html/boost/interprocess/scoped_lock.html">boost::interprocess::scoped_lock</a>.</p>
 
-<p>If you're writing modern C++ then no doubt you've heard of smart pointers.
+<p>If you’re writing modern C++ then no doubt you’ve heard of smart pointers.
 Smart pointers are RAII classes. They help avoid a whole bunch of problems,
-like forgetting to deallocate the memory, or deallocating it while it's still
+like forgetting to deallocate the memory, or deallocating it while it’s still
 being used somewhere else.</p>
 
-<p><code>std::shared_ptr</code> is interesting, in that the "resource" is not the pointer
-itself — that's what <code>std::unique_ptr</code> does. Rather, the resource is a
+<p><code>std::shared_ptr</code> is interesting, in that the “resource” is not the pointer
+itself — that’s what <code>std::unique_ptr</code> does. Rather, the resource is a
 <em>guarantee</em> that the pointer is valid. Once the <code>shared_ptr</code> goes out of scope
-the pointer might still be valid, but you can't be sure because you've
-relinquished your guarantee. This just goes to show that a "resource" isn't
+the pointer might still be valid, but you can’t be sure because you’ve
+relinquished your guarantee. This just goes to show that a “resource” isn’t
 always a physical thing like a file, or a peice of memory.</p>
 
 </div>

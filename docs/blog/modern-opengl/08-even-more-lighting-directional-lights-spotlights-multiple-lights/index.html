@@ -139,8 +139,8 @@ over distance – the greater the distance, the dimmer the light is. If there is
 even the tiniest amount of attenuation, over an infinite distance the light
 becomes infinitely dim (i.e. invisible). For this reason, directional lights
 are implemented such that they ignore attenuation. This kind-of makes sense if
-we're using directional lights to represent the Sun, because the sunlight we
-see here on Earth doesn't appear to be attenuated. That is, sunlight doesn't
+we’re using directional lights to represent the Sun, because the sunlight we
+see here on Earth doesn’t appear to be attenuated. That is, sunlight doesn’t
 appear to get dimmer as it gets closer to the ground.</p>
 
 <blockquote class="pull-right">
@@ -173,14 +173,14 @@ vector, we could have code that looks like this:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>As an example, let's say that <code>lightPosition</code> coordinate is $$(1, 0, 0, 0)$$,
+<p>As an example, let’s say that <code>lightPosition</code> coordinate is $$(1, 0, 0, 0)$$,
 which represents a point infinitely far away down the <em>positive</em> X axis.  If we
 take the $$X$$, $$Y$$, and $$Z$$ values then negate them, we get $$(-1, 0,
 0)$$, which indicates that the light is shining down the <em>negative</em> X axis.</p>
 
 <p>The GLSL lighting code we implemented in the previous article uses the
 direction from the surface to the light (in a variable named <code>surfaceToLight</code>),
-so we don't actually need to negate anything. The GLSL for directional lights
+so we don’t actually need to negate anything. The GLSL for directional lights
 in this article looks like this:</p>
 
 <div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">vec3</span> <span class="nf">ApplyLight</span><span class="p">(</span><span class="n">Light</span> <span class="n">light</span><span class="p">,</span> <span class="kt">vec3</span> <span class="n">surfaceColor</span><span class="p">,</span> <span class="kt">vec3</span> <span class="n">normal</span><span class="p">,</span> <span class="kt">vec3</span> <span class="n">surfacePos</span><span class="p">,</span> <span class="kt">vec3</span> <span class="n">surfaceToCamera</span><span class="p">)</span> <span class="p">{</span>
@@ -252,7 +252,7 @@ variable is the angle between the center and the side of the cone, in degrees.</
 </blockquote>
 
 <p>The implementation is fairly simple. For every pixel, we check whether it is
-inside or outside of the light cone. If it's inside, we continue with the
+inside or outside of the light cone. If it’s inside, we continue with the
 lighting calculations as we normally would. If the pixel is <em>outside</em> of the
 cone, then we set the attenuation factor to zero, which will make the light ray
 invisible. Here is the GLSL that implements the cone restriction:</p>
@@ -299,8 +299,8 @@ shine in all directions.</p>
 </blockquote>
 
 <p>The fragment shader for the previous article only implemented a single light so
-let's replace the single light with an array of lights. Then we can loop over
-them in the fragment shader, and apply them all to the scene. We aren't really
+let’s replace the single light with an array of lights. Then we can loop over
+them in the fragment shader, and apply them all to the scene. We aren’t really
 implementing anything new here. We are just refactoring the existing fragment
 shader code and adding a loop.</p>
 
@@ -485,8 +485,8 @@ direction of the spotlight:</p>
 <p>At this point, we have basically implemented all the lighting options that were
 available in the old fixed-function API of OpenGL. We went a step further by
 implementing per-fragment lighting instead of per-vertex lighting, but there
-are many more improvements that we haven't covered.  Lighting is a huge subject,
-so for now I'm just going to give a brief overview of a few advanced lighting
+are many more improvements that we haven’t covered.  Lighting is a huge subject,
+so for now I’m just going to give a brief overview of a few advanced lighting
 topics.</p>
 
 <h3>Blinn-Phong</h3>
@@ -547,7 +547,7 @@ processing on your geometry, which is slow.</p>
 <p>When the light and the geometry are both static, then <a href="http://en.wikipedia.org/wiki/Lightmap">lightmaps</a> are accurate
 and have good performance.</p>
 
-<p>Don't even get me started on <a href="http://gamedev.stackexchange.com/questions/23/what-is-ambient-occlusion">ambient occlusion</a>.</p>
+<p>Don’t even get me started on <a href="http://gamedev.stackexchange.com/questions/23/what-is-ambient-occlusion">ambient occlusion</a>.</p>
 
 <h3>High-dynamic-range (HDR)</h3>
 
@@ -570,10 +570,10 @@ happens if there are lots of lights, and the sum ends up being greater than
 are too dim, the whole scene could look basically black, with no detail.
 High-dynamic-range (HDR) rendering can help to fix these problems.</p>
 
-<p>The human eye adjusts depending on the brightness of what it's looking at. If
+<p>The human eye adjusts depending on the brightness of what it’s looking at. If
 you are in a dark room for long enough, your pupils dilate to allow more light
 to reach your retina, which makes the room seem brighter. If you walk outside
-into bright sunlight, the opposite happens, so that you don't go blind from the
+into bright sunlight, the opposite happens, so that you don’t go blind from the
 intense light. HDR rendering sort of imitates how your eye works, in order to
 keep the details visible in very dark and very bright scenes. RGB values are
 allowed to go above 1.0 during lighting calculations, then the values are later
@@ -593,7 +593,7 @@ rescaled so that they fit nicely within the 0.0–1.0 range.</p>
   </figure>
 </p>
 
-<p>Light doesn't just reflect <em>off</em> of surfaces, it can travel <em>through</em> them too.
+<p>Light doesn’t just reflect <em>off</em> of surfaces, it can travel <em>through</em> them too.
 When light penetrates a surface, it changes the color of that surface. Rendering
 this color change is called <a href="http://www.iryoku.com/screen-space-subsurface-scattering">subsurface scattering</a>.</p>
 

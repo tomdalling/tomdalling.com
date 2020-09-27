@@ -63,7 +63,7 @@
 
   <div class="post-content">
 <p>It feels like fleets of new developers dash themselves upon the rocky shores of
-Objective-C memory management every day on StackOverflow. I can't bear to write
+Objective-C memory management every day on StackOverflow. I can’t bear to write
 the same answers over and over again, so this article will be my final,
 unabridged explanation of: <code>retain</code>, <code>release</code>, <code>autorelease</code>, <code>alloc</code>,
 <code>dealloc</code>, <code>copy</code>, and <code>NSAutoreleasePool</code>. There will be some rules to
@@ -91,32 +91,32 @@ the explanations clear, but it may become confusing the more in-depth we get.</p
 </ul>
 
 <p>If something is not explained, or not explained very well, post a question in
-the comments and I'll expand the article to cover it.</p>
+the comments and I’ll expand the article to cover it.</p>
 
 <!--more-->
 
 <h2>A Quick Mention Of ARC And Garbage Collection</h2>
 
 <p>These days, you can mostly avoid manual reference counting by turning on
-Automatic Reference Counting (ARC) or garbage collection. I haven't used either
+Automatic Reference Counting (ARC) or garbage collection. I haven’t used either
 of those yet, so this article will focus exclusively on manual reference
 counting using <code>retain</code> and <code>release</code>.</p>
 
 <p>I think Apple is pushing ARC as the new standard (please correct me on this if
-I'm wrong). I'm guessing this is why the "Memory Management Programming Guide"
-has been renamed to the "<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" title="TODO: link title"><em>Advanced</em> Memory Management Programming
-Guide</a>". If you're starting a new project then turn on ARC
+I’m wrong). I’m guessing this is why the “Memory Management Programming Guide”
+has been renamed to the “<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" title="TODO: link title"><em>Advanced</em> Memory Management Programming
+Guide</a>”. If you’re starting a new project then turn on ARC
 and you can largely forget about manual reference counting.  However, I get the
 impression that you still need a decent understanding of reference counting to
 use ARC 100% correctly.</p>
 
 <h2>Coming From C/C++</h2>
 
-<p><em>You can skip this section if you don't have experience with manual memory
+<p><em>You can skip this section if you don’t have experience with manual memory
 management, such as in C or C++.</em></p>
 
 <p>In C/C++, you can create objects as local (a.k.a stack-allocated) variables,
-where allocation and deallocation is handled for you automatically. You don't
+where allocation and deallocation is handled for you automatically. You don’t
 have this luxury in Objective-C. In Objective-C all objects are allocated on
 the heap. It is the equivalent of always using <code>new</code> to create objects in C++.
 As a result, all object variables are pointers.</p>
@@ -124,31 +124,31 @@ As a result, all object variables are pointers.</p>
 <p>In C++, an allocated bit of memory usually has a single owner. The owner
 deallocates the memory when appropriate. This is also slightly different in
 Objective-C. Objects can have multiple owners <em>by default</em>, as we will see
-later. You can't say "deallocate this now." Instead, you say "I'm not using
-this anymore" and the deallocation of an object happens automatically once all
+later. You can’t say “deallocate this now.” Instead, you say “I’m not using
+this anymore” and the deallocation of an object happens automatically once all
 owners have said they are no longer using the object.</p>
 
 <h2>Coming From a Garbage Collected Language (Java, Python, C#, etc.)</h2>
 
-<p><em>You can skip this section if you don't have experience in a garbage collected
+<p><em>You can skip this section if you don’t have experience in a garbage collected
 language like Java, Python or C#.</em></p>
 
 <p>In a garbage collected langauge, you create new objects whenever you want.
-Then, when you're finished with the objects you just stop using them and forget
+Then, when you’re finished with the objects you just stop using them and forget
 about them. The garbage collector will magically come along and free up the
 memory that the objects were occupying. This is not so, in Objective-C.</p>
 
 <p>In Objective-C, when you create a new object you are responsible for freeing up
-(a.k.a. deallocating) the memory once you're done with it. <strong>If you forget
+(a.k.a. deallocating) the memory once you’re done with it. <strong>If you forget
 this, then the object stays in memory until the program exits</strong>.  This is
 called a <a href="http://en.wikipedia.org/wiki/Memory_leaks">memory leak</a>. If you keep leaking memory, eventually you will use
 so much that the program will crash.</p>
 
-<p>Conversely, you also have to be careful that you don't use an object that has
+<p>Conversely, you also have to be careful that you don’t use an object that has
 been deallocated. If an object gets deallocated, but you still have a variable
 pointing to that object, then the next time you try to use that variable you
 will crash — or worse. Unlike other languages, just because you have a
-variable doesn't mean that the object in the variable still exists. This is
+variable doesn’t mean that the object in the variable still exists. This is
 called a <a href="http://en.wikipedia.org/wiki/Dangling_pointers">dangling pointer</a>.</p>
 
 <h2>What Is Reference Counting?</h2>
@@ -156,25 +156,25 @@ called a <a href="http://en.wikipedia.org/wiki/Dangling_pointers">dangling point
 <p>Every object in Objective-C uses <a href="http://en.wikipedia.org/wiki/Reference_counting">reference counting</a> to manage its
 lifecycle. The canonical documentation for this is the <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" title="TODO: link title">Advanced Memory
 Management Programming Guide</a>. Reference counting allows a
-single object to have multiple "owners", and ensures that the object will stay
+single object to have multiple “owners”, and ensures that the object will stay
 alive as long as there is at least one owner. Once the last owner is gone, the
 object deallocates itself.</p>
 
 <p>Reference counting is very simple, and works like this:</p>
 
 <ul>
-  <li>Every object has a "reference count", which is just an integer.</li>
+  <li>Every object has a “reference count”, which is just an integer.</li>
   <li>The reference count starts at one when the object is created, and whoever
 created the object automatically has ownership of it.</li>
   <li>If you want to take ownership of an object, you <strong>increase</strong> the reference
 count of the object by one.</li>
-  <li>When you release ownership of an object because you don't need it any more,
+  <li>When you release ownership of an object because you don’t need it any more,
 you <strong>decrease</strong> the reference count by one.</li>
   <li>When the reference count of an object reaches zero that means nobody is
 using it, so it is safe to be deallocated.</li>
 </ul>
 
-<p>Let's look at an example of correct usage, using a reference counted television
+<p>Let’s look at an example of correct usage, using a reference counted television
 object.</p>
 
 <table class="table table-hover table-bordered">
@@ -209,7 +209,7 @@ object.</p>
   </tbody>
 </table>
 
-<p>Now let's look at an incorrect usage, which causes a <a href="http://en.wikipedia.org/wiki/Memory_leaks">memory leak</a>:</p>
+<p>Now let’s look at an incorrect usage, which causes a <a href="http://en.wikipedia.org/wiki/Memory_leaks">memory leak</a>:</p>
 
 <table class="table table-hover table-bordered">
   <thead>
@@ -250,7 +250,7 @@ object.</p>
 
 <p>This memory leak occurs because Ned forgot to release ownership of the object before he was beheaded.</p>
 
-<p>Now let's look at another incorrect usage that causes a <a href="http://en.wikipedia.org/wiki/Dangling_pointers">dangling pointer</a>:</p>
+<p>Now let’s look at another incorrect usage that causes a <a href="http://en.wikipedia.org/wiki/Dangling_pointers">dangling pointer</a>:</p>
 
 <table class="table table-hover table-bordered">
   <thead>
@@ -262,12 +262,12 @@ object.</p>
   </thead>
   <tbody>
     <tr>
-      <td>Simon wants to watch Grandma's House, so he creates a TV object. Creating the object makes him the only owner.</td>
+      <td>Simon wants to watch Grandma’s House, so he creates a TV object. Creating the object makes him the only owner.</td>
       <td> </td>
       <td>1</td>
     </tr>
     <tr>
-      <td>Adam starts watching too, but doesn't bother taking ownership.</td>
+      <td>Adam starts watching too, but doesn’t bother taking ownership.</td>
       <td> </td>
       <td>1</td>
     </tr>
@@ -294,7 +294,7 @@ object.</p>
 <p>Memory management in Objective-C involves four basic rules. If you follow these
 rules, then you will not leak memory or cause dangling pointers.</p>
 
-<h3>Rule 1. If you create an object using a method that starts with "alloc", "copy" or "new", then you own it.</h3>
+<h3>Rule 1. If you create an object using a method that starts with “alloc”, “copy” or “new”, then you own it.</h3>
 
 <p>This is where you have created a new object with a retain count of one, which
 automatically makes you the owner.</p>
@@ -359,14 +359,14 @@ handle everything itself.</p>
 <h3>Rule 4. If you keep a pointer to an object, then you must own the object (with some rare exceptions).</h3>
 
 <p>Basically, if you own an object, then you know it is definitely safe to use. If
-you <em>don't</em> own it, then it is sometimes safe to use temporarily (discussed in
+you <em>don’t</em> own it, then it is sometimes safe to use temporarily (discussed in
 the autorelease section). If you want to <em>keep</em> an object to use later, such as
 storing it in an ivar or a global, you must retain it. Otherwise, it might be
 deallocated and you will be left with a dangling pointer.</p>
 
 <p>One exception is the use of strings you type directly into the code (string
 literals). String literals are never deallocated, and <code>retain</code> and <code>release</code>
-don't do anything to them. Another exception is when you are trying to avoid
+don’t do anything to them. Another exception is when you are trying to avoid
 retain cycles, which we will look at later.</p>
 
 <p>Here are some examples showing the right and wrong way to keep a variable:</p>
@@ -428,36 +428,36 @@ retain cycles, which we will look at later.</p>
 
 <h2>NSAutoreleasePool And Autorelease</h2>
 
-<p>The final peice of the puzzle is autoreleasing. Let's say we create an object
+<p>The final peice of the puzzle is autoreleasing. Let’s say we create an object
 like this:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">greeting</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@, %@!"</span><span class="p">,</span> <span class="s">@"Hello"</span><span class="p">,</span> <span class="s">@"sailor"</span><span class="p">];</span>
 </code></pre></div></div>
 
 <p>According to Rule 1, we do <strong>not</strong> own the <code>greeting</code> string because the method
-<code>stringWithFormat</code> does not begin with "alloc", "copy" or "new". How can we not
-own an object we just created? If we don't release it then what will?</p>
+<code>stringWithFormat</code> does not begin with “alloc”, “copy” or “new”. How can we not
+own an object we just created? If we don’t release it then what will?</p>
 
 <p>At (almost) any time, there is a global <code>NSAutoreleasePool</code> in use. When you
 call <code>autorelease</code> on an object, all it does is add that object to the global
-pool. Later on, the pool will be "drained" which causes <code>release</code> to be called
+pool. Later on, the pool will be “drained” which causes <code>release</code> to be called
 on every object in the pool. <strong>So, <code>autorelease</code> just calls <code>release</code> some time
 in the future</strong>.</p>
 
-<p>This is the reason why we don't own the <code>greeting</code> string. It has already been
+<p>This is the reason why we don’t own the <code>greeting</code> string. It has already been
 autoreleased, which means it has been added to the current pool, and will be
-released later when the pool is drained. If we don't retain the string now,
+released later when the pool is drained. If we don’t retain the string now,
 then when the pool is drained the retain count will hit zero, and the string
 will be deallocated. The object is safe to use until the pool is drained, but
 it will not be safe after that.</p>
 
-<p>So now the question becomes "how long can I safely use the object before the
-autorelease pool is drained?" In Cocoa, the pool is drained after every
+<p>So now the question becomes “how long can I safely use the object before the
+autorelease pool is drained?” In Cocoa, the pool is drained after every
 <code>NSEvent</code> is sent. For example, if the user clicks the mouse twice then the
 pool will be drained in between the first and the second click. This is why it
 is safe to use an object temporarily, but it is not safe to <em>keep</em> an
-object unless you own it. If you don't retain your ivar and the user moves her
-mouse, suddenly your ivar is gone and you're probably going to crash very
+object unless you own it. If you don’t retain your ivar and the user moves her
+mouse, suddenly your ivar is gone and you’re probably going to crash very
 shortly.</p>
 
 <p>You can actually create your own autorelease pools if you need to drain them
@@ -484,24 +484,24 @@ frequently:</p>
 <span class="p">[</span><span class="n">outside</span> <span class="nf">speak</span><span class="p">];</span>
 </code></pre></div></div>
 
-<p>The basic rule of thumb is this: It's safe to use an object you don't own until
+<p>The basic rule of thumb is this: It’s safe to use an object you don’t own until
 the current function/method returns. After you return from the function/method
 someone might drain the pool, or they might release one of the arguments they
 gave you. If you want to be sure the object will live after the function/method
-returns, then retain it. It's always safe to use an object you own.</p>
+returns, then retain it. It’s always safe to use an object you own.</p>
 
 <h2>Common Mistakes</h2>
 
-<h3>Releasing An Object You Don't Own</h3>
+<h3>Releasing An Object You Don’t Own</h3>
 
-<p>One common mistake is to think "I have to release this string because I created
-it with <code>[NSString stringWithString:@"hello"]</code>." Look at Rule 1 again.
-<code>stringWithString:</code> does not start with "alloc", "copy" or "new", which means
-you don't own the object, so don't release it. The only exception I can think
+<p>One common mistake is to think “I have to release this string because I created
+it with <code>[NSString stringWithString:@"hello"]</code>.” Look at Rule 1 again.
+<code>stringWithString:</code> does not start with “alloc”, “copy” or “new”, which means
+you don’t own the object, so don’t release it. The only exception I can think
 of is the <code>mutableCopy</code> method, which really should have been called
 <code>copyMutable</code> instead.</p>
 
-<h3>Keeping And Using An Object You Don't Own</h3>
+<h3>Keeping And Using An Object You Don’t Own</h3>
 
 <p>A similar mistake to the previous one is doing something like this:</p>
 
@@ -536,8 +536,8 @@ of is the <code>mutableCopy</code> method, which really should have been called
 <span class="k">@end</span>
 </code></pre></div></div>
 
-<p>Again, look at Rule 1. <code>stringWithFormat:</code> does not begin with "alloc", "copy"
-or "new", so you don't own the string it creates. Objects should retain their
+<p>Again, look at Rule 1. <code>stringWithFormat:</code> does not begin with “alloc”, “copy”
+or “new”, so you don’t own the string it creates. Objects should retain their
 ivars unless they have a very good reason not to.</p>
 
 <p>Scarily, this may work without crashing, depending on how the <code>Tiger</code> class is
@@ -569,10 +569,10 @@ crashing sometimes, depending on the class being used.</p>
 </h3>
 
 <p>The <code>retainCount</code> method returns — you guessed it — the current
-retain count. Occassionally someone will look at this number and say "OMG,
-something is wrong! I know the retain count should be 1 but it's 3!"</p>
+retain count. Occassionally someone will look at this number and say “OMG,
+something is wrong! I know the retain count should be 1 but it’s 3!”</p>
 
-<p>Looking at the retain count is not reliable because it doesn't show
+<p>Looking at the retain count is not reliable because it doesn’t show
 autoreleases. Take this peice of code, for example:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSMutableString</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableString</span> <span class="nf">string</span><span class="p">];</span>
@@ -593,32 +593,32 @@ Testy Cakes
 Retain count is 4
 </code></pre>
 
-<p><code>NSLog</code> is retaining <code>str</code> every time it is called. That doesn't mean that
+<p><code>NSLog</code> is retaining <code>str</code> every time it is called. That doesn’t mean that
 <code>NSLog</code> is leaking memory. If you could look into the current autorelease pool
-— which you can't, as far as I know — you would find that <code>str</code> has
+— which you can’t, as far as I know — you would find that <code>str</code> has
 been autoreleased four times.</p>
 
 <p>Anything can retain your objects. I could write a function that retains every
 argument 1000 times and then autoreleases it 1000 times just to make you freak
-out when you look at the retain count, but it wouldn't leak a drop.</p>
+out when you look at the retain count, but it wouldn’t leak a drop.</p>
 
 <h3>Over-releasing</h3>
 
 <p>Despite your best efforts, you will occassionally accidentally release
-something twice instead of once, or maybe release something that you don't own.
+something twice instead of once, or maybe release something that you don’t own.
 This will cause a crash. Fortunately, these bugs are pretty easy to find if you
-turn on zombies in Instruments. And I'm not talking about sexually arousing the
+turn on zombies in Instruments. And I’m not talking about sexually arousing the
 walking dead inside of a clarinet, or anything like that.</p>
 
 <p>Xcode 4 makes this pretty easy:</p>
 
 <ul>
-  <li>Click and hold the "Run" button in the toolbar.</li>
-  <li>Select "Profile" from the drop down menu.</li>
-  <li>When Instruments pops up, select the "Zombies" instrument.</li>
+  <li>Click and hold the “Run” button in the toolbar.</li>
+  <li>Select “Profile” from the drop down menu.</li>
+  <li>When Instruments pops up, select the “Zombies” instrument.</li>
   <li>Go to your running app and trigger the crash.</li>
-  <li>Instruments will pop up a little box that says something like: "You
-messaged a zombie at 0xDEADBEEF." Click the little arrow in there.</li>
+  <li>Instruments will pop up a little box that says something like: “You
+messaged a zombie at 0xDEADBEEF.” Click the little arrow in there.</li>
   <li>In the bottom pane, Instruments will show you every single <code>retain</code>,
 <code>release</code> and <code>autorelease</code> that ever happened to the object, so you can
 figure out the problem from that.</li>
@@ -628,7 +628,7 @@ figure out the problem from that.</li>
 
 <p>Normally you retain an ivar in a setter or an initialiser method, then you
 release it in <code>dealloc</code>. That way, when an object is deallocated there is a
-cascading effect. The root object releases its children, then it's children
+cascading effect. The root object releases its children, then it’s children
 release their children, until the whole data structure is fully released.</p>
 
 <p>If you have a situation where object X owns object Y, and object Y also owns
@@ -636,19 +636,19 @@ object X then you have a problem. X and Y will never be deallocated while they
 own each other, because they are keeping each others retain counts at one. So
 you just end up leaking both of the objects.</p>
 
-<p>The reason why objects don't retain their delegates is because the delegate is
+<p>The reason why objects don’t retain their delegates is because the delegate is
 usually the owner of the object. Image if delegates were retained. The
-<code>NSWindowController</code> owns the <code>NSWindow</code>, and the <code>NSWindow</code> owns it's
-delegate, which just happens to be the <code>NSWindowController</code>. Now you've leaked
+<code>NSWindowController</code> owns the <code>NSWindow</code>, and the <code>NSWindow</code> owns it’s
+delegate, which just happens to be the <code>NSWindowController</code>. Now you’ve leaked
 an entire window and its controller, which could take up a huge chunk of
 memory.</p>
 
-<p>The way you get around this, is you basically say "Ok, the controller is going
-to live longer than the window which means we shouldn't get any dangling
-pointers, so just don't retain the controller." If you want to be super safe,
+<p>The way you get around this, is you basically say “Ok, the controller is going
+to live longer than the window which means we shouldn’t get any dangling
+pointers, so just don’t retain the controller.” If you want to be super safe,
 you can set the delegate to nil inside of the <code>dealloc</code> of the window
 controller. That way, even if the window outlives the controller, you can be
-sure that there won't be a dangling pointer.</p>
+sure that there won’t be a dangling pointer.</p>
 
 </div>
 

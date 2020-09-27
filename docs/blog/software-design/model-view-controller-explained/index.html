@@ -63,7 +63,7 @@
 
   <div class="post-content">
 <p>Model view controller (MVC) is a very useful and popular design pattern. If
-you're writing software, you should know it. Unfortunately it's also one of the
+you’re writing software, you should know it. Unfortunately it’s also one of the
 hardest to truly understand. In this article I will provide what I think is the
 simplest explanation of MVC, and why you should use it.</p>
 
@@ -107,17 +107,17 @@ same object.</p>
   </li>
 </ol>
 
-<p>Rule 1 is the golden rule of MVC so I'll repeat it:</p>
+<p>Rule 1 is the golden rule of MVC so I’ll repeat it:</p>
 
 <blockquote>
   <p><strong>The model represents the data, and does nothing else. The
 model does NOT depend on the controller or the view.</strong></p>
 </blockquote>
 
-<p>Let's take an address book application as an example. The model is a list of
+<p>Let’s take an address book application as an example. The model is a list of
 <code>Person</code> objects, the view is a GUI window that displays the list of people, and
-the controller handles actions such as "Delete person", "Add person", "Email
-person", etc. The following example does not use MVC because the model depends
+the controller handles actions such as “Delete person”, “Add person”, “Email
+person”, etc. The following example does not use MVC because the model depends
 on the view.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Example 1:</span>
@@ -164,11 +164,11 @@ happily reuse old, stable code without introducing new bugs into it.</p>
 By removing the view dependency from the model, the model code becomes
 delightful.</p>
 
-<p>Why is the model code so delightful? Let's continue with the address book
-application example. The project manager approaches the developer and says <em>"We
+<p>Why is the model code so delightful? Let’s continue with the address book
+application example. The project manager approaches the developer and says <em>“We
 love the contact list window, but we need a second window that displays all the
 contacts by their photos only. The photos should be in a table layout, with
-five photos per row."</em></p>
+five photos per row.”</em></p>
 
 <p>If the application uses MVC, this task is pretty straight forward. Currently
 there are three classes: <code>Person</code>, <code>PersonListController</code>, and
@@ -196,8 +196,8 @@ like so:</p>
 </code></pre></div></div>
 
 <p>As you can see, the model code is starting to turn nasty. If the project
-manager then says <em>"we're porting the app to a platform with a different GUI
-toolkit"</em> the delightfulness is even more prominent. With MVC, the <code>Person</code>
+manager then says <em>“we’re porting the app to a platform with a different GUI
+toolkit”</em> the delightfulness is even more prominent. With MVC, the <code>Person</code>
 class can be displayed by different GUI toolkits without any modification. Just
 make a controller and a view with the new toolkit, just as you would with the
 old toolkit. Without MVC, it is a nightmare to support multiple GUI toolkits.
@@ -267,7 +267,7 @@ be reused elsewhere.</p>
 model to remove the model-view dependencies. With the dependencies removed, the
 model, and possibly the view, can be made reusable without modification.  This
 makes implementing new features and maintenance a breeze. The users get stable
-software quickly, the company saves money, and the developers don't go insane.
+software quickly, the company saves money, and the developers don’t go insane.
 How good is that?</p>
 
 </div>

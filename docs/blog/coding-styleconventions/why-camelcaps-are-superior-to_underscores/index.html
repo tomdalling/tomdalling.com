@@ -65,10 +65,10 @@
   </header>
 
   <div class="post-content">
-<p>I've always preferred camel caps to underscores when it comes to naming
-conventions, but I've never really known why. Recently I've been writing a lot
+<p>I’ve always preferred camel caps to underscores when it comes to naming
+conventions, but I’ve never really known why. Recently I’ve been writing a lot
 of Python, where the standard is to use underscores for most names, and now I
-realise why I don't like underscores. I hope to make my argument for camel caps
+realise why I don’t like underscores. I hope to make my argument for camel caps
 objective — or, failing that, at least better than the mouth-frothing,
 religious reactions you normally get in these “X is better than Y”
 type of discussions.</p>
@@ -89,13 +89,13 @@ maximum line width pretty often. Underscores make the situation worse. I find
 myself shortening names just to fit the line width, and that is not a good
 thing. You can break long statements into multiple smaller statements, but then
 you have to introduce temporary, single-use variables. Adding unnecessary
-variables isn't ideal, either.</p>
+variables isn’t ideal, either.</p>
 
 <p>Python is especially bad in this respect because whitespace is meaningful,
 unlike most other languages. If you want to wrap a long statement onto multiple
 lines, it looks very similar to a loop or conditional structure. On top of
 this, sometimes you need to use backslashes to break up a line and other times
-you don't.</p>
+you don’t.</p>
 
 <p>You can see all of these problems in in a typical SQLAlchemy query:</p>
 
@@ -131,15 +131,15 @@ eyes.</p>
 
 <p>I know a programmer who insists that underscores are easier to read than camel
 caps because humans are used to reading words separated by spaces. My problem
-with this argument is that code isn't written like a novel. When you scan code
+with this argument is that code isn’t written like a novel. When you scan code
 with your eyes, you are primarily looking for syntactic structure, not names.
 You want to instantly see where a loop starts and ends, or where a functions
-arguments start and end, et cetera. Only <em>after</em> you've mentally digested the
+arguments start and end, et cetera. Only <em>after</em> you’ve mentally digested the
 structure do you actually care about the names of variables and function.</p>
 
-<p>For example, let's say you are scanning a file to find a certain method. First
+<p>For example, let’s say you are scanning a file to find a certain method. First
 you scan for the class you want. You ignore every name in the code except for
-class names. Once you've found the class, you start scanning for method
+class names. Once you’ve found the class, you start scanning for method
 declarations. You ignore every name in the code except for method names. If the
 class names and method names blend in with all the other code, that makes for a
 frustrating experience.</p>
@@ -147,26 +147,26 @@ frustrating experience.</p>
 <h2>What Advantages Do Underscores Give You?</h2>
 
 <p>Names with underscores are probably easier to read than names in camel caps. As
-I mentioned above, I don't think you should be optimising for the readability
+I mentioned above, I don’t think you should be optimising for the readability
 of names, at the expense of the readability of the syntactic structure of the
 code.</p>
 
 <p>If you are using a language where underscores are a widely accepted standard,
 then you probably want to stick with that standard. Having a single naming
 convention is better than having multiple naming conventions, even if the
-single convention is suboptimal. However, this doesn't mean that underscores
+single convention is suboptimal. However, this doesn’t mean that underscores
 are inherently good, it just means that you should pick the lesser of two
 evils.</p>
 
 <p>So, what advantages do you get from using underscores instead of camel caps. I
-can't think of any others.</p>
+can’t think of any others.</p>
 
 <h2>Conclusion</h2>
 
 <p>In the end, the camel caps versus underscores issue is fairly minor. After
-working in a code base with multiple different conventions, I've realised that
-doesn't matter a whole lot. Sure, the underscores are slightly more annoying to
-dig through, but it's not like it brings development to a grinding halt.</p>
+working in a code base with multiple different conventions, I’ve realised that
+doesn’t matter a whole lot. Sure, the underscores are slightly more annoying to
+dig through, but it’s not like it brings development to a grinding halt.</p>
 
 <p>If you are starting with a clean slate and have the opportunity to choose, then
 choose camel caps. If not,  there is no need to make a big deal out of it.</p>

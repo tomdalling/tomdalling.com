@@ -40,7 +40,7 @@ Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
       <link>https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I know. FizzBuzz has been done to death. But I want to use it as a familiar
 base upon which we can explore some of the common tradeoffs involved in writing
-and maintaining software. In this article, I'll show multiple implementations
+and maintaining software. In this article, I’ll show multiple implementations
 of FizzBuzz, all designed to achieve different goals, and discuss the
 implications of each.</p>
 ]]></description>
@@ -87,10 +87,10 @@ couple of years.</p>
     <item>
       <title>Explaining Homogeneous Coordinates &amp; Projective Geometry</title>
       <link>https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>In this article I'm going to explain homogeneous coordinates (a.k.a. 4D
-coordinates) as simply as I can. In previous articles, we've used 4D vectors
-for matrix multiplication, but I've never really defined what the fourth
-dimension actually is. Now it's time to take a closer look at projective
+      <description><![CDATA[<p>In this article I’m going to explain homogeneous coordinates (a.k.a. 4D
+coordinates) as simply as I can. In previous articles, we’ve used 4D vectors
+for matrix multiplication, but I’ve never really defined what the fourth
+dimension actually is. Now it’s time to take a closer look at projective
 geometry.</p>
 
 <p>Also, welcome back! It has been a while since my last post. Hopefully I will
@@ -130,9 +130,9 @@ directional lights, spotlights, attenuation, and using multiple lights.</p>
       <link>https://www.tomdalling.com/blog/modern-opengl/05-model-assets-and-instances/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will be refactoring the code to be more like a 3D
 engine/framework. Specifically, we will be replacing some of the globals with
-structs that represent "assets" and "instances." At the end, we will have a
+structs that represent “assets” and “instances.” At the end, we will have a
 single wooden crate asset, and five instances of that asset arranged to spell
-out "Hi" in 3D.</p>
+out “Hi” in 3D.</p>
 ]]></description>
       <pubDate>Fri, 08 Feb 2013 00:00:00 -0000</pubDate>
       <category><![CDATA[Modern OpenGL Series]]></category>

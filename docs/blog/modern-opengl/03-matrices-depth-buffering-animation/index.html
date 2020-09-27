@@ -74,13 +74,13 @@ cube. The end result will look like this:</p>
   </figure>
 </p>
 
-<p>Now that we're finally getting something interesting on the screen, I can
+<p>Now that we’re finally getting something interesting on the screen, I can
 include more pictures! An album of animated gifs is available here:
 <a href="http://imgur.com/a/x8q7R">http://imgur.com/a/x8q7R</a></p>
 
 <p>In order to make this spinning cube, we will learn a bit about matrix math, and
 how it is used to create perspective projections, rotation, translation, and
-the concept of a "camera." We will also learn about depth buffering, and why it
+the concept of a “camera.” We will also learn about depth buffering, and why it
 is necessary. We will also see how a typical 3D application implements changes
 over time, such as animation.</p>
 
@@ -128,8 +128,8 @@ over time, such as animation.</p>
 
 <h2>Matrix Theory</h2>
 
-<p>This article is mostly about using matrices in 3D, so let's start with a bit of
-matrix theory before getting into the code. I'm not going to focus much on the
+<p>This article is mostly about using matrices in 3D, so let’s start with a bit of
+matrix theory before getting into the code. I’m not going to focus much on the
 math, as there are lots of good online resources for that. We are using GLM to
 perform all the math for us. I will be focusing on what matrices can <em>do</em> for
 us in our 3D application.</p>
@@ -159,8 +159,8 @@ us in our 3D application.</p>
   </figure>
 </p>
 
-<p>The plural of matrix is "matrices" (pronounced "<a href="http://static.sfdict.com/dictstatic/dictionary/audio/luna/M02/M0208400.mp3">mey-tri-seez</a>"). For
-example, "I have one matrix" and "I have have two matrices."</p>
+<p>The plural of matrix is “matrices” (pronounced “<a href="http://static.sfdict.com/dictstatic/dictionary/audio/luna/M02/M0208400.mp3">mey-tri-seez</a>”). For
+example, “I have one matrix” and “I have have two matrices.”</p>
 
 <p>Different numbers produce different types of transformations. The matrix above
 will rotate coordinates 90° around the Z axis. We will be using GLM to
@@ -168,7 +168,7 @@ create our matrices, so you do not need to understand how to calculate the
 numbers.</p>
 
 <p>Matrices can have any number of rows and columns, but for 3D transformations we
-need a 4×4 matrix like the one shown above. Whenever I say "matrix," I
+need a 4×4 matrix like the one shown above. Whenever I say “matrix,” I
 mean a 4×4 matrix.</p>
 
 <p>When it comes to code, a matrix is usually represented as an array of floats.
@@ -195,7 +195,7 @@ We will be using the <code>glm::mat4</code> class to represent a 4×4 matrix.</p
 the transformations.</p>
 
 <p>For example, if you multiply a rotation matrix by a translation matrix, the
-result is a "combined" matrix that does <em>both</em> rotation <em>and</em> translation.
+result is a “combined” matrix that does <em>both</em> rotation <em>and</em> translation.
 Below is an example of this type of matrix multiplication:</p>
 
 <p>
@@ -240,7 +240,7 @@ and check that your matrix multiplication is in the correct order.</p>
 that has the transformation applied to it.</p>
 
 <p>For example, if you take the rotation matrix above and multiply it by the
-coordinate (1,1,0) the result is the "transformed" coordinate (-1,1,0). The
+coordinate (1,1,0) the result is the “transformed” coordinate (-1,1,0). The
 transformed coordinate is the original coordinate after being rotated 90°
 around the Z axis. Below is an example of this type of matrix multiplication:</p>
 
@@ -275,15 +275,15 @@ coordinate only has three rows. We need to use 4D coordinates because 4x4
 matrices <em>require</em> them in order to do matrix multiplication.</p>
 
 <p>Some transformations, such a rotation and scaling, only require a 3x3 matrix.
-For those transformations, we don't need 4D coordinates because 3D will work.
+For those transformations, we don’t need 4D coordinates because 3D will work.
 However, translation requires at least a 4x3 matrix, and perspective projection
 requires a 4x4 matrix, and we need both of those, so we are forced to use 4D.</p>
 
 <p>These are called <a href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinates</a>. In a later article, when we cover
-directional lighting, we will learn about what the 'W' dimension actually
+directional lighting, we will learn about what the ‘W’ dimension actually
 represents. At this point, however, we only need to know how to convert from 3D
 to 4D. When you convert a 3D coordinate into 4D, always set the 4<sup>th</sup>
-dimension, 'W', to 1. For example, the coordinate (22,33,44) will look like:</p>
+dimension, ‘W’, to 1. For example, the coordinate (22,33,44) will look like:</p>
 
 <p>
   <figure>
@@ -291,24 +291,24 @@ dimension, 'W', to 1. For example, the coordinate (22,33,44) will look like:</p>
   </figure>
 </p>
 
-<p>When you convert a 4D coordinate back to 3D, if the 'W' dimension is still set
+<p>When you convert a 4D coordinate back to 3D, if the ‘W’ dimension is still set
 to 1 then you can just ignore it and use the X, Y and Z values like you
-normally would. If you find that your 'W' value has changed to something other
-than 1, well… you're either doing something advanced, or you have a bug.</p>
+normally would. If you find that your ‘W’ value has changed to something other
+than 1, well… you’re either doing something advanced, or you have a bug.</p>
 
 <h2>Making A Cube</h2>
 
 <p>The first change to the code will be to replace the triangle from the previous
 article with a cube.</p>
 
-<p>I've made the cube out of triangles, by using two triangles on each of the six
+<p>I’ve made the cube out of triangles, by using two triangles on each of the six
 sides. In older versions of OpenGL, we could have used one square (<code>GL_QUADS</code>)
 per side instead of two triangles, but <code>GL_QUADS</code> have been removed from modern
 versions of OpenGL. The X, Y and Z coordinates will range from -1 to +1, which
 means the cube will be two units wide, and the center of the cube will be the
 origin (the origin is coordinate (0,0,0)). We will use one 256×256
 texture for all sides of the cube. The data is going to be in the same format
-as the last article, so we won't need to change much. Here is the new data for
+as the last article, so we won’t need to change much. Here is the new data for
 the cube:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GLfloat</span> <span class="n">vertexData</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
@@ -372,14 +372,14 @@ total number of vertices to draw is: 6 × 2 × 3 = 36. The new
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glDrawArrays</span><span class="p">(</span><span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Lastly, we will use a different picture called "wooden-crate.jpg" as the
+<p>Lastly, we will use a different picture called “wooden-crate.jpg” as the
 texture. We just need to change the file name in the <code>LoadTexture</code> function,
 like this:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tdogl</span><span class="o">::</span><span class="n">Bitmap</span> <span class="n">bmp</span> <span class="o">=</span> <span class="n">tdogl</span><span class="o">::</span><span class="n">Bitmap</span><span class="o">::</span><span class="n">bitmapFromFile</span><span class="p">(</span><span class="n">ResourcePath</span><span class="p">(</span><span class="s">"wooden-crate.jpg"</span><span class="p">));</span>
 </code></pre></div></div>
 
-<p>That's it! We've provided all the data necessary to make a textured cube. If
+<p>That’s it! We’ve provided all the data necessary to make a textured cube. If
 you run the program now, you will see this:</p>
 
 <p>
@@ -389,7 +389,7 @@ you run the program now, you will see this:</p>
 </p>
 
 <p>At this point, we have a couple of problems. Firstly, the cube is looking
-awfully 2D because we can only see one side of it. We need to "move the camera"
+awfully 2D because we can only see one side of it. We need to “move the camera”
 so we are looking at the cube from a different angle. Secondly, something is
 wrong because the width and height of the cube should be the same, but the
 width is obviously larger than the height in the screenshot above. In order to
@@ -398,7 +398,7 @@ are used in 3D applications.</p>
 
 <h2>Clip Volume – The Default Camera</h2>
 
-<p>To understand how to make a "camera" in 3D, we must first understand the
+<p>To understand how to make a “camera” in 3D, we must first understand the
 concept of the clip volume.</p>
 
 <blockquote class="pull-right">
@@ -419,7 +419,7 @@ the front side of the cube.</p>
 displays whatever is in the clip volume. The left and right edges of the window
 are -1 and +1 on the X axis, the bottom and top edges of the window are -1 and
 +1 on the Y axis. The clip volume gets stretched to fit the size of the
-viewport in the window, so our cube doesn't look square anymore.</p>
+viewport in the window, so our cube doesn’t look square anymore.</p>
 
 <h2>Moving The World While The Camera Stays Still</h2>
 
@@ -436,13 +436,13 @@ camera, we must move the entire 3D scene so that it fits inside the clip volume
 cube correctly. For example, if we want to rotate the camera to the right, we
 actually rotate the whole world to the left. If we want to move the camera
 closer to the player, we actually move the player closer to the camera. This is
-how "cameras" work in 3D, they transform the entire world so that it fits into
+how “cameras” work in 3D, they transform the entire world so that it fits into
 the clip volume and looks correct.</p>
 
 <p>When you walk somewhere, it feels like the world is standing still, and you are
 moving. But you can also imagine that you are not moving at all, and the whole
 world is rotating underneath your feet, like you are on a treadmill. This is
-the difference between "moving the camera" and "moving the world." Either way,
+the difference between “moving the camera” and “moving the world.” Either way,
 it looks exactly the same to the viewer.</p>
 
 <p>So how do we transform the 3D scene to fit into the clip volume? This is where
@@ -450,7 +450,7 @@ we need to use matrices.</p>
 
 <h2>Implementing The Camera Matrix</h2>
 
-<p>Let's implement the camera matrix first. As explained above "cameras" in 3D are
+<p>Let’s implement the camera matrix first. As explained above “cameras” in 3D are
 just transformations that affect the whole 3D scene. Because a camera is a
 transformation, we can represent the camera as a matrix.</p>
 
@@ -495,10 +495,10 @@ bottom of the <code>LoadShaders</code> function, we will add this code:</p>
 <span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">stopUsing</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>The camera matrix isn't going to change in this article, so we set it once,
+<p>The camera matrix isn’t going to change in this article, so we set it once,
 just after the shaders are created.</p>
 
-<p>You can't set shader variables unless the shader is in use, which is why we
+<p>You can’t set shader variables unless the shader is in use, which is why we
 have <code>gProgram-&gt;use()</code> and <code>gProgram-&gt;stopUsing()</code>.</p>
 
 <p>We are going to use the <code>glm::lookAt</code> function to create a camera matrix for
@@ -507,37 +507,37 @@ us. If you have used older versions of OpenGL, then you may have used the
 removed from recent versions of OpenGL. The first argument <code>glm::vec3(3,3,3)</code>
 is the position of the camera. The second argument <code>glm::vec3(0,0,0)</code> is what
 the camera is looking at. The center of the cube is at (0,0,0) so that is where
-we want the camera to look. The final argument <code>glm::vec3(0,1,0)</code> is the "up"
-direction. We want the camera to be upright, so we set "up" to be the positive
+we want the camera to look. The final argument <code>glm::vec3(0,1,0)</code> is the “up”
+direction. We want the camera to be upright, so we set “up” to be the positive
 direction of the Y axis. If the camera was upside down, or tilted sideways,
 then this would be different.</p>
 
-<p>After we've generated the camera matrix, we set the <code>camera</code> shader variable
+<p>After we’ve generated the camera matrix, we set the <code>camera</code> shader variable
 with <code>gProgram-&gt;setUniform("camera", camera);</code>. The <code>setUniform</code> method
 is part of the <code>tdogl::Program</code> class, and it calls <code>glUniformMatrix4fv</code> to set
 the shader variable.</p>
 
-<p>That's it! We now have a functioning camera.</p>
+<p>That’s it! We now have a functioning camera.</p>
 
 <p>Unfortunately, if you run the program now you will see a completely black
 screen. This is because our camera matrix has transformed the vertices of the
-cube so that they are outside of the clip volume. As mentioned above, if it's
+cube so that they are outside of the clip volume. As mentioned above, if it’s
 outside of the clip volume then it will not be visible. To make it visible
 again, we need to set use a <strong>projection matrix</strong>.</p>
 
 <h2>Implementing the Projection Matrix</h2>
 
-<p>Remember that the clip volume is only two units wide, high, and deep. Let's say
+<p>Remember that the clip volume is only two units wide, high, and deep. Let’s say
 one unit is equivalent to one meter in our 3D scene. That means we can only see
-two meters infront of the camera, which isn't very convenient.</p>
+two meters infront of the camera, which isn’t very convenient.</p>
 
 <p>What we need to do is expand the clip volume so that more of the 3D scene can
-fit inside it. We can't change the size of the clip volume, but we can shrink
+fit inside it. We can’t change the size of the clip volume, but we can shrink
 the entire scene so that more of it fits into the clip volume. This shrinking
 is a transformation, so we can represent it as a matrix. This is basically what
 projection matrices are used for.</p>
 
-<p>Let's update the vertex shader to add the projection matrix variable. The
+<p>Let’s update the vertex shader to add the projection matrix variable. The
 updated shader looks like this:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
@@ -570,7 +570,7 @@ applied first, and the projection is applied second. In matrix multiplication,
 the transformations are applied from right to left, or from closest to farthest
 from the vertex.</p>
 
-<p>Now let's set the <code>projection</code> shader variable from the C++ code, the same way
+<p>Now let’s set the <code>projection</code> shader variable from the C++ code, the same way
 we did for the <code>camera</code> variable. Inside the <code>LoadShaders</code> function, add the
 following code just above the camera matrix code:</p>
 
@@ -583,19 +583,19 @@ following code just above the camera matrix code:</p>
 removed from recent versions of OpenGL. Fortunately <code>glm::perspective</code> can be
 used as a replacement.</p>
 
-<p>The first argument to <code>glm::perspective</code> is the "field of view" argument. This
-is an angle, in radians, that specifies how wide the camera's vision is.
-Instead of specifying radians directly, I'm using the <code>glm::radians</code> to convert
+<p>The first argument to <code>glm::perspective</code> is the “field of view” argument. This
+is an angle, in radians, that specifies how wide the camera’s vision is.
+Instead of specifying radians directly, I’m using the <code>glm::radians</code> to convert
 50 degrees into radians. A large field of view means the camera can see a lot
 of the scene, so the camera appears to be zoomed out. A small field of view
 means the camera can only see a small portion of the scene, so it appears to be
-zoomed in. The second argument is the "aspect" argument, which specifies the
+zoomed in. The second argument is the “aspect” argument, which specifies the
 aspect ratio of the view. This is almost always set to <code>width/height</code> of the
-window. The second last argument is the "near plane." The near plane is the
+window. The second last argument is the “near plane.” The near plane is the
 front of the clip volume, and the value <code>0.1</code> says that the near plane is 0.1
 units away from the camera. Anything that is closer to the camera than <code>0.1</code> it
 will not be visible. The near plane must be a value greater than zero. The last
-argument is the "far plane", which is the back of the clip volume. The value
+argument is the “far plane”, which is the back of the clip volume. The value
 <code>10.0</code> says that the camera will display everything that is within 10 units of
 the camera. Anything further than 10 units away will not be visible. Our cube
 is about three units away, so it will be visible.</p>
@@ -629,11 +629,11 @@ this:</p>
 <p>That looks… almost correct.</p>
 
 <p>The cube looks square now, instead of rectangular. This is because of the
-"aspect" argument of the call to <code>glm::perspective</code>, which corrects the aspect
+“aspect” argument of the call to <code>glm::perspective</code>, which corrects the aspect
 ratio based on the width and height of the window.</p>
 
 <p>Unfortunately, the screenshot above shows that some of the back sides of the
-cube are being rendered <em>over the top</em> of the front sides. We obviously don't
+cube are being rendered <em>over the top</em> of the front sides. We obviously don’t
 want this to happen, so we will enable <strong>depth buffering</strong> to fix the problem.</p>
 
 <h2>Depth Buffering</h2>
@@ -654,13 +654,13 @@ background from being drawn over the top of things in the foreground.</p>
 </blockquote>
 
 <p>With depth buffering enabled, every pixel that is drawn knows how far away from
-the camera it is. It stores this distance as a number in the "depth buffer."
+the camera it is. It stores this distance as a number in the “depth buffer.”
 When you draw a pixel over an existing pixel, OpenGL will look at the depth
 buffer to determine which pixel is closer to the camera. If the new pixel being
 drawn is closer to the camera, it will overwrite the existing pixel. If the
 preexisting pixel is closer to the camera, then the new pixel being drawn is
 <em>discarded</em>. That is, a preexisting pixel only gets overwritten if the new
-pixel is closer to the camera. This is called "depth testing."</p>
+pixel is closer to the camera. This is called “depth testing.”</p>
 
 <h2>Implementing Depth Buffering</h2>
 
@@ -672,10 +672,10 @@ pixel is closer to the camera. This is called "depth testing."</p>
 
 <p>This tells OpenGL to enable depth testing. The <code>glDepthFunc</code> call says that
 pixels should be overwritten if the distance to the camera is <em>less</em> than the
-existing pixel's distance.</p>
+existing pixel’s distance.</p>
 
 <p>The last step is to clear the depth buffer every time we render a new frame. If
-we didn't do this then the old pixel distances would stay in the buffer, which
+we didn’t do this then the old pixel distances would stay in the buffer, which
 would ruin the rendering of the new frame. Inside the <code>Render</code> function we
 change the <code>glClear</code> call to this:</p>
 
@@ -693,14 +693,14 @@ rendered correctly:</p>
 
 <h2>Rotating The Cube</h2>
 
-<p>Congratulations if you've made it this far! The final thing to implement is the
+<p>Congratulations if you’ve made it this far! The final thing to implement is the
 spinning animation of the cube.</p>
 
 <p>How are we going to implement the spinning? You guessed it: another matrix. The
 difference between this matrix and the others is that this matrix will change
 every frame. The other matrices are constant.</p>
 
-<p>I'm going to call this new matrix the "model" matrix. In a normal 3D engine,
+<p>I’m going to call this new matrix the “model” matrix. In a normal 3D engine,
 each object has a different model matrix. The camera and the projection
 matrices are the same for the whole scene, but the model matrices are different
 for each object in the scene. The model matrix is used to put each object in
@@ -708,7 +708,7 @@ the correct position (translation), to make the object face the correct
 direction (rotation), and to change the size of the object (scaling). We only
 have one object in our 3D scene, though, so we only have one model matrix.</p>
 
-<p>Let's add a <code>model</code> matrix variable to the vertex shader, like we did for the
+<p>Let’s add a <code>model</code> matrix variable to the vertex shader, like we did for the
 camera and projection. The final version of the vertex shader looks like this:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
@@ -745,9 +745,9 @@ will set it inside the <code>Render</code> function. Just after the call to
 
 <p>We are using the <code>glm::rotate</code> function to create a rotation transformation
 matrix. The first argument is an existing matrix to combine with the rotation
-matrix. We don't have an existing matrix to combine, so we just pass in a new
+matrix. We don’t have an existing matrix to combine, so we just pass in a new
 <code>glm::mat4</code> object. The next argument is the angle of the rotation, or how
-<em>much</em> to rotate. Let's just set this to a constant 45° for now. The last
+<em>much</em> to rotate. Let’s just set this to a constant 45° for now. The last
 argument is the axis of the rotation. Imagine rotation as stabbing a skewer
 through an object, and then twisting the skewer. The skewer is the axis, and
 the angle is how much you twist it. In our case, we will use a vertical skewer,
@@ -761,13 +761,13 @@ so the cube will rotate like it is sitting on a flat table.</p>
   </figure>
 </p>
 
-<p>It isn't spinning yet, because the matrix doesn't change – it is always
+<p>It isn’t spinning yet, because the matrix doesn’t change – it is always
 set to rotate 45°. The last step is the change the rotation angle a little
 bit every frame.</p>
 
 <h2>Animation</h2>
 
-<p>First, let's add a new global called <code>gDegreesRotated</code>.</p>
+<p>First, let’s add a new global called <code>gDegreesRotated</code>.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GLfloat</span> <span class="n">gDegreesRotated</span> <span class="o">=</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">;</span>
 </code></pre></div></div>
@@ -777,7 +777,7 @@ it to calculate a new rotation matrix. This is how we will achieve animation.
 What we want to do is update, draw, update, draw, update, draw, in that
 pattern.</p>
 
-<p>Let's make a function called <code>Update</code> that will slightly increase the
+<p>Let’s make a function called <code>Update</code> that will slightly increase the
 <code>gDegreesRotated</code> every time it is called:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Update</span><span class="p">()</span> <span class="p">{</span>
@@ -789,7 +789,7 @@ pattern.</p>
 <span class="p">}</span> 
 </code></pre></div></div>
 
-<p>Now we need to call the <code>Update</code> function every time we draw a new frame. Let's
+<p>Now we need to call the <code>Update</code> function every time we draw a new frame. Let’s
 add it to the loop in <code>AppMain</code>, just before the call to <code>Render</code>.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="p">(</span><span class="n">glfwGetWindowParam</span><span class="p">(</span><span class="n">GLFW_OPENED</span><span class="p">)){</span>
@@ -805,7 +805,7 @@ add it to the loop in <code>AppMain</code>, just before the call to <code>Render
 </code></pre></div></div>
 
 <p>Now we just have to recalculate the model matrix based on the <code>gDegreesRotated</code>
-variable. Inside the <code>Render</code> function we'll modify the code to set the model
+variable. Inside the <code>Render</code> function we’ll modify the code to set the model
 matrix:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">setUniform</span><span class="p">(</span><span class="s">"model"</span><span class="p">,</span> <span class="n">glm</span><span class="o">::</span><span class="n">rotate</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(),</span> <span class="n">glm</span><span class="o">::</span><span class="n">radians</span><span class="p">(</span><span class="n">gDegreesRotated</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)));</span>
@@ -817,7 +817,7 @@ of a constant 45°.</p>
 <p>If you run the program now you should see a nice, smooth spinning animation of
 the cube. The only problem is that the spinning speed is tied to how many
 frames per second (FPS) we can render. If the FPS goes up, then the cube spins
-faster. If the FPS goes down, the cube spins more slowly. This isn't ideal. A
+faster. If the FPS goes down, the cube spins more slowly. This isn’t ideal. A
 program should update correctly regardless of how many FPS it is running at.</p>
 
 <h2>Time-based Animation</h2>
@@ -825,7 +825,7 @@ program should update correctly regardless of how many FPS it is running at.</p>
 <p>To make the program run correctly, independent of FPS, the animation should be
 updated <em>per second</em>, not <em>per frame</em>. The simplest way to do this is to count
 the number of seconds elapsed since the last update, and update accordingly.
-Let's change the <code>Update</code> function so that it takes an argument called
+Let’s change the <code>Update</code> function so that it takes an argument called
 <code>secondsElapsed</code>:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
@@ -866,7 +866,7 @@ update is finished, we set <code>lastTime = thisTime</code> so that the next ite
 through the loop will work.</p>
 
 <p>This is a simple way to update based on time. There is <a href="http://gafferongames.com/game-physics/fix-your-timestep/">a better way to do
-time-based updates</a>, but it is more complicated and we don't need it yet.</p>
+time-based updates</a>, but it is more complicated and we don’t need it yet.</p>
 
 <h2>Future Article Sneak Peek</h2>
 

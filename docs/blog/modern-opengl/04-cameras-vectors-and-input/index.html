@@ -191,9 +191,9 @@ of 2D vectors, but the theory applies to both 2D and 3D vectors.</p>
       <td>Velocity</td>
     </tr>
     <tr>
-      <td>Earth's gravity pulls at 9.8m/s<sup>2</sup>
+      <td>Earth’s gravity pulls at 9.8m/s<sup>2</sup>
 </td>
-      <td>Towards the earth's center of mass</td>
+      <td>Towards the earth’s center of mass</td>
       <td>9.8m/s<sup>2</sup>
 </td>
       <td>Acceleration</td>
@@ -208,10 +208,10 @@ of 2D vectors, but the theory applies to both 2D and 3D vectors.</p>
 </blockquote>
 
 <p>When it comes to programming, a vector is just an array of numbers. Each number
-is a "dimension" of the vector. For example, a three-dimensional (3D) vector is
+is a “dimension” of the vector. For example, a three-dimensional (3D) vector is
 an array of three numbers, a 2D vector is an array of two numbers, and so on.
-Because we're working in 3D, we will mostly be dealing with 3D vectors, but we
-will also need 4D vectors in some situations. Whenever I say "vector," I mean a
+Because we’re working in 3D, we will mostly be dealing with 3D vectors, but we
+will also need 4D vectors in some situations. Whenever I say “vector,” I mean a
 3D vector. We are using GLM as our vector math library, so the 2D, 3D, and 4D
 vector types are <code>glm::vec2</code>, <code>glm::vec3</code>, and <code>glm::vec4</code>, respectively.</p>
 
@@ -223,8 +223,8 @@ vector types are <code>glm::vec2</code>, <code>glm::vec3</code>, and <code>glm::
 or a position. The three dimensions of a 3D vector are the X, Y, and Z values.
 When a vector represents a position, the direction and magnitude are measured
 from the origin (coordinate (0,0,0)). For example, if an object has the XYZ
-coordinate of (0,2,0), then the magnitude is 2, and the direction is "up the Y
-axis."</p>
+coordinate of (0,2,0), then the magnitude is 2, and the direction is “up the Y
+axis.”</p>
 
 <h3>Vector Negation</h3>
 
@@ -266,8 +266,8 @@ camera, based on the direction to the right. Something like this:</p>
 
 <p>When you multiply a vector by a single number, the result is a new vector with
 the same direction, but the magnitude has been multiplied by the single number.
-The single number is called a "scalar," which is why this is called "scalar
-multiplication."</p>
+The single number is called a “scalar,” which is why this is called “scalar
+multiplication.”</p>
 
 <p>For example:</p>
 
@@ -283,7 +283,7 @@ multiplication."</p>
 </p>
 
 <p>We will be using scalar multiplication to calculate the <a href="http://en.wikipedia.org/wiki/Displacement_(vector)">displacement</a> of the
-cameras position based on the "move speed" of the camera – something like
+cameras position based on the “move speed” of the camera – something like
 this:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">float</span> <span class="n">moveSpeed</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="c1">//units per second</span>
@@ -307,7 +307,7 @@ vector from the tail of the first vector to the head of the last vector.</p>
 
 <p>Notice how the magnitude (length) and direction of the vectors never changes,
 even though they appear in different positions. Remember that vectors have a
-direction and a magnitude <em>only</em>. They don't have a start point, so they can be
+direction and a magnitude <em>only</em>. They don’t have a start point, so they can be
 visually represented at different positions and still be identical.</p>
 
 <p>For example:</p>
@@ -344,7 +344,7 @@ after it has been displaced (moved). Something like this:</p>
 <p>Unit vectors are vectors with a magnitude equal to one. They are often used to
 represent a direction.</p>
 
-<p>It doesn't really matter what the magnitude is when a vector is only used to
+<p>It doesn’t really matter what the magnitude is when a vector is only used to
 represent a direction. However, if the magnitude is equal to one, it allows us
 to do calculations more easily.</p>
 
@@ -377,7 +377,7 @@ would look something like this:</p>
 
 <h2>The tdogl::Camera Class</h2>
 
-<p>Congratulations if you've made it this far! You now understand enough about
+<p>Congratulations if you’ve made it this far! You now understand enough about
 vectors to get into the code.</p>
 
 <p>The <a href="https://github.com/tomdalling/opengl-series/blob/master/source/04_camera/source/tdogl/Camera.h">interface for the <code>tdogl::Camera</code> class</a> is available <a href="https://github.com/tomdalling/opengl-series/blob/master/source/04_camera/source/tdogl/Camera.h">here</a>,
@@ -398,7 +398,7 @@ based on a bunch of attributes, such as:</p>
 <p>There are setters and getters for each of the attributes above. These
 attributes were explained in the previous article.</p>
 
-<p>Let's look at the <code>matrix</code> and <code>orientation</code> methods to see how all of these
+<p>Let’s look at the <code>matrix</code> and <code>orientation</code> methods to see how all of these
 attributes are combined into a single matrix.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">Camera</span><span class="o">::</span><span class="n">matrix</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
@@ -432,7 +432,7 @@ works from right to left – or, in the code above, bottom to top.</p>
 <p>Notice that the translation uses the <em>negated</em> position of the camera. Again,
 remember the previous article, where it explains that instead of moving the
 camera forward we would pull the whole 3D scene backward. The vector negation
-will reverse the direction, so "forward" will become "backward."</p>
+will reverse the direction, so “forward” will become “backward.”</p>
 
 <p>The <code>tdogl::Camera</code> class also has methods that return directions as unit
 vectors: <code>up</code>, <code>right</code> and <code>forward</code>. We need to know these directions in order
@@ -440,8 +440,8 @@ to move the camera with the keyboard.</p>
 
 <h2>Inverting the Camera Orientation Matrix</h2>
 
-<p>Let's have a look at the implementation of the <code>tdogl::Camera::up</code> method,
-because it contains two things that we haven't come across before.</p>
+<p>Let’s have a look at the implementation of the <code>tdogl::Camera::up</code> method,
+because it contains two things that we haven’t come across before.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">Camera</span><span class="o">::</span><span class="n">up</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
     <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span> <span class="n">up</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">inverse</span><span class="p">(</span><span class="n">orientation</span><span class="p">())</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
@@ -457,7 +457,7 @@ because it contains two things that we haven't come across before.</p>
 
 <p>The first thing we will look at is the use of <code>glm::inverse</code>. From the last
 article, we know that matrices transform coordinates. In certain situations, we
-also want to "untransform" coordinates. That is, we want to take a transformed
+also want to “untransform” coordinates. That is, we want to take a transformed
 coordinate and calculate what it used to be, before it was transformed by
 matrix multiplication. To do this, we need to calculate the <em>inverse</em> of the
 matrix. An inverse matrix is a matrix that does the <em>exact opposite</em> of another
@@ -465,14 +465,14 @@ matrix, which means it can <em>undo</em> the transformation that the other matri
 produces. For example, if matrix <code>A</code> rotates 90° around the Y axis, then
 the inverse of matrix <code>A</code> will rotate <strong>-</strong>90° around the Y axis.</p>
 
-<p>When the direction of the camera changes, so does the "up" direction. For
+<p>When the direction of the camera changes, so does the “up” direction. For
 example, imagine that there is an arrow pointing out of the top of your head.
 If you rotate your head to look down at the ground, then the arrow tilts
 forward. If you rotate your head to look up at the sky, the arrow tilts
 backwards. If you look straight ahead, then your head is completely
-"unrotated," so the arrow points directly upwards. The way we calculate the up
-direction of the camera is by taking the "directly upwards" unit vector (0,1,0)
-and "unrotate" it by using the inverse of the camera's orientation matrix. Or,
+“unrotated,” so the arrow points directly upwards. The way we calculate the up
+direction of the camera is by taking the “directly upwards” unit vector (0,1,0)
+and “unrotate” it by using the inverse of the camera’s orientation matrix. Or,
 to explain it differently, the up direction is always (0,1,0) <em>after</em> the
 camera rotation has been applied, so we multiply (0,1,0) by the inverse
 rotation, which gives us the up direction <em>before</em> the camera rotation was
@@ -498,7 +498,7 @@ back into 3D before returning it.</p>
 
 <p>In the previous article, we had separate shader variables for the projection
 matrix and the camera matrix. In this article, <code>tdogl::Camera</code> combines both
-matrices, so let's remove the <code>projection</code> shader variable and just use the
+matrices, so let’s remove the <code>projection</code> shader variable and just use the
 <code>camera</code> variable. This is the updated vertex shader:</p>
 
 <div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 150
@@ -521,7 +521,7 @@ matrices, so let's remove the <code>projection</code> shader variable and just u
 </code></pre></div></div>
 
 <p>Now we will integrate <code>tdogl::Camera</code> into the code in <code>main.cpp</code>.
-Let's include the class header:</p>
+Let’s include the class header:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "tdogl/Camera.h"
 </span></code></pre></div></div>
@@ -535,7 +535,7 @@ Let's include the class header:</p>
 we set them once in the <code>LoadShaders</code> function. The camera matrix will change
 in this article, because we will be controlling it with the mouse and keyboard,
 so we will have to set the camera matrix every frame inside the <code>Render</code>
-function. First, let's remove the old code from <code>LoadShaders</code>:</p>
+function. First, let’s remove the old code from <code>LoadShaders</code>:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">LoadShaders</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">tdogl</span><span class="o">::</span><span class="n">Shader</span><span class="o">&gt;</span> <span class="n">shaders</span><span class="p">;</span>
@@ -561,7 +561,7 @@ function. First, let's remove the old code from <code>LoadShaders</code>:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>And let's set the <code>camera</code> shader variable inside of <code>Render</code>:</p>
+<p>And let’s set the <code>camera</code> shader variable inside of <code>Render</code>:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// draws a single frame</span>
 <span class="k">static</span> <span class="kt">void</span> <span class="nf">Render</span><span class="p">()</span> <span class="p">{</span>
@@ -581,7 +581,7 @@ function. First, let's remove the old code from <code>LoadShaders</code>:</p>
 method uses <code>glUniformMatrix4fv</code> to set the camera matrix uniform variable in
 the vertex shader.</p>
 
-<p>Let's set the initial position of the camera and the aspect ratio of the window
+<p>Let’s set the initial position of the camera and the aspect ratio of the window
 inside of <code>AppMain</code>.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
@@ -597,8 +597,8 @@ keyboard and mouse.</p>
 
 <h2>Keyboard Input</h2>
 
-<p>Let's do the keyboard controls first. Every time we update the scene, we will
-check if the 'W', 'A', 'S', or 'D' keys are down, and move the camera a little
+<p>Let’s do the keyboard controls first. Every time we update the scene, we will
+check if the ‘W’, ‘A’, ‘S’, or ‘D’ keys are down, and move the camera a little
 bit. The function <code>glfwGetKey</code> will return a boolean indicating whether a key
 is held down or not. The new <code>Update</code> function looks like this:</p>
 
@@ -624,15 +624,15 @@ is held down or not. The new <code>Update</code> function looks like this:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Rotating the cube is from the previous article, so we'll ignore that.</p>
+<p>Rotating the cube is from the previous article, so we’ll ignore that.</p>
 
-<p>Let's have a closer look at what happens when the <kbd>S</kbd> key is held
+<p>Let’s have a closer look at what happens when the <kbd>S</kbd> key is held
 down:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gCamera</span><span class="p">.</span><span class="n">offsetPosition</span><span class="p">(</span><span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">moveSpeed</span> <span class="o">*</span> <span class="o">-</span><span class="n">gCamera</span><span class="p">.</span><span class="n">forward</span><span class="p">());</span>
 </code></pre></div></div>
 
-<p>There is a lot happening on that single line, so let's rewrite it to understand
+<p>There is a lot happening on that single line, so let’s rewrite it to understand
 it better, in a new function called <code>MoveCameraBackwards</code>.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MoveCameraBackwards</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
@@ -717,11 +717,11 @@ single line:</p>
 </code></pre></div></div>
 
 <p>The <code>offsetPosition</code> method does the vector addition, and it takes a
-displacement vector as its argument. Let's keep using the single line instead
+displacement vector as its argument. Let’s keep using the single line instead
 of the <code>MoveCameraBackwards</code> function, because less code is better.</p>
 
 <p>All the other keys work in exactly the same way, except the direction is
-different. While we're at it, let's make the <kbd>Z</kbd> and <kbd>X</kbd> keys
+different. While we’re at it, let’s make the <kbd>Z</kbd> and <kbd>X</kbd> keys
 move the camera up and down.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">glfwGetKey</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="sc">'Z'</span><span class="p">)){</span>
@@ -732,29 +732,29 @@ move the camera up and down.</p>
 </code></pre></div></div>
 
 <p>Notice how it uses the vector (0,1,0) instead of <code>gCamera.up()</code>. Remember that
-the "up" direction will change depending on the direction that the camera
-looks. If the camera looks at the ground, the "up" direction will be tilted
-forwards. If the camera looks at the sky, the "up" direction will be tilted
-backwards. That's not exactly the behaviour that we want, so we use the
-"directly up" direction (0,1,0) instead, which does not depend on the direction
+the “up” direction will change depending on the direction that the camera
+looks. If the camera looks at the ground, the “up” direction will be tilted
+forwards. If the camera looks at the sky, the “up” direction will be tilted
+backwards. That’s not exactly the behaviour that we want, so we use the
+“directly up” direction (0,1,0) instead, which does not depend on the direction
 that camera is looking.</p>
 
 <p>If you run the program now, you can use the <kbd>W</kbd>, <kbd>A</kbd>,
 <kbd>S</kbd>, <kbd>D</kbd>, <kbd>X</kbd>, and <kbd>Z</kbd> keys to move
-forward, left, backwards, right, up and down, respectively. You still can't
+forward, left, backwards, right, up and down, respectively. You still can’t
 change the direction that the camera is looking, because that will be
 controlled by the mouse.</p>
 
 <h2>Mouse Input</h2>
 
-<p>At the moment, our window doesn't capture the mouse. That is, you can still see
+<p>At the moment, our window doesn’t capture the mouse. That is, you can still see
 the mouse moving over the top of the window. We want the mouse to be invisible,
-and we also don't want it to go outside of the window while we're using it to
+and we also don’t want it to go outside of the window while we’re using it to
 look around. To achieve this, we have to change some of the GLFW settings.</p>
 
-<p>Before we capture the mouse, let's make the escape key quit the program. We
-won't be able to click the close button anymore, because the mouse will be
-invisible and can't leave the window. Let's do this at the bottom of the main
+<p>Before we capture the mouse, let’s make the escape key quit the program. We
+won’t be able to click the close button anymore, because the mouse will be
+invisible and can’t leave the window. Let’s do this at the bottom of the main
 loop inside <code>AppMain</code>:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// run while the window is open</span>
@@ -821,7 +821,7 @@ a bit disorientating while flying around, so you might want to disable that.</p>
 
 <h2>Controlling Field of View With Mouse Wheel</h2>
 
-<p>As the icing on the cake, let's make scrolling the mouse/touchpad affect
+<p>As the icing on the cake, let’s make scrolling the mouse/touchpad affect
 the camera zoom by changing the field of view. Field of view was explained in
 the previous article.</p>
 
@@ -865,7 +865,7 @@ mouse position, we set <code>gScrollY = 0</code> after every frame.</p>
 <h2>Future Article Sneak Peek</h2>
 
 <p>In the next article, we will restructure the code into a very primitive
-"engine." We will split the code into assets (a.k.a. resources) and instances,
+“engine.” We will split the code into assets (a.k.a. resources) and instances,
 like a typical 3D engine, and make a 3D scene out of multiple,
 slightly-different wooden crates.</p>
 
@@ -879,7 +879,7 @@ Jason L. McKesson</li>
   <li>
 <a href="http://www.matrix44.net/cms/notes/opengl-3d-graphics/basic-3d-math-vectors">Basic 3D Math: Vectors</a> by Egon Rath</li>
   <li>
-<a href="http://en.wikipedia.org/wiki/Euclidean_vector">Wikipedia article on vectors</a>, which isn't very beginner-friendly</li>
+<a href="http://en.wikipedia.org/wiki/Euclidean_vector">Wikipedia article on vectors</a>, which isn’t very beginner-friendly</li>
   <li>The GLFW <a href="http://www.glfw.org/docs/3.0.4/pages.html">guides</a> and <a href="http://www.glfw.org/docs/3.0.4/modules.html">references</a>.</li>
   <li>If you know of any beginner-friendly articles about vectors, please send
 them to me so that I can add them here.</li>

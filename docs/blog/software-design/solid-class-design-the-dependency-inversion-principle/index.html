@@ -79,7 +79,7 @@ depend upon low level modules. Both should depend upon abstractions</em>.</p>
 
 <p>Imagine a world without plugs and sockets. The computer is directly soldered
 into an electrical wire in the wall. Whenever you buy a motherboard you also
-get a mouse, keyboard and monitor, but they're all directly soldered onto the
+get a mouse, keyboard and monitor, but they’re all directly soldered onto the
 motherboard by the manufacturer. Everything works fine, but things get
 complicated when you want to remove or replace anything. If you try to replace
 the mouse:</p>
@@ -92,7 +92,7 @@ the mouse:</p>
 
 <p>A world without plugs and sockets sounds ridiculous. Yet we programmers have a
 tendency to pull out the metaphorical soldering iron and hard-wire our classes
-together as we're making them. If the classes are hard-wired together, and you
+together as we’re making them. If the classes are hard-wired together, and you
 want to replace one of them:</p>
 
 <ul>
@@ -107,9 +107,9 @@ sockets to your code. It allows you to create your high level modules (the
 computer) independent of the low level modules (the mouse). The low level
 modules can be created later, and are easily replaceable.</p>
 
-<h2>What Are The "Plugs"?</h2>
+<h2>What Are The “Plugs”?</h2>
 
-<p>Depending on what programming language you're using, a "plug" can be a few
+<p>Depending on what programming language you’re using, a “plug” can be a few
 different things. Here are plug mechanisms for a few common languages:</p>
 
 <table class="table table-hover table-bordered">
@@ -174,10 +174,10 @@ inherit the abstract interface. Here is an example in C++:</p>
 Substitution Principle</a>. This is because the implementations/subclasses will
 be used via the abstract interface, <em>not</em> the concrete class interface.</p>
 
-<h2>What Are The "Sockets"?</h2>
+<h2>What Are The “Sockets”?</h2>
 
-<p>The "sockets" are any functions or classes that use a "plug". Continuing from
-the above code example, below is an example of a "socket" class. Error checking
+<p>The “sockets” are any functions or classes that use a “plug”. Continuing from
+the above code example, below is an example of a “socket” class. Error checking
 has been ignored for brevity.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Class with an Exporter "socket"</span>
@@ -204,25 +204,25 @@ has been ignored for brevity.</p>
 <p>You may notice that the above example is practically the same as an example in
 a previous <a href="/blog/software-design/solid-class-design-the-open-closed-principle">article about the Open Closed Principle (OCP)</a>. Both make use of
 <a href="http://en.wikipedia.org/wiki/Dependency_injection">dependency injection (DI)</a>, but for different reasons. The OCP uses DI to
-"close" a class to modification, whereas <strong>the DIP uses DI to remove the
+“close” a class to modification, whereas <strong>the DIP uses DI to remove the
 dependencies on lower level classes</strong>.</p>
 
 <h2>Bringing It All Together</h2>
 
-<p>In the above example, the <code>ExportController</code> is the "higher level" module and
-all the <code>Exporter</code> subclasses are the "lower level" modules. This is because
+<p>In the above example, the <code>ExportController</code> is the “higher level” module and
+all the <code>Exporter</code> subclasses are the “lower level” modules. This is because
 <code>ExportController</code> uses the <code>Exporter</code> subclasses, and not the other way
 around.  <strong>The application of the DIP means that <code>ExportController</code> has no
 knowledge of <code>CSVExporter</code>, <code>XMLExporter</code>, or any other <code>Exporter</code> subclass. It
 only knows about the abstract <code>Exporter</code> interface</strong>.</p>
 
-<p>The <code>ExportController</code> class says <em>"this is my socket. You lower level modules
-are responsible for comforming to it."</em> The opposite of this is when the
+<p>The <code>ExportController</code> class says <em>“this is my socket. You lower level modules
+are responsible for comforming to it.”</em> The opposite of this is when the
 <code>ExportController</code> directly creates and uses <code>XMLExporter</code> and <code>CSVExporter</code>.
-In that situation, <code>XMLExporter</code> and <code>CSVExporter</code> say <em>"this is my interface.
-Every other class is responsible for conforming to it."</em>  The higher level
+In that situation, <code>XMLExporter</code> and <code>CSVExporter</code> say <em>“this is my interface.
+Every other class is responsible for conforming to it.”</em>  The higher level
 classes control the flow of the application, and therefore the user experience.
-You don't want some insignificant implementation detail dictating the flow of
+You don’t want some insignificant implementation detail dictating the flow of
 the application.</p>
 
 </div>

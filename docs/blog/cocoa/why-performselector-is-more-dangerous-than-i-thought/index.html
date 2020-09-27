@@ -70,7 +70,7 @@ particularly hard to track down because the crash would happen a couple of
 lines <em>after</em> the call to <code>performSelector:</code>, when the corrupted memory was
 actually accessed.</p>
 
-<p>I've never had a problem with <code>performSelector:</code> before, but this time I was
+<p>I’ve never had a problem with <code>performSelector:</code> before, but this time I was
 using it a little differently. The return value of the selector was an
 <code>NSRect</code>.</p>
 
@@ -87,8 +87,8 @@ the register <code>eax</code>. This is what <code>obj_msgSend</code> handles.</p
 large struct, such as an <code>NSRect</code>. In such cases, the function is passed a
 secret extra argument: a pointer to some memory that will hold the return
 value. The Objective-C runtime has a different message dispatch function for
-these exceptional cases: <code>objc_msgSend_stret</code> ("stret" is short for
-"struct return"). Therein lies the problem.</p>
+these exceptional cases: <code>objc_msgSend_stret</code> (“stret” is short for
+“struct return”). Therein lies the problem.</p>
 
 <p>The documentation for <code>performSelector:</code> states:</p>
 
@@ -96,10 +96,10 @@ these exceptional cases: <code>objc_msgSend_stret</code> ("stret" is short for
   <p>For methods that return anything other than an object, use <code>NSInvocation</code>.</p>
 </blockquote>
 
-<p>Apple aren't kidding when they mention this. This is because <code>performSelector:</code>
+<p>Apple aren’t kidding when they mention this. This is because <code>performSelector:</code>
 uses <code>objc_msgSend</code>. If you use <code>objc_msgSend</code> to call a method that requires
 <code>objc_msgSend_stret</code>, the function will think the first parameter is the secret
-struct pointer, when in fact it's the <code>self</code> pointer. When the function
+struct pointer, when in fact it’s the <code>self</code> pointer. When the function
 returns, it corrupts the memory pointed to by <code>self</code> by overwriting it with the
 return value. Next time you try to use the object, you get weird and wonderful
 crashes.</p>
@@ -107,14 +107,14 @@ crashes.</p>
 <h2>The Moral of the Story</h2>
 
 <p>Only use <code>performSelector:</code> when the selector returns an object. If the
-selector returns a struct, then you risk corrupting memory, even if you don't
-use the return value. If the method doesn't return an object, then use
+selector returns a struct, then you risk corrupting memory, even if you don’t
+use the return value. If the method doesn’t return an object, then use
 NSInvocation instead, because it is capable of determining the correct message
 dispatch function to use.</p>
 
 <h2>Wrap Yourself In Cotton Wool</h2>
 
-<p>For those of you who are overly cautious, here's a method that will check the
+<p>For those of you who are overly cautious, here’s a method that will check the
 return type before calling <code>performSelector:</code></p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">NSObject</span><span class="p">(</span><span class="nl">SafePerformSelector</span><span class="p">)</span>

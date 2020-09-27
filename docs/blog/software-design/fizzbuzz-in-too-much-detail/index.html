@@ -67,7 +67,7 @@
   <div class="post-content">
 <p>I know. FizzBuzz has been done to death. But I want to use it as a familiar
 base upon which we can explore some of the common tradeoffs involved in writing
-and maintaining software. In this article, I'll show multiple implementations
+and maintaining software. In this article, I’ll show multiple implementations
 of FizzBuzz, all designed to achieve different goals, and discuss the
 implications of each.</p>
 
@@ -89,19 +89,19 @@ description of the task:</p>
 
 <blockquote>
   <p>Write a program that prints the numbers from 1 to 100. But for multiples of
-three print "Fizz" instead of the number and for the multiples of five print
-"Buzz". For numbers which are multiples of both three and five print
-"FizzBuzz".</p>
+three print “Fizz” instead of the number and for the multiples of five print
+“Buzz”. For numbers which are multiples of both three and five print
+“FizzBuzz”.</p>
 </blockquote>
 
-<p>It's very well known in software development circles. There are multiple
+<p>It’s very well known in software development circles. There are multiple
 <a href="http://rosettacode.org/wiki/FizzBuzz">implementations in every language</a>, <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition/blob/00097ff1aae1045448811ebbe9a51429e6831d25/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/Main.java">joke implementations</a>, and plenty
 of articles discussing its usefulness during the hiring process.</p>
 
 <h2>A Naïve Implementation</h2>
 
-<p>Let's kick things off with a super simple, straight-forward implementation.
-I'll be using Ruby for this article, but the concepts apply to all languages.</p>
+<p>Let’s kick things off with a super simple, straight-forward implementation.
+I’ll be using Ruby for this article, but the concepts apply to all languages.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="p">.</span><span class="nf">upto</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> 
   <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span>
@@ -117,17 +117,17 @@ I'll be using Ruby for this article, but the concepts apply to all languages.</p
 </code></pre></div></div>
 
 <p>This implementation gives the correct results, and there is nothing clever
-about it. Now let's start applying some common software development practices
+about it. Now let’s start applying some common software development practices
 to it.</p>
 
-<h2>Don't Repeat Yourself (DRY)</h2>
+<h2>Don’t Repeat Yourself (DRY)</h2>
 
-<p>I'm fairly certain that when Dijkstra descended from Mt Sinai, DRY was
-inscribed on one of his stone tablets. Also known as "Single Source of Truth",
+<p>I’m fairly certain that when Dijkstra descended from Mt Sinai, DRY was
+inscribed on one of his stone tablets. Also known as “Single Source of Truth”,
 DRY is universally accepted as a pillar of good software design. It involves
 removing redundancy and duplication from our code.</p>
 
-<p>Let's apply DRY to the naïve implementation above. The sources of duplication
+<p>Let’s apply DRY to the naïve implementation above. The sources of duplication
 that immediately pop out to me are:</p>
 
 <ul>
@@ -154,7 +154,7 @@ that immediately pop out to me are:</p>
 <p>This implementation has a few advantages. If we wanted to replace <code>puts</code> with
 something else, now we only have to change it in a single place instead of four.
 In the naïve example, if we were to add an additional case to the <code>case</code> statement, we might
-have forgotten to use <code>puts</code>, but that's not a problem here. Also, if the
+have forgotten to use <code>puts</code>, but that’s not a problem here. Also, if the
 definition of when to Fizz or Buzz changes – for example, if it should
 Fizz on multiples of seven, instead of three – then we only need to change
 one value instead of two. In summary, DRY is reducing the likelihood of
@@ -162,7 +162,7 @@ introducing bugs while updating the code.</p>
 
 <p>But why stop there? I can still see duplication. The <code>i % _ == 0</code> pattern
 appears twice, and the string literals <code>'Fizz'</code> and <code>'Buzz'</code> are duplicated
-inside the <code>'FizzBuzz'</code> literal. Let's fix those up too.</p>
+inside the <code>'FizzBuzz'</code> literal. Let’s fix those up too.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FIZZ</span> <span class="o">=</span> <span class="s1">'Fizz'</span>
 <span class="no">BUZZ</span> <span class="o">=</span> <span class="s1">'Buzz'</span>
@@ -183,13 +183,13 @@ inside the <code>'FizzBuzz'</code> literal. Let's fix those up too.</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>Now, if the "Fizz" or "Buzz" strings need to be changed, we've got that covered.
-We're also covered if we want to change the way we test whether a number is 
-divisible by another number. I don't know <em>why</em> we would ever need to change that,
-but hey, why stand in the rain of redundancy when everyone knows it's better
+<p>Now, if the “Fizz” or “Buzz” strings need to be changed, we’ve got that covered.
+We’re also covered if we want to change the way we test whether a number is 
+divisible by another number. I don’t know <em>why</em> we would ever need to change that,
+but hey, why stand in the rain of redundancy when everyone knows it’s better
 to stay DRY? By extracting the modulo operator (<code>%</code>) into its own function,
-at least we've made the code more self-documenting. If someone else were to
-read the code and they didn't understand how the modulo operator worked,
+at least we’ve made the code more self-documenting. If someone else were to
+read the code and they didn’t understand how the modulo operator worked,
 they could work it out based on the function name.</p>
 
 <p>All these changes are aimed at insulating ourselves from bugs caused by
@@ -197,15 +197,15 @@ changing the code in the future. If you need to change something that exists in
 multiple places, there is always the possibility that we will forget to change
 one of those places.</p>
 
-<p>We're not insulated from all changes, however. What if some pointy-haired suit
-forces us to add a "Zazz" for multiples of seven? What if we have to handle an
+<p>We’re not insulated from all changes, however. What if some pointy-haired suit
+forces us to add a “Zazz” for multiples of seven? What if we have to handle an
 arbitrary number of Fizzes and Buzzes and Zazzes? Maybe the users want to
 define their own list of FizzBuzz values, with different output strings and
 different multiples.</p>
 
 <h2>Parameterization</h2>
 
-<p>Let's level up the implementation by removing the hard-coded constants
+<p>Let’s level up the implementation by removing the hard-coded constants
 and turning them into parameters. Here are the parameters that seem
 reasonable to me:</p>
 
@@ -233,29 +233,29 @@ reasonable to me:</p>
 <span class="p">])</span>
 </code></pre></div></div>
 
-<p>FizzBuzz doesn't fit the needs of your users? No problem. Now you can
+<p>FizzBuzz doesn’t fit the needs of your users? No problem. Now you can
 BlizzBlazz from -50 to -20, or WigWamWozzleWumpus from 10 to 10,000,000. You
 name it.</p>
 
-<p>We've introduced a new concept: triggers. A trigger is the pairing of a divisor
+<p>We’ve introduced a new concept: triggers. A trigger is the pairing of a divisor
 and an output string. There is no official name for this pairing, due to
-FizzBuzz being a synthetic problem as opposed to a real-world problem, but it's
+FizzBuzz being a synthetic problem as opposed to a real-world problem, but it’s
 not that uncommon. We create abstract models of data and processes, and these
 models contain things that need to be named. Often times there is a
 pre-existing name we can use, but sometimes not. Note that this concept is
 completely absent from previous implementations.</p>
 
 <p>The <code>divisible_by?</code> function was removed, because the modulo operation only
-happens in a single place now. It's already DRY, so we can inline it.</p>
+happens in a single place now. It’s already DRY, so we can inline it.</p>
 
-<p>The <code>triggers</code> parameter is an array. This is important because it's called
-"FizzBuzz", not "BuzzFizz". Ordering matters here.  We're using an array to
-indicate that "Fizz" must come before "Buzz" in the situation were both are
+<p>The <code>triggers</code> parameter is an array. This is important because it’s called
+“FizzBuzz”, not “BuzzFizz”. Ordering matters here.  We’re using an array to
+indicate that “Fizz” must come before “Buzz” in the situation were both are
 triggered. If order was not important, we could have used a hash (a.k.a.
 dictionary, map, associative array, etc.).</p>
 
 <p>This implementation is actually more DRY than the last one. We can now see that
-"fizz" and "buzz" are kind of duplicates of each other.  When they are combined
+“fizz” and “buzz” are kind of duplicates of each other.  When they are combined
 into a single array, we can get rid of the <code>FIZZ</code> and <code>BUZZ</code> constants, and
 also the <code>fizz</code> and <code>buzz</code> variables, from the previous implementation.</p>
 
@@ -266,9 +266,9 @@ also the <code>fizz</code> and <code>buzz</code> variables, from the previous im
 </p>
 
 <p>There are more potential parameters than just <code>range</code> and <code>triggers</code>. What if
-we wanted to "Zazz" on all numbers less than 10? Our current implementation is
+we wanted to “Zazz” on all numbers less than 10? Our current implementation is
 not flexible enough to handle that change. We can, however, accommodate this
-change by parameterizing the "divisible by" condition.</p>
+change by parameterizing the “divisible by” condition.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fizzbuzz</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="n">triggers</span><span class="p">)</span>
   <span class="n">range</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
@@ -308,7 +308,7 @@ FizzBuzz
 ... 
 </code></pre>
 
-<p>The definition of a "trigger" has changed. The divisor has been replaced
+<p>The definition of a “trigger” has changed. The divisor has been replaced
 with a <a href="http://en.wikipedia.org/wiki/Predicate_%28mathematical_logic%29">predicate</a>. For those unfamiliar with Ruby, <code>-&gt;(i){ i &lt; 10 }</code> is
 an anonymous function that takes a parameter, and returns a boolean
 representing  whether the parameter is smaller than 10.</p>
@@ -318,7 +318,7 @@ a <em>lot</em> of things that can be parameterized. At the moment, the output
 text from multiple triggers are combined by simple string concatenation,
 but we could have a function parameter that controls how the strings
 are combined. We could replace the <code>puts</code> with a function parameter
-that controls what happens to the results. I'm going to stop parameterizing
+that controls what happens to the results. I’m going to stop parameterizing
 at this point, just to keep this article shorter, but you get the idea.</p>
 
 <h2>Functional Programming (FP)</h2>
@@ -329,16 +329,16 @@ at this point, just to keep this article shorter, but you get the idea.</p>
 
 <p>FP is so hot right now. All the cool kids are doing it. In all seriousness,
 I do believe that programming in a functional style produces better software.
-This isn't an article about the merits of FP, so let's just make the assumption
-that it's something we aspire to, for the sake of brevity.</p>
+This isn’t an article about the merits of FP, so let’s just make the assumption
+that it’s something we aspire to, for the sake of brevity.</p>
 
 <p>The last implementation is sort of written in a functional style already.
-We've got a higher-order function (a function that takes a function parameter)
-and we're using lambdas (anonymous functions).</p>
+We’ve got a higher-order function (a function that takes a function parameter)
+and we’re using lambdas (anonymous functions).</p>
 
 <p>We are mutating a string using the <code>&lt;&lt;</code> operator, though. In FP, we try to
 avoid mutation in favour of using immutable values. However this is the least
-troublesome type of mutation. We're only mutating local state, and then we
+troublesome type of mutation. We’re only mutating local state, and then we
 return the string and forget about it. Local scope is like Las Vegas: what
 happens in local scope, stays in local scope. Nobody saw us mutating the
 string, so nobody has to know. I think that everyone accepts that this sort of
@@ -401,12 +401,12 @@ overkill, considering that <code>fizzbuzz</code> was already a pure function bef
 
 <h2>Lazy Generation</h2>
 
-<p>We've come a long way from the naïve implementation, but we can go further.
+<p>We’ve come a long way from the naïve implementation, but we can go further.
 What if we needed to generate terabytes of output? Like, instead of calculating
 pi to the billionth digit, we want to calculate FizzBuzz to the billionth
 output.  Currently, the <code>fizzbuzz</code> function returns an array containing all
 output, but we will run out of memory if we try to make a multi-terabyte array.
-Plus, we can't start printing output until the <em>whole array</em> is made. We
+Plus, we can’t start printing output until the <em>whole array</em> is made. We
 obviously have to stop generating and returning the whole array. In this
 implementation, we generate a single output value, print it, throw it away,
 then repeat.</p>
@@ -432,7 +432,7 @@ then repeat.</p>
 <span class="kp">loop</span> <span class="p">{</span> <span class="nb">puts</span> <span class="n">enumerator</span><span class="p">.</span><span class="nf">next</span> <span class="p">}</span>
 </code></pre></div></div>
 
-<p>How you implement this really depends on the language you're in, so let me
+<p>How you implement this really depends on the language you’re in, so let me
 explain this implementation for people who are unfamiliar with Ruby. Firstly,
 instead of returning an array, the <code>fizzbuzz</code> function now returns an instance
 of <code>Enumerator</code>. This particular <code>Enumerator</code> is an <em>infinite</em> enumerator
@@ -443,16 +443,16 @@ the application. Every time that <code>enumerator.next</code> is called, the enu
 will generate and return the next output value in the sequence. Finally, the
 <code>loop</code> on the last line is another infinite loop that keeps printing the next
 output value forever. Ruby can handle arbitrarily large integers, so this will
-literally run until the <code>i</code> variable is a single number so big that it won't
-fit in memory. That's a number so big that we can consider it infinite for all
+literally run until the <code>i</code> variable is a single number so big that it won’t
+fit in memory. That’s a number so big that we can consider it infinite for all
 practical purposes.</p>
 
-<p>This is the concept of "laziness" in software design. Think of it like a
+<p>This is the concept of “laziness” in software design. Think of it like a
 demotivated employee. They sit there doing nothing until you ask them for
 something, then they do the minimum amount of work necessary to give you what
 you asked for.</p>
 
-<p>Although there is still some functional-style code at the core, this isn't very
+<p>Although there is still some functional-style code at the core, this isn’t very
 functional anymore. Enumerators are stateful, and every call to <code>next</code> is
 mutating the enumerator. This implementation is still DRY and parameterized,
 though.</p>
@@ -460,16 +460,16 @@ though.</p>
 <h2>Polishing For Distribution</h2>
 
 <p>This FizzBuzz implementation is super flexible now – some might say <em>too</em>
-flexible. We've got to open source it. This powerful, reusable functionality
+flexible. We’ve got to open source it. This powerful, reusable functionality
 needs to be made available to everyone.</p>
 
-<p>But we can't just dump it on github. What about documentation, namespacing, and
-unit tests? I mean, it's currently just a script that prints out results in an
+<p>But we can’t just dump it on github. What about documentation, namespacing, and
+unit tests? I mean, it’s currently just a script that prints out results in an
 infinite loop.</p>
 
-<p>The last step – the last step I'm going to demonstrate in this article,
+<p>The last step – the last step I’m going to demonstrate in this article,
 at least – is to polish the code for consumption by other developers. 
-This should include writing tests, and usage documentation, but I'm not going
+This should include writing tests, and usage documentation, but I’m not going
 to show those here. Here is the ultimate FizzBuzz implementation:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">FizzBuzz</span>
@@ -529,11 +529,11 @@ to show those here. Here is the ultimate FizzBuzz implementation:</p>
 <span class="n">e</span><span class="p">.</span><span class="nf">next</span> <span class="c1">#=&gt; "Buzz"</span>
 </code></pre></div></div>
 
-<p>Everything is inside a module called <code>FizzBuzz</code>.  It's an anti-pattern for
+<p>Everything is inside a module called <code>FizzBuzz</code>.  It’s an anti-pattern for
 third party code to pollute the global namespace, so we want to tuck everything
 underneath a single namespace to be a good citizen.</p>
 
-<p>All the code that prints the output is gone now. That's not really code worth
+<p>All the code that prints the output is gone now. That’s not really code worth
 sharing. The reusable part is the output generation.</p>
 
 <p>The <code>fizzbuzz</code> function has been renamed to <code>enumerator</code>, which better describes
@@ -541,20 +541,20 @@ its purpose.</p>
 
 <p>All parameters are now optional. Maybe users want plain-old vanilla FizzBuzz
 without all the fancy bells and whistles, so we provide sensible defaults.
-Users of this implementation don't even have to learn what a "trigger" is if
+Users of this implementation don’t even have to learn what a “trigger” is if
 they just want standard FizzBuzz output.</p>
 
 <p>There is a new function called <code>range</code> that returns an array, like older
-implementations used to.  You can't know what other peoples use case will be,
-so it's not nice to force everyone to use the enumerator API if they don't need
-it. The <code>range</code> function is a "convenience" function that provides a simpler
+implementations used to.  You can’t know what other peoples use case will be,
+so it’s not nice to force everyone to use the enumerator API if they don’t need
+it. The <code>range</code> function is a “convenience” function that provides a simpler
 interface to a more complicated API. If you want to get all gang-of-four, you
-could call it a "facade". It uses an enumerator under the hood, to keep things
+could call it a “facade”. It uses an enumerator under the hood, to keep things
 DRY.</p>
 
 <p>One subtle difference is the <code>to_s</code> call. In previous implementations, the
 output would either be a string <em>or an integer</em>. This is somewhat of a no-no.
-We've just been printing the output values, and in Ruby you can print integers
+We’ve just been printing the output values, and in Ruby you can print integers
 or strings and everything works fine. But what if a user of the library writes
 some code that only works for strings? It will crash on the integers. To avoid
 confusion, this implementation converts integers to strings before returning
@@ -566,7 +566,7 @@ also be a separate document that contains examples of how to use the library,
 such as a README.md file.</p>
 
 <p>The last step is to package up the code for whatever package management system
-the language provides. In the case of Ruby, we'd be writing a gemspec
+the language provides. In the case of Ruby, we’d be writing a gemspec
 and a rakefile to build and tag versions of the gem, and publish builds to
 <a href="http://rubygems.org/">rubygems.org</a>.</p>
 
@@ -576,10 +576,10 @@ and a rakefile to build and tag versions of the gem, and publish builds to
   The final implementation represents a <em>veritable explosion</em> of complexity.
 </blockquote>
 
-<p>Let's reflect on the journey we have just taken. You may have thought that I
+<p>Let’s reflect on the journey we have just taken. You may have thought that I
 was demonstrating how to improve the code in every iteration. Or maybe you
 thought that <em>I thought</em> I was improving the code.  Not so. Every iteration
-increased the complexity, and cost time. That's not what we want. We want
+increased the complexity, and cost time. That’s not what we want. We want
 functionality without bugs, and we want it as cheaply as possible.</p>
 
 <p>The first implementation uses these methods: <code>upto</code>, <code>%</code>, <code>==</code>, <code>puts</code>. It has
@@ -590,43 +590,43 @@ about 10 expressions/statements.</p>
 <code>==</code>. It has about 20 expressions/statements. It has higher-order functions and
 lambdas. It introduces the concept of triggers, and infinite enumerators. It
 also comes with a bunch of documentation, tests, and other supporting files. On
-top of that, it doesn't even print out the results – that part is left up
+top of that, it doesn’t even print out the results – that part is left up
 to the user of the library.</p>
 
 <p>The final implementation represents a <em>veritable explosion</em> of complexity.
 Complexity bad. More code means more bugs, slower maintenance, and a steeper
 learning curve for other developers.  We could have taken it further, too. We
 could have done performance optimisation, added concurrency, etc. There are
-plenty more ways to parameterize the code. Soon enough, you're
+plenty more ways to parameterize the code. Soon enough, you’re
 implementing a <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition/blob/00097ff1aae1045448811ebbe9a51429e6831d25/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/parameters/DefaultFizzBuzzUpperLimitParameter.java">DefaultFizzBuzzUpperLimitParameter</a>, several
 levels deep into an inheritance hierarchy.</p>
 
-<h2>You Ain't Gonna Need It</h2>
+<h2>You Ain’t Gonna Need It</h2>
 
 <blockquote class="pull-right">
   We must be honest with ourselves about our requirements.
   When we choose the quick but inflexible implementation, we're usually saving time.
 </blockquote>
 
-<p>I guess what I'm trying to get at here is the essence of YAGNI: You Ain't Gonna
-Need It. YAGNI is up there with DRY, in terms of importance. If you're not
-<em>certain</em> that you need it, then YAGNI. But isn't it better to add the
+<p>I guess what I’m trying to get at here is the essence of YAGNI: You Ain’t Gonna
+Need It. YAGNI is up there with DRY, in terms of importance. If you’re not
+<em>certain</em> that you need it, then YAGNI. But isn’t it better to add the
 flexibility now, so we save time later when the change request comes in? YAGNI.
-Adding flexibility isn't free. It costs time, and it adds <em>unnecessary
-complexity</em> to the codebase. Complexity is like a mortgage – you're going
-to be paying interest on it. You may have heard of the term "technical debt"
+Adding flexibility isn’t free. It costs time, and it adds <em>unnecessary
+complexity</em> to the codebase. Complexity is like a mortgage – you’re going
+to be paying interest on it. You may have heard of the term “technical debt”
 before.</p>
 
-<p>When we choose the quick but inflexible implementation, we're usually saving time. 
+<p>When we choose the quick but inflexible implementation, we’re usually saving time. 
 If a change request comes in later, we can spend that saved time implementing
-the more complex solution. If the change request <em>doesn't</em> come in, then
-we win! We're laughing all the way to the chronological bank.</p>
+the more complex solution. If the change request <em>doesn’t</em> come in, then
+we win! We’re laughing all the way to the chronological bank.</p>
 
 <p>Does that mean that the final and most complex implementation is a waste of
 time? Usually, but not always. Maybe you truly need to generate a few terabytes
 of FizzBuzz output. A simple implementation is not going to cut it, in that case.
 Maybe you have strange requirements which make all that parameterization
-necessary. Maybe it's going to be used by lots of other developers in lots of
+necessary. Maybe it’s going to be used by lots of other developers in lots of
 other projects. The implementation that you choose really depends on your exact
 requirements.</p>
 

@@ -14,7 +14,7 @@
       <link>https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I know. FizzBuzz has been done to death. But I want to use it as a familiar
 base upon which we can explore some of the common tradeoffs involved in writing
-and maintaining software. In this article, I'll show multiple implementations
+and maintaining software. In this article, I’ll show multiple implementations
 of FizzBuzz, all designed to achieve different goals, and discuss the
 implications of each.</p>
 ]]></description>
@@ -25,8 +25,8 @@ implications of each.</p>
     <item>
       <title>Why NSOrderedSet Doesn't Inherit From NSSet - A Real‑life Example of the Liskov Substitution Principle</title>
       <link>https://www.tomdalling.com/blog/software-design/why-nsorderedset-doesnt-inherit-from-nsset-a-real‑life-example-of-the-liskov-substitution-principle/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>There was an interesting question on StackOverflow this morning: <a href="http://stackoverflow.com/questions/11278995/why-doesnt-nsorderedset-inherit-from-nsset">Why doesn't
-NSOrderedSet inherit from NSSet?</a> It's interesting because the reason is so
+      <description><![CDATA[<p>There was an interesting question on StackOverflow this morning: <a href="http://stackoverflow.com/questions/11278995/why-doesnt-nsorderedset-inherit-from-nsset">Why doesn’t
+NSOrderedSet inherit from NSSet?</a> It’s interesting because the reason is so
 easy to miss. I thought it would make a good blog post because it turned out to
 be a nice, real-life example of the <a href="http://tomdalling.com/blog/software-design/solid-class-design-the-liskov-substitution-principle">Liskov substitution principle</a> (herein
 abbreviated to LSP).</p>
@@ -140,7 +140,7 @@ Responsibility Principle.</p>
       <title>Model View Controller Explained</title>
       <link>https://www.tomdalling.com/blog/software-design/model-view-controller-explained/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Model view controller (MVC) is a very useful and popular design pattern. If
-you're writing software, you should know it. Unfortunately it's also one of the
+you’re writing software, you should know it. Unfortunately it’s also one of the
 hardest to truly understand. In this article I will provide what I think is the
 simplest explanation of MVC, and why you should use it.</p>
 ]]></description>

@@ -67,7 +67,7 @@
     <img class="listed-main-image" src="">
 
     <div class="post-content">
-<p>Let's start with two exotic strings (console output is in the code comments):</p>
+<p>Let’s start with two exotic strings (console output is in the code comments):</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">apples</span> <span class="o">=</span> <span class="n">NSGetFrenchWord</span><span class="p">();</span>
 <span class="n">NSString</span><span class="o">*</span> <span class="n">oranges</span> <span class="o">=</span><span class="err"> </span><span class="n">NSGetFrenchWord</span><span class="p">();</span>
@@ -111,15 +111,15 @@
 <p><a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch" title="Grand Central Dispatch">GCD</a> is a nice replacement for the old
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods
-and <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/NSOperation_class/Reference/Reference.html">NSOperation</a>. It's also a nice supplement to <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/nsthread_Class/Reference/Reference.html">NSThread</a>.</p>
+and <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/NSOperation_class/Reference/Reference.html">NSOperation</a>. It’s also a nice supplement to <a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/nsthread_Class/Reference/Reference.html">NSThread</a>.</p>
 
 <p>However, I think it was over-hyped a little bit by Apple when it was first
 released. You probably have all these random deadlocks and race conditions and
 stuff whenever you use multiple threads, but GCD is <em>soooooo good</em> that you
-don't have to worry about that anymore. Just use these magic blocks.</p>
+don’t have to worry about that anymore. Just use these magic blocks.</p>
 
 <p>The problem is that concurrent programming is notoriously hard to get right.
-Maybe GCD helps to make it easier, but It doesn't solve all of your problems.
+Maybe GCD helps to make it easier, but It doesn’t solve all of your problems.
 In fact, GCD and blocks introduce some problems of their own. This article will
 focus on some of those problems.</p>
 

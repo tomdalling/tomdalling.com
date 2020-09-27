@@ -28,7 +28,7 @@ satirical video:</p>
       <title>Using Git For Hacky Archive Deduplication</title>
       <link>https://www.tomdalling.com/blog/random-stuff/using-git-for-hacky-archive-deduplication/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Have you ever wished that <code>tar</code> or <code>zip</code> would deduplicate files when creating
-an archive? Well here's a hacky solution using <a href="http://git-scm.com/">git</a>.</p>
+an archive? Well here’s a hacky solution using <a href="http://git-scm.com/">git</a>.</p>
 ]]></description>
       <pubDate>Sat, 12 Jan 2013 00:00:00 -0000</pubDate>
       <category><![CDATA[Miscellaneous]]></category>

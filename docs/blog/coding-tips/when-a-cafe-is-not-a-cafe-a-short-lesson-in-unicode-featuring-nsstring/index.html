@@ -62,7 +62,7 @@
   </header>
 
   <div class="post-content">
-<p>Let's start with two exotic strings (console output is in the code comments):</p>
+<p>Let’s start with two exotic strings (console output is in the code comments):</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">apples</span> <span class="o">=</span> <span class="n">NSGetFrenchWord</span><span class="p">();</span>
 <span class="n">NSString</span><span class="o">*</span> <span class="n">oranges</span> <span class="o">=</span><span class="err"> </span><span class="n">NSGetFrenchWord</span><span class="p">();</span>
@@ -91,7 +91,7 @@
 <span class="c1">//NSOrderedSame? YES</span>
 </code></pre></div></div>
 
-<p>Well at least sorting works. Let's inspect the strings one character at a time.</p>
+<p>Well at least sorting works. Let’s inspect the strings one character at a time.</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="nf">CodePoints</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">str</span><span class="p">)</span>
 <span class="p">{</span>
@@ -116,29 +116,29 @@ would find that:</p>
 
 <ul>
   <li>
-<code>0063</code> is 'c'</li>
+<code>0063</code> is ‘c’</li>
   <li>
-<code>0061</code> is 'a'</li>
+<code>0061</code> is ‘a’</li>
   <li>
-<code>0066</code> is 'f'</li>
+<code>0066</code> is ‘f’</li>
   <li>
-<code>0065</code> is 'e'</li>
+<code>0065</code> is ‘e’</li>
   <li>
-<code>00E9</code> is 'é' (LATIN SMALL LETTER E WITH ACUTE)</li>
+<code>00E9</code> is ‘é’ (LATIN SMALL LETTER E WITH ACUTE)</li>
   <li>
-<code>0301</code> is '´' (COMBINING ACUTE ACCENT)</li>
+<code>0301</code> is ‘´’ (COMBINING ACUTE ACCENT)</li>
 </ul>
 
-<p>There are at least two ways to represent the glyph 'é' in Unicode. One way
-is with the single code point <code>00E9</code>. The other is with two code points: an 'e'
+<p>There are at least two ways to represent the glyph ‘é’ in Unicode. One way
+is with the single code point <code>00E9</code>. The other is with two code points: an ‘e’
 code point (<code>0065</code>) followed by a combining acute accent code point (<code>0301</code>).
 Unicode sort of works like ASCII, but not quite.</p>
 
 <p>This is where <a href="http://en.wikipedia.org/wiki/Unicode_normalization">Unicode normalization/equivalence</a> comes into play.
-"Normalizing" a Unicode string simply involves taking all the glyphs that look
-the same and giving them the same code point sequence. You can "compose" all
+“Normalizing” a Unicode string simply involves taking all the glyphs that look
+the same and giving them the same code point sequence. You can “compose” all
 the glyphs, which will translate the two code points <code>0065</code> <code>0301</code>
-into a single code point <code>00E9</code>. You can also "decompose" all the glyphs, which
+into a single code point <code>00E9</code>. You can also “decompose” all the glyphs, which
 will do the opposite. There are <a href="http://unicode.org/reports/tr15/">four types of Unicode normalization</a>, and
 <code>NSString</code> provides methods for all of them:</p>
 

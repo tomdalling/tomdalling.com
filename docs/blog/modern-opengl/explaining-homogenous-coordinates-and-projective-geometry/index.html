@@ -65,10 +65,10 @@
   </header>
 
   <div class="post-content">
-<p>In this article I'm going to explain homogeneous coordinates (a.k.a. 4D
-coordinates) as simply as I can. In previous articles, we've used 4D vectors
-for matrix multiplication, but I've never really defined what the fourth
-dimension actually is. Now it's time to take a closer look at projective
+<p>In this article I’m going to explain homogeneous coordinates (a.k.a. 4D
+coordinates) as simply as I can. In previous articles, we’ve used 4D vectors
+for matrix multiplication, but I’ve never really defined what the fourth
+dimension actually is. Now it’s time to take a closer look at projective
 geometry.</p>
 
 <p>Also, welcome back! It has been a while since my last post. Hopefully I will
@@ -86,11 +86,11 @@ $$Y$$, and $$Z$$). However, there are certain situations
 where it is useful to think in terms of <a href="http://en.wikipedia.org/wiki/Projective_geometry">projective geometry</a> instead.
 Projective geometry has an extra dimension, called $$W$$, in addition
 to the $$X$$, $$Y$$, and $$Z$$ dimensions.  This
-four-dimensional space is called "projective space," and coordinates in
-projective space are called "homogeneous coordinates."</p>
+four-dimensional space is called “projective space,” and coordinates in
+projective space are called “homogeneous coordinates.”</p>
 
-<p>For the purposes of 3D software, the terms "projective" and "homogeneous" are
-basically interchangeable with "4D."</p>
+<p>For the purposes of 3D software, the terms “projective” and “homogeneous” are
+basically interchangeable with “4D.”</p>
 
 <h2>Not Quaternions</h2>
 
@@ -98,15 +98,15 @@ basically interchangeable with "4D."</p>
 commonly depicted as $$(X, Y, Z, W)$$. However, quaternions and
 homogeneous coordinates are different concepts, with different uses.</p>
 
-<p>The contents of this article don't apply to quaternions. If I can find the
+<p>The contents of this article don’t apply to quaternions. If I can find the
 time, I might write a quaternion article in the future.</p>
 
 <h2>An Analogy In 2D</h2>
 
-<p>First, let's look at how projective geometry works in 2D, before we move on to
+<p>First, let’s look at how projective geometry works in 2D, before we move on to
 3D.</p>
 
-<p>Imagine a projector that is projecting a 2D image onto a screen. It's easy to
+<p>Imagine a projector that is projecting a 2D image onto a screen. It’s easy to
 identify the $$X$$ and $$Y$$ dimensions of the projected
 image:</p>
 
@@ -151,7 +151,7 @@ size (a.k.a. scale) of the image.</p>
 
 <h2>Applying It To 3D</h2>
 
-<p>There is no such thing as a 3D projector (yet), so it's harder to imagine
+<p>There is no such thing as a 3D projector (yet), so it’s harder to imagine
 projective geometry in 3D, but the $$W$$ value works exactly the same
 as it does in 2D. When $$W$$ increases, the coordinate expands (scales
 up). When $$W$$ decreases, the coordinate shrinks (scales down). The
@@ -161,26 +161,26 @@ $$W$$ is basically a scaling transformation for the 3D coordinate.</p>
 
 <p>The usual advice for 3D programming beginners is to always set $$W =
 1$$ whenever converting a 3D coordinate to a 4D coordinate. The reason for
-this is that when you scale a coordinate by $$1$$ it doesn't shrink or
+this is that when you scale a coordinate by $$1$$ it doesn’t shrink or
 grow, it just stays the same size. So, when $$W = 1$$ it has no effect
 on the $$X$$, $$Y$$ or $$Z$$ values.</p>
 
 <p>For this reason, when it comes to 3D computer graphics, coordinates are said to
-be "correct" only when $$W = 1$$. If you rendered coordinates with
+be “correct” only when $$W = 1$$. If you rendered coordinates with
 $$W &gt; 1$$ then everything would look too small, and with $$W &lt;
 1$$ everything would look too big. If you tried to render with $$W =
 0$$ your program would crash when it attempted to divide by zero. With
 $$W &lt; 0$$ everything would flip upside-down and back-to-front.</p>
 
-<p>Mathematically speaking, there is no such thing as an "incorrect" homogeneous
+<p>Mathematically speaking, there is no such thing as an “incorrect” homogeneous
 coordinate. Using coordinates with $$W = 1$$ is just a useful
 convention for 3D computer graphics.</p>
 
 <h2>The Math</h2>
 
-<p>Now, let's look at some actual numbers, to see how the math works.</p>
+<p>Now, let’s look at some actual numbers, to see how the math works.</p>
 
-<p>Let's say that the projector is $$3$$ meters away from the screen, and
+<p>Let’s say that the projector is $$3$$ meters away from the screen, and
 there is a dot on the 2D image at the coordinate $$(15,21)$$. This
 gives us the projective coordinate vector $$(X,Y,W) = (15,21,3)$$.</p>
 
@@ -213,7 +213,7 @@ vector and divide all the values by three, we get the new vector where $$W
   </figure>
 </p>
 
-<p>This is how an "incorrect" homogeneous coordinate is converted to a "correct"
+<p>This is how an “incorrect” homogeneous coordinate is converted to a “correct”
 coordinate: divide all the values by $$W$$. The process is exactly the
 same for 2D and 3D coordinates.</p>
 
@@ -266,7 +266,7 @@ projection matrices, which do affect the $$W$$ dimension.</p>
 
 <h3>Perspective Transformation</h3>
 
-<p>In 3D, "perspective" is the phenomenon where an object appears smaller the
+<p>In 3D, “perspective” is the phenomenon where an object appears smaller the
 further away it is from the camera. A far-away mountain can appear to be
 smaller than a cat, if the cat is close enough to the camera.</p>
 
@@ -315,7 +315,7 @@ from the $$Z$$ value.</p>
 </blockquote>
 
 <p>After the perspective projection matrix is applied, each vertex undergoes
-"perspective division." Perspective division is just a specific term for
+“perspective division.” Perspective division is just a specific term for
 converting the homogeneous coordinate back to $$W = 1$$, as explained
 earlier in the article. Continuing with the example above, the perspective
 division step would look like this:</p>
@@ -391,7 +391,7 @@ look like this:</p>
 $$X$$, $$Y$$, and $$Z$$ dimensions.  Matrices for translation and perspective
 projection transformations can only be applied to homogeneous coordinates, which
 is why they are so common in 3D computer graphics. The $$X$$, $$Y$$, and $$Z$$
-values are said to be "correct" when $$W = 1$$. Any homogeneous coordinate can
+values are said to be “correct” when $$W = 1$$. Any homogeneous coordinate can
 be converted to have $$W = 1$$ by dividing all four dimensions by the $$W$$
 value, except if $$W = 0$$. When $$W = 0$$, the coordinate represents a point
 at infinity (a vector with infinite length), and this is often used to denote

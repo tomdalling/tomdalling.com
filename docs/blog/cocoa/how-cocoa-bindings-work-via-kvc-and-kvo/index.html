@@ -63,8 +63,8 @@
 
   <div class="post-content">
 <p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
-have an understanding of the underlying concepts, bindings aren't too hard. In
-this article, I'm going to explain the concepts behind bindings from the ground
+have an understanding of the underlying concepts, bindings aren’t too hard. In
+this article, I’m going to explain the concepts behind bindings from the ground
 up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
 and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
 
@@ -75,10 +75,10 @@ and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
 <p>The first concept you need to understand is <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueCoding/KeyValueCoding.html">Key-Value Coding (KVC)</a>, as KVO
 and bindings are built on top of it.</p>
 
-<p>Objects have certain "properties". For example, a <code>Person</code> object may have an
+<p>Objects have certain “properties”. For example, a <code>Person</code> object may have an
 <code>name</code> property and an <code>address</code> property. In KVC parlance, the <code>Person</code> object
-has a <em>value</em> for the <code>name</code> <em>key</em>, and for the <code>address</code> <em>key</em>. "Keys" are
-just strings, and "values" can be any type of object<a class="footnote-ref" name="footnote_1_ref" href="#footnote_1">[1]</a>. At it's most fundamental
+has a <em>value</em> for the <code>name</code> <em>key</em>, and for the <code>address</code> <em>key</em>. “Keys” are
+just strings, and “values” can be any type of object<a class="footnote-ref" name="footnote_1_ref" href="#footnote_1">[1]</a>. At it’s most fundamental
 level, KVC is just two methods: a method to change the value for a given key
 (mutator), and a method to retrieve the value for a given key (accessor). Here
 is an example:</p>
@@ -95,7 +95,7 @@ is an example:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Now let's say the <code>Person</code> object has a third key: a <code>spouse</code> key. The value
+<p>Now let’s say the <code>Person</code> object has a third key: a <code>spouse</code> key. The value
 for the <code>spouse</code> key is another <code>Person</code> object. KVC allows you to do things
 like this:</p>
 
@@ -112,27 +112,27 @@ like this:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Cocoa makes a distinction between "keys" and "key paths". A "key" allows you to
-get a value on an object. A "key path" allows you to chain multiple keys
-together, separated by dots. For example, this...</p>
+<p>Cocoa makes a distinction between “keys” and “key paths”. A “key” allows you to
+get a value on an object. A “key path” allows you to chain multiple keys
+together, separated by dots. For example, this…</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">p</span> <span class="nf">valueForKeyPath</span><span class="p">:</span><span class="s">@"spouse.name"</span><span class="p">];</span>
 </code></pre></div></div>
 
-<p>... is exactly the same as this...</p>
+<p>… is exactly the same as this…</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">p</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"spouse"</span><span class="p">]</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
 </code></pre></div></div>
 
-<p>That's all you need to know about KVC for now.</p>
+<p>That’s all you need to know about KVC for now.</p>
 
-<p>Let's move on to KVO.</p>
+<p>Let’s move on to KVO.</p>
 
 <h2>Key-Value Observing (KVO)</h2>
 
 <p><a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html">Key-Value Observing (KVO)</a> is built on top of KVC. It allows you to observe
 (i.e. watch) a KVC key path on an object to see when the value changes. For
-example, let's write some code that watches to see if a person's address
+example, let’s write some code that watches to see if a person’s address
 changes. There are three methods of interest in the following code:</p>
 
 <ul>
@@ -203,14 +203,14 @@ get notified whenever the value changes.</p>
 
 <h2>Cocoa Bindings</h2>
 
-<p>Now that you understand the concepts behind KVC and KVO, Cocoa bindings won't
+<p>Now that you understand the concepts behind KVC and KVO, Cocoa bindings won’t
 be too mysterious.</p>
 
 <p>Cocoa bindings allow you to synchronise two key paths<a name="footnote_2_ref" class="footnote-ref" href="#footnote_2">[2]</a> so they have the same value.
 When one key path is updated, so is the other one.</p>
 
-<p>For example, let's say you have a <code>Person</code> object and an <code>NSTextField</code> to edit
-the person's address. We know that every <code>Person</code> object has an <code>address</code> key,
+<p>For example, let’s say you have a <code>Person</code> object and an <code>NSTextField</code> to edit
+the person’s address. We know that every <code>Person</code> object has an <code>address</code> key,
 and thanks to the <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/CocoaBindingsRef/CocoaBindingsRef.html">Cocoa Bindings Reference</a>, we also know that every
 <code>NSTextField</code> object has a <code>value</code> key that works with bindings. What we want
 is for those two key paths to be synchronised (i.e. bound). This means that if
@@ -268,7 +268,7 @@ object, see my article: <a href="/blog/cocoa/implementing-your-own-cocoa-binding
 
 <h2>Conclusion</h2>
 
-<p>That's the basics of how KVC, KVO and bindings work. The views use KVC to
+<p>That’s the basics of how KVC, KVO and bindings work. The views use KVC to
 update the model, and they use KVO to watch for changes in the model. I have
 left out quite a bit of detail in order to keep the article short and simple,
 but hopefully it has given you a firm grasp of the concepts and principles.</p>
@@ -283,9 +283,9 @@ accessor and mutator methods will perform auto-boxing. For example, a <code>BOOL
 value will be auto-boxed into an <code>NSNumber*</code>.</p>
 
 <p><a name="footnote_2" href="#footnote_2_ref">[2]</a>
-When I say that bindings synchronise two key paths, that's not technically
-correct. It actually synchronises a "binding" and a key path. A "binding" is a
-string just like a key path but it's not guaranteed to be KVC compatible,
+When I say that bindings synchronise two key paths, that’s not technically
+correct. It actually synchronises a “binding” and a key path. A “binding” is a
+string just like a key path but it’s not guaranteed to be KVC compatible,
 although it can be. Notice that the example code uses <code>@"address"</code> as a key
 path but never uses <code>@"value"</code> as a key path. This is because <code>@"value"</code> is a
 binding, and it might not be a valid key path.</p>

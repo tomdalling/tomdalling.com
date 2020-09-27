@@ -12,10 +12,10 @@
     <item>
       <title>Why camelCaps Are Superior To_Underscores</title>
       <link>https://www.tomdalling.com/blog/coding-styleconventions/why-camelcaps-are-superior-to_underscores/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>I've always preferred camel caps to underscores when it comes to naming
-conventions, but I've never really known why. Recently I've been writing a lot
+      <description><![CDATA[<p>I’ve always preferred camel caps to underscores when it comes to naming
+conventions, but I’ve never really known why. Recently I’ve been writing a lot
 of Python, where the standard is to use underscores for most names, and now I
-realise why I don't like underscores. I hope to make my argument for camel caps
+realise why I don’t like underscores. I hope to make my argument for camel caps
 objective — or, failing that, at least better than the mouth-frothing,
 religious reactions you normally get in these “X is better than Y”
 type of discussions.</p>
@@ -47,11 +47,11 @@ naming. Let me explain with an example.</p>
 </code></pre></div></div>
 
 <p>Pick an argument, any argument. What does it do? You can probably guess a
-couple of them, but basically you're forced to look up the documentation. Sure,
+couple of them, but basically you’re forced to look up the documentation. Sure,
 12 arguments is a bit excessive, but even three or for argument functions can
-be ambiguous. What if you're trying to understand a function call that is being
+be ambiguous. What if you’re trying to understand a function call that is being
 passed three number literals as arguments? Even if you know the function,
-you'll probably have to look up the documentation just to remember the order of
+you’ll probably have to look up the documentation just to remember the order of
 the arguments.</p>
 
 <p>Now for the equivalent in Objective C:</p>

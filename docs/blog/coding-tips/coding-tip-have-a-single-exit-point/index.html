@@ -102,10 +102,10 @@ introduction bugs whenever the code is modified.</p>
 
 <p>Before I make my argument against multiple exit points, I will admit that the
 examples provided are rather trivial. A six line function with two exit points
-isn't particularly dangerous or unreadable — especially considering that
-it's very common to see an early return in functions that search a collection
+isn’t particularly dangerous or unreadable — especially considering that
+it’s very common to see an early return in functions that search a collection
 of objects. However, the problems increase exponentially with the number of
-exit points and the size of the function. When you're making changes to a 70
+exit points and the size of the function. When you’re making changes to a 70
 line function with a generous sprinkling of return statements, the problems are
 quite obvious.</p>
 
@@ -186,12 +186,12 @@ conditions?</p>
   </li>
 </ul>
 
-<p>If so, then you've experienced how extra return statements can make it
+<p>If so, then you’ve experienced how extra return statements can make it
 difficult to read and understand a section of code. If you accidentally miss
-the extra return statements, then you're likely to introduce bugs. If you
+the extra return statements, then you’re likely to introduce bugs. If you
 <em>do</em> catch the return statements, then you have to constantly ask
-yourself <em>"will this line be executed, or has it already
-returned?"</em> The larger the function and number of return statements,
+yourself <em>“will this line be executed, or has it already
+returned?”</em> The larger the function and number of return statements,
 the greater the potential for error.</p>
 
 <h2>The Exceptions</h2>
@@ -223,10 +223,10 @@ executing. Adding a FooBar object is perfectly safe, as you can see here:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Returning early can also be used instead of deeply nested 'if' statements. In
+<p>Returning early can also be used instead of deeply nested ‘if’ statements. In
 such a situation, returning early can be the lesser of two evils.</p>
 
-<p>This post was inspired by <a href="http://blog.wilshipley.com/2005/08/pimp-my-code-part-4-returning-late-to.html" title="Pimp My Code, Part 4: Returning late to return early">Wil Shipley's post about why he likes returning
+<p>This post was inspired by <a href="http://blog.wilshipley.com/2005/08/pimp-my-code-part-4-returning-late-to.html" title="Pimp My Code, Part 4: Returning late to return early">Wil Shipley’s post about why he likes returning
 early</a>. I love your work, Wil, but I have to disagree with you on
 this one. Those goto statements give me a bad feeling.</p>
 

@@ -113,7 +113,7 @@ gamma correction.</p>
 
 <h2>Diffuse Component</h2>
 
-<p>We covered the diffuse component in the previous article, but I've refactored
+<p>We covered the diffuse component in the previous article, but I’ve refactored
 the code in this article. The new GLSL looks like this:</p>
 
 <div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">vec3</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">inverse</span><span class="p">(</span><span class="kt">mat3</span><span class="p">(</span><span class="n">model</span><span class="p">)))</span> <span class="o">*</span> <span class="n">fragNormal</span><span class="p">);</span>
@@ -183,12 +183,12 @@ now called <code>diffuseCoefficient</code>).</p>
   The specular component is what makes a surface look shiny.
 </blockquote>
 
-<p>The specular component is what makes a surface look shiny. The word "specular"
-means "like a mirror," and it is used here because the shiny patches (a.k.a.
+<p>The specular component is what makes a surface look shiny. The word “specular”
+means “like a mirror,” and it is used here because the shiny patches (a.k.a.
 specular highlights) are fake reflections of light, like a mirror would reflect
 light.</p>
 
-<p>Let's start by looking at how a mirror reflects light.</p>
+<p>Let’s start by looking at how a mirror reflects light.</p>
 
 <p>
   <figure>
@@ -210,7 +210,7 @@ if light comes in at a 30° angle, it will be reflected at a 30° angle.</p>
   </figure>
 </p>
 
-<p>Now let's look at surfaces that do no behave like a perfect mirror.</p>
+<p>Now let’s look at surfaces that do no behave like a perfect mirror.</p>
 
 <p>
   <figure>
@@ -227,7 +227,7 @@ specular components: the diffuse component models irregular surfaces, and the
 specular component models mirror-like surfaces.</p>
 
 <p>Many surfaces have both specular <em>and</em> diffuse components to them. The outer
-surface of a car is a good example. It's not a perfect mirror, but it can be
+surface of a car is a good example. It’s not a perfect mirror, but it can be
 shiny enough to see your reflection in it. This is because the surface has a
 layer of paint underneath a layer of clear topcoat. The paint layer is diffuse,
 but the topcoat layer is specular. The topcoat is also clear, so some of the
@@ -244,11 +244,11 @@ paint layer beneath.</p>
   The specular component is usually a different color to the diffuse component.
 </blockquote>
 
-<p>Notice how when the topcoat reflects light, the rays don't hit the paint layer.
+<p>Notice how when the topcoat reflects light, the rays don’t hit the paint layer.
 Normally the paint layer would change the color of the light by absorbing some
-of the intensities, but that can't happen if the light doesn't hit the paint.
+of the intensities, but that can’t happen if the light doesn’t hit the paint.
 This means that the specular component is usually a different color to the
-diffuse component. Most specular surfaces don't absorb anything, they just
+diffuse component. Most specular surfaces don’t absorb anything, they just
 reflect all of the light, which means the specular color would be white. This
 is why the shiny parts of a car are white, even though the paint is red.</p>
 
@@ -268,18 +268,18 @@ vector.</li>
 reflected straight into the camera.</li>
 </ul>
 
-<p>Just like the diffuse component, we won't actually calculate the angle. We will
+<p>Just like the diffuse component, we won’t actually calculate the angle. We will
 just use <code>cos(angle)</code> instead, because it ranges from zero to one, which is
 more useful.</p>
 
 <p>How small does the angle have to be? Well that depends on how shiny the surface
 is. We need a variable to represent shininess, and this variable is called the
-"specular exponent." The larger the specular exponent, the more shiny the
-surface will be. It's up to the artist to play around with this value, until it
+“specular exponent.” The larger the specular exponent, the more shiny the
+surface will be. It’s up to the artist to play around with this value, until it
 looks right.</p>
 
 <p>To apply the specular exponent, we take <code>cos(angle)</code> and raise it to the power
-of the specular exponent. This produces the "specular coefficient", which is
+of the specular exponent. This produces the “specular coefficient”, which is
 the brightness of the reflection.</p>
 
 <p>
@@ -318,7 +318,7 @@ in the previous article. Then, we calculate <code>specularCoefficient</code> by 
 <code>cosAngle</code> to the power of the <code>materialShininess</code> (the specular exponent).</p>
 
 <p>Lastly, we get the whole specular component by multiplying the specular
-coefficient by the material's specular color and the light intensities. This is
+coefficient by the material’s specular color and the light intensities. This is
 very similar to the diffuse and ambient components, except we use
 <code>materialSpecularColor</code> instead of getting the surface color from a texture.</p>
 
@@ -333,20 +333,20 @@ code above. Here is the actual code from the fragment shader:</p>
 
 <p>Notice the test for <code>diffuseCoefficient &gt; 0.0</code>. This is necessary because the
 <code>reflect</code> function will reflect the incidence vector off the front <em>and the
-back</em> of a surface. The back sides of a surface don't receive any light, so
-they can't be shiny at all. The <code>diffuseCoefficient</code> will be equal to zero if
+back</em> of a surface. The back sides of a surface don’t receive any light, so
+they can’t be shiny at all. The <code>diffuseCoefficient</code> will be equal to zero if
 the surface is facing away from the light, so we check that first before
 calculating the specular coefficient.</p>
 
 <h2>Attenuation</h2>
 
 <p>In the code for the previous article, moving the light source away from the
-wooden crate didn't make the crate appear any darker. This is obviously wrong,
+wooden crate didn’t make the crate appear any darker. This is obviously wrong,
 because if you move a candle away from a surface in real life, then the surface
 gets darker. To fix this, we will implement attenuation. To see attenuation in
 action, hold down the <kbd>1</kbd> key, which sets the position of the light, and move
 the camera further away from the wooden crates. If you do the same thing in the
-previous article, you will notice that the surface doesn't get darker, but it
+previous article, you will notice that the surface doesn’t get darker, but it
 does in this article.</p>
 
 <blockquote class="pull-right">
@@ -375,7 +375,7 @@ squared:</p>
   </figure>
 </p>
 
-<p>We'll use a modified version of this formula. Firstly, we want to avoid
+<p>We’ll use a modified version of this formula. Firstly, we want to avoid
 divide-by-zero errors if the distance is zero, so we modify the formula
 slightly to get this:</p>
 
@@ -422,7 +422,7 @@ just call $$k$$:</p>
 
 <p>We will apply attenuation to the diffuse and specular components, but not the
 ambient component. Remember that the ambient component is a constant minimum
-brightness, so it doesn't make sense to lower the brightness below the minimum.</p>
+brightness, so it doesn’t make sense to lower the brightness below the minimum.</p>
 
 <p>The GLSL to combine the ambient, diffuse and specular components, including
 attenuation, looks like this:</p>
@@ -444,8 +444,8 @@ the 50% red color $$(0.5,0,0)$$.</p>
 <p>The problem is that computer screens do <em>not</em> display colors in a linear color
 space. The 100% red is actually about 4.5 times brighter than the 50% red,
 which makes the brightness in the 3D scene look wrong. This is because computer
-monitors mimic the way that old CRT monitors behaved. I've also read that it
-has nothing to do with CRT monitors, and it's necessary because of the way that
+monitors mimic the way that old CRT monitors behaved. I’ve also read that it
+has nothing to do with CRT monitors, and it’s necessary because of the way that
 the human eye perceives brightness. Either way, gamma correction will allow us
 to adjust the brightness of the 3D scene to make it look better.</p>
 
@@ -466,7 +466,7 @@ corrected color is too bright, and the monitor is too dark, so when they are
 combined the result looks correct.</p>
 
 <p>Also notice how the lines meet up at zero and one. This means that gamma
-correction doesn't affect maximum and minimum brightness – it affects all the
+correction doesn’t affect maximum and minimum brightness – it affects all the
 shades of brightness in the middle.</p>
 
 <blockquote class="pull-right">
@@ -519,8 +519,8 @@ too bright.</p>
 </blockquote>
 
 <p>The gamma-corrected image looks wrong, but the correct image looks like the one
-from the last article, which didn't have any gamma correction. This is because
-we're actually doing gamma correction <em>twice</em>. That's right, we already had
+from the last article, which didn’t have any gamma correction. This is because
+we’re actually doing gamma correction <em>twice</em>. That’s right, we already had
 some form of gamma correction before this article. Most image file formats
 already contain gamma-corrected RGB values. The <code>wooden-crate.jpg</code> file that we
 use as a texture is already gamma-corrected, and then we gamma-correct it a
@@ -599,11 +599,11 @@ this change to <code>tdogl::Texture</code> class, the 3D scene looks correct aga
 </code></pre></div></div>
 
 <p>There is a new uniform called <code>cameraPosition</code>, which is necessary to calculate
-the specular component. You may come across other fragment shaders that don't
+the specular component. You may come across other fragment shaders that don’t
 have the camera position as a uniform. If the lighting calculations are done in
 camera space, instead of world space, then the position of the camera is always
-the origin $$(0,0,0)$$. This is fairly common, but we'll continue to work in
-world space for the moment, because it's a bit more intuitive and similar to
+the origin $$(0,0,0)$$. This is fairly common, but we’ll continue to work in
+world space for the moment, because it’s a bit more intuitive and similar to
 the code in the previous article.</p>
 
 <p>There are two new elements of the <code>Light</code> struct: <code>attenuation</code> and
@@ -695,7 +695,7 @@ is set to white, which is the most common specular color.</p>
 
 <p>Setting the ambient coefficient to 0.005 means that the minimum brightness is
 0.5% of the maximum brightness. This should make the back sides of the crates
-very dark, but not pure black. The attenuation variable doesn't have any
+very dark, but not pure black. The attenuation variable doesn’t have any
 specific value – I just played around with it until I found a value that looked
 good.</p>
 

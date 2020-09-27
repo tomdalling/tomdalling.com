@@ -75,15 +75,15 @@ Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
 
 <p>Pure functions are functions that have no side-effects, and whose return values are only determined by their arguments.
 Given the same arguments, a pure function will always return the same value.
-It does nothing other than generate a return value – it doesn't affect anything, anywhere else in the program.</p>
+It does nothing other than generate a return value – it doesn’t affect anything, anywhere else in the program.</p>
 
 <p>Pure functions are the core concept of functional programming (FP).
-I'm going to gloss over the benefits of FP, because there are plenty of other articles about that.
-Let's just say that pure functions are good, and you should be writing them wherever possible.</p>
+I’m going to gloss over the benefits of FP, because there are plenty of other articles about that.
+Let’s just say that pure functions are good, and you should be writing them wherever possible.</p>
 
 <h2>The Example: A JSON To XML Converter</h2>
 
-<p>To demonstrate this pattern, I'm going to write a program that converts a JSON document to XML.
+<p>To demonstrate this pattern, I’m going to write a program that converts a JSON document to XML.
 The whole example project is available on GitHub, here: <a href="https://github.com/tomdalling/pure-function-as-an-object">https://github.com/tomdalling/pure-function-as-an-object</a></p>
 
 <p>The input looks like this:</p>
@@ -109,7 +109,7 @@ The whole example project is available on GitHub, here: <a href="https://github.
 
 <p>We will only be using the Ruby 2.3.0 standard library, and the <a href="https://github.com/ohler55/ox">Ox gem</a> for writing the XML.</p>
 
-<p>Let's get started!</p>
+<p>Let’s get started!</p>
 
 <h2>Designing The API</h2>
 
@@ -130,11 +130,11 @@ The same input JSON always produces the same output XML.</p>
 Just use some dummy input, and assert that <code>output</code> is correct.</p>
 
 <p>Because the <code>File.read</code> and <code>File.write</code> calls are non-pure, I have purposely kept them separate from the conversion code.
-That allows the conversion step to be implemented as a pure function -- it just takes a string and returns a string.</p>
+That allows the conversion step to be implemented as a pure function – it just takes a string and returns a string.</p>
 
-<p>This API looks pretty good to me, assuming that the input data isn't too big.
-If the input data set was huge, we wouldn't be able to load the whole thing into memory, so we would need so write some sort of streaming API.
-But, for the sake of demonstration, let's assume that we've investigated this possibility and decided that it's very unlikely that the input will ever be more than a few megabytes.</p>
+<p>This API looks pretty good to me, assuming that the input data isn’t too big.
+If the input data set was huge, we wouldn’t be able to load the whole thing into memory, so we would need so write some sort of streaming API.
+But, for the sake of demonstration, let’s assume that we’ve investigated this possibility and decided that it’s very unlikely that the input will ever be more than a few megabytes.</p>
 
 <div class="alert alert-info">
   This is an example of the
@@ -147,7 +147,7 @@ But, for the sake of demonstration, let's assume that we've investigated this po
 <h2>The Motivation</h2>
 
 <p>The public API consists of a single method, which will be the pure function.
-Let's start with that:</p>
+Let’s start with that:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'json'</span>
 <span class="nb">require</span> <span class="s1">'ox'</span>
@@ -160,15 +160,15 @@ Let's start with that:</p>
 </code></pre></div></div>
 
 <p>We could easily implement all the functionality by writing a bunch of pure methods on the <code>JSON2XML</code> module, without defining any new classes.
-It would work, but I personally don't think that this is how Ruby is designed to be used.
-It's not what most people would consider to be idiomatic Ruby.
+It would work, but I personally don’t think that this is how Ruby is designed to be used.
+It’s not what most people would consider to be idiomatic Ruby.
 We would be fighting the language – going against the grain.
-That's not fun.</p>
+That’s not fun.</p>
 
 <p>To use Ruby the way it is designed to be used, we will need to define a class here.
 However, the class is unnecessary.
-It's an implementation detail.
-The public API is just a single pure function, so nobody should ever need to instantiate an object of the class we're about to create.</p>
+It’s an implementation detail.
+The public API is just a single pure function, so nobody should ever need to instantiate an object of the class we’re about to create.</p>
 
 <p>This is the motivation behind the pattern: we want the public API to be a simple pure function, but we want to implement that function with a private class.</p>
 
@@ -197,7 +197,7 @@ The public API is just a single pure function, so nobody should ever need to ins
 
 <p>Instead of a module, <code>JSON2XML</code> is now a class.
 Everything below the <code>convert</code> method is marked as private, signalling to other developers that <code>convert</code> is the only thing they should be calling, and everything else is an implementation detail.
-The <code>xml</code> method can't be called directly because it is private, so we use <code>send(:xml)</code> to get around that.</p>
+The <code>xml</code> method can’t be called directly because it is private, so we use <code>send(:xml)</code> to get around that.</p>
 
 <p>The <code>convert</code> class method:</p>
 
@@ -207,30 +207,30 @@ The <code>xml</code> method can't be called directly because it is private, so w
   <li>and calls a single method on the object, to generate the return value.</li>
 </ol>
 
-<p>That's the overview of how the pattern works.</p>
+<p>That’s the overview of how the pattern works.</p>
 
 <h2>Implementation Advantages</h2>
 
-<p>Now let's finish off the implementation of the JSON to XML converter, to demonstrate some advantages of using this pattern.</p>
+<p>Now let’s finish off the implementation of the JSON to XML converter, to demonstrate some advantages of using this pattern.</p>
 
 <p>The <code>xml</code> method is empty at the moment.
-It's supposed to return the output XML as a string, as required by the <code>convert</code> class method.
+It’s supposed to return the output XML as a string, as required by the <code>convert</code> class method.
 How do you generate XML?
-One approach is to take some sort of XML "document" object, and serialize it.
-Let's do that:</p>
+One approach is to take some sort of XML “document” object, and serialize it.
+Let’s do that:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">xml</span>
   <span class="no">Ox</span><span class="p">.</span><span class="nf">dump</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="ss">with_xml: </span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>"But wait!"
+<p>“But wait!”
 I hear you say.
-"There is no <code>document</code> object. It doesn't exist."
-Let's create it, then.</p>
+“There is no <code>document</code> object. It doesn’t exist.”
+Let’s create it, then.</p>
 
 <p>How do you make a document object?
-Since we're using the Ox gem, we need to instantiate an <code>Ox::Document</code> and fill it with all the output.
+Since we’re using the Ox gem, we need to instantiate an <code>Ox::Document</code> and fill it with all the output.
 XML documents are only supposed to have a single root node in them, so all the content will have to be inside that.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">document</span>
@@ -240,15 +240,15 @@ XML documents are only supposed to have a single root node in them, so all the c
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>"But wait!"
+<p>“But wait!”
 I hear you say, again.
-"Where did this <code>root_node</code> come from? That's not defined anywhere."
-Let's create it, then.</p>
+“Where did this <code>root_node</code> come from? That’s not defined anywhere.”
+Let’s create it, then.</p>
 
 <p>How do you make the root node?
 In Ox, you instantiate a <code>Ox::Element</code> object.
 We have to fill the root node with all the output data, so each city will have its own node inside the root node.
-Also, the root node has a "count" attribute on it, for reasons that I will explain later.</p>
+Also, the root node has a “count” attribute on it, for reasons that I will explain later.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">root_node</span>
   <span class="no">Ox</span><span class="o">::</span><span class="no">Element</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'cities'</span><span class="p">).</span><span class="nf">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">root</span><span class="o">|</span>
@@ -258,11 +258,11 @@ Also, the root node has a "count" attribute on it, for reasons that I will expla
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>"But wait!"
+<p>“But wait!”
 I hear you say, for a third time.
-"<code>city_nodes</code> doesn't exist either!"
-Let's create it.
-I'm sure you're getting the gist of what's happening here.</p>
+“<code>city_nodes</code> doesn’t exist either!”
+Let’s create it.
+I’m sure you’re getting the gist of what’s happening here.</p>
 
 <p>Each city node is also an <code>Ox::Element</code> object.
 We can create a city node from each line of the JSON input.</p>
@@ -292,8 +292,8 @@ Here it is:</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>"But wait!"
-I don't hear you say, because the implementation is now complete.
+<p>“But wait!”
+I don’t hear you say, because the implementation is now complete.
 Here is the whole class:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">JSON2XML</span>
@@ -343,19 +343,19 @@ Here is the whole class:</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>What I've just demonstrated is a top-down decomposition of the entire implementation.
+<p>What I’ve just demonstrated is a top-down decomposition of the entire implementation.
 You start with the desired output – in this case, an XML string – and work backwards.
 You write the code that you wish existed, and implement it later.
 This is a nice way to break down complicated algorithms into smaller, and smaller pieces.</p>
 
-<p>This is all made possible by Ruby's syntax.
+<p>This is all made possible by Ruby’s syntax.
 Ruby blurs the line between local variables and a method calls.
 This allows us to write identifiers representing values that we wish we had, as if they already exist as local variables, and then implement them later as methods.
-We're working with grain of the language, and this is one of the benefits.</p>
+We’re working with grain of the language, and this is one of the benefits.</p>
 
 <p>Notice how none of the methods have side effects.
 Each method in the class is itself a pure function.
-The <code>@input_json</code> instance variable is never changed – it's essentially a constant.
+The <code>@input_json</code> instance variable is never changed – it’s essentially a constant.
 Because of that, we would expect that every method would always have the same return value.
 For example, if I call the <code>xml</code> method three times, I would get three identical strings.
 To use FP terminology, all of the methods have <em>referential transparency</em>.</p>
@@ -372,23 +372,23 @@ To use FP terminology, all of the methods have <em>referential transparency</em>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>I put the "count" attribute on the root node to demonstrate a common performance problem with this pattern.</p>
+<p>I put the “count” attribute on the root node to demonstrate a common performance problem with this pattern.</p>
 
 <p>The problem is that <code>city_nodes</code> is called two times.
-That means we're parsing the entire data set twice.
+That means we’re parsing the entire data set twice.
 That is unnecessary, and roughly doubles the run time of the conversion.</p>
 
 <p>Thankfully, due to all the methods being pure, we have a simple solution to this problem: memoization.
 Memoization is the caching of return values from pure functions.</p>
 
-<p>We've already seen that the <code>city_nodes</code> method always returns the same value.
+<p>We’ve already seen that the <code>city_nodes</code> method always returns the same value.
 That means we can cache the return value the first time the function is called.
 On all subsequent calls, we can just return the cached value without running the rest of the function.</p>
 
 <p>Cache invalidation can be a tricky problem, but not in this case.
 When do we need to invalidate the cache?
 Never!
-It's a pure function.
+It’s a pure function.
 The return value literally never changes.
 We can just forget about cache invalidation completely.</p>
 
@@ -401,7 +401,7 @@ We can just forget about cache invalidation completely.</p>
 </code></pre></div></div>
 
 <p>The function implementation is exactly the same, except for the <code>@city_nodes ||=</code> line that has been added.
-This trick isn't specific to the PFAAO pattern, it's just normal, idiomatic Ruby.</p>
+This trick isn’t specific to the PFAAO pattern, it’s just normal, idiomatic Ruby.</p>
 
 <p>Now we can call <code>city_nodes</code> as many times as we like, from any other method, without having to worry about performance.
 This is a cleaner solution than storing the return value in a local variable before using it.</p>
@@ -409,14 +409,14 @@ This is a cleaner solution than storing the return value in a local variable bef
 <h2>When To Use PFAAO</h2>
 
 <p>This pattern is good for implementing complicated pure functions.
-I've written a DOCX to HTML converter this way, quite happily.</p>
+I’ve written a DOCX to HTML converter this way, quite happily.</p>
 
-<p>If the implementation is simple, it's not really worth defining a new class – just write a slightly larger function.
-If you're writing a pure function and it's growing out of control, that is the time to consider using this pattern.</p>
+<p>If the implementation is simple, it’s not really worth defining a new class – just write a slightly larger function.
+If you’re writing a pure function and it’s growing out of control, that is the time to consider using this pattern.</p>
 
 <p>Where the implementation is mostly pure, but not completely, you can still use this pattern.
 The implementation will be more complicated, but still have a small and simple public API.
-Ruby isn't Haskell.
+Ruby isn’t Haskell.
 We can use side effects, in a controlled fashion, wherever it makes sense.</p>
 
 <p>If your implementation requires a lot of mutable state, PFAAO is probably a bad fit.</p>
@@ -427,8 +427,8 @@ We can use side effects, in a controlled fashion, wherever it makes sense.</p>
   <li>
     <p><strong>Disallow instantiation of the class.</strong><br>
 Unfortunately, making <code>initialize</code> private does not prevent instantiation of the class.
-The fact that everything is private except the class method should indicate that the class isn't meant to be instantiated.
-If that's not strict enough for you, you can make Ruby raise an error by adding this line of code to the class definition:</p>
+The fact that everything is private except the class method should indicate that the class isn’t meant to be instantiated.
+If that’s not strict enough for you, you can make Ruby raise an error by adding this line of code to the class definition:</p>
 
     <div class="language-ruby highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="nb">private_class_method</span> <span class="ss">:new</span>
@@ -438,11 +438,11 @@ If that's not strict enough for you, you can make Ruby raise an error by adding 
     <p><strong>Make it quack like a Proc.</strong><br>
 Objects that act like functions, such as <code>Proc</code> objects, are invoked using the <code>call</code> method in idiomatic Ruby.
 I named the class method <code>convert</code> in the example above, but if you changed that to <code>call</code> you could use the class as if it were a <code>Proc</code>.
-In that case, I would change the class name to <code>XML2JSONConverter</code> to keep the word "convert" in there.</p>
+In that case, I would change the class name to <code>XML2JSONConverter</code> to keep the word “convert” in there.</p>
   </li>
   <li>
     <p><strong>Make it convertable to a Proc.</strong><br>
-Let's say you're using this PFAAO as a block fiarly often, like this:</p>
+Let’s say you’re using this PFAAO as a block fiarly often, like this:</p>
 
     <div class="language-ruby highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="n">documents</span><span class="p">.</span><span class="nf">map</span><span class="p">{</span> <span class="o">|</span><span class="n">d</span><span class="o">|</span> <span class="no">XML2JSON</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="p">}</span>
@@ -473,11 +473,11 @@ Complicated pure functions can be written in idiomatic Ruby.</p>
 <p>Again, you can get the code for the article from GitHub:
 <a href="https://github.com/tomdalling/pure-function-as-an-object">https://github.com/tomdalling/pure-function-as-an-object</a></p>
 
-<p>We've also learnt that PFAAO is a cool acronym.
+<p>We’ve also learnt that PFAAO is a cool acronym.
 Say it out loud.
 PFAAO. PFAAO.</p>
 
-<p>PFAAO...</p>
+<p>PFAAO…</p>
 </div>
 
   <footer>

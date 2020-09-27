@@ -159,7 +159,7 @@ into the more interesting stuff.</p>
   <li>OpenGL ES 2.0 for compatibility with Android and iOS</li>
 </ul>
 
-<p>Because there are so many different versions of OpenGL and GLSL, the code won't
+<p>Because there are so many different versions of OpenGL and GLSL, the code won’t
 be 100% compatible with all the versions mentioned above. I hope for it to be
 99% compatible, requiring only very minor changes when switching between
 versions.</p>
@@ -171,7 +171,7 @@ compatibility tables are available here</a>.</p>
 
 <p>The code was created and tested on Windows 7 32bit, in <a href="http://www.visualstudio.com/en-us/downloads/download-visual-studio-vs#DownloadFamilies_2">Visual Studio Express
 2013</a> (which is available for free). You should be able to just open the
-solution and build all of the projects successfully, but if you can't then
+solution and build all of the projects successfully, but if you can’t then
 please let me know, or send me a fix and I will update the project.</p>
 
 <h2><a name="xcode_setup">Xcode Setup</a></h2>
@@ -199,12 +199,12 @@ quickly on Ubuntu 12.04.</p>
 
 <h2><a name="introducing_glew_glfw_glm">Introducing GLEW, GLFW, and GLM</a></h2>
 
-<p>Now that you have a working project, let's start by introducing the open-source
+<p>Now that you have a working project, let’s start by introducing the open-source
 libraries that the project uses, and why they are necessary.</p>
 
 <p><a href="http://glew.sourceforge.net/">The OpenGL Extension Wrangler (GLEW)</a> is what we will be using to give
 us access to the OpenGL 3.2 API functions. Unfortunately, accessing OpenGL
-functions isn't as simple as <code>#include &lt;GL/gl.h&gt;</code> unless you want to use an
+functions isn’t as simple as <code>#include &lt;GL/gl.h&gt;</code> unless you want to use an
 ancient version of OpenGL. In modern OpenGL, the API functions are determined
 at <em>run time</em>, not <em>compile time</em>. GLEW will handle the run time loading of the
 OpenGL API.</p>
@@ -229,7 +229,7 @@ shaders.</p>
 <h2><a name="what_are_shaders">What Are Shaders?</a></h2>
 
 <p>Shaders are an important concept in modern OpenGL. The application will not run
-without them, and the code won't make much sense unless you understand what
+without them, and the code won’t make much sense unless you understand what
 they are.</p>
 
 <blockquote class="pull-right">
@@ -244,7 +244,7 @@ shader is similar to the way you make a normal program: you write the code,
 then you compile the code, then you link bits of compiled code together to make
 the final program.</p>
 
-<p>"Shaders" is not a very good name for them, because they do a lot more than
+<p>“Shaders” is not a very good name for them, because they do a lot more than
 just shading. Just think of them as little programs, written in a different
 language, that will run on your graphics card.</p>
 
@@ -303,8 +303,8 @@ articles.</p>
 
 <p>The main purpose of a vertex shader is to transform points (x, y, and z
 coordinates) into different points. A vertex is a is just a point in a shape.
-One point is called a "vertex", and multiple points are called "vertices"
-(pronounced "<a href="http://static.sfdict.com/dictstatic/dictionary/audio/luna/V00/V0096700.mp3">ver-tuh-seez</a>").  In this article, we have a triangle made of
+One point is called a “vertex”, and multiple points are called “vertices”
+(pronounced “<a href="http://static.sfdict.com/dictstatic/dictionary/audio/luna/V00/V0096700.mp3">ver-tuh-seez</a>”).  In this article, we have a triangle made of
 three vertices.</p>
 
 <p>Here is the GLSL code for the vertex shader used in this article:</p>
@@ -341,7 +341,7 @@ argument, <code>1</code>, sets the value of the fourth dimension. We will learn 
 dimension is <code>1</code>, then you can ignore the fourth dimension and treat it exactly
 the same as a 3D coordinate.</p>
 
-<p>The vertex shader in this article doesn't actually do anything, but in later
+<p>The vertex shader in this article doesn’t actually do anything, but in later
 articles we will be modifying it to handle animation, cameras, and other
 things.</p>
 
@@ -355,8 +355,8 @@ things.</p>
 <p>The main purpose of a fragment shader is to calculate the color of each pixel
 that is drawn.</p>
 
-<p>A "fragment" is basically a pixel, so you can think of fragment shaders as
-"pixel shaders." In this article each fragment is a pixel, but this isn't
+<p>A “fragment” is basically a pixel, so you can think of fragment shaders as
+“pixel shaders.” In this article each fragment is a pixel, but this isn’t
 always true. If you change certain OpenGL settings you can get fragments that
 are smaller than pixels, but this is a topic for a later article.</p>
 
@@ -395,7 +395,7 @@ same way.</p>
 
 <p>The code for this article contains two reusable classes that will handle the
 compilation and linking of shaders: <code>tdogl::Shader</code> and <code>tdogl::Program</code>. There
-isn't much code in these two classes, and the code is documented with comments,
+isn’t much code in these two classes, and the code is documented with comments,
 so I suggest you read the code to understand how the OpenGL functions work.</p>
 
 <h2><a name="what_are_vbo_and_vao">What are VBOs and VAOs?</a></h2>
@@ -431,9 +431,9 @@ variables.</p>
 
 <p>The first step to rendering our triangle is to upload (i.e. send) the three
 points from normal memory to the video memory on the graphics card. This is
-what VBOs are for. VBOs are "buffers" of video memory – just a bunch of
+what VBOs are for. VBOs are “buffers” of video memory – just a bunch of
 bytes containing any kind of binary data you want. You can upload 3D points,
-colors, your music collection, poems to your loved ones – the VBO doesn't
+colors, your music collection, poems to your loved ones – the VBO doesn’t
 care, because it just copies a chunk of memory without asking what the memory
 contains.</p>
 
@@ -452,29 +452,29 @@ type of data is in the buffer, and this is what VAOs are for.</p>
 
 <p>VAOs are the link between the VBOs and the shader variables. VAOs describe what
 <em>type</em> of data is contained within a VBO, and which <em>shader variables</em> the data
-should be sent to. Out of all the bad names in OpenGL, I think "Vertex Array
-Object" is one of the worst, because it doesn't explain anything about what
+should be sent to. Out of all the bad names in OpenGL, I think “Vertex Array
+Object” is one of the worst, because it doesn’t explain anything about what
 VAOs actually do.</p>
 
 <p>If you look at the vertex shader we are using (shown earlier in the article),
 you will see that we only have one input variable called <code>vert</code>. In this
-article, we will use a VAO to say <em>"hey OpenGL, this VBO right here has 3D
-points in it, and I want you to send those points to the 'vert' variable in the
-vertex shader."</em></p>
+article, we will use a VAO to say <em>“hey OpenGL, this VBO right here has 3D
+points in it, and I want you to send those points to the ‘vert’ variable in the
+vertex shader.”</em></p>
 
-<p>In later articles, we will use VAOs to say <em>"hey OpenGL, this VBO right here
+<p>In later articles, we will use VAOs to say <em>“hey OpenGL, this VBO right here
 has 3D points, some colors, and some texture coordinates all mixed together in
-a certain pattern. I want you to send the points to the 'vert' variable, the
-colors to the 'vertColor' variable, and the texture coordinates to the
-'vertTexCoord' variable in the shader."</em></p>
+a certain pattern. I want you to send the points to the ‘vert’ variable, the
+colors to the ‘vertColor’ variable, and the texture coordinates to the
+‘vertTexCoord’ variable in the shader.”</em></p>
 
 <p><strong>A note for people with previous experience in OpenGL:</strong></p>
 
 <p>If you have used VBOs <em>without</em> VAOs in older versions of OpenGL, then you
-might not agree with this description of VAOs. You could argue that "vertex
-attributes" set by <code>glVertexAttribPointer</code> are the link between the VBO and
+might not agree with this description of VAOs. You could argue that “vertex
+attributes” set by <code>glVertexAttribPointer</code> are the link between the VBO and
 that shaders, not VAOs. It depends on whether you consider the vertex
-attributes to be "inside" the VAO (which I do), or whether they are global
+attributes to be “inside” the VAO (which I do), or whether they are global
 state that is external to the VAO. Using the 3.2 core profile and my ATI
 drivers, the VAO is not optional - <code>glEnableVertexAttribArray</code>,
 <code>glVertexAttribPointer</code> and <code>glDrawArrays</code> all cause a <code>GL_INVALID_OPERATION</code>
@@ -498,9 +498,9 @@ DrawElements; and all queries of vertex array state (see chapter 6).</p>
 VAOs. <code>glVertexAttribPointer</code> predates VAOs, so there was a time when vertex
 attributes were just global state. You could see VAOs as just a way to
 efficiently change that global state. I prefer to think of it like this: if you
-don't create a VAO, then OpenGL provides a default global VAO. So when you use
+don’t create a VAO, then OpenGL provides a default global VAO. So when you use
 <code>glVertexAttribPointer</code> you are still modifying the vertex attributes inside a
-VAO, it's just that you're modifying the default VAO instead of one you created
+VAO, it’s just that you’re modifying the default VAO instead of one you created
 yourself.</p>
 
 <p>There is a bit more of a discussion here:
@@ -543,14 +543,14 @@ that contains the error message, so we can see what went wrong.</p>
 <code>glfwCreateWindow</code> is failing for you, then you may need to lower the OpenGL
 version.</p>
 
-<p>As the last step of window creation, we have to set the "current" OpenGL
+<p>As the last step of window creation, we have to set the “current” OpenGL
 context to the one in the window we just created:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">gWindow</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Whenever we call an OpenGL function, that function affects the "current
-context." We will only be using a single context, so we set this once and
+<p>Whenever we call an OpenGL function, that function affects the “current
+context.” We will only be using a single context, so we set this once and
 forget about it. Theoretically, however, we could have multiple windows, and
 each window would have its own context.</p>
 
@@ -564,7 +564,7 @@ so that we get access to the OpenGL API functions.</p>
 
 <p>As of writing this, GLEW has a few issues with the OpenGL core profile we are
 using. Setting <code>glewExperimental</code> to true fixes the problem, but hopefully this
-won't be necessary in the future.</p>
+won’t be necessary in the future.</p>
 
 <p>We will also use GLEW to double-check that the 3.2 API is available:</p>
 
@@ -610,15 +610,15 @@ points, where each point is three <code>GLfloat</code>s.</p>
 <p>Now that the buffer contains the three points of our triangle, it is time to
 set up the VAO. First, we are going to enable the <code>vert</code> variable in the shader
 program. Variables can be enabled and disabled, and they are disabled by
-default, so we need to turn it on. The <code>vert</code> variable is an "attribute
-variable," which is why the OpenGL functions have the word "Attrib" in their
+default, so we need to turn it on. The <code>vert</code> variable is an “attribute
+variable,” which is why the OpenGL functions have the word “Attrib” in their
 name. We will see a different type of variable in future articles.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glEnableVertexAttribArray</span><span class="p">(</span><span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">attrib</span><span class="p">(</span><span class="s">"vert"</span><span class="p">));</span>
 </code></pre></div></div>
 
 <p>The most complicated part of VAO setup is this next function:
-<code>glVertexAttribPointer</code>. Let's see the function call first, then I will explain
+<code>glVertexAttribPointer</code>. Let’s see the function call first, then I will explain
 each argument.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glVertexAttribPointer</span><span class="p">(</span><span class="n">gProgram</span><span class="o">-&gt;</span><span class="n">attrib</span><span class="p">(</span><span class="s">"vert"</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="n">GL_FALSE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
@@ -635,8 +635,8 @@ This is important because if they were <code>GLdouble</code>s then the size of t
 would be different.</p>
 
 <p>The fourth argument, <code>GL_FALSE</code>, says that we do not want the floats to be
-"normalized." If they were normalized, they would be restricted to having a
-minimum of zero, and a maximum of one. We don't want that restriction on our
+“normalized.” If they were normalized, they would be restricted to having a
+minimum of zero, and a maximum of one. We don’t want that restriction on our
 points, which is why this argument is false.</p>
 
 <p>The fifth argument, <code>0</code>, would be used if there was a gap in between each
@@ -646,7 +646,7 @@ point. Setting this argument to zero means that there are no gaps in our data.</
 the buffer. Setting this argument to NULL means that our data starts right at
 the first byte of the VBO.</p>
 
-<p>Now that the VBO and VAO are fully set up, we unbind them so they don't
+<p>Now that the VBO and VAO are fully set up, we unbind them so they don’t
 accidentally get used somewhere else:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
