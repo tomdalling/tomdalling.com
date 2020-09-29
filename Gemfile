@@ -13,3 +13,11 @@ gem 'dry-inflector'
 gem 'memery'
 gem 'addressable'
 gem 'pry'
+
+# dev server
+gem 'thin'
+gem 'hanami-controller'
+gem 'rerun'
+gem 'better_errors'
+gem "binding_of_caller"
+
