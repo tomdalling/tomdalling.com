@@ -16,6 +16,10 @@ module Statue
       end
     end
 
+    def reset
+      # nothing to reset
+    end
+
     def modified_since?(mtime)
       source_file.modified_since?(mtime)
     end

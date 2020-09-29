@@ -21,6 +21,10 @@ module Statue
       )
     end
 
+    def reset
+      # nothing to do here
+    end
+
     def modified_since?(mtime)
       [page, template].any? { _1.modified_since?(mtime) }
     end

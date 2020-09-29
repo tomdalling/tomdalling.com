@@ -15,6 +15,11 @@ module Statue
       io.write(html)
     end
 
+    def reset
+      @html = nil
+      @post_index.reset
+    end
+
     def html
       @html ||= template.html(post_index)
     end

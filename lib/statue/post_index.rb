@@ -7,6 +7,10 @@ module Statue
       generate_feed? Bool(), default: true
     end
 
+    def reset
+      posts.each(&:reset)
+    end
+
     def canonical_uri
       "/#{path.dirname}/"
     end

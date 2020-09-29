@@ -15,6 +15,11 @@ module Statue
       io.write(xml)
     end
 
+    def reset
+      @xml = nil
+      @posts.each(&:reset)
+    end
+
     def modified_since?(mtime)
       # TODO: doesn't detect deleted files
       @posts.any? { _1.modified_since?(mtime) }

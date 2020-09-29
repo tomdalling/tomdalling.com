@@ -17,6 +17,10 @@ module Statue
       )
     end
 
+    def reset
+      @post.reset
+    end
+
     def modified_since?(mtime)
       [post, template].any? { _1.modified_since?(mtime) }
     end

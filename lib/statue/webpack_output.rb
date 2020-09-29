@@ -18,6 +18,10 @@ module Statue
       end
     end
 
+    def reset
+      # TODO: implement this after adding caching to `#webpack_build`
+    end
+
     private
 
       def webpack_dist_path

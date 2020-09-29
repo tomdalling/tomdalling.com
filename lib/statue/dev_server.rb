@@ -27,6 +27,7 @@ module Statue
 
       def render(output)
         #TODO: only rerender if changed since whenever
+        output.reset
         body_io = StringIO.new("", 'wb')
         output.write_to(body_io)
         body_io.string

@@ -76,6 +76,13 @@ module Statue
       -(date <=> other.date)
     end
 
+    def reset
+      @frontmatter = nil
+      @html = nil
+      @preview_html = nil
+      @loaded = nil
+    end
+
     private
 
       def loaded
