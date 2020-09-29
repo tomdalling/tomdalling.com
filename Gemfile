@@ -16,7 +16,7 @@ gem 'pry'
 
 # dev server
 gem 'thin'
-gem 'hanami-controller'
+gem 'hanami-controller', github: 'hanami/controller', branch: 'unstable'
 gem 'rerun'
 gem 'better_errors'
 gem "binding_of_caller"

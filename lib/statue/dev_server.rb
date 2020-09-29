@@ -1,30 +1,25 @@
-Hanami::Controller.configure do
-  handle_exceptions false
-end
-
 module Statue
-  class DevServer
-    include Hanami::Action
-
+  class DevServer < Hanami::Action
     attr_reader :outputs
 
-    def initialize(outputs)
+    def initialize(outputs:)
+      super()
       @outputs = outputs
     end
 
-    def call(params)
-      path = request_pathname(params)
+    def handle(req, resp)
+      path = request_pathname(req.params)
       output = outputs[path]
 
       if output
         puts "Rendering #{path}"
 
-        self.status = 200
-        self.format = format_for(path)
-        self.body = render(output)
+        resp.status = 200
+        resp.format = path.extname.delete_prefix('.')
+        resp.body = render(output)
       else
-        self.status = 404
-        self.body = "<h1>Path not found</h1><p>No output for: #{path}</p>"
+        resp.status = 404
+        resp.body = "<h1>Path not found</h1><p>No output for: #{path}</p>"
       end
     end
 

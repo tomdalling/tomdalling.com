@@ -10,4 +10,4 @@ inputs = Statue::FileSet.new(Statue::INPUT_DIR)
 outputs = Statue::Outputs.for(inputs)
 puts "<<< Outputs booted in #{Time.now-t} seconds"
 
-run Statue::DevServer.new(outputs)
+run Statue::DevServer.new(outputs: outputs)
