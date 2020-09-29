@@ -66,7 +66,9 @@ module Statue
           full_path = output_dir / path
           assert_output_path!(full_path)
           FileUtils.mkdir_p(full_path.dirname)
-          output.write_to(full_path)
+          full_path.open('wb') do |f|
+            output.write_to(f)
+          end
         else
           # puts "  Skipping #{path}"
         end

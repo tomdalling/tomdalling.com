@@ -11,8 +11,8 @@ module Statue
       'Post Index'
     end
 
-    def write_to(output_path)
-      output_path.write(html)
+    def write_to(io)
+      io.write(html)
     end
 
     def html

@@ -10,8 +10,10 @@ module Statue
       "Static"
     end
 
-    def write_to(dest_path)
-      FileUtils.cp(source_file.full_path, dest_path)
+    def write_to(io)
+      File.open(source_file.full_path, 'rb') do |f|
+        IO.copy_stream(f, io)
+      end
     end
 
     def modified_since?(mtime)

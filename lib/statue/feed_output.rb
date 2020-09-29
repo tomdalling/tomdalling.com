@@ -11,8 +11,8 @@ module Statue
       "Feed"
     end
 
-    def write_to(output_path)
-      output_path.write(xml)
+    def write_to(io)
+      io.write(xml)
     end
 
     def modified_since?(mtime)

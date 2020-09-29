@@ -11,8 +11,8 @@ module Statue
       "Post"
     end
 
-    def write_to(output_path)
-      output_path.write(
+    def write_to(io)
+      io.write(
         template.html(post)
       )
     end

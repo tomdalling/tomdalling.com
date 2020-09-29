@@ -11,9 +11,11 @@ module Statue
       'Webpack'
     end
 
-    def write_to(path)
+    def write_to(io)
       webpack_build
-      FileUtils.cp(webpack_dist_path, path)
+      File.open(webpack_dist_path, 'rb') do |f|
+        IO.copy_stream(f, io)
+      end
     end
 
     private
