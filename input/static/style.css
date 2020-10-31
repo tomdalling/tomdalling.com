@@ -32,3 +32,47 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/***************** worddef.scss **************************/
+
+.worddef--function {
+	font-size: 60%;
+	font-variant: small-caps;
+}
+
+.worddef--ipa {
+	margin-top: 0.5em;
+	opacity: 70%;
+}
+
+.worddef--ipa::before, .worddef--ipa::after {
+	content: "/";
+}
+
+.worddef--definition-list {
+	padding-left: 1em;
+}
+
+.worddef--definition {
+	margin: 1em 0;
+	padding-left: 0.3em;
+}
+
+.worddef--example {
+	font-style: italic;
+	opacity: 70%;
+	display: block;
+	margin: 0.5em 0;
+}
+
+.worddef--example::before {
+	content: "\201C";
+}
+
+.worddef--example::after {
+	content: "\201D";
+}
+
+.worddef--section-title {
+	margin-top: 1em;
+}
