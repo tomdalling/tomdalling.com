@@ -11,10 +11,12 @@ module Statue
 
     private
 
-      def transform(title:, content:, canonical_url: nil)
+      def transform(title:, content:, canonical_url: nil, social_metadata: nil)
         if canonical_url
           at(:head) { append!(:link, rel: "canonical", href: canonical_url) }
         end
+
+        add_social_metas(social_metadata, canonical_url)
 
         at(:title) { prepend_text!(title) }
 
@@ -37,6 +39,25 @@ module Statue
         at('.current-year') { text!(Date.today.year) }
 
         at(:main) { html!(content) }
+      end
+
+      def add_social_metas(social_metadata, canonical_url)
+        return unless social_metadata
+
+        at(:head) do
+          append!(:meta, property: 'og:title', content: social_metadata.title)
+
+          if canonical_url
+            append!(:meta, property: 'og:url', content: canonical_url)
+          end
+
+          if social_metadata.image_url
+            append!(:meta, property: 'og:image', content: social_metadata.image_url.to_s)
+            append!(:meta, name: 'twitter:card', content: 'summary_large_image')
+          else
+            append!(:meta, name: 'twitter:card', content: 'summary')
+          end
+        end
       end
   end
 end

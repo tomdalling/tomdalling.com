@@ -14,7 +14,7 @@ require 'json'
 
 # setup zeitwork loader
 module Inflector
-  ACRONYMS = %w(CLI DOM RSS EDN OpenGL)
+  ACRONYMS = %w(CLI DOM RSS EDN OpenGL URL)
 
   def self.camelize(basename, _abspath)
     @dry_inflector ||= Dry::Inflector.new { _1.acronym(*ACRONYMS) }

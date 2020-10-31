@@ -191,6 +191,7 @@ module Statue
           {
             title: post.title,
             canonical_url: post.url,
+            social_metadata: post.social_metadata,
           }
         end
       end

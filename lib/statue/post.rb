@@ -53,6 +53,18 @@ module Statue
       @frontmatter ||= Frontmatter.from_edn(loaded.first)
     end
 
+    def social_metadata
+      @social_metadata ||= SocialMetadata.new(
+        title: title,
+        image_url:
+          if main_image&.uri
+            BASE_URL / main_image.uri
+          else
+            nil
+          end
+      )
+    end
+
     def content
       loaded.last
     end
