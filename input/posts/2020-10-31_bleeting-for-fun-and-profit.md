@@ -1,7 +1,11 @@
 {:title "Bleeting for Fun and Profit"
+ :main-image {:uri "/images/posts/bleat.jpg"}
  :category :random-stuff}
 
-Today I want to coin the term _bleet_.
+Today I want to coin the term _bleet_. It's a type of short-form
+writing somewhere between a blog post and a tweet.
+
+<!--more-->
 
 <blockquote class="worddef">
   <h3 class="worddef--title">
@@ -33,8 +37,6 @@ Today I want to coin the term _bleet_.
     class="worddef--ref">tweet</em>.</p>
   </section>
 </blockquote>
-
-<!--more-->
 
 One of the reasons why I haven't been writing much in recent years is that each article takes a long time to produce.
 It's more than just typing sentences until the document is full.
