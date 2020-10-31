@@ -10,6 +10,44 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Bleeting for Fun and Profit</title>
+      <link>https://www.tomdalling.com/blog/random-stuff/bleeting-for-fun-and-profit/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Today I want to coin the term <em>bleet</em>.</p>
+
+<blockquote class="worddef">
+  <h3 class="worddef--title">
+    <span class="worddef--word">bleet</span>
+    <span class="worddef--function">noun</span>
+  </h3>
+  <p class="worddef--ipa">bliːt</p>
+
+  <ol class="worddef--definition-list">
+    <li class="worddef--definition">
+      <p>a short piece of writing published on a personal website,
+      typically written hastily</p>
+      <span class="worddef--example">I'm adding a bleet category to
+      my blog</span>
+    </li>
+    <li class="worddef--definition">
+      <p>misspelling of <em class="worddef--ref">bleat</em>: a
+      feeble outcry, protest, or complaint</p>
+      <span class="worddef--example">His blog is just a bunch of
+      bleats about the lack of discipline in software
+      developers</span>
+    </li>
+  </ol>
+
+  <section class="worddef--section">
+    <h4 class="worddef--section-title">Etymology</h4>
+    <p>Early 21st century English: portmanteau of <em class="worddef--ref">blog</em> and <em class="worddef--ref">tweet</em>.</p>
+  </section>
+</blockquote>
+]]></description>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Miscellaneous]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.bleeting-for-fun-and-profit</guid>
+    </item>
+    <item>
       <title>What's Stopping You From Coding Like This?</title>
       <link>https://www.tomdalling.com/blog/random-stuff/whats-stopping-you-from-coding-like-this/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I made a <a href="https://gist.github.com/tomdalling/2540a1c785d51da2bf0d57164bd26d96">quick-and-dirty Ruby script</a> that animates the <a href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar">GitHub
@@ -124,19 +162,6 @@ directional lights, spotlights, attenuation, and using multiple lights.</p>
       <pubDate>Sat, 23 Mar 2013 00:00:00 -0000</pubDate>
       <category><![CDATA[Modern OpenGL Series]]></category>
       <guid isPermaLink="false">1139 http://tomdalling.com/?p=1139</guid>
-    </item>
-    <item>
-      <title>Modern OpenGL 05 – Model Assets &amp; Instances</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/05-model-assets-and-instances/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>In this article, we will be refactoring the code to be more like a 3D
-engine/framework. Specifically, we will be replacing some of the globals with
-structs that represent “assets” and “instances.” At the end, we will have a
-single wooden crate asset, and five instances of that asset arranged to spell
-out “Hi” in 3D.</p>
-]]></description>
-      <pubDate>Fri, 08 Feb 2013 00:00:00 -0000</pubDate>
-      <category><![CDATA[Modern OpenGL Series]]></category>
-      <guid isPermaLink="false">1104 http://tomdalling.com/?p=1104</guid>
     </item>
   </channel>
 </rss>
