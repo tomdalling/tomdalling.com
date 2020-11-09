@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>What Is The Purpose Of Private?</title>
+      <link>https://www.tomdalling.com/blog/software-design/what-is-the-purpose-of-private/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Why use <code>private</code> at all? What is the benefit of trying to stop other
+people from using code that works perfectly well? It’s to reduce
+future maintenance costs by discouraging coupling to unstable
+dependencies.</p>
+]]></description>
+      <pubDate>Mon, 09 Nov 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Design]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.what-is-the-purpose-of-private</guid>
+    </item>
+    <item>
       <title>FizzBuzz In Too Much Detail</title>
       <link>https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I know. FizzBuzz has been done to death. But I want to use it as a familiar

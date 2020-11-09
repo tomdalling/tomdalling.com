@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SOLID Class Design: The Single Responsibility Principle — Tom Dalling</title>
+    <title>What Is The Purpose Of Private? — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -15,10 +15,10 @@
     <![endif]-->
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/">
-<meta property="og:title" content="SOLID Class Design: The Single Responsibility Principle">
-<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/">
-<meta property="og:image" content="https://www.tomdalling.com/images/posts/srp.jpg">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/what-is-the-purpose-of-private/">
+<meta property="og:title" content="What Is The Purpose Of Private?">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/what-is-the-purpose-of-private/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/private.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -56,135 +56,225 @@
         <main class="col-md-8"><article class="post post-single">
 
   <header>
-    <h1><a href="/blog/software-design/solid-class-design-the-single-responsibility-principle/">SOLID Class Design: The Single Responsibility Principle</a></h1>
+    <h1><a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a></h1>
     <small class="meta">
-      <span class="post-date">12 Nov, 2009</span>
+      <span class="post-date">09 Nov, 2020</span>
       —
       Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
       —
-      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2009-11-12_solid-class-design-the-single-responsibility-principle.markdown">on GitHub</a>
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-11-09_what-is-the-purpose-of-private.md">on GitHub</a>
     </small>
     <div class="main-image">
-      <img src="/images/posts/srp.jpg" class="img-responsive">
-      <span class="credit">Image courtesy of <a class="artist" href="http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx">Derick Bailey</a>.</span>
+      <img src="/images/posts/private.jpg" class="img-responsive">
+      
     </div>
   </header>
 
   <div class="post-content">
-<p>This is part one of a five part series about <a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod" title="The Principles of OOD">SOLID class design principles</a>
-by <a href="http://www.objectmentor.com/omTeam/martin_r.html">Robert C. Martin</a>. The SOLID principles focus on achieving code that is
-maintainable, robust, and reusable. In this post, I will discuss the Single
-Responsibility Principle.</p>
-
-<blockquote>
-  <p><strong>The Single Responsibility Principle (SRP)</strong>: <em>A class should have one, and only one, reason to change</em>.</p>
-</blockquote>
+<p>Why use <code>private</code> at all? What is the benefit of trying to stop other
+people from using code that works perfectly well? It’s to reduce
+future maintenance costs by discouraging coupling to unstable
+dependencies.</p>
 
 <!--more-->
 
-<p>The SRP is roughly the same as having “high <a href="http://en.wikipedia.org/wiki/Cohesion_%28computer_science%29" title="Cohesion (computer science)">cohesion</a>”. A class is said to
-have high cohesion if it’s behaviours are highly related, and strongly focused.
-The SRP states that a class should be cohesive to the point that it has a
-single responsibility, where a responsibility is defined as “a reason for
-change.”</p>
+<h2>Change Has Costs</h2>
+
+<p>Codebases are constantly evolving. New code gets added to implement
+new requirements. If we’re lucky, existing code gets renamed,
+redesigned, refactored and broken apart to improve clarity,
+simplicity, and performance. And if we’re <em>really</em> lucky, code
+eventually becomes obsolete and gets deleted.</p>
+
+<p>But it’s difficult to build upon code that is constantly changing. It’s
+like trying to build a house on shifting sand. If we write some code
+that calls a method, can we rely upon that method working correctly
+six months from now? What if someone changes the behaviour of the
+method in a way that we aren’t expecting? Will they realise that we
+depend upon that behaviour, and be careful not to break our code?
+Maybe. After six months, I wouldn’t even trust myself to remember.</p>
+
+<p>These problems incur real costs, mostly in terms of wasted developer
+time — for example, time spent fixing bugs in previously-working
+code due to changes in dependencies. But there are also nasty
+second-order costs like developers adopting a very defensive style of
+coding, due to perceiving the codebase to be fragile and
+unreliable in general.</p>
+
+<h2>Private Communicates Stability</h2>
+
+<p>Categorising code as either <code>public</code> or <code>private</code> is an attempt to
+reduce the costs of change by <em>communicating stability</em>. Designating
+something as <code>private</code> communicates to other developers that <em>this
+thing might change so don’t rely upon it</em>. Conversely, designating
+something as <code>public</code> says that <em>this thing is fairly stable so you
+can rely upon it</em>, or at least that <em>this thing is more stable than
+the private things</em>.</p>
+
+<p>Compilers, linters, and runtime environments assist us, but ultimately
+it is still developers communicating information about stability to
+other developers.</p>
 
 <h2>The Benefits</h2>
 
-<ul>
+<p>Communicating stability with <code>public</code> and <code>private</code> has multiple
+benefits.</p>
+
+<ol>
   <li>
-    <p><strong>The class is easier to understand</strong><br>
-When the class only does “one thing”, its interface usually has a small
-number of methods that are fairly self explanatory. It should also have a
-small number of member variables (less than seven-ish).</p>
+    <p>We are more careful about making changes to public behaviour,
+leading to fewer bugs.</p>
   </li>
   <li>
-    <p><strong>The class is easier to maintain</strong><br>
-Changes are isolated, reducing the chance of breaking other unrelated areas
-of the software. As programming errors are inversely proportional to
-complexity, being easier to understand makes the code less prone to bugs.</p>
+    <p>People can make changes to private behaviour more quickly and
+confidently, knowing that it is unlikely to affect the rest of the
+codebase.</p>
   </li>
   <li>
-    <p><strong>The class is more reusable</strong><br>
-If a class has multiple responsibilities, and only one of those is needed
-in another area of the software, then the other unnecessary
-responsibilities hinder reusability. Having a single responsibility means
-the class should be reusable without modification.</p>
+    <p>When writing new code, we can make it more reliable by avoiding
+coupling to unstable dependencies.</p>
   </li>
-</ul>
+  <li>
+    <p>When designing classes and modules, it prompts us to invest thought
+into which parts should be stable, and which parts we want to be
+free to change in the future. This results in code that
+accommodates future changes more easily.</p>
+  </li>
+</ol>
+
+<p>In summary, judicious use of <code>private</code> reduces maintenance costs.</p>
 
 <h2>An Example</h2>
 
-<p>Consider a class called <code>XMLExporter</code>. <code>XMLExporter</code> takes a <code>Document</code> object,
-and exports it into a different file format for another application. Ignoring
-error handling, the class may look something like this:</p>
+<p>Let’s say we’re writing an integration with the VisageNovel web API,
+to fetch some user info. We might start with something like this:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">XMLExporter</span> <span class="p">{</span>
-<span class="nl">private:</span>
-    <span class="n">URL</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">String</span> <span class="n">_exportDocumentToXML</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="nl">public:</span>
-    <span class="kt">void</span> <span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="kt">void</span> <span class="n">XMLExporter</span><span class="o">::</span><span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">String</span> <span class="n">xmlFileContent</span> <span class="o">=</span> <span class="n">_exportDocumentToXML</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
-    <span class="n">URL</span> <span class="n">fileURL</span> <span class="o">=</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">xmlFileContent</span><span class="p">.</span><span class="n">writeToURL</span><span class="p">(</span><span class="n">fileURL</span><span class="p">);</span>
-    <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="c1">// ... (code ommitted)</span>
-
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">VisageNovelIntegration</span>
+  <span class="k">def</span> <span class="nf">fetch_user_info</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://visagenovel.com/user/</span><span class="si">#{</span><span class="n">user</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+  <span class="k">end</span> 
+<span class="k">end</span>
 </code></pre></div></div>
 
-<p>There are at least two reasons for change (a.k.a. responsibilities) in the
-<code>XMLExporter</code> class. The class needs to be modified if the GUI changes —
-for example, if an options dialog is added. Also, the class needs to be
-modified if the XML format changes, or the <code>Document</code> needs to be exported
-differently.</p>
+<p>This works, but the thought occurs that VisageNovel is well known for
+“moving fast and breaking things”, and are particularly good at the
+latter. Let’s invest a little bit of brain power and consider how that
+might affect us in the future.</p>
 
-<p>To apply the SRP to the <code>XMLExporter</code> class, it must be split into two classes.
-One class will handle the GUI, and the other will only handle the conversion to
-XML. Here is a possible application of the SRP:</p>
+<p>By returning the JSON response body from <code>fetch_user_info</code>, it becomes
+part of the public interface of <code>VisageNovelIntegration</code>. That is,
+other parts of the application will call <code>fetch_user_info</code> and dig
+through the return value to get the data that they need. Put another
+way, the callers of <code>fetch_user_info</code> are <em>directly coupling to the
+structure of VisageNovel’s API response, which we expect to be
+unstable</em>. Whenever VisageNovel changes the response body — which
+sounds likely and is outside of our control — there is the potential
+to break every part of our codebase that uses <code>fetch_user_info</code>. This
+is not good.</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/********* XMLConverter ************/</span>
-<span class="k">class</span> <span class="nc">XMLConverter</span> <span class="p">{</span>
-<span class="nl">public:</span>
-    <span class="n">String</span> <span class="n">convertDocumentToXML</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">}</span>
+<p>To mitigate this risk, we need to stop returning the raw API response
+from <code>fetch_user_info</code>. This will reduce the coupling between the API
+response and rest of the application. We want the code that parses the
+API response to be private, so that it can be changed easily in the
+future. One way to achieve this is to return a value object instead.
+It might look something like this:</p>
 
-<span class="c1">// ... (code ommitted)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">VisageNovelIntegration</span>
+  <span class="k">class</span> <span class="nc">UserInfo</span>
+    <span class="n">value_semantics</span> <span class="k">do</span>
+      <span class="nb">id</span> <span class="no">Integer</span>
+      <span class="n">email</span> <span class="no">String</span>
+      <span class="n">picture_url</span> <span class="no">String</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-<span class="cm">/********* XMLExporter ************/</span>
-<span class="k">class</span> <span class="nc">XMLExporter</span> <span class="p">{</span>
-<span class="nl">private:</span>
-    <span class="n">URL</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="kt">void</span> <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="nl">public:</span>
-    <span class="kt">void</span> <span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">};</span>
+  <span class="k">def</span> <span class="nf">fetch_info</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.visagenovel.com/user/</span><span class="si">#{</span><span class="n">user</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">user_info_from</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="k">end</span>
 
-<span class="kt">void</span> <span class="n">XMLExporter</span><span class="o">::</span><span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">XMLConverter</span> <span class="n">converter</span><span class="p">;</span>
-    <span class="n">String</span> <span class="n">xmlFileContent</span> <span class="o">=</span> <span class="n">converter</span><span class="p">.</span><span class="n">convertDocumentToXML</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
-    <span class="n">URL</span> <span class="n">fileURL</span> <span class="o">=</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">xmlFileContent</span><span class="p">.</span><span class="n">writeToURL</span><span class="p">(</span><span class="n">fileURL</span><span class="p">);</span>
-    <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="p">}</span>
+  <span class="kp">private</span>
 
-<span class="c1">// ... (code ommitted)</span>
-
+    <span class="k">def</span> <span class="nf">user_info_from</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+      <span class="n">json</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+      <span class="no">UserInfo</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+        <span class="ss">id: </span><span class="n">json</span><span class="p">[</span><span class="s1">'id'</span><span class="p">],</span>
+        <span class="ss">email: </span><span class="n">json</span><span class="p">[</span><span class="s1">'email'</span><span class="p">],</span>
+        <span class="ss">picture_url: </span><span class="n">json</span><span class="p">[</span><span class="s1">'picture'</span><span class="p">],</span>
+      <span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
 </code></pre></div></div>
 
-<p>N.B. The above code demonstrates the SRP <em>only</em>, and actually violates some of
-the other four SOLID class design principles.</p>
+<p>Also, perhaps we’re not 100% happy with <code>user_info_from</code>, and can see
+it being refactored later. It is new, after all, and new things tend
+to change and grow for a while before they become stable. These are
+all good reasons to keep the method private. We want to communicate to
+other developers that it should not be relied upon.</p>
 
-<p>By extracting the <code>XMLConverter</code> class from <code>XMLExporter</code>, the two reasons for
-change are separated from each other. Note that separating the GUI from the
-converter has resulted in a model-view-controller type of structure.</p>
+<p>Let’s say that two months later we get an email from VisageNovel like
+this:</p>
+
+<blockquote>
+  <p>Dear developer,</p>
+
+  <p>We’ve made some exciting additions to the API. There are new
+endpoints available for getting info about pictures. As a result,
+the <code>/user/[id]</code> endpoint no longer includes this information in its
+response.</p>
+
+  <p>Regards,</p>
+
+  <p>The VisageNovel API Team</p>
+</blockquote>
+
+<p>This is now a relatively easy change to handle. The affected code is
+private, so we can change it without worrying about how it might
+impact the rest of the application. We might end up with something
+like this:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">VisageNovelIntegration</span>
+  <span class="k">class</span> <span class="nc">UserInfo</span>
+    <span class="n">value_semantics</span> <span class="k">do</span>
+      <span class="nb">id</span> <span class="no">Integer</span>
+      <span class="n">email</span> <span class="no">String</span>
+      <span class="n">picture_url</span> <span class="no">String</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">fetch_info</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="n">fetch_user_info</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">attrs</span><span class="p">[</span><span class="ss">:picture_url</span><span class="p">]</span> <span class="o">=</span> <span class="n">fetch_picture_url</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="no">UserInfo</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="o">**</span><span class="n">attrs</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+    <span class="k">def</span> <span class="nf">fetch_user_info</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+      <span class="n">json</span> <span class="o">=</span> <span class="n">fetch</span><span class="p">(</span><span class="s2">"user/</span><span class="si">#{</span><span class="n">user</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="ss">id: </span><span class="n">json</span><span class="p">[</span><span class="s1">'id'</span><span class="p">],</span>
+        <span class="ss">email: </span><span class="n">json</span><span class="p">[</span><span class="s1">'email'</span><span class="p">],</span>
+      <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">fetch_picture_url</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+      <span class="n">json</span> <span class="o">=</span> <span class="n">fetch</span><span class="p">(</span><span class="s2">"picture/profile/</span><span class="si">#{</span><span class="n">user</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="n">json</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+      <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.visagenovel.com/</span><span class="si">#{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The private methods are completely different, while the public
+interface remains the same. We are able to make changes and refactor
+with confidence, knowing that we aren’t breaking other parts of the
+codebase.</p>
 
 </div>
 
@@ -199,29 +289,12 @@ converter has resulted in a model-view-controller type of structure.</p>
       <p>
         <strong>Found a mistake?</strong>
         Open a pull request on
-        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2009-11-12_solid-class-design-the-single-responsibility-principle.markdown">
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-11-09_what-is-the-purpose-of-private.md">
           GitHub
         </a>
       </p>
     </div>
 
-    
-      <h2>Comments</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript" id="disqus_script">
-        var disqus_shortname = "tomdalling";
-        var disqus_identifier = "232 http://tomdalling.com/?p=232";
-        var disqus_title = "SOLID Class Design: The Single Responsibility Principle";
-        var disqus_url = "https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/";
-
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
-</noscript>
     
 
   </footer>

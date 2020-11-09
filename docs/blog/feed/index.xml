@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>What Is The Purpose Of Private?</title>
+      <link>https://www.tomdalling.com/blog/software-design/what-is-the-purpose-of-private/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Why use <code>private</code> at all? What is the benefit of trying to stop other
+people from using code that works perfectly well? It’s to reduce
+future maintenance costs by discouraging coupling to unstable
+dependencies.</p>
+]]></description>
+      <pubDate>Mon, 09 Nov 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Design]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.what-is-the-purpose-of-private</guid>
+    </item>
+    <item>
       <title>Bleeting for Fun and Profit</title>
       <link>https://www.tomdalling.com/blog/random-stuff/bleeting-for-fun-and-profit/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Today I want to coin the term <em>bleet</em>. It’s a type of short-form
@@ -122,18 +134,6 @@ gamma correction.</p>
       <pubDate>Thu, 18 Apr 2013 00:00:00 -0000</pubDate>
       <category><![CDATA[Modern OpenGL Series]]></category>
       <guid isPermaLink="false">1282 http://tomdalling.com/?p=1282</guid>
-    </item>
-    <item>
-      <title>Modern OpenGL 06 – Diffuse Point Lighting</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/06-diffuse-point-lighting/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>This is the first article covering lighting. We will begin our lighting
-adventure by implementing per-pixel, diffuse lighting with a single point
-light. In later articles we will implement ambient and specular reflection,
-directional lights, spotlights, attenuation, and using multiple lights.</p>
-]]></description>
-      <pubDate>Sat, 23 Mar 2013 00:00:00 -0000</pubDate>
-      <category><![CDATA[Modern OpenGL Series]]></category>
-      <guid isPermaLink="false">1139 http://tomdalling.com/?p=1139</guid>
     </item>
   </channel>
 </rss>
