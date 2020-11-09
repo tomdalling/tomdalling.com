@@ -1,4 +1,4 @@
-{:title "Bleeting for Fun and Profit"
+{:title "Bleeting For Fun And Profit"
  :main-image {:uri "/images/posts/bleat.jpg"}
  :category :random-stuff}
 
