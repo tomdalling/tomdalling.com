@@ -146,7 +146,7 @@ accommodates future changes more easily.</p>
 
 <h2>An Example</h2>
 
-<p>Let’s say we’re writing an integration with the VisageNovel web API,
+<p>Let’s say we’re writing an integration with the VisageNovel web API
 to fetch some user info. We might start with something like this:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">VisageNovelIntegration</span>
@@ -158,8 +158,8 @@ to fetch some user info. We might start with something like this:</p>
 </code></pre></div></div>
 
 <p>This works, but the thought occurs that VisageNovel is well known for
-“moving fast and breaking things”, and are particularly good at the
-latter. Let’s invest a little bit of brain power and consider how that
+“moving fast and breaking things”, and is particularly good at the
+latter. Let’s invest a little bit of brainpower and consider how that
 might affect us in the future.</p>
 
 <p>By returning the JSON response body from <code>fetch_user_info</code>, it becomes

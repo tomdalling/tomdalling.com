@@ -70,7 +70,7 @@ In summary, judicious use of `private` reduces maintenance costs.
 
 ## An Example
 
-Let's say we're writing an integration with the VisageNovel web API,
+Let's say we're writing an integration with the VisageNovel web API
 to fetch some user info. We might start with something like this:
 
 ```ruby
@@ -83,8 +83,8 @@ end
 ```
 
 This works, but the thought occurs that VisageNovel is well known for
-"moving fast and breaking things", and are particularly good at the
-latter. Let's invest a little bit of brain power and consider how that
+"moving fast and breaking things", and is particularly good at the
+latter. Let's invest a little bit of brainpower and consider how that
 might affect us in the future.
 
 By returning the JSON response body from `fetch_user_info`, it becomes
