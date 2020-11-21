@@ -15,7 +15,7 @@ hammer. Need to beat some eggs? Stir them with the hammer. Need to
 turn off the TV? Throw the hammer at it.
 
 He might look at his neighbour who uses a saw, a whisk, and a TV
-remote, and think that they are being inconsistent. All these
+remote, and think that the neighbour is inconsistent. All these
 different tools take time to learn, and cost money, and take up space,
 when a simple hammer could have been used instead. That's all true.
 
