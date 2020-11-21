@@ -201,3 +201,21 @@ interface remains the same. We are able to make changes and refactor
 with confidence, knowing that we aren't breaking other parts of the
 codebase.
 
+## Addendum: Safety
+
+Some commenters have correctly pointed out that `private` is also used
+to discourage people from using behaviour that is potentially unsafe.
+This is more apparent in languages like Rust, which has explicit
+syntax for "safe" and "unsafe" code, where the unsafe code is
+typically private.
+
+The assumption is that external callers probably don't understand how
+to use the dangerous functionality safely, and therefore should be
+prevented or discouraged from using it.
+
+The corollary assumption is that internal callers _do_ understand how
+to use the dangerous functionality correctly. This is more likely than
+for external callers but not guaranteed, so I would strive to make the
+private code as safe as the public code wherever possible. Private
+shouldn't be seen as a license to ignore safety.
+
