@@ -74,6 +74,16 @@ module Statue
         end
       end
 
+      def read_vector
+        [].tap do |result|
+          scan!('[')
+          loop do
+            break if scan(']')
+            result << read
+          end
+        end
+      end
+
       private
 
         def scan!(pattern)

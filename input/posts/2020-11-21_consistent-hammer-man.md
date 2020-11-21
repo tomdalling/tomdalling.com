@@ -1,8 +1,11 @@
 {:title "Consistent Hammer Man"
+ :tags [:bleet]
  :category :software-design}
 
 This is a short parable I came up while discussing linters, in
 response to someone asking if I think it's good to be inconsistent.
+
+<!--more-->
 
 ----
 

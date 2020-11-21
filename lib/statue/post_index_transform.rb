@@ -13,6 +13,7 @@ module Statue
       clone_each('article', post_index.posts) do |p|
         at('h2 a', p.title, href: p.uri)
         at('header a.category', p.category.human_name, href: p.category.uri)
+        at('header .bleet') { remove! unless p.bleet? }
         at('.listed-main-image', src: p.main_image&.uri)
         at('.post-date', p.human_date)
         at('.post-content') { html!(p.preview_html) }

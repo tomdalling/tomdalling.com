@@ -9,7 +9,7 @@ module Statue
 
     extend Forwardable
     def_delegators :frontmatter,
-      *%i(title category disqus_id draft? main_image)
+      *%i(title category tags disqus_id draft? main_image)
 
     def_delegator :markdown_file, :modified_since?
 
@@ -39,6 +39,10 @@ module Statue
 
     def basename
       markdown_file.path.basename.sub_ext('').to_s
+    end
+
+    def bleet?
+      tags.include?(:bleet)
     end
 
     def date
@@ -138,6 +142,7 @@ module Statue
           title String
           disqus_id Either(String, nil)
           category Category, coerce: true
+          tags ArrayOf(Symbol), default: []
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
         end
@@ -163,6 +168,7 @@ module Statue
             title: edn.fetch(:title),
             disqus_id: edn.fetch(:'disqus-id', nil),
             category: edn.fetch(:category).to_s,
+            tags: edn.fetch(:tags, []),
             draft?: edn.fetch(:draft, false),
             main_image: edn.fetch(:'main-image', nil),
           )

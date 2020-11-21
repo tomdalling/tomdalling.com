@@ -6,6 +6,7 @@ module Statue
       at(:header) do
         at('.main-image') { transform_main_image(post.main_image) }
         at('a.category', post.category.human_name, href: post.category.uri)
+        at('.bleet') { remove! unless post.bleet? }
       end
 
       at('.post-date', post.human_date)
