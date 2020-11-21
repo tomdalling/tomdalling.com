@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: November 2010 — Tom Dalling</title>
+    <title>Consistent Hammer Man — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -15,7 +15,10 @@
     <![endif]-->
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
-  <link rel="canonical" href="/blog/2010/11/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/consistent-hammer-man/">
+<meta property="og:title" content="Consistent Hammer Man">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/consistent-hammer-man/">
+<meta name="twitter:card" content="summary">
 </head>
 
   <body>
@@ -49,42 +52,73 @@
 
       <div class="row">
 
-        <main class="col-md-8"><div class="post-list">
-  <h1>
-    <span class="title">Archives: November 2010</span>
-    
-  </h1>
+        <main class="col-md-8"><article class="post post-single">
 
-  
-<article class="post post-listed">
-    <header>
-      <h2><a href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">How Cocoa Bindings Work (via KVC and KVO)</a></h2>
-      <small class="meta">
-        <span class="post-date">05 Nov, 2010</span>
-        
+  <header>
+    <h1><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></h1>
+    <small class="meta">
+      <span class="post-date">21 Nov, 2020</span>
+      <span class="bleet">
         —
-        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
-      </small>
-    </header>
+        This is a
+        <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+      </span>
+      —
+      Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-11-21_consistent-hammer-man.md">on GitHub</a>
+    </small>
+    
+  </header>
 
-    <img class="listed-main-image" src="">
+  <div class="post-content">
+<p>This is a short parable I came up while discussing linters, in
+response to someone asking if I think it’s good to be inconsistent.</p>
 
-    <div class="post-content">
-<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
-have an understanding of the underlying concepts, bindings aren’t too hard. In
-this article, I’m going to explain the concepts behind bindings from the ground
-up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
-and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
+<!--more-->
 
+<hr>
+
+<p>Let’s imagine that Hammer Man has a hammer, and he uses it
+consistently.</p>
+
+<p>Need to drive in a nail? Hit it with the hammer. Need to break a rock?
+Hit it with the hammer. Need to cut some wood? Smash it apart with the
+hammer. Need to beat some eggs? Stir them with the hammer. Need to
+turn off the TV? Throw the hammer at it.</p>
+
+<p>He might look at his neighbour who uses a saw, a whisk, and a TV
+remote, and think that the neighbour is inconsistent. All these
+different tools take time to learn, and cost money, and take up space,
+when a simple hammer could have been used instead. That’s all true.</p>
+
+<p>But the mistake is in assuming that consistency is always good, and
+inconsistency is always bad. Hammer Man is being over-consistent,
+which is bad, and the neighbour is being appropriately inconsistent,
+which is good.</p>
 </div>
 
-    <footer>
-      <a class="btn btn-default more" href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
-  </article>
-</div>
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-11-21_consistent-hammer-man.md">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+
+  </footer>
+</article>
 </main>
 
         <div class="col-md-4 sidebar">
