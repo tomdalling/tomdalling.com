@@ -43,6 +43,8 @@ module Statue
 
     def date
       Date.iso8601(basename.partition('_').first)
+    rescue Date::Error => ex
+      raise "Failed to extract date from #{basename} (did you separate it with an underscore?)"
     end
 
     def human_date
