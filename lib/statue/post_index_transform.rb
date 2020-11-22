@@ -14,7 +14,13 @@ module Statue
         at('h2 a', p.title, href: p.uri)
         at('header a.category', p.category.human_name, href: p.category.uri)
         at('header .bleet') { remove! unless p.bleet? }
-        at('.listed-main-image', src: p.main_image&.uri)
+        at('.listed-main-image') do
+          if p.main_image&.uri
+            attrs!(src: p.main_image.uri)
+          else
+            remove!
+          end
+        end
         at('.post-date', p.human_date)
         at('.post-content') { html!(p.preview_html) }
         at('a.more', href: p.uri)
