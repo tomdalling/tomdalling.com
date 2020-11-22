@@ -13,6 +13,7 @@ gem 'dry-inflector'
 gem 'memery'
 gem 'addressable'
 gem 'pry'
+gem 'dry-cli'
 
 # dev server
 gem 'thin'
