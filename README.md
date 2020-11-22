@@ -5,7 +5,6 @@ Static website generator for tomdalling.com, including output.
 ## TODO
 
  - [ ] check that URLs are being rendered correctly into every page
- - [ ] Upgrade mathjax
  - [ ] Found mistake in old website: `B &times; A`
    (https://www.tomdalling.com/blog/modern-opengl/03-matrices-depth-buffering-animation/)
  - [ ] Found mistake in old website: `*require*` in an aside
