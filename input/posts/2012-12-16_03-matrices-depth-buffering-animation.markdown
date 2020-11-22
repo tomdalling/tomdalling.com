@@ -105,8 +105,8 @@ Below is an example of this type of matrix multiplication:
 </blockquote>
 
 Unlike normal multiplication, order is important in matrix multiplication. For
-example, if `A` and `B` are matrices, then `A &times; B` is **not** necessarily
-equal to `B &times; A`. The multiplication below is the same as the one above,
+example, if `A` and `B` are matrices, then <code>A &times; B</code> is **not** necessarily
+equal to <code>B &times; A</code>. The multiplication below is the same as the one above,
 but with the order changed:
 
 <p>
@@ -160,7 +160,7 @@ format:
 </p>
 
 <blockquote class="pull-right">
-  We need to use 4D coordinates because 4x4 matrices *require* them in order to
+  We need to use 4D coordinates because 4x4 matrices <em>require</em> them in order to
   do matrix multiplication.
 </blockquote>
 
