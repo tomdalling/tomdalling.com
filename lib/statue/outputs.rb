@@ -175,7 +175,7 @@ module Statue
         ) do |index|
           {
             title: index.title,
-            canonical_url: index.canonical_uri,
+            canonical_path: index.canonical_uri,
           }
         end
       end
@@ -190,7 +190,7 @@ module Statue
         ) do |post|
           {
             title: post.title,
-            canonical_url: post.url,
+            canonical_path: post.uri,
             social_metadata: post.social_metadata,
           }
         end

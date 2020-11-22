@@ -10,12 +10,8 @@ module Statue
       frontmatter.title
     end
 
-    def canonical_url
-      if frontmatter.canonical_path
-        BASE_URL / frontmatter.canonical_path
-      else
-        nil
-      end
+    def canonical_path
+      frontmatter.canonical_path
     end
 
     def html_content

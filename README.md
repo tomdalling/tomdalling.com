@@ -4,10 +4,7 @@ Static website generator for tomdalling.com, including output.
 
 ## TODO
 
- - [ ] replace all URL strings/pathnames with real URL objects
  - [ ] check that URLs are being rendered correctly into every page
- - [ ] check if canonical urls should have hostname, or just path
- - [ ] category index canonical urls are wrong
  - [ ] Upgrade mathjax
  - [ ] Found mistake in old website: `B &times; A`
    (https://www.tomdalling.com/blog/modern-opengl/03-matrices-depth-buffering-animation/)

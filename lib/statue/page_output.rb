@@ -16,7 +16,7 @@ module Statue
         template.html(
           title: page.title,
           content: page.html_content,
-          canonical_url: page.canonical_url,
+          canonical_path: page.canonical_path,
         )
       )
     end

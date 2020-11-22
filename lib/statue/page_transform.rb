@@ -11,7 +11,8 @@ module Statue
 
     private
 
-      def transform(title:, content:, canonical_url: nil, social_metadata: nil)
+      def transform(title:, content:, canonical_path: nil, social_metadata: nil)
+        canonical_url = canonical_path ? BASE_URL / canonical_path : nil
         if canonical_url
           at(:head) { append!(:link, rel: "canonical", href: canonical_url) }
         end
