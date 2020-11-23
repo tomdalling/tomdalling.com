@@ -9,15 +9,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: main
+          path: main
+
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          working-directory: main
 
       - run: bundle install
+        working-directory: main
 
       - run: bundle exec rubocop
-      - run: bin/test test/automated
+        working-directory: main
 
-      - run: git config --global user.name "Tom Dalling"
-      - run: git config --global user.email "tom@tomdalling.com"
-      - run: bin/deploy
+      - run: bin/test test/automated
+        working-directory: main
+
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Clean
+        run: git ls-files -z | xargs -0 rm
+        working-directory: gh-pages
+
+      - name: Build
+        run: bin/site build --output=../gh-pages
+        working-directory: main
+
+      - name: Deploy (commit and push)
+        working-directory: gh-pages
+        run: |
+          if ! git diff --cached --quiet ; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git commit -m "Build for $(git rev-parse --short "$GITHUB_SHA")"
+            git push
+          else
+            echo "No changes. Nothing to commit."
+          fi
