@@ -1,7 +1,6 @@
 module Statue
   PROJECT_ROOT = Pathname(__dir__).parent
   INPUT_DIR = PROJECT_ROOT / 'input'
-  DEFAULT_OUTPUT_DIR = PROJECT_ROOT / 'docs'
   TEMPLATES_DIR = PROJECT_ROOT / 'templates'
   WEBPACK_DIR = INPUT_DIR / 'frontend_tire_fire' # TODO: probs shouldn't be a const
 
