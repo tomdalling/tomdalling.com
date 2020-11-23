@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+CURRENT_COMMIT="$(git rev-parse --short HEAD | tr -d '\n')"
+
+bin/site build --output=docs/
+git add -A docs/
+if ! git diff --cached --quiet ; then
+  git commit -m "Build for ${CURRENT_COMMIT}"
+  git push
+else
+  echo "No changes. Nothing to commit."
+fi
