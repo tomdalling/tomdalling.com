@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SOLID Class Design: The Interface Segregation Principle — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/solid-class-design-the-interface-segregation-principle/">
+<meta property="og:title" content="SOLID Class Design: The Interface Segregation Principle">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/solid-class-design-the-interface-segregation-principle/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/isp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/software-design/solid-class-design-the-interface-segregation-principle/">SOLID Class Design: The Interface Segregation Principle</a></h1>
+    <small class="meta">
+      <span class="post-date">18 Feb, 2010</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-02-18_solid-class-design-the-interface-segregation-principle.markdown">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/isp.jpg" class="img-responsive">
+      <span class="credit">Image courtesy of <a class="artist" href="http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx">Derick Bailey</a>.</span>
+    </div>
+  </header>
+
+  <div class="post-content">
+<p>This is that last part of a five part series about <a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod" title="Principles of OOD">SOLID class design
+principles</a> by <a href="http://www.objectmentor.com/omTeam/martin_r.html">Robert C. Martin</a>. The SOLID principles focus on achieving
+code that is maintainable, robust, and reusable. In this post, I will discuss
+the Interface Segregation Principle.</p>
+
+<blockquote>
+  <p><strong>The Interface Segregation Principle (ISP)</strong>: <em>Clients should not be forced
+to depend upon interfaces that they do not use</em>.</p>
+</blockquote>
+
+<!--more-->
+
+<p>The Interface Segration Principle (ISP) is best demonstrated with an example,
+so let’s dive right in.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//EXAMPLE 1</span>
+<span class="k">class</span> <span class="nc">SomeButton</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeController</span><span class="o">*</span> <span class="n">_controller</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">setController</span><span class="p">(</span><span class="n">SomeController</span><span class="o">*</span> <span class="n">controller</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">SomeWindow</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeController</span><span class="o">*</span> <span class="n">_controller</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">setController</span><span class="p">(</span><span class="n">SomeController</span><span class="o">*</span> <span class="n">controller</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">SomeController</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeWindow</span><span class="o">*</span> <span class="n">_window</span><span class="p">;</span>
+    <span class="n">SomeButton</span><span class="o">*</span> <span class="n">_okButton</span><span class="p">;</span>
+    <span class="n">SomeButton</span><span class="o">*</span> <span class="n">_cancelButton</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">onButtonDown</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onButtonUp</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowOpen</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowClose</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowMoved</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>In the above example, there is <code>SomeController</code> which handles clicks from two
+<code>SomeButton</code> objects and window events from a <code>SomeWindow</code> object. The problem
+with this design is that <code>SomeButton</code> and <code>SomeWindow</code> both have a
+<code>SomeController</code> pointer. <code>SomeButton</code> <em>does</em> need to call the <code>onButton[X]</code>
+methods of the controller object, but it also has access to the <code>onWindow[X]</code>
+methods which are useless to the button. The presence of useless <code>onWindow[X]</code>
+methods is a violation of the ISP. There is also a cyclic dependency, which is
+another hint that something is amiss.</p>
+
+<p><strong>To conform to the ISP, <code>SomeButton</code> must not have access to the <code>onWindow[X]</code>
+methods, and <code>SomeWindow</code> must not have access to the <code>onButton[X]</code> methods.</strong>
+This can easily be done by applying the <a href="/blog/software-design/solid-class-design-the-dependency-inversion-principle/">Dependency Inversion Principle</a>, and
+the <a href="/blog/software-design/solid-class-design-the-open-closed-principle/">Open Closed Principle</a>. Here is one way to improve the design:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//EXAMPLE 2</span>
+<span class="c1">// The Button ///////////////////////////////////////////////////////</span>
+
+<span class="k">class</span> <span class="nc">SomeButtonController</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onButtonDown</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onButtonUp</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">SomeButton</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeButtonController</span><span class="o">*</span> <span class="n">_controller</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">setController</span><span class="p">(</span><span class="n">SomeButtonController</span><span class="o">*</span> <span class="n">controller</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// The Window ///////////////////////////////////////////////////////</span>
+
+<span class="k">class</span> <span class="nc">SomeWindowController</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onWindowOpen</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onWindowClose</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onWindowMoved</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">SomeWindow</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeWindowController</span><span class="o">*</span> <span class="n">_controller</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">setController</span><span class="p">(</span><span class="n">SomeWindowController</span><span class="o">*</span> <span class="n">controller</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// The Controller ///////////////////////////////////////////////////////</span>
+
+<span class="k">class</span> <span class="nc">SomeController</span> <span class="o">:</span> <span class="k">public</span> <span class="n">SomeButtonController</span><span class="p">,</span> <span class="k">public</span> <span class="n">SomeWindowController</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">SomeWindow</span><span class="o">*</span> <span class="n">_window</span><span class="p">;</span>
+    <span class="n">SomeButton</span><span class="o">*</span> <span class="n">_okButton</span><span class="p">;</span>
+    <span class="n">SomeButton</span><span class="o">*</span> <span class="n">_cancelButton</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">onButtonDown</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onButtonUp</span><span class="p">(</span><span class="n">SomeButton</span><span class="o">*</span> <span class="n">button</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowOpen</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowClose</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">onWindowMoved</span><span class="p">(</span><span class="n">SomeWindow</span><span class="o">*</span> <span class="n">window</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>The improved design above uses abstract base classes and (the good kind of)
+multiple inheritance. <code>SomeButton</code> now only has access to button related
+controller methods, and <code>SomeWindow</code> only has access to window related
+controller methods, yet <code>SomeController</code> objects can be plugged into both.</p>
+
+<h2>Why bother adhering to the ISP?</h2>
+
+<p>Martin Fowler mentions the cost of recompiling as a reason to adhere to the
+ISP. In Example 1, if <code>SomeController</code> were to change, then both <code>SomeButton</code> and
+<code>SomeWindow</code> would need to be recompiled. In Example 2, this is not a problem. I
+don’t think that’s a huge deal, because <del>a fast compile time is the least of
+your worries when you’re writing software</del>. <em>(2014 update: after compiling
+Boost a few times, one grows to appreciate fast build times. If you’re the victim
+of a monstrous, Boost-like codebase, then this could be important to you.)</em></p>
+
+<p>Martin also mentions that <strong>“fat interfaces” — interfaces with
+additional useless methods — lead to inadvertent coupling between
+classes</strong>. This is the real reason why the SIP should be adhered to.</p>
+
+<p>Coupling is the bane of reusability. In Example 1, <code>SomeButton</code> and
+<code>SomeWindow</code> are not reusable, and can only be used in one window of the
+application. It’s absurd to require different window and button classes for
+every window in the application.</p>
+
+<p>Fat interfaces also introduce unnecessary complexity, which isn’t good for
+maintainability or robustness. It’s very clear in Example 2 that <code>SomeButton</code>
+will only call the two methods on <code>SomeButtonController</code>. It’s nice and simple.
+However, the distinction is not so clear in Example 1.  In reality
+<code>SomeController</code> would have many more than five methods, and <code>SomeButton</code> could
+be using any number of them in weird and wonderful ways. I imagine that
+<a href="http://en.wikipedia.org/wiki/Dependency_hell">dependency hell</a> is full of developers running around saying <em>“this
+<code>SomeButton</code> closes the window, so I’ll just call onWindowClose instead of
+onButtonDown.”</em> I know that <em>I</em> would be wailing and gnashing my teeth.</p>
+
+<h2>ISP, OCP, and DIP… OMG WTF BBQ?</h2>
+
+<p>The design flaw in Example 1 doesn’t just violate the ISP, it also violates the
+DIP and OCP. This is quite common, so if you’re adhering to the DIP and OCP
+properly then you won’t come across many ISP violations. Having said that, the
+ISP does gives you another handy way to evaluate your class design. <strong>It
+teaches you to ask yourself <em>“do I need all the methods on this interface
+I’m using?”</em></strong> If the answer is no, then you might want to use a
+different interface and apply some of the other SOLID principles.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-02-18_solid-class-design-the-interface-segregation-principle.markdown">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" id="disqus_script">
+        var disqus_shortname = "tomdalling";
+        var disqus_identifier = "352 http://tomdalling.com/?p=352";
+        var disqus_title = "SOLID Class Design: The Interface Segregation Principle";
+        var disqus_url = "https://www.tomdalling.com/blog/software-design/solid-class-design-the-interface-segregation-principle/";
+
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+    
+
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">What's Stopping You From Coding Like This?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/" class="category">Software Design</a>
+                (<span class="post-count">11</span>
+                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2020/11/" class="month">November 2020</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/10/" class="month">October 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/09/" class="month">September 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

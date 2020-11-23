@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenGL in 2014 — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="https://www.tomdalling.com/blog/modern-opengl/opengl-in-2014/">
+<meta property="og:title" content="OpenGL in 2014">
+<meta property="og:url" content="https://www.tomdalling.com/blog/modern-opengl/opengl-in-2014/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/opengl-in-2014/main-image.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/modern-opengl/opengl-in-2014/">OpenGL in 2014</a></h1>
+    <small class="meta">
+      <span class="post-date">21 Sep, 2014</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2014-09-21_opengl-in-2014.markdown">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/opengl-in-2014/main-image.png" class="img-responsive">
+      <span class="credit">Image courtesy of <a class="artist" href="http://commons.wikimedia.org/wiki/File:Utah_teapot_simple_2.png">Dhatfield</a>.</span>
+    </div>
+  </header>
+
+  <div class="post-content">
+<p>Valve is investing in OpenGL to hedge themselves against Microsoft. Some
+well-known developers have written about the deficiencies in the API. A few
+competing, proprietary APIs have popped up. In an effort to remain competitive,
+Khronos announces glnext: a ground-up rethinking of the OpenGL and OpenGL ES
+APIs. This post will look at developments in the OpenGL ecosystem over the last
+couple of years.</p>
+
+<!--more-->
+
+<h2>Valve</h2>
+
+<p>In July of 2012, Valve announced that they were developing a Linux version of
+Steam. In late 2013, Valve further announced their new Linux-based operating
+system <a href="http://store.steampowered.com/livingroom/SteamOS/">SteamOS</a>.</p>
+
+<p>On Linux, OpenGL is the only API available for hardware accellerated 3D.
+Therefore, an investment in Linux necessarily means an investment in OpenGL.
+While porting Left 4 Dead 2 to Linux, Valve stated: <a href="http://blogs.valvesoftware.com/linux/faster-zombies/">“We’ve been working with
+Nvidia, AMD, and Intel to improve graphic driver performance on
+Linux”</a>.</p>
+
+<p>On top of that, Valve have developed and open-sourced a couple of OpenGL tools.
+<a href="https://github.com/ValveSoftware/ToGL">ToGL</a> is a Direct3D to OpenGL translation layer, including a HLSL to GLSL
+converter. <a href="https://github.com/ValveSoftware/vogl">Vogl</a> provides some sorely-needed debugging facilities.  These
+two projects were dumped onto github in a somewhat hasty manner.  Nevertheless,
+these are welcome additions, considering the historical lack of tooling in the
+OpenGL ecosystem.</p>
+
+<p>On top of <em>that</em>, Valve are also <a href="http://lunarg.com/glassymesa/">funding some development</a> of
+Mesa, an open-source implementation of OpenGL.</p>
+
+<p>This is all great news for OpenGL in general. Everyone benefits from such a
+large and influential company pushing for better performance, tooling, and
+stability. As long a Valve’s long-term strategy continues to involves Linux,
+they will be a boon to OpenGL.</p>
+
+<h2>Criticism</h2>
+
+<p>It wasn’t all roses from Valve, though. <a href="http://richg42.blogspot.com/">Rich Geldreich</a>, who developed
+Vogl as a Valve employee, started a storm with his blog post: <a href="http://richg42.blogspot.hu/2014/05/things-that-drive-me-nuts-about-opengl.html">Things that
+drive me nuts about OpenGL</a>. His post is a laundry list
+of OpenGL criticisms, compared to other modern graphics APIs. It set off
+a <a href="http://www.dayonepatch.com/index.php?/topic/107633-a-pretty-huge-debate-about-opengl-has-erupted-in-the-dev-community-involving-devs-from-valve-epic-firaxis-and-amd/">cascade of reactions</a>. The pains that Rich identified resonated with a lot
+of OpenGL developers, although some dismissed them with a <a href="https://twitter.com/grahamsellers/status/472418068660887553">big middle
+finger</a>.</p>
+
+<p>In June of 2014, <a href="http://richg42.blogspot.co.uk/2014/06/article-directx-creator-says-apples.html">Rich wrote</a>:</p>
+
+<blockquote>
+  <p>BTW - I’m no longer at Valve or working on vogl. And no, I’m not being paid
+by, nor do I know anyone still at Apple, lol.</p>
+</blockquote>
+
+<p>To me, Vogl represented real progress in an ecosystem that was maybe a bit
+stagnant, so it’s a little disheartening to see Rich leaving so soon.</p>
+
+<h2>Mantle, Metal, and DirectX 12</h2>
+
+<p>In September of 2013, AMD announced a new, low-level graphics API called
+<a href="http://www.amd.com/en-gb/innovations/software-technologies/mantle">Mantle</a>, designed to be an alternative to OpenGL and Direct3D. The idea with
+Mantle was to allow direct access to AMD hardware with an absolute minimum of
+driver overhead, something that OpenGL and DirectX didn’t really offer at the
+time. AMD boasted that Mantle offered large performance gains compared to “other
+APIs.” A few large names, such as Crytek and DICE, jumped on board, and
+implemented Mantle in their game engines. AMD also claimed that Mantle would
+eventually be an open standard, but currently, a year after its announcement,
+we are still yet to see any progress towards this.</p>
+
+<p>A few months later, Microsoft announces DirectX 12, which sounds a lot like
+Mantle. The main difference from DX11 is the significantly reduced driver
+overhead, and more direct access to hardware.</p>
+
+<p>Then, in July of 2014, Apple follows suit and releases its own low-level
+graphics API called <a href="https://developer.apple.com/metal/">Metal</a>.  Prior to Metal, OpenGL ES was the only option
+for iOS devices. In fact, Apple’s use of OpenGL ES in their iPhones was one of
+the major factors contributing to the OpenGL renaissance that we see today. And
+now, having been such an ally, Apple turns around and creates a competitor.
+Some speculate that Apple dislikes the cross-platform nature of OpenGL, and
+would prefer to lock developers into the iOS ecosystem.  Others say that Metal
+is just a better API, and OpenGL was ripe for replacement.</p>
+
+<p>With three cutting-edge competitors announced within a year of eachother, while
+OpenGL still carries 20 years of baggage along with it, it’s not unreasonable
+to beleive that OpenGL may be fighting for its survival over the next few
+years.</p>
+
+<p>Joshua Barczak explains this new taste for low-level graphics APIs in his
+excellent blog post: <a href="http://www.joshbarczak.com/blog/?p=99">The Race to the Metal</a>.</p>
+
+<h2>AZDO</h2>
+
+<p>At GDC 2014, back in March, developers from AMD, Nvidia, and Intel came
+together to give a presentation called <a href="http://gdcvault.com/play/1020791/">Approaching Zero Driver Overhead</a>
+(AZDO).  The premise of the presentation is that OpenGL 4.4 does actually
+provide low-level functionality, sort of like Mantle, if you know where to find
+it. This presentation is a fantastic overview of the cutting-edge features of
+OpenGL.</p>
+
+<h2>glnext</h2>
+
+<p>Last month, in a <a href="https://www.khronos.org/assets/uploads/developers/library/2014-siggraph-bof/OpenGL-Ecosystem-BOF_Aug14.pdf">presentation at SIGGRAPH 2014</a>,
+Khronos announced the “Next Generation OpenGL Initiative” (which I’m going to
+refer to as “glnext” here).</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/opengl-in-2014/glnext.png">
+    <figcaption>
+      Source: <a href="https://www.khronos.org/assets/uploads/developers/library/2014-siggraph-bof/OpenGL-Ecosystem-BOF_Aug14.pdf">Khronos SIGGRAPH 2014 presentation</a>
+    </figcaption>
+  </figure>
+</p>
+
+<p>Here are a few excerpts from the presentation, relating to glnext:</p>
+
+<ul>
+  <li>After twenty two years – need ground up design of API for high-efficiency
+access to graphics and compute on modern GPUs.</li>
+  <li>Incremental change is not enough. GL has a good track record of adaptive
+evolution… but structural problems can’t be fixed by accretion.</li>
+  <li>Who’s on board: Valve, Apple, AMD, Intel, Nvidia, and others.</li>
+  <li>Fast-paced work on detailed proposals and designs are already underway</li>
+  <li>NOT your father’s multi-year design-by-committee process</li>
+  <li>Goals:
+    <ul>
+      <li>Clean, modern architecture</li>
+      <li>Greatly reduced CPU overhead</li>
+      <li>Multi-thread / multicore-friendly</li>
+      <li>Improved reliability and consistency between implementations</li>
+      <li>Unify OpenGL and OpenGL ES</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In the presentation, Khronos directly mentions <a href="http://richg42.blogspot.hu/2014/05/things-that-drive-me-nuts-about-opengl.html">Rich Gelrich’s
+criticisms</a> under the heading “OpenGL needs to change”, and I
+think that this is a great indication that we will see some real improvements
+baked into glnext. John McDonald from Valve states that “glnext is shaping up
+to be <em>amazing</em>.”</p>
+
+<p>Richard Huddy <a href="http://techreport.com/news/26922/amd-hopes-to-put-a-little-mantle-in-opengl-next">says</a> that AMD is giving Khronos full access to Mantle,
+and will impose no restrictions or licensing fees if glnext takes ideas from
+the architecture of Mantle.</p>
+
+<h2>OpenGL 4.5 And The Current Ecosystem</h2>
+
+<p>But wait, there’s more! While we wait for glnext, OpenGL development rolls on.
+In the same SIGGRAPH 2014 presentation, Khronos announced OpenGL 4.5, and gave
+an overview of the whole OpenGL ecosystem.</p>
+
+<p>Among other things, 4.5 finally, <strong>finally</strong>, brings Direct State Access (DSA)
+into core. It’s my personal opinion that a lot of the perceived cruft in OpenGL
+stems from being forced to constantly manipulate the state machine, which is
+basically a huge collection of mutable global variables, and DSA alleviates a
+lot of this pain. In addition to the developer-frendliness that DSA brings,
+it also enables a set of possible performance improvements.</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/opengl-in-2014/dsa.png">
+    <figcaption>
+      Source: <a href="https://www.khronos.org/assets/uploads/developers/library/2014-siggraph-bof/OpenGL-Ecosystem-BOF_Aug14.pdf">Khronos SIGGRAPH 2014 presentation</a>
+    </figcaption>
+  </figure>
+</p>
+
+<p>In tooling news, Vogl development continues, and it now runs on Windows. AMD,
+Nvidia, and Intel are all improving performance profiling through their own
+proprietary tools. The GLSL reference validator is getting better, helping to
+fix headaches around cross-platform shader compilation.</p>
+
+<p>Conformance testing is also being ramped up. One of OpenGL’s uglier problems
+is driver conformance, but it appears that this situation is improving.</p>
+
+<h2>Conclusion</h2>
+
+<p>The AZDO presentation showed that OpenGL is still competitive when compared to
+Mantle, Metal, and DirectX 12. Also, glnext is poised to clean up a lot of the
+crusty parts, and unify OpenGL and OpenGL ES into a single, modern,
+ultra-cross-platform API.</p>
+
+<p>I think this slide from the SIGGRAPH presentation sums up why OpenGL is, and
+will remain to be, relevant:</p>
+
+<p>
+  <figure>
+    <img src="/images/posts/opengl-in-2014/cross-platform.png">
+    <figcaption>
+      Source: <a href="https://www.khronos.org/assets/uploads/developers/library/2014-siggraph-bof/OpenGL-Ecosystem-BOF_Aug14.pdf">Khronos SIGGRAPH 2014 presentation</a>
+    </figcaption>
+  </figure>
+</p>
+
+<p>Mantle only currently works with certain AMD hardware on Windows. Metal only
+works on iOS. DirectX 12 will only work on Windows. <strong>OpenGL is the only truly
+cross-platform option</strong>.  It’s the only option that works on all hardware
+across Windows, OSX, Linux, Android and iOS. It’s the <em>only</em> option on Linux,
+so if Valve’s vision for Linux comes to fruition, OpenGL will be more relevant
+than ever.</p>
+
+<p>I’m optimistic about the future of OpenGL/glnext. We just have to wait and see
+if the vendors play nice together.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2014-09-21_opengl-in-2014.markdown">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" id="disqus_script">
+        var disqus_shortname = "tomdalling";
+        var disqus_identifier = "com.tomdalling.blog.opengl-in-2014";
+        var disqus_title = "OpenGL in 2014";
+        var disqus_url = "https://www.tomdalling.com/blog/modern-opengl/opengl-in-2014/";
+
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+    
+
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">What's Stopping You From Coding Like This?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/" class="category">Software Design</a>
+                (<span class="post-count">11</span>
+                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2020/11/" class="month">November 2020</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/10/" class="month">October 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/09/" class="month">September 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

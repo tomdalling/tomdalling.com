@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How Cocoa Bindings Work (via KVC and KVO) — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="https://www.tomdalling.com/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">
+<meta property="og:title" content="How Cocoa Bindings Work (via KVC and KVO)">
+<meta property="og:url" content="https://www.tomdalling.com/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">
+<meta name="twitter:card" content="summary">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">How Cocoa Bindings Work (via KVC and KVO)</a></h1>
+    <small class="meta">
+      <span class="post-date">05 Nov, 2010</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-11-05_how-cocoa-bindings-work-via-kvc-and-kvo.markdown">on GitHub</a>
+    </small>
+    
+  </header>
+
+  <div class="post-content">
+<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
+have an understanding of the underlying concepts, bindings aren’t too hard. In
+this article, I’m going to explain the concepts behind bindings from the ground
+up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
+and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
+
+<!--more-->
+
+<h2>Key-Value Coding (KVC)</h2>
+
+<p>The first concept you need to understand is <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueCoding/KeyValueCoding.html">Key-Value Coding (KVC)</a>, as KVO
+and bindings are built on top of it.</p>
+
+<p>Objects have certain “properties”. For example, a <code>Person</code> object may have an
+<code>name</code> property and an <code>address</code> property. In KVC parlance, the <code>Person</code> object
+has a <em>value</em> for the <code>name</code> <em>key</em>, and for the <code>address</code> <em>key</em>. “Keys” are
+just strings, and “values” can be any type of object<a class="footnote-ref" name="footnote_1_ref" href="#footnote_1">[1]</a>. At it’s most fundamental
+level, KVC is just two methods: a method to change the value for a given key
+(mutator), and a method to retrieve the value for a given key (accessor). Here
+is an example:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">ChangeName</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">newName</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//using the KVC accessor (getter) method</span>
+    <span class="n">NSString</span><span class="o">*</span> <span class="n">originalName</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+
+    <span class="c1">//using the KVC mutator (setter) method.</span>
+    <span class="p">[</span><span class="n">p</span> <span class="nf">setValue</span><span class="p">:</span><span class="n">newName</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Changed %@'s name to: %@"</span><span class="p">,</span> <span class="n">originalName</span><span class="p">,</span> <span class="n">newName</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now let’s say the <code>Person</code> object has a third key: a <code>spouse</code> key. The value
+for the <code>spouse</code> key is another <code>Person</code> object. KVC allows you to do things
+like this:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">LogMarriage</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//just using the accessor again, same as example above</span>
+    <span class="n">NSString</span><span class="o">*</span> <span class="n">personsName</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+
+    <span class="c1">//this line is different, because it is using</span>
+    <span class="c1">//a "key path" instead of a normal "key"</span>
+    <span class="n">NSString</span><span class="o">*</span> <span class="n">spousesName</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="nf">valueForKeyPath</span><span class="p">:</span><span class="s">@"spouse.name"</span><span class="p">];</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@ is happily married to %@"</span><span class="p">,</span> <span class="n">personsName</span><span class="p">,</span> <span class="n">spousesName</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Cocoa makes a distinction between “keys” and “key paths”. A “key” allows you to
+get a value on an object. A “key path” allows you to chain multiple keys
+together, separated by dots. For example, this…</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">p</span> <span class="nf">valueForKeyPath</span><span class="p">:</span><span class="s">@"spouse.name"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>… is exactly the same as this…</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">p</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"spouse"</span><span class="p">]</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>That’s all you need to know about KVC for now.</p>
+
+<p>Let’s move on to KVO.</p>
+
+<h2>Key-Value Observing (KVO)</h2>
+
+<p><a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html">Key-Value Observing (KVO)</a> is built on top of KVC. It allows you to observe
+(i.e. watch) a KVC key path on an object to see when the value changes. For
+example, let’s write some code that watches to see if a person’s address
+changes. There are three methods of interest in the following code:</p>
+
+<ul>
+  <li>
+<code>watchPersonForChangeOfAddress:</code> begins the observing</li>
+  <li>
+<code>observeValueForKeyPath:ofObject:change:context:</code> is called every time there is a change in the value of the observed key path</li>
+  <li>
+<code>dealloc</code> stops the observing</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">KVO_CONTEXT_ADDRESS_CHANGED</span> <span class="o">=</span> <span class="s">@"KVO_CONTEXT_ADDRESS_CHANGED"</span>
+
+<span class="k">@implementation</span> <span class="nc">PersonWatcher</span> 
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">watchPersonForChangeOfAddress</span><span class="p">:(</span><span class="n">Person</span><span class="o">*</span><span class="p">)</span><span class="nv">p</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="c1">//this begins the observing</span>
+    <span class="p">[</span><span class="n">p</span> <span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> 
+        <span class="nl">forKeyPath:</span><span class="s">@"address"</span> 
+           <span class="nl">options:</span><span class="mi">0</span> 
+           <span class="nl">context:</span><span class="n">KVO_CONTEXT_ADDRESS_CHANGED</span><span class="p">];</span>
+
+    <span class="c1">//keep a record of all the people being observed,</span>
+    <span class="c1">//because we need to stop observing them in dealloc</span>
+    <span class="p">[</span><span class="n">m_observedPeople</span> <span class="nf">addObject</span><span class="p">:</span><span class="n">p</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">//whenever an observed key path changes, this method will be called</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> 
+                      <span class="nf">ofObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> 
+                        <span class="nf">change</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> 
+                       <span class="nf">context</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="c1">//use the context to make sure this is a change in the address,</span>
+    <span class="c1">//because we may also be observing other things </span>
+    <span class="k">if</span><span class="p">(</span><span class="n">context</span> <span class="o">==</span> <span class="n">KVO_CONTEXT_ADDRESS_CHANGED</span><span class="p">){</span>
+        <span class="n">NSString</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">object</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+        <span class="n">NSString</span><span class="o">*</span> <span class="n">address</span> <span class="o">=</span> <span class="p">[</span><span class="n">object</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"address"</span><span class="p">];</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@ has a new address: %@"</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">);</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">dealloc</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="c1">//must stop observing everything before this object is</span>
+    <span class="c1">//deallocated, otherwise it will cause crashes</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">p</span> <span class="k">in</span> <span class="n">m_observedPeople</span><span class="p">){</span>
+        <span class="p">[</span><span class="n">p</span> <span class="nf">removeObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="s">@"address"</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="p">[</span><span class="n">m_observedPeople</span> <span class="nf">release</span><span class="p">];</span> <span class="n">m_observedPeople</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">dealloc</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="n">init</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">]){</span>
+        <span class="n">m_observedPeople</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="nf">new</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>This is all that KVO does. It allows you to observe a key path on an object to
+get notified whenever the value changes.</p>
+
+<h2>Cocoa Bindings</h2>
+
+<p>Now that you understand the concepts behind KVC and KVO, Cocoa bindings won’t
+be too mysterious.</p>
+
+<p>Cocoa bindings allow you to synchronise two key paths<a name="footnote_2_ref" class="footnote-ref" href="#footnote_2">[2]</a> so they have the same value.
+When one key path is updated, so is the other one.</p>
+
+<p>For example, let’s say you have a <code>Person</code> object and an <code>NSTextField</code> to edit
+the person’s address. We know that every <code>Person</code> object has an <code>address</code> key,
+and thanks to the <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/CocoaBindingsRef/CocoaBindingsRef.html">Cocoa Bindings Reference</a>, we also know that every
+<code>NSTextField</code> object has a <code>value</code> key that works with bindings. What we want
+is for those two key paths to be synchronised (i.e. bound). This means that if
+the user types in the <code>NSTextField</code>, it automatically updates the address on
+the <code>Person</code> object.  Also, if we programmatically change the the address of
+the <code>Person</code> object, we want it to automatically appear in the <code>NSTextField</code>.
+This can be achieved like so:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">BindTextFieldToPersonsAddress</span><span class="p">(</span><span class="n">NSTextField</span><span class="o">*</span> <span class="n">tf</span><span class="p">,</span> <span class="n">Person</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//This synchronises/binds these two together:</span>
+    <span class="c1">//The `value` key on the object `tf`</span>
+    <span class="c1">//The `address` key on the object `p`</span>
+    <span class="p">[</span><span class="n">tf</span> <span class="nf">bind</span><span class="p">:</span><span class="s">@"value"</span> <span class="nf">toObject</span><span class="p">:</span><span class="n">p</span> <span class="n">withKeyPath</span><span class="o">:</span><span class="s">@"address"</span> <span class="n">options</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>What happens under the hood is that the <code>NSTextField</code> starts observing the
+<code>address</code> key on the <code>Person</code> object via KVO. If the address changes on the
+<code>Person</code> object, the <code>NSTextField</code> gets notified of this change, and it will
+update itself with the new value. In this situation, the <code>NSTextField</code> does
+something similar to this:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> 
+                      <span class="nf">ofObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> 
+                        <span class="nf">change</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> 
+                       <span class="nf">context</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">context</span> <span class="o">==</span> <span class="n">KVO_CONTEXT_VALUE_BINDING_CHANGED</span><span class="p">){</span>
+        <span class="p">[</span><span class="n">self</span> <span class="nf">setStringValue</span><span class="p">:[</span><span class="n">object</span> <span class="nf">valueForKeyPath</span><span class="p">:</span><span class="n">keyPath</span><span class="p">]];</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When the user starts typing into the <code>NSTextField</code>, the <code>NSTextField</code> uses KVC
+to update the <code>Person</code> object. In this situation, the <code>NSTextField</code> does
+something similar to this:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertText</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">aString</span><span class="p">;</span>
+<span class="p">{</span>
+    <span class="n">NSString</span><span class="o">*</span> <span class="n">newValue</span> <span class="o">=</span> <span class="p">[[</span><span class="n">self</span> <span class="nf">stringValue</span><span class="p">]</span> <span class="nf">stringByAppendingString</span><span class="p">:</span><span class="n">aString</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">setStringValue</span><span class="p">:</span><span class="n">newValue</span><span class="p">];</span>
+    
+    <span class="c1">//if "value" is bound, then propagate the change to the bound object</span>
+    <span class="k">if</span><span class="p">([</span><span class="n">self</span> <span class="nf">infoForBinding</span><span class="p">:</span><span class="s">@"value"</span><span class="p">]){</span>
+        <span class="n">id</span> <span class="n">boundObj</span> <span class="o">=</span> <span class="p">...;</span> <span class="c1">//omitted for brevity</span>
+        <span class="n">NSString</span><span class="o">*</span> <span class="n">boundKeyPath</span> <span class="o">=</span> <span class="p">...;</span> <span class="c1">//omitted for brevity</span>
+        <span class="p">[</span><span class="n">boundObj</span> <span class="nf">setValue</span><span class="p">:</span><span class="n">newValue</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="n">boundKeyPath</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For a more complete look at how views propagate changes back to the bound
+object, see my article: <a href="/blog/cocoa/implementing-your-own-cocoa-bindings/">Implementing Your Own Cocoa Bindings</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p>That’s the basics of how KVC, KVO and bindings work. The views use KVC to
+update the model, and they use KVO to watch for changes in the model. I have
+left out quite a bit of detail in order to keep the article short and simple,
+but hopefully it has given you a firm grasp of the concepts and principles.</p>
+
+<hr>
+
+<p><strong>Footnotes</strong></p>
+
+<p><a name="footnote_1" href="#footnote_1_ref">[1]</a>
+KVC values can also be primitives such as <code>BOOL</code> or <code>int</code>, because the KVC
+accessor and mutator methods will perform auto-boxing. For example, a <code>BOOL</code>
+value will be auto-boxed into an <code>NSNumber*</code>.</p>
+
+<p><a name="footnote_2" href="#footnote_2_ref">[2]</a>
+When I say that bindings synchronise two key paths, that’s not technically
+correct. It actually synchronises a “binding” and a key path. A “binding” is a
+string just like a key path but it’s not guaranteed to be KVC compatible,
+although it can be. Notice that the example code uses <code>@"address"</code> as a key
+path but never uses <code>@"value"</code> as a key path. This is because <code>@"value"</code> is a
+binding, and it might not be a valid key path.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-11-05_how-cocoa-bindings-work-via-kvc-and-kvo.markdown">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" id="disqus_script">
+        var disqus_shortname = "tomdalling";
+        var disqus_identifier = "490 http://tomdalling.com/blog/?p=490";
+        var disqus_title = "How Cocoa Bindings Work (via KVC and KVO)";
+        var disqus_url = "https://www.tomdalling.com/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/";
+
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+    
+
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">What's Stopping You From Coding Like This?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/" class="category">Software Design</a>
+                (<span class="post-count">11</span>
+                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2020/11/" class="month">November 2020</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/10/" class="month">October 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/09/" class="month">September 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>

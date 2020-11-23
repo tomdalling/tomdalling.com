@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How To Set Up A Secure Git Server At Home (OSX) — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/">
+<meta property="og:title" content="How To Set Up A Secure Git Server At Home (OSX)">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/">
+<meta name="twitter:card" content="summary">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/">How To Set Up A Secure Git Server At Home (OSX)</a></h1>
+    <small class="meta">
+      <span class="post-date">03 Dec, 2010</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-12-03_how-to-set-up-a-secure-git-server-at-home-osx.markdown">on GitHub</a>
+    </small>
+    
+  </header>
+
+  <div class="post-content">
+<p>In this article I’m going to show you, step by step, how to set up an OSX
+machine to provide secure access to git repositories over the internet via ssh.
+This was tested on OSX 10.6.</p>
+
+<p><a href="http://github.com">github</a> provides git repository hosting with a lovely interface. If github
+isn’t feasible, then this article will help you set up something similar,
+unfortunately without the nice interface.</p>
+
+<p>I assume that you already have git installed. If not, install the latest
+version from <a href="http://git-scm.com">the git website</a>.</p>
+
+<p>We will be walking through the following steps:</p>
+
+<ul>
+  <li>Give the server a static IP address on the local network</li>
+  <li>Set up port forwarding on the router</li>
+  <li>Getting dynamic DNS</li>
+  <li>Add a user named “git” to the server</li>
+  <li>Setting up ssh securely on the client computers</li>
+  <li>Setting up ssh securely on the server</li>
+  <li>Making a bare git repository</li>
+  <li>Using your new git server</li>
+</ul>
+
+<!--more-->
+
+<h2>Step 1. Give the server a static IP address on the local network</h2>
+
+<p>The server needs a static IP address on the local network for the next step
+(port forwarding) to work. This can be set in the following location:</p>
+
+<p><em>System Preferences » Network » Advanced » TCP/IP</em></p>
+
+<p>If the <em>Configure IPv4</em> option is set to <em>Manual</em> or <em>Using DHCP with manual
+address</em>, then you already have a static IP address.</p>
+
+<p>If the <em>Configure IPv4</em> option is set to <em>Using DHCP</em>, then change it to <em>Using
+DHCP with manual address</em>. Set the <em>IPv4 Address</em> option to an address that
+won’t conflict with the DHCP addresses from the router. I’m going to use
+192.168.1.150 as an example of the server’s static IP address.</p>
+
+<p>
+  <figure class="naked">
+    <img src="/images/posts/git-server-osx/static_ip.png">
+  </figure>
+</p>
+
+<p>Remember the <em>IPv4 Address</em> setting and the <em>Router</em> setting, as these will be
+needed in the next step.</p>
+
+<h2>Step 2. Setting Up Port Forwarding On The Router</h2>
+
+<p>With the default settings, your home router most likely acts as a firewall to
+the internet outside. The router usually ignores inbound connection requests
+from the internet. To allow people to access the git repo via the internet, we
+need to add a port forwarding rule.</p>
+
+<p>Open up your web browser and type the IP address of your router into the
+address bar. Once inside the router configuration page, you’ll have to hunt
+around for the port fowarding options because each router is different.</p>
+
+<p>ssh usually works on port 22, but for extra security, we’re going to expose a
+different port to the internet. Think of a port number between 1024 and 65535
+that you will remember; I’m going to use port 12345 as an example.</p>
+
+<p>Configure the router so that the external port 12345 is forwarded to the
+internal port 22 of the servers static IP address (set in Step 1), like so:</p>
+
+<p>
+  <figure class="naked">
+    <img src="/images/posts/git-server-osx/router_config.png">
+  </figure>
+</p>
+
+<p>Save the settings on the router.</p>
+
+<h2>Step 3. Getting dynamic DNS</h2>
+
+<p>Unless you’ve paid your ISP for a static IP address, your router’s IP address
+on the internet will change from time to time. To avoid having to work out the
+IP address every few days, you can set up dynamic DNS to automatically give the
+correct IP address.</p>
+
+<p>I’ll leave out the details for brevity, but you can get this service for free
+at places like <a href="http://www.dyndns.com/">DynDNS.com</a>. You basically sign up for a free domain name
+like <em>example.dyndns.org</em>, then you install a program on the server that
+constantly updates the domain with the current IP address.</p>
+
+<p>Instead of doing this…</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://git@124.186.120.123:12345/myrepo.git
+</code></pre></div></div>
+
+<p>you can do this…</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://git@example.dyndns.org:12345/myrepo.git
+</code></pre></div></div>
+
+<h2>Step 4. Add a user named “git” to the server</h2>
+
+<p>I’m going to add a single user to the server. All clients will connect via this
+single user when pushing and pulling from the repo. You could set up a user for
+each client if you wanted, but it’s by no means necessary.</p>
+
+<p>Open up <em>System Preferences » Accounts</em> and add a standard user like so:</p>
+
+<p>
+  <figure class="naked">
+    <img src="/images/posts/git-server-osx/git_user.png">
+  </figure>
+</p>
+
+<p>Log into the new <em>git</em> user account. Open <em>Terminal.app</em> and type the
+following:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'export PATH="$PATH:/usr/local/git/bin/"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+</code></pre></div></div>
+
+<p>Log out of the <em>git</em> user, and log back into your administrator account.</p>
+
+<h2>Step 5. Setting up ssh securely on the client computers</h2>
+
+<p>Even with a non-standard ssh port, your computer is open to automated password
+guessing attacks from the internet. If your user name is something common like
+“bob”, and your password is something easy to guess like “abc123”, then you may
+be in danger.</p>
+
+<p>To harden up the security, we are going to disable authentication with
+passwords. Instead, authentication will be done with ssh public keys. You can
+think of ssh public keys as very long, randomly generated passwords that you
+don’t have to type in.</p>
+
+<p>This step must be completed on every client computer that wishes to connect to
+the server. <strong>Do not do this step on the server.</strong></p>
+
+<p>Open up <em>Terminal.app</em> and type the following:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd
+mkdir</span> <span class="nt">-p</span> .ssh
+<span class="nb">cd</span> .ssh
+ssh-keygen <span class="nt">-f</span> my_git_key <span class="nt">-t</span> rsa <span class="nt">-q</span>
+ssh-add <span class="nt">-K</span> my_git_key
+<span class="nb">cp </span>my_git_key.pub ~/Desktop
+</code></pre></div></div>
+
+<p>You should see something like this:</p>
+
+<p>
+  <figure class="naked">
+    <img src="/images/posts/git-server-osx/ssh_key_terminal.png">
+  </figure>
+</p>
+
+<p>When it asks you to type in a passphrase I advise you to do so, even though
+it’s optional. If someone steals your computer, the passphrase on the key
+prevents them from connecting to the server. It is just an added layer of
+security.</p>
+
+<p>You should now have a file called <em>my_git_key.pub</em> on your desktop. This is one
+half of your key, stored as a text file. <strong>Keep this file, because it is
+needed in the next step.</strong></p>
+
+<p>Feel free to open <em>my_git_key.pub</em> in any text editor to have a look at it.
+Like I said, it looks like a very long random password.</p>
+
+<h2>Step 6. Setting up ssh securely on the server</h2>
+
+<p>Now we’re going to set up the server to accept secure connections.</p>
+
+<p>First, open up <em>System Preferences » Sharing</em> and turn on <em>Remote Login</em>
+(this is ssh). Set <em>Allow access for</em> to <em>Only these users</em>, and add the <em>git</em>
+user to the list. It should look like this:</p>
+
+<p>
+  <figure class="naked">
+    <img src="/images/posts/git-server-osx/ssh_preferences.png">
+  </figure>
+</p>
+
+<p>Now open <em>Terminal.app</em> and type in <code>sudo open /etc/sshd_config</code>. When it asks
+you for a password, type in your login password for the account you are
+curently in. This step requires your account to be an administrator account.</p>
+
+<p>In the newly opened text editor, change the following lines as indicated below.</p>
+
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Find this line</th>
+      <th>Change it to this</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>#PermitRootLogin yes</code></td>
+      <td><code>PermitRootLogin no</code></td>
+    </tr>
+    <tr>
+      <td><code>#PasswordAuthentication no</code></td>
+      <td><code>PasswordAuthentication no</code></td>
+    </tr>
+    <tr>
+      <td><code>#ChallengeResponseAuthentication yes</code></td>
+      <td><code>ChallengeResponseAuthentication no</code></td>
+    </tr>
+    <tr>
+      <td><code>#UsePAM yes</code></td>
+      <td><code>UsePAM no</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Save the file and quit it.</p>
+
+<p>Now, log out of your current account and log into the <em>git</em> user that we
+created in Step 4. Open up <em>Terminal.app</em> again, and type in the following:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd
+mkdir</span> <span class="nt">-p</span> .ssh
+<span class="nb">touch</span> .ssh/authorized_keys
+open <span class="nt">-a</span> <span class="s2">"TextEdit"</span> .ssh/authorized_keys
+</code></pre></div></div>
+
+<p>This should open a file called <em>authorized_keys</em>, and that file should be
+completely empty at this point.</p>
+
+<p>Now, remember the <em>my_git_key.pub</em> files from Step 5? There should be one of
+these files on the desktop of every client computer. You will need these files
+now on the server computer.</p>
+
+<p>Each <em>my_git_key.pub</em> file contains a single line of text. If your editor is
+set to wrap text then it may look like more than one line, but it isn’t. This
+is important, because putting a new line anywhere will break the file.</p>
+
+<p>Get each <em>my_git_key.pub</em> file, copy the single line from it, and paste it into
+the blank text file (<em>authorized_keys</em>) on a new line. Each line in
+<em>authorized_keys</em> should hold the entire contents of each <em>my_git_key.pub</em>
+file. If there are four clients, then there should be four lines. You get the
+idea.</p>
+
+<p><em>TextEdit.app</em> doesn’t have the option to turn off text wrapping, so I advise
+you use  a better text editor such as <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a>, which is free. To open
+the file in TextWrangler instead of TextEdit, just replace “TextEdit” with
+“TextWrangler” in the <em>Terminal.app</em> commands above.</p>
+
+<p>Save the <em>authorized_keys</em> file, and restart the server computer.</p>
+
+<h2>Step 7. Making a bare git repository</h2>
+
+<p>Now that everything should be set up, all that remains is to make the git
+repository.</p>
+
+<p>You can’t push a branch to a server if that branch is currently checked out on
+the server. That would cause problems for whoever is working on the server.
+Seeing as nobody is actually working on the server this isn’t a problem,
+because nothing needs to be checkout out. This is the definition of a “bare”
+git repo: a repository that can never have files checked out. Everyone pulls
+and pushes from the server like normal, but nobody can actually work on the
+server (unless they make a non-bare clone).</p>
+
+<p>If you are creating a new repository called “my_bare_repo.git”, you can make it
+bare like so:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init <span class="nt">--bare</span> my_bare_repo.git
+</code></pre></div></div>
+
+<p>If you have an existing repo, you can make a bare clone of it like so:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--bare</span> /wherever/the/existing/repo/is.git
+</code></pre></div></div>
+
+<h2>Step 8. Using your new git server</h2>
+
+<p>Let’s say you have the following setup:</p>
+
+<table class="table table-hover table-bordered">
+  <tbody>
+    <tr>
+      <td>Dynamic domain</td>
+      <td>mygit.dyndns.org</td>
+    </tr>
+    <tr>
+      <td>Forwarded port</td>
+      <td>12345</td>
+    </tr>
+    <tr>
+      <td>Bare git repo path</td>
+      <td>/Users/git/my_repo.git</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>On the client machine, you would clone the repo like so:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://git@mygit.dyndns.org:12345/Users/git/my_repo.git
+</code></pre></div></div>
+
+<p>If you have an existing local repo, you can add a remote named “home” like so:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add home ssh://git@mygit.dyndns.org:12345/Users/git/my_repo.git
+</code></pre></div></div>
+
+<p>This may ask you for a password when it tries to authenticate with your ssh
+key. This is the password you typed in in Step 5. It may be different for each
+client computer.</p>
+
+<p>Once you’ve got your cloned repo, you work on it like normal. You pull down
+updates from the server with <code>git fetch</code> or <code>git pull</code>, and you push branches
+with <code>git push origin branch_name_here</code>.</p>
+
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2010-12-03_how-to-set-up-a-secure-git-server-at-home-osx.markdown">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" id="disqus_script">
+        var disqus_shortname = "tomdalling";
+        var disqus_identifier = "525 http://tomdalling.com/blog/?p=525";
+        var disqus_title = "How To Set Up A Secure Git Server At Home (OSX)";
+        var disqus_url = "https://www.tomdalling.com/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/";
+
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+</noscript>
+    
+
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">What's Stopping You From Coding Like This?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/pure-function-as-an-object-PFAAO-pattern/">The Pure Function As An Object (PFAAO) Ruby Pattern</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/" class="category">Software Design</a>
+                (<span class="post-count">11</span>
+                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2020/11/" class="month">November 2020</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/10/" class="month">October 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/09/" class="month">September 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2020</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>
