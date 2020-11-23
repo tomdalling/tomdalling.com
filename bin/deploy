@@ -1,13 +1,31 @@
 #!/bin/bash
 set -euo pipefail
 
+REPO_URL="git@github.com:tomdalling/tomdalling.com.git"
 CURRENT_COMMIT="$(git rev-parse --short HEAD | tr -d '\n')"
+BUILD_DIR="$(mktemp -d)"
 
-bin/site build --output=docs/
-git add -A docs/
-if ! git diff --cached --quiet ; then
-  git commit -m "Build for ${CURRENT_COMMIT}"
-  git push
-else
-  echo "No changes. Nothing to commit."
-fi
+pushd "$BUILD_DIR"
+  # clone the gh-pages branch into separate build directory
+  git clone --branch gh-pages --depth 1 "$REPO_URL" .
+  # delete all the files from the repo
+  git ls-files -z | xargs -0 rm
+popd
+
+# build site into now-empty build directory
+bin/site build --output="$BUILD_DIR"
+
+# commit and push changes
+pushd "$BUILD_DIR"
+  if ! git diff --cached --quiet ; then
+    git config user.name "tomdalling.com deploy script"
+    git config user.email "tom@tomdalling.com"
+    git commit -m "Build for ${CURRENT_COMMIT}"
+    git push
+  else
+    echo "No changes. Nothing to commit."
+  fi
+popd
+
+# clean up
+rm -rf "$BUILD_DIR"
