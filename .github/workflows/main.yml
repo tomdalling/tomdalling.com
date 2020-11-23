@@ -3,20 +3,22 @@ name: Test and Deploy
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
       - run: bundle install
+
       - run: bundle exec rubocop
       - run: bin/test test/automated
-      - run: bin/deploy
+
+      - run: |
+          git config --global user.name "Tom Dalling"
+          git config --global user.email "tom@tomdalling.com"
+          bin/deploy
