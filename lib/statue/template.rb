@@ -27,7 +27,7 @@ module Statue
       dom(...).to_html.tap do |html|
         if document?
           # wtf libxml2. get outa hea
-          html.gsub!(/\<meta http-equiv=.Content-Type. [^>]+\>/, '')
+          html.gsub!(/\<meta http-equiv=.Content-Type. [^>]+\>\n?/, '')
         end
       end
     end
