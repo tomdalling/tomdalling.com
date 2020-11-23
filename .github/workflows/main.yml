@@ -18,7 +18,6 @@ jobs:
       - run: bundle exec rubocop
       - run: bin/test test/automated
 
-      - run: |
-          git config --global user.name "Tom Dalling"
-          git config --global user.email "tom@tomdalling.com"
-          bin/deploy
+      - run: git config --global user.name "Tom Dalling"
+      - run: git config --global user.email "tom@tomdalling.com"
+      - run: bin/deploy
