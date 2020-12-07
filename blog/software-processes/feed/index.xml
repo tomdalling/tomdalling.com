@@ -10,6 +10,27 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Better User Stories</title>
+      <link>https://www.tomdalling.com/blog/software-processes/better-user-stories/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>As a member of the software industry, I want user stories to focus
+more on the problem definition, so that we can make better choices
+around how to implement a solution.</p>
+
+<p>Or should I say:</p>
+
+<p>As a member of the software industry, it’s easy to decide on a
+solution or implementation details too quickly, without a good
+understanding of the problem we are trying to solve. This leads to
+suboptimal software for the end user, technical debt, and rework that
+could have been avoided. I propose that we change the user story
+format to focus more on the problem definition, and less on a single
+solution.</p>
+]]></description>
+      <pubDate>Mon, 07 Dec 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.better-user-stories</guid>
+    </item>
+    <item>
       <title>How To Set Up A Secure Git Server At Home (OSX)</title>
       <link>https://www.tomdalling.com/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article I’m going to show you, step by step, how to set up an OSX

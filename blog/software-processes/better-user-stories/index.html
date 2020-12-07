@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: November 2010 — Tom Dalling</title>
+    <title>Better User Stories — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/11/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/better-user-stories/">
+<meta property="og:title" content="Better User Stories">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/better-user-stories/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/booktube.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
   <body>
@@ -45,42 +49,109 @@
 
       <div class="row">
 
-        <main class="col-md-8"><div class="post-list">
-  <h1>
-    <span class="title">Archives: November 2010</span>
-    
-  </h1>
+        <main class="col-md-8"><article class="post post-single">
 
-  
-<article class="post post-listed">
-    <header>
-      <h2><a href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">How Cocoa Bindings Work (via KVC and KVO)</a></h2>
-      <small class="meta">
-        <span class="post-date">05 Nov, 2010</span>
-        
-        —
-        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
-      </small>
-    </header>
+  <header>
+    <h1><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></h1>
+    <small class="meta">
+      <span class="post-date">07 Dec, 2020</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-12-07_better-user-stories.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/booktube.jpg" class="img-responsive">
+      
+    </div>
+  </header>
 
-    
+  <div class="post-content">
+<p>As a member of the software industry, I want user stories to focus
+more on the problem definition, so that we can make better choices
+around how to implement a solution.</p>
 
-    <div class="post-content">
-<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
-have an understanding of the underlying concepts, bindings aren’t too hard. In
-this article, I’m going to explain the concepts behind bindings from the ground
-up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
-and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
+<p>Or should I say:</p>
 
+<p>As a member of the software industry, it’s easy to decide on a
+solution or implementation details too quickly, without a good
+understanding of the problem we are trying to solve. This leads to
+suboptimal software for the end user, technical debt, and rework that
+could have been avoided. I propose that we change the user story
+format to focus more on the problem definition, and less on a single
+solution.</p>
+
+<!--more-->
+
+<h2>Problem Definition</h2>
+
+<p>A common user story format goes like this:</p>
+
+<blockquote>
+  <p>As a $ROLE, I want $SOLUTION, so that $BENEFIT.</p>
+</blockquote>
+
+<ul>
+  <li>It focuses on one particular solution, ignoring alternatives.</li>
+  <li>It focuses on implementation details, not the reasoning behind the
+change.</li>
+  <li>It persuades the reader with benefits, but neglects to mention any
+costs or trade-offs.</li>
+</ul>
+
+<p>It’s a recipe for jumping the gun.</p>
+
+<p>This template for user stories <em>can</em> be used in a way that avoids
+these problems. So blah blah disclaimer, something something not doing
+it properly, it comes with experience, et cetera. But I think it’s
+fair to say that it causes real-world costs, and could be improved.</p>
+
+<h2>Proposed Solution</h2>
+
+<p>I would prefer to see a format something like this:</p>
+
+<blockquote>
+  <p>As a $ROLE, I have $PROBLEM_OR_OPPORTUNITY. This leads to
+$CONSEQUENCES. I propose that we $SOLUTION.</p>
+</blockquote>
+
+<p>This focuses more on the reasoning behind the change, which helps the
+team make better decisions around design and implementation details.</p>
+
+<p>It still proposes a single solution. I think it’s usually better to
+propose a solution than to just describe the problem and lob it over
+the wall to developers. But clearly describing the problem facilitates
+the discovery of better alternatives. You can’t know if something is
+better or worse unless you have enough context. There could also be
+multiple proposed solutions, allowing the implementer to choose
+whichever is most appropriate.</p>
+
+<p>It still doesn’t mention costs, but it also doesn’t mention benefits.
+Hopefully that results in a more balanced consideration of trade-offs.</p>
 </div>
 
-    <footer>
-      <a class="btn btn-default more" href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
-  </article>
-</div>
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2020-12-07_better-user-stories.md">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+
+  </footer>
+</article>
 </main>
 
         <div class="col-md-4 sidebar">
