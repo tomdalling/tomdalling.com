@@ -23,6 +23,7 @@ module Statue
       'modern-opengl' => "Modern OpenGL Series",
       'ruby' => "Ruby",
       'random-stuff' => "Miscellaneous",
+      'testing' => "Testing",
     }.map { new(machine_name: _1, human_name: _2) }
   end
 end
