@@ -39,7 +39,7 @@ Even if we could test one million inputs per second, it would take 585
 _millennia_ for the test suite to finish. I don't know about you, but
 I'm expected to produce more than one function every half a million
 years. And this function only adds two integers. The string `"True"`,
-by the way, is is typically represented with at least 40 bits.
+by the way, is typically represented with at least 40 bits.
 
 This means that, invariably, _the vast majority of inputs will never
 be tested_. You can rely on this fact in the same way that you can
