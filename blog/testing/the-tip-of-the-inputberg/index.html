@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Tip Of The Inputberg — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/">
+<meta property="og:title" content="The Tip Of The Inputberg">
+<meta property="og:url" content="https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/inputberg.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Tom Dalling</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/blog/">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <main class="col-md-8"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></h1>
+    <small class="meta">
+      <span class="post-date">08 Mar, 2021</span>
+      <span class="bleet">
+        —
+        This is a
+        <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+      </span>
+      —
+      Category: <a class="category" href="/blog/category/testing/">Testing</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-03-08_the-tip-of-the-inputberg.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/inputberg.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+<p>Why did Apple not test what happens when a user supplies “True” as
+their last name? Is it incompetence?</p>
+
+<figure class="naked">
+  <blockquote class="twitter-tweet">
+    <a href="https://twitter.com/JPaulGibson/status/1368182852668583948">https://twitter.com/JPaulGibson/status/1368182852668583948</a>
+  </blockquote>
+</figure>
+
+
+<p>I don’t think so. I think the explanation is simpler: it’s not
+feasible. It’s highly impractical, if not computationally impossible,
+to test every input.</p>
+
+<!--more-->
+
+<p><em>Out of the Tar Pit</em> (Moseley &amp; Marks, 2006) explains the issue:</p>
+
+<blockquote>
+  <p>The key problem with testing is that a test (of any kind) that uses
+one particular set of inputs tells you nothing at all about the
+behaviour of the system or component when it is given a different
+set of inputs. The huge number of different possible inputs usually
+rules out the possibility of testing them all.</p>
+</blockquote>
+
+<p>And goes on to quote Dijkstra:</p>
+
+<blockquote>
+  <p>testing is hopelessly inadequate… (it) can be used very
+effectively to show the presence of bugs but never to show their
+absence.</p>
+</blockquote>
+
+<p>Consider a simple function that adds together two 8-bit integers.
+There are 65,536 possible inputs to this function. When was the last
+time you tested 65,536 different inputs for a single, simple function?</p>
+
+<p>It <em>is</em> possible for a computer to generate and test 65,536 inputs.
+But what if those 8-bit integers were instead 32-bit integers? The
+number of possible inputs would then be 18,446,744,073,709,551,616.
+Even if we could test one million inputs per second, it would take 585
+<em>millennia</em> for the test suite to finish. I don’t know about you, but
+I’m expected to produce more than one function every half a million
+years. And this function only adds two integers. The string <code>"True"</code>,
+by the way, is is typically represented with at least 40 bits.</p>
+
+<p>This means that, invariably, <em>the vast majority of inputs will never
+be tested</em>. You can rely on this fact in the same way that you can
+rely on the sun rising in the morning.</p>
+
+<p>I’m not saying that it’s impossible to have caught this bug with a
+test. There are dozens of practical ways this could have been
+prevented. I’m saying that it’s wholly unsurprising that this bug was
+not detected, and it is not a sign of incompetence that there is no
+test for the input value <code>"True"</code> in the last name field.</p>
+
+<p>As Dijkstra said, it is <em>not possible</em> for tests to prove that there
+are no bugs. Every test suite only checks the tip of the inputberg.
+Keep this in mind the next time you hear someone glibly claim that
+“there should have been a test for that”.</p>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+  <footer>
+    <div class="alert alert-info subscribe-bait">
+      <p>
+        <strong>Enjoy this post?</strong>
+        <a href="/feed/" class="btn btn-success">Subscribe via RSS</a>
+        <a href="https://twitter.com/tom_dalling" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tom_dalling</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+      <p>
+        <strong>Found a mistake?</strong>
+        Open a pull request on
+        <a class="btn btn-info post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-03-08_the-tip-of-the-inputberg.md">
+          GitHub
+        </a>
+      </p>
+    </div>
+
+    
+
+  </footer>
+</article>
+</main>
+
+        <div class="col-md-4 sidebar">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Subscribe</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="/blog/feed/">
+                  <i class="fa fa-rss"></i> RSS
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="https://twitter.com/tom_dalling">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts</div>
+            <ul class="list-group recent-posts">
+              
+            <li class="list-group-item">
+                <a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/better-user-stories/">Better User Stories</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Categories</div>
+            <ul class="list-group categories">
+              
+            <li class="list-group-item">
+                <a href="/blog/cocoa/" class="category">Cocoa</a>
+                (<span class="post-count">5</span>
+                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+                (<span class="post-count">4</span>
+                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+                (<span class="post-count">3</span>
+                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+                (<span class="post-count">10</span>
+                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/ruby/" class="category">Ruby</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-design/" class="category">Software Design</a>
+                (<span class="post-count">11</span>
+                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/software-processes/" class="category">Software Processes</a>
+                (<span class="post-count">2</span>
+                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/testing/" class="category">Testing</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/web/" class="category">Web</a>
+                (<span class="post-count">1</span>
+                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+              </li>
+</ul>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Blog Archives</div>
+            <ul class="list-group archives">
+              
+            <li class="list-group-item">
+                <a href="/blog/2021/03/" class="month">March 2021</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/12/" class="month">December 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/11/" class="month">November 2020</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/10/" class="month">October 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2020/09/" class="month">September 2020</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2016/02/" class="month">February 2016</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/04/" class="month">April 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2015/02/" class="month">February 2015</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/11/" class="month">November 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/09/" class="month">September 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2014/02/" class="month">February 2014</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/04/" class="month">April 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/03/" class="month">March 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/02/" class="month">February 2013</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2013/01/" class="month">January 2013</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/12/" class="month">December 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/11/" class="month">November 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/07/" class="month">July 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/05/" class="month">May 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2012/03/" class="month">March 2012</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2011/12/" class="month">December 2011</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/12/" class="month">December 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/11/" class="month">November 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/05/" class="month">May 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/04/" class="month">April 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2010/02/" class="month">February 2010</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/12/" class="month">December 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/11/" class="month">November 2009</a>
+                (<span class="post-count">3</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/10/" class="month">October 2009</a>
+                (<span class="post-count">2</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/07/" class="month">July 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/06/" class="month">June 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+<li class="list-group-item">
+                <a href="/blog/2009/05/" class="month">May 2009</a>
+                (<span class="post-count">1</span>)
+              </li>
+</ul>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <p>© 2009 – <span class="current-year">2021</span> Tom Dalling</p>
+
+        <p class="social">
+          <a href="https://twitter.com/tom_dalling">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+          <a href="https://github.com/tomdalling">
+            <i class="fa fa-lg fa-github"></i>
+          </a>
+          <a href="https://stackoverflow.com/users/108105/tom-dalling">
+            <i class="fa fa-lg fa-stack-overflow"></i>
+          </a>
+          <a href="mailto:tom%20at%20tomdalling%20com">
+            <i class="fa fa-lg fa-envelope"></i>
+          </a>
+        </p>
+      </footer>
+
+      <script src="/bundles/all.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$$','$$']],
+            displayMath: [['[blockmath]', '[/blockmath]']]
+          }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </div>
+</body>
+</html>
