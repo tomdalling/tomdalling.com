@@ -42,7 +42,6 @@ module Statue
           post_outputs,
           post_index_outputs,
           feed_outputs,
-          frontend_outputs,
         ])
       end
 
@@ -138,24 +137,12 @@ module Statue
         )
       end
 
-      def frontend_outputs
-        return {} unless REDESIGN
-
-        {
-          Pathname('webpack.css') => WebpackOutput.new(
-            filename: 'styles.css',
-            dependencies: [], #TODO: here
-          ),
-        }
-      end
-
       ##########################################################################
       # Templates & Transforms
 
       memoize def page_template
-        filename = REDESIGN ? 'page-redesign.html' : 'page.html'
         Template.new(
-          html_file: inputs.get!(TEMPLATES_DIR / filename),
+          html_file: inputs.get!(TEMPLATES_DIR / 'page.html'),
           is_document: true,
           transform: PageTransform.new(
             recent_posts: posts.take(5),

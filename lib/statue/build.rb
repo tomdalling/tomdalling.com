@@ -106,7 +106,6 @@ module Statue
 
         keys = [
           'index.html',
-          # 'webpack.css',
         ].map { Pathname(_1) }
         outputs.slice(*keys)
       end
