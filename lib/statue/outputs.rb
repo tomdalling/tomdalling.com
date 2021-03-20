@@ -89,9 +89,9 @@ module Statue
 
       def static_outputs
         uniq_merge(
-          inputs.descendants_of(STATIC_DIR).map do
-            path = _1.path.relative_path_from(STATIC_DIR)
-            output = StaticOutput.new(_1)
+          inputs.descendants_of(STATIC_DIR).map do |i|
+            path = i.path.relative_path_from(STATIC_DIR)
+            output = StaticOutput.new(i)
             {path => output}
           end
         )
