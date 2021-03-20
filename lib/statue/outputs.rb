@@ -17,6 +17,7 @@ module Statue
 
       POSTS_DIR = Pathname.new('posts')
       PAGES_DIR = Pathname.new('pages')
+      CSS_DIR = Pathname.new('css')
       STATIC_DIR = Pathname.new('static')
       TEMPLATES_DIR = Pathname.new('templates')
 
@@ -42,6 +43,7 @@ module Statue
           post_outputs,
           post_index_outputs,
           feed_outputs,
+          css_outputs,
         ])
       end
 
@@ -135,6 +137,12 @@ module Statue
             {path => output}
           end
         )
+      end
+
+      def css_outputs
+        {
+          Pathname.new('style.css') => CSSConcatOutput.new(inputs.descendants_of(CSS_DIR))
+        }
       end
 
       ##########################################################################
