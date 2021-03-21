@@ -17,6 +17,10 @@ module Statue
       @is_document
     end
 
+    def reset
+      @original_dom = nil
+    end
+
     def dom(*args, **kwargs, &block)
       original_dom.clone.tap do
         transform.(_1, *args, **kwargs, &block)

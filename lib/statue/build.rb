@@ -50,6 +50,8 @@ module Statue
           .reject { outputs.key?(_1.path) }
           .each { delete(_1) }
 
+        build_frontend # needs to come after HTML is output
+
         puts "<<< Finished building in #{(Time.now - start_time).round(3)} seconds"
 
         @build_count += 1
@@ -61,6 +63,15 @@ module Statue
 
       def input_dir
         Statue::INPUT_DIR
+      end
+
+      # This is a bit of a hack, for now. It should be a proper build output,
+      # instead of custom code that runs after all the outputs. It needs to run
+      # after the HTML is generated so that Tailwind can do tree shaking.
+      def build_frontend
+        puts "  Building frontend"
+        system("yarn build-prod", chdir: input_dir/'frontend')
+        FileUtils.cp(input_dir/'frontend/dist/main.css', output_dir/'utility.css')
       end
 
       def write(path, output, existing_outputs)

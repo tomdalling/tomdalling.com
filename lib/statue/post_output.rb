@@ -19,6 +19,7 @@ module Statue
 
     def reset
       @post.reset
+      @template.reset
     end
 
     def modified_since?(mtime)

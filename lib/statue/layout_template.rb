@@ -8,6 +8,10 @@ module Statue
       @page_args_block = page_args_block
     end
 
+    def reset
+      @content_template.reset
+    end
+
     def html(...)
       page_template.html(
         content: content_template.dom(...),

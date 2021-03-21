@@ -141,7 +141,10 @@ module Statue
 
       def css_outputs
         {
-          Pathname.new('style.css') => CSSConcatOutput.new(inputs.descendants_of(CSS_DIR))
+          Pathname.new('style.css') => CSSConcatOutput.new(inputs.descendants_of(CSS_DIR)),
+          # this is a bit of a hack to get the webpack output into the dev
+          # server
+          Pathname.new('utility.css') => StaticOutput.new(inputs['frontend/dist/main.css'], allow_missing: true),
         }
       end
 
