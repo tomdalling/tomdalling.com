@@ -1,0 +1,76 @@
+/*
+ * This is the original site CSS. This was added on top of Bootstrap.
+ * I think it was compiled from SASS.
+ */
+body pre{white-space:pre;overflow:auto;word-wrap:normal}
+body pre.prettyprint{padding:1em;font-size:14px;line-height:inherit;margin:1em 0 1em 1em;width:auto}
+body .nav-header{font-size:14px}
+.post{margin-bottom:1em;overflow:auto}
+.post .meta{color:#999}
+.post .listed-main-image{display:block;margin:1em auto;max-width:100%;height:auto}
+@media (min-width:700px){
+  .post .listed-main-image{float:right;width:50%;margin:0 0 1em 1em}
+}
+.post .post-content h2{margin-top:1em}
+.post .post-content code,.post .post-content pre{font-family:'Fira Code',monospace}
+.post .post-content code{white-space:nowrap}
+.post .post-content pre code{white-space:pre}
+.post .post-content div.highlight pre{color:inherit}
+
+.post .post-content div.highlight,
+.post .post-content table.table
+{margin:1em 0}
+
+.post .post-content code,.post .post-content span.MathJax{background:#DDD;background:rgba(0,0,0,.1);border-radius:5px;padding:2px 5px;color:inherit}
+.post .post-content pre code{background:0 0;padding:0;border-radius:0}
+.post .post-content .MathJax_Display .MathJax{padding:inherit;background:inherit}
+.post .post-content .footnote-ref{font-size:.83em;vertical-align:super}
+.post .post-content blockquote.pull-right{clear:right;font-style:italic;padding:.5em;text-align:center;color:#a20707;border-color:#a20707;border-top:1px dashed;border-right:none;border-bottom:1px dashed}
+.post .post-content blockquote.pull-right em{font-weight:700}
+@media (min-width:500px){
+  .post .post-content blockquote.pull-right{max-width:40%;text-align:right;padding-top:0;padding-bottom:0;border-top:none;border-right:2px solid;border-bottom:none}
+}
+.post .post-content table.table{background:#fff;width:auto}
+.post .post-content figure{clear:both;border-radius:5px;border:1px solid #CCDDE6;background:#fff;text-align:center}
+.post .post-content figure img{padding:1em;max-width:100%;height:auto}
+.post .post-content figure.youtube{position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden}
+.post .post-content figure.youtube embed,.post .post-content figure.youtube iframe,.post .post-content figure.youtube object{position:absolute;top:0;left:0;width:100%;height:100%}
+.post .post-content figure .MathJax_Display{text-align:center;display:block;margin:1em 0}
+.post .post-content figure figcaption{margin-top:1em;padding:1em;border-top:1px solid #CCDDE6;background:#EEEEF3;font-style:italic;font-size:small}
+.post .post-content figure.nopadding img{padding:0;border-radius:5px}
+.post .post-content figure.nopadding img.captioned{border-bottom-left-radius:0;border-bottom-right-radius:0}
+.post .post-content figure.nopadding figcaption{margin-top:0}
+.post .post-content figure.black{background:#000}
+.post .post-content figure.naked{background:0 0;border:none}
+.post .subscribe-bait{margin:2em 0;text-align:center}
+.post .subscribe-bait p{margin-bottom:1em}
+.post .subscribe-bait .btn{padding-top:1px;padding-bottom:1px}
+.post .subscribe-bait iframe{vertical-align:middle}
+.post-listed h2{margin-bottom:0}
+.post-listed header{margin-bottom:1em}
+.post-listed .more i{margin-left:.3em}
+.post-single header{margin-top:1em;margin-bottom:2em}
+.post-single header .main-image{font-style:italic;font-size:small;text-align:center}
+.post-single header .main-image img{margin:1em auto 0}
+.sidebar .post-count{padding:0 .15em}
+.page-footer{text-align:center;color:#999;font-size:small;margin:2em 0}
+.twitter-panel-body{height:555px;overflow:hidden;padding:0}
+.about-me .social{text-align:center;margin-bottom:2em}
+.about-me .mugshot{margin:0 auto 1em}
+.programming-for-beginners-book .h1 small{display:block;margin-bottom:1em}
+.programming-for-beginners-book .btn{margin-top:1em}
+.rubypigeon .h1{display:block;margin-top:0}
+.rubypigeon .btn{margin-top:1em}
+.rubypigeon img{max-width:40%;float:right}
+.tomsdataonion .h1{display:block;margin-top:0}
+.tomsdataonion .btn{margin-top:1em}
+.tomsdataonion img{max-width:45%;float:right;margin-left:15px;border-radius:5px}
+.social a{padding:0 .4em;text-decoration:none;color:inherit}
+.social a:hover{color:#2a6496}
+.panel-heading{font-weight:700}
+.highlight{border-radius:6px}
+.highlight pre{border:none;background-color:transparent;border-radius:5px}
+h1 a{color:#000}
+a img:hover{opacity:.75}
+a{-webkit-transition:color 500ms cubic-bezier(.23,1,.32,1) .1s;-moz-transition:color 500ms cubic-bezier(.23,1,.32,1) .1s;-o-transition:color 500ms cubic-bezier(.23,1,.32,1) .1s;transition:color 500ms cubic-bezier(.23,1,.32,1) .1s}
+h1,h2,h3,h4,h5,h6{clear:both}

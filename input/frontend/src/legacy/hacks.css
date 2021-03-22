@@ -23,3 +23,12 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* stop bootstrap from clobbering rem font sizes */
+.post .post-content pre.highlight,
+.post .post-content code,
+.post .post-content blockquote
+{
+  font-size: inherit;
+  line-height: inherit;
+}

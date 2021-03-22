@@ -17,7 +17,6 @@ module Statue
 
       POSTS_DIR = Pathname.new('posts')
       PAGES_DIR = Pathname.new('pages')
-      CSS_DIR = Pathname.new('css')
       STATIC_DIR = Pathname.new('static')
       TEMPLATES_DIR = Pathname.new('templates')
 
@@ -139,12 +138,10 @@ module Statue
         )
       end
 
+      # this is a bit of a hack to get the webpack output into the dev server
       def css_outputs
         {
-          Pathname.new('style.css') => CSSConcatOutput.new(inputs.descendants_of(CSS_DIR)),
-          # this is a bit of a hack to get the webpack output into the dev
-          # server
-          Pathname.new('utility.css') => StaticOutput.new(inputs['frontend/dist/main.css'], allow_missing: true),
+          Pathname.new('style.css') => StaticOutput.new(inputs['frontend/dist/main.css'], allow_missing: true),
         }
       end
 

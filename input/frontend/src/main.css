@@ -1,3 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwind";
+
+/* override tailwind with the legacy bootstrap crap */
+@import "legacy/bootstrap";
+@import "legacy/old_style";
+@import "legacy/hacks";
+@import "legacy/worddef";
+
+/* this is new stuff that overrides the legacy stuff */
+@import "globals";
+@import "body-text";

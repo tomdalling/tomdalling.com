@@ -1,0 +1,53 @@
+.body-text {
+  @apply tw-font-body tw-text-base tw-leading-relaxed;
+}
+
+/* code */
+.body-text code {
+  @apply tw-font-code;
+}
+
+/* lists */
+.body-text ul,
+.body-text ol
+{
+  @apply tw-pl-6;
+}
+.body-text ul li {
+  @apply tw-list-disc;
+}
+.body-text ol li {
+  @apply tw-list-decimal;
+}
+
+/* paragraph (and other body content) spacing */
+.body-text > p,
+.body-text > figure,
+.body-text > div.alert,
+.body-text > div.highlighter-rouge > div.highlight,
+.body-text > pre,
+.body-text blockquote > p,
+.body-text > ul,
+.body-text blockquote > ul,
+.body-text > ol,
+.body-text blockquote > ol
+{
+  margin-bottom: 1.5rem;
+}
+
+.body-text blockquote p:last-child,
+.body-text blockquote ul:last-child,
+.body-text blockquote ol:last-child
+{
+  margin-bottom: 0;
+}
+
+/* blockquotes */
+.body-text blockquote {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* figures */
+.body-text figure img {
+  margin: 0 auto;
+}

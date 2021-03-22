@@ -16,7 +16,11 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'css-loader',
+            // Don't load URLs. They all come from legacy bootstrap.
+            options: { url: false },
+          },
           'postcss-loader',
         ],
       },

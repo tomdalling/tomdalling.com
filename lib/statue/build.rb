@@ -71,7 +71,7 @@ module Statue
       def build_frontend
         puts "  Building frontend"
         system("yarn build-prod", chdir: input_dir/'frontend')
-        FileUtils.cp(input_dir/'frontend/dist/main.css', output_dir/'utility.css')
+        FileUtils.cp(input_dir/'frontend/dist/main.css', output_dir/'style.css')
       end
 
       def write(path, output, existing_outputs)

@@ -1,0 +1,27 @@
+html {
+  font-size: 18px;
+}
+
+body {
+  background: #fcfcfc;
+}
+
+h1 {
+  @apply tw-text-4xl;
+}
+
+h2 {
+  @apply tw-text-3xl;
+}
+
+h3 {
+  @apply tw-text-xl;
+}
+
+h1, h2, h3 {
+  @apply tw-font-title;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply tw-font-bold;
+}
