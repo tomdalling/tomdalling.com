@@ -46,14 +46,12 @@ dot(normal, surfaceToLight)
 Ambient Component
 -----------------
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/800px-Phong_components_version_4.png" />
-    <figcaption>
-      Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/800px-Phong_components_version_4.png" />
+  <figcaption>
+    Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>
+  </figcaption>
+</figure>
 
 <blockquote class="pull-right">
   The ambient component of the Phong reflection model basically specifies a
@@ -97,11 +95,9 @@ light.
 
 Let's start by looking at how a mirror reflects light.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/mirror-surface.png" />
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/mirror-surface.png" />
+</figure>
 
 \$\$N\$\$ and \$\$I\$\$ are the normal and the angle of incidence (AoI), which we saw
 in the last article. \$\$R\$\$ is new, and it represents *the angle of reflection*
@@ -111,22 +107,18 @@ surface normal. It is sort of the opposite of the angle of incidence.
 When light hits a perfect mirror surface, the AoI and AoR are equal. That is,
 if light comes in at a 30&deg; angle, it will be reflected at a 30&deg; angle.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/perfect_mirror.png" />
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/perfect_mirror.png" />
+</figure>
 
 Now let's look at surfaces that do no behave like a perfect mirror.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/Diffuse_reflection.png" />
-    <figcaption>
-      Image by <a href="http://en.wikipedia.org/wiki/File:Diffuse_reflection.PNG">Theresa Knott</a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/Diffuse_reflection.png" />
+  <figcaption>
+    Image by <a href="http://en.wikipedia.org/wiki/File:Diffuse_reflection.PNG">Theresa Knott</a>
+  </figcaption>
+</figure>
 
 When light hits an irregular surface, like the one shown above, the light could
 be reflected in any direction. This is the difference between the diffuse and
@@ -141,11 +133,9 @@ but the topcoat layer is specular. The topcoat is also clear, so some of the
 light is reflected, but some of the light goes straight through to hit the
 paint layer beneath.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/specular_and_diffuse.png" />
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/specular_and_diffuse.png" />
+</figure>
 
 <blockquote class="pull-right">
   The specular component is usually a different color to the diffuse component.
@@ -187,18 +177,16 @@ To apply the specular exponent, we take `cos(angle)` and raise it to the power
 of the specular exponent. This produces the "specular coefficient", which is
 the brightness of the reflection.
 
-<p>
-  <figure>
-    [blockmath]
-      x = cos(\theta)^{s}
-    [/blockmath]
-    <figcaption>
-      $$x$$ is the specular coefficient<br />
-      $$\theta$$ is the angle<br />
-      $$s$$ is the specular exponent
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    x = cos(\theta)^{s}
+  [/blockmath]
+  <figcaption>
+    $$x$$ is the specular coefficient<br />
+    $$\theta$$ is the angle<br />
+    $$s$$ is the specular exponent
+  </figcaption>
+</figure>
 
 We will use a GLSL uniform variable called `materialShininess` to hold the
 specular exponent. The GLSL to calculate the entire specular component looks
@@ -271,33 +259,29 @@ has been lost, and only 20% of the intensity remains.
 In the real world, attenuation is proportional to the inverse of the distance
 squared:
 
-<p>
-  <figure>
-    [blockmath]
-      i \propto \frac{1}{d^2}
-    [/blockmath]
-    <figcaption>
-      $$i$$ is the intensity<br />
-      $$d$$ is the distance
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    i \propto \frac{1}{d^2}
+  [/blockmath]
+  <figcaption>
+    $$i$$ is the intensity<br />
+    $$d$$ is the distance
+  </figcaption>
+</figure>
 
 We'll use a modified version of this formula. Firstly, we want to avoid
 divide-by-zero errors if the distance is zero, so we modify the formula
 slightly to get this:
 
-<p>
-  <figure>
-    [blockmath]
-      a = \frac{1}{1 + d^2}
-    [/blockmath]
-    <figcaption>
-      $$a$$ is the attenuation<br />
-      $$d$$ is the distance
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    a = \frac{1}{1 + d^2}
+  [/blockmath]
+  <figcaption>
+    $$a$$ is the attenuation<br />
+    $$d$$ is the distance
+  </figcaption>
+</figure>
 
 Now, if \$\$d\$\$ is zero, then \$\$a\$\$ will be 1, which means that
 the light is at maximum intensity.
@@ -308,18 +292,16 @@ much attenuation, and other lights to only shine short distances with lots of
 attenuation. To control the attenuation we will add a variable, which we will
 just call \$\$k\$\$:
 
-<p>
-  <figure>
-    [blockmath]
-      a = \frac{1}{1 + kd^2}
-    [/blockmath]
-    <figcaption>
-      $$a$$ is the attenuation<br />
-      $$d$$ is the distance<br />
-      $$k$$ is an arbitrary &quot;attenuation factor&quot;
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    a = \frac{1}{1 + kd^2}
+  [/blockmath]
+  <figcaption>
+    $$a$$ is the attenuation<br />
+    $$d$$ is the distance<br />
+    $$k$$ is an arbitrary &quot;attenuation factor&quot;
+  </figcaption>
+</figure>
 
 The formula above, implemented in our fragment shader, looks like this:
 
@@ -360,11 +342,9 @@ has nothing to do with CRT monitors, and it's necessary because of the way that
 the human eye perceives brightness. Either way, gamma correction will allow us
 to adjust the brightness of the 3D scene to make it look better.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/gamma_correction.png" />
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/gamma_correction.png" />
+</figure>
 
 Th dotted line in the middle represents the linear color space we are working
 in. The solid line at the bottom represents the color space that computer
@@ -421,11 +401,9 @@ raises them all to the power of `1.0/2.2`.
 After implementing gamma correction and running the program, it actually looks
 too bright.
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/double_gamma.jpg" />
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/double_gamma.jpg" />
+</figure>
 
 <blockquote class="pull-right">
   Most image file formats already contain gamma-corrected RGB values.

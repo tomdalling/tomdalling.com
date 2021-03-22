@@ -14,11 +14,9 @@ for multiple lights instead of just one. This is the final article on lighting
 Directional Lights
 ------------------
 
-<p>
-  <figure class="nopadding">
-    <img src="/images/posts/modern-opengl-08/directional-light.jpg" />
-  </figure>
-</p>
+<figure class="nopadding">
+  <img src="/images/posts/modern-opengl-08/directional-light.jpg" />
+</figure>
 
 Directional lights are lights that shine in a single, uniform direction. That
 is, all rays of light are parallel to each other. Pure directional lights do
@@ -106,11 +104,9 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
 Spotlights
 ----------
 
-<p>
-  <figure class="nopadding">
-    <img src="/images/posts/modern-opengl-08/spotlight.jpg" />
-  </figure>
-</p>
+<figure class="nopadding">
+  <img src="/images/posts/modern-opengl-08/spotlight.jpg" />
+</figure>
 
 The final type of light we will be implementing is spotlights. Spotlights are
 very similar to point lights, except that instead of radiating light out in all
@@ -145,11 +141,9 @@ There are two new variables that were added in order to implement spotlights:
 from the point of the cone, through the center of the cone. The `coneAngle`
 variable is the angle between the center and the side of the cone, in degrees.
 
-<p>
-  <figure class="black nopadding">
-    <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg" />
-  </figure>
-</p>
+<figure class="black nopadding">
+  <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg" />
+</figure>
 
 <blockquote class="pull-right">
   If the pixel is outside of the cone, then we set the attenuation
@@ -467,17 +461,15 @@ Don't even get me started on [ambient occlusion][].
 
 ### High-dynamic-range (HDR)
 
-<p>
-  <figure class="nopadding">
-    <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg" />
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
-        Richard Huber
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure class="nopadding">
+  <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg" />
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
+      Richard Huber
+    </a>
+  </figcaption>
+</figure>
 
 Notice how the colors from all the lights are added together in our fragment
 shader. The RGBA values are supposed to be within the 0.0 to 1.0 range, so what
@@ -497,17 +489,15 @@ rescaled so that they fit nicely within the 0.0&ndash;1.0 range.
 
 ### Subsurface Scattering
 
-<p>
-  <figure class="black">
-    <img src="/images/posts/modern-opengl-08/sss.png" />
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
-        Piotrek Chwała
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure class="black">
+  <img src="/images/posts/modern-opengl-08/sss.png" />
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
+      Piotrek Chwała
+    </a>
+  </figcaption>
+</figure>
 
 
 Light doesn't just reflect _off_ of surfaces, it can travel _through_ them too.
@@ -520,12 +510,10 @@ plastic.
 
 ### Emissive Surfaces
 
-<p>
-  <figure class="nopadding">
-    <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png" />
-    <figcaption>Emissive surfaces from the game Borderlands</figcaption>
-  </figure>
-</p>
+<figure class="nopadding">
+  <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png" />
+  <figcaption>Emissive surfaces from the game Borderlands</figcaption>
+</figure>
 
 In our implementation, only lights can illuminate a surface. Some surfaces, however,
 provide their own illumination, which makes it look like they are glowing. Think of
@@ -538,17 +526,15 @@ single color.
 
 ### Normal Mapping
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-08/normal-map.png" />
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
-        Paolo Cignoni
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-08/normal-map.png" />
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
+      Paolo Cignoni
+    </a>
+  </figcaption>
+</figure>
 
 3D meshes have limits to the number of vertices they can contain, due to performance.
 Making a surface rough or bumpy with geometry can take a lot of vertices, so
