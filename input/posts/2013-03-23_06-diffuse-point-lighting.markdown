@@ -344,7 +344,7 @@ Calculating The Angle Between Two Vectors: The Dot Product
 It is possible to calculate the angle between two vectors using the *dot
 product* of the vectors. The dot product is an operation that takes two
 vectors, and results in a single number (a scalar). Shockingly, the dot product
-looks like a dot in mathematical notation: $$\vec{v_1}\bullet\vec{v_2}$$. In
+looks like a dot in mathematical notation: \$\$\vec{v_1}\bullet\vec{v_2}\$\$. In
 GLSL and GLM, it is a function called "dot": `dot(v1, v2)`, and `glm::dot(v1,
 v2)`.
 
@@ -363,8 +363,8 @@ The exact relationship is:
   </figure>
 </p>
 
-Where $$\vec{v_1}$$ and $$\vec{v_2}$$ are vectors, $$\theta$$ is the angle
-between the two vectors, and $$\|\vec v\|$$ is the magnitude of $$\vec v$$.
+Where \$\$\vec{v_1}\$\$ and \$\$\vec{v_2}\$\$ are vectors, \$\$\theta\$\$ is the angle
+between the two vectors, and \$\$\|\vec v\|\$\$ is the magnitude of \$\$\vec v\$\$.
 
 The exact same thing, written like code, looks like this:
 
