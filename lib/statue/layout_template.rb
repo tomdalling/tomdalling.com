@@ -9,6 +9,7 @@ module Statue
     end
 
     def reset
+      @page_template.reset
       @content_template.reset
     end
 
