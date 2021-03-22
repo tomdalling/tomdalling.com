@@ -214,10 +214,10 @@ NSString* iMadeThis = [[NSString alloc] init]; // Rule 1
 [imSharingThis release];
 
 //can own the same object many times
-Pidgeon* pidgeon = [[Pidgeon alloc] init]; // Rule 1
-[pidgeon retain]; // Rule 2
-[pidgeon release];
-[pidgeon release];
+Pigeon* pigeon = [[Pigeon alloc] init]; // Rule 1
+[pigeon retain]; // Rule 2
+[pigeon release];
+[pigeon release];
 ```
 
 ### Rule 4. If you keep a pointer to an object, then you must own the object (with some rare exceptions).
