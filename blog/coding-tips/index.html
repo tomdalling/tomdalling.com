@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Category: Coding Tips — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -68,7 +70,7 @@
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>Let’s start with two exotic strings (console output is in the code comments):</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">apples</span> <span class="o">=</span> <span class="n">NSGetFrenchWord</span><span class="p">();</span>
@@ -110,7 +112,7 @@
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>So you’re implementing a new notification and you want the name to be a
 constant. Easy, right?</p>
 
@@ -154,7 +156,7 @@ different, and written like so:</p>
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>Consider the following if statement:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">dragOperation</span> <span class="o">!=</span> <span class="n">NSDragOperationCopy</span> <span class="o">&amp;&amp;</span> <span class="n">NSPointInRect</span><span class="p">(</span><span class="n">currentMouseLocation</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">)){</span>
@@ -187,7 +189,7 @@ easy remedy:</p>
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>Having one exit point (return) from a function is a good thing. Here is an
 example of a single exit point:</p>
 

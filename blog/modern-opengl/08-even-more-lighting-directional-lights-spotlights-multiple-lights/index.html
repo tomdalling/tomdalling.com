@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -68,7 +70,7 @@
     </div>
   </header>
 
-  <div class="post-content">
+  <div class="post-content body-text">
 <p>In this article, we will be adding directional lights, spotlights, and allowing
 for multiple lights instead of just one. This is the final article on lighting
 – at least for a while.</p>
@@ -117,11 +119,9 @@ for multiple lights instead of just one. This is the final article on lighting
 
 <h2>Directional Lights</h2>
 
-<p>
-  <figure class="nopadding">
-    <img src="/images/posts/modern-opengl-08/directional-light.jpg">
-  </figure>
-</p>
+<figure class="nopadding">
+  <img src="/images/posts/modern-opengl-08/directional-light.jpg">
+</figure>
 
 <p>Directional lights are lights that shine in a single, uniform direction. That
 is, all rays of light are parallel to each other. Pure directional lights do
@@ -206,11 +206,9 @@ in this article looks like this:</p>
 
 <h2>Spotlights</h2>
 
-<p>
-  <figure class="nopadding">
-    <img src="/images/posts/modern-opengl-08/spotlight.jpg">
-  </figure>
-</p>
+<figure class="nopadding">
+  <img src="/images/posts/modern-opengl-08/spotlight.jpg">
+</figure>
 
 <p>The final type of light we will be implementing is spotlights. Spotlights are
 very similar to point lights, except that instead of radiating light out in all
@@ -244,11 +242,9 @@ is the definition of the <code>Light</code> struct for this article:</p>
 from the point of the cone, through the center of the cone. The <code>coneAngle</code>
 variable is the angle between the center and the side of the cone, in degrees.</p>
 
-<p>
-  <figure class="black nopadding">
-    <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg">
-  </figure>
-</p>
+<figure class="black nopadding">
+  <img src="/images/posts/modern-opengl-08/cone-direction-angle.jpg">
+</figure>
 
 <blockquote class="pull-right">
   If the pixel is outside of the cone, then we set the attenuation
@@ -555,17 +551,15 @@ and have good performance.</p>
 
 <h3>High-dynamic-range (HDR)</h3>
 
-<p>
-  <figure class="nopadding">
-    <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg">
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
-        Richard Huber
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure class="nopadding">
+  <img class="captioned" src="/images/posts/modern-opengl-08/hdr.jpg">
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Slowenien,_Portorose_(HDR-Aufnahme_vs_Normalbelichtung).jpg">
+      Richard Huber
+    </a>
+  </figcaption>
+</figure>
 
 <p>Notice how the colors from all the lights are added together in our fragment
 shader. The RGBA values are supposed to be within the 0.0 to 1.0 range, so what
@@ -585,17 +579,15 @@ rescaled so that they fit nicely within the 0.0–1.0 range.</p>
 
 <h3>Subsurface Scattering</h3>
 
-<p>
-  <figure class="black">
-    <img src="/images/posts/modern-opengl-08/sss.png">
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
-        Piotrek Chwała
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure class="black">
+  <img src="/images/posts/modern-opengl-08/sss.png">
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Subsurface_scattering.png">
+      Piotrek Chwała
+    </a>
+  </figcaption>
+</figure>
 
 <p>Light doesn’t just reflect <em>off</em> of surfaces, it can travel <em>through</em> them too.
 When light penetrates a surface, it changes the color of that surface. Rendering
@@ -607,12 +599,10 @@ plastic.</p>
 
 <h3>Emissive Surfaces</h3>
 
-<p>
-  <figure class="nopadding">
-    <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png">
-    <figcaption>Emissive surfaces from the game Borderlands</figcaption>
-  </figure>
-</p>
+<figure class="nopadding">
+  <img class="captioned" src="/images/posts/modern-opengl-08/emissive.png">
+  <figcaption>Emissive surfaces from the game Borderlands</figcaption>
+</figure>
 
 <p>In our implementation, only lights can illuminate a surface. Some surfaces, however,
 provide their own illumination, which makes it look like they are glowing. Think of
@@ -625,17 +615,15 @@ single color.</p>
 
 <h3>Normal Mapping</h3>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-08/normal-map.png">
-    <figcaption>
-      Image courtesy of 
-      <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
-        Paolo Cignoni
-      </a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-08/normal-map.png">
+  <figcaption>
+    Image courtesy of 
+    <a href="http://commons.wikimedia.org/wiki/File:Normal_map_example.png">
+      Paolo Cignoni
+    </a>
+  </figcaption>
+</figure>
 
 <p>3D meshes have limits to the number of vertices they can contain, due to performance.
 Making a surface rough or bumpy with geometry can take a lot of vertices, so
@@ -657,7 +645,7 @@ in the old fixed-function OpenGL API.</p>
 
   <footer>
     <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
-      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-8">Enjoy this?</p>
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
 
       <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
         <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
@@ -665,7 +653,7 @@ in the old fixed-function OpenGL API.</p>
         <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
       </p>
 
-      <p class="tw-text-center tw-mt-8 tw-mb-0 tw-text-pink-900">
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
         <em>Found a mistake?</em> Pull requests are welcome on
         <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
       </p>

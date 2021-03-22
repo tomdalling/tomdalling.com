@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modern OpenGL 07 – More Lighting: Ambient, Specular, Attenuation, Gamma — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -68,7 +70,7 @@
     </div>
   </header>
 
-  <div class="post-content">
+  <div class="post-content body-text">
 <p>In this article we will continue to implement lighting. We will implement the
 ambient and specular components of the Phong reflection model, attenuation, and
 gamma correction.</p>
@@ -145,14 +147,12 @@ product code was simplified from this:</p>
 
 <h2>Ambient Component</h2>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/800px-Phong_components_version_4.png">
-    <figcaption>
-      Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/800px-Phong_components_version_4.png">
+  <figcaption>
+    Image by <a href="http://en.wikipedia.org/wiki/File:Phong_components_version_4.png">Brad Smith</a>
+  </figcaption>
+</figure>
 
 <blockquote class="pull-right">
   The ambient component of the Phong reflection model basically specifies a
@@ -194,11 +194,9 @@ light.</p>
 
 <p>Let’s start by looking at how a mirror reflects light.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/mirror-surface.png">
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/mirror-surface.png">
+</figure>
 
 <p>$$N$$ and $$I$$ are the normal and the angle of incidence (AoI), which we saw
 in the last article. $$R$$ is new, and it represents <em>the angle of reflection</em>
@@ -208,22 +206,18 @@ surface normal. It is sort of the opposite of the angle of incidence.</p>
 <p>When light hits a perfect mirror surface, the AoI and AoR are equal. That is,
 if light comes in at a 30° angle, it will be reflected at a 30° angle.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/perfect_mirror.png">
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/perfect_mirror.png">
+</figure>
 
 <p>Now let’s look at surfaces that do no behave like a perfect mirror.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/Diffuse_reflection.png">
-    <figcaption>
-      Image by <a href="http://en.wikipedia.org/wiki/File:Diffuse_reflection.PNG">Theresa Knott</a>
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/Diffuse_reflection.png">
+  <figcaption>
+    Image by <a href="http://en.wikipedia.org/wiki/File:Diffuse_reflection.PNG">Theresa Knott</a>
+  </figcaption>
+</figure>
 
 <p>When light hits an irregular surface, like the one shown above, the light could
 be reflected in any direction. This is the difference between the diffuse and
@@ -238,11 +232,9 @@ but the topcoat layer is specular. The topcoat is also clear, so some of the
 light is reflected, but some of the light goes straight through to hit the
 paint layer beneath.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/specular_and_diffuse.png">
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/specular_and_diffuse.png">
+</figure>
 
 <blockquote class="pull-right">
   The specular component is usually a different color to the diffuse component.
@@ -286,18 +278,16 @@ looks right.</p>
 of the specular exponent. This produces the “specular coefficient”, which is
 the brightness of the reflection.</p>
 
-<p>
-  <figure>
-    [blockmath]
-      x = cos(\theta)^{s}
-    [/blockmath]
-    <figcaption>
-      $$x$$ is the specular coefficient<br>
-      $$\theta$$ is the angle<br>
-      $$s$$ is the specular exponent
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    x = cos(\theta)^{s}
+  [/blockmath]
+  <figcaption>
+    $$x$$ is the specular coefficient<br>
+    $$\theta$$ is the angle<br>
+    $$s$$ is the specular exponent
+  </figcaption>
+</figure>
 
 <p>We will use a GLSL uniform variable called <code>materialShininess</code> to hold the
 specular exponent. The GLSL to calculate the entire specular component looks
@@ -367,33 +357,29 @@ has been lost, and only 20% of the intensity remains.</p>
 <p>In the real world, attenuation is proportional to the inverse of the distance
 squared:</p>
 
-<p>
-  <figure>
-    [blockmath]
-      i \propto \frac{1}{d^2}
-    [/blockmath]
-    <figcaption>
-      $$i$$ is the intensity<br>
-      $$d$$ is the distance
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    i \propto \frac{1}{d^2}
+  [/blockmath]
+  <figcaption>
+    $$i$$ is the intensity<br>
+    $$d$$ is the distance
+  </figcaption>
+</figure>
 
 <p>We’ll use a modified version of this formula. Firstly, we want to avoid
 divide-by-zero errors if the distance is zero, so we modify the formula
 slightly to get this:</p>
 
-<p>
-  <figure>
-    [blockmath]
-      a = \frac{1}{1 + d^2}
-    [/blockmath]
-    <figcaption>
-      $$a$$ is the attenuation<br>
-      $$d$$ is the distance
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    a = \frac{1}{1 + d^2}
+  [/blockmath]
+  <figcaption>
+    $$a$$ is the attenuation<br>
+    $$d$$ is the distance
+  </figcaption>
+</figure>
 
 <p>Now, if $$d$$ is zero, then $$a$$ will be 1, which means that
 the light is at maximum intensity.</p>
@@ -404,18 +390,16 @@ much attenuation, and other lights to only shine short distances with lots of
 attenuation. To control the attenuation we will add a variable, which we will
 just call $$k$$:</p>
 
-<p>
-  <figure>
-    [blockmath]
-      a = \frac{1}{1 + kd^2}
-    [/blockmath]
-    <figcaption>
-      $$a$$ is the attenuation<br>
-      $$d$$ is the distance<br>
-      $$k$$ is an arbitrary "attenuation factor"
-    </figcaption>
-  </figure>
-</p>
+<figure>
+  [blockmath]
+    a = \frac{1}{1 + kd^2}
+  [/blockmath]
+  <figcaption>
+    $$a$$ is the attenuation<br>
+    $$d$$ is the distance<br>
+    $$k$$ is an arbitrary "attenuation factor"
+  </figcaption>
+</figure>
 
 <p>The formula above, implemented in our fragment shader, looks like this:</p>
 
@@ -453,11 +437,9 @@ has nothing to do with CRT monitors, and it’s necessary because of the way tha
 the human eye perceives brightness. Either way, gamma correction will allow us
 to adjust the brightness of the 3D scene to make it look better.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/gamma_correction.png">
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/gamma_correction.png">
+</figure>
 
 <p>Th dotted line in the middle represents the linear color space we are working
 in. The solid line at the bottom represents the color space that computer
@@ -512,11 +494,9 @@ raises them all to the power of <code>1.0/2.2</code>.</p>
 <p>After implementing gamma correction and running the program, it actually looks
 too bright.</p>
 
-<p>
-  <figure>
-    <img src="/images/posts/modern-opengl-07/double_gamma.jpg">
-  </figure>
-</p>
+<figure>
+  <img src="/images/posts/modern-opengl-07/double_gamma.jpg">
+</figure>
 
 <blockquote class="pull-right">
   Most image file formats already contain gamma-corrected RGB values.
@@ -735,7 +715,7 @@ will also get multiple lights working at the same time.</p>
 
   <footer>
     <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
-      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-8">Enjoy this?</p>
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
 
       <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
         <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
@@ -743,7 +723,7 @@ will also get multiple lights working at the same time.</p>
         <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
       </p>
 
-      <p class="tw-text-center tw-mt-8 tw-mb-0 tw-text-pink-900">
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
         <em>Found a mistake?</em> Pull requests are welcome on
         <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
       </p>

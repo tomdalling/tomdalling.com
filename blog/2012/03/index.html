@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Archives: March 2012 — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -66,7 +68,7 @@
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>Let’s start with two exotic strings (console output is in the code comments):</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">apples</span> <span class="o">=</span> <span class="n">NSGetFrenchWord</span><span class="p">();</span>
@@ -108,7 +110,7 @@
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p><a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch" title="Grand Central Dispatch">GCD</a> is a nice replacement for the old
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods

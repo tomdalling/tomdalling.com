@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modern OpenGL 06 – Diffuse Point Lighting — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -68,7 +70,7 @@
     </div>
   </header>
 
-  <div class="post-content">
+  <div class="post-content body-text">
 <p>This is the first article covering lighting. We will begin our lighting
 adventure by implementing per-pixel, diffuse lighting with a single point
 light. In later articles we will implement ambient and specular reflection,
@@ -480,7 +482,7 @@ we will be adding a normal for each vertex in the VBO.</p>
 <p>It is possible to calculate the angle between two vectors using the <em>dot
 product</em> of the vectors. The dot product is an operation that takes two
 vectors, and results in a single number (a scalar). Shockingly, the dot product
-looks like a dot in mathematical notation: \(\vec{v_1}\bullet\vec{v_2}\). In
+looks like a dot in mathematical notation: $$\vec{v_1}\bullet\vec{v_2}$$. In
 GLSL and GLM, it is a function called “dot”: <code>dot(v1, v2)</code>, and <code>glm::dot(v1,
 v2)</code>.</p>
 
@@ -499,8 +501,8 @@ The exact relationship is:</p>
   </figure>
 </p>
 
-<p>Where \(\vec{v_1}\) and \(\vec{v_2}\) are vectors, \(\theta\) is the angle
-between the two vectors, and \(\|\vec v\|\) is the magnitude of \(\vec v\).</p>
+<p>Where $$\vec{v_1}$$ and $$\vec{v_2}$$ are vectors, $$\theta$$ is the angle
+between the two vectors, and $$|\vec v|$$ is the magnitude of $$\vec v$$.</p>
 
 <p>The exact same thing, written like code, looks like this:</p>
 
@@ -977,7 +979,7 @@ lights, and spotlights.</p>
 
   <footer>
     <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
-      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-8">Enjoy this?</p>
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
 
       <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
         <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
@@ -985,7 +987,7 @@ lights, and spotlights.</p>
         <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
       </p>
 
-      <p class="tw-text-center tw-mt-8 tw-mb-0 tw-text-pink-900">
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
         <em>Found a mistake?</em> Pull requests are welcome on
         <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
       </p>

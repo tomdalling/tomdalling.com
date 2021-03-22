@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Category: Cocoa — Tom Dalling</title>
-    <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
@@ -68,7 +70,7 @@
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>It feels like fleets of new developers dash themselves upon the rocky shores of
 Objective-C memory management every day on StackOverflow. I can’t bear to write
 the same answers over and over again, so this article will be my final,
@@ -120,7 +122,7 @@ the comments and I’ll expand the article to cover it.</p>
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p><a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch" title="Grand Central Dispatch">GCD</a> is a nice replacement for the old
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods
@@ -156,7 +158,7 @@ focus on some of those problems.</p>
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
 have an understanding of the underlying concepts, bindings aren’t too hard. In
 this article, I’m going to explain the concepts behind bindings from the ground
@@ -183,7 +185,7 @@ and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
 test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
 about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
@@ -218,7 +220,7 @@ using it a little differently. The return value of the selector was an
 
     
 
-    <div class="post-content">
+    <div class="post-content body-text">
 <p>This post is the result of investigation into a <a href="http://stackoverflow.com/questions/1169097/can-you-manually-implement-cocoa-bindings" title="Can you manually implement Cocoa bindings?">stackoverflow.com question of
 mine</a>.</p>
 
