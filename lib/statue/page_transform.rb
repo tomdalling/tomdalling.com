@@ -1,11 +1,11 @@
 module Statue
   class PageTransform < DOMTransform
-    attr_reader :recent_posts, :monthly_archives, :category_archives
+    attr_reader :recent_posts, :yearly_archives, :category_archives
 
-    def initialize(recent_posts:, monthly_archives:, category_archives:)
+    def initialize(recent_posts:, yearly_archives:, category_archives:)
       super()
       @recent_posts = recent_posts
-      @monthly_archives = monthly_archives
+      @yearly_archives = yearly_archives
       @category_archives = category_archives
     end
 
@@ -25,9 +25,9 @@ module Statue
           at(:a, post.title, href: post.uri)
         end
 
-        clone_each('ul.archives li', monthly_archives) do |archive|
+        clone_each('ul.archives li', yearly_archives) do |archive|
           at(:a, href: archive.uri)
-          at('.month', archive.human_month)
+          at('.year', archive.year.to_s)
           at('.post-count', archive.size)
         end
 

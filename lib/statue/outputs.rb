@@ -154,7 +154,7 @@ module Statue
           is_document: true,
           transform: PageTransform.new(
             recent_posts: posts.take(5),
-            monthly_archives: monthly_archives,
+            yearly_archives: yearly_archives,
             category_archives: category_archives,
           ),
         )
@@ -220,6 +220,14 @@ module Statue
           .sort
       end
 
+      memoize \
+      def yearly_archives
+        posts
+          .group_by { _1.date.year }
+          .map { YearlyArchive.new(year: _1, posts: _2) }
+          .sort
+      end
+
       memoize def category_archives
         posts
           .group_by(&:category)
@@ -234,7 +242,8 @@ module Statue
       memoize def post_indexes
         [recent_post_index] +
           category_archives.map(&:post_index) +
-          monthly_archives.map(&:post_index)
+          monthly_archives.map(&:post_index) +
+          yearly_archives.map(&:post_index)
       end
 
       def recent_post_index
