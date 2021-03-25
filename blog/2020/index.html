@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: April 2010 — Tom Dalling</title>
+    <title>2020 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/04/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2020/">
 </head>
 
   <body>
@@ -50,58 +50,151 @@
 
         <main class="col-md-8"><div class="post-list">
   <h1>
-    <span class="title">Archives: April 2010</span>
+    <span class="title">2020 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">For Those Who Have Never Used Objective-C</a></h2>
+      <h2><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></h2>
       <small class="meta">
-        <span class="post-date">28 Apr, 2010</span>
+        <span class="post-date">07 Dec, 2020</span>
         
         —
-        Category: <a class="category" href="/blog/category/coding-styleconventions/">Coding Style/Conventions</a>
+        Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/booktube.jpg">
+
+    <div class="post-content body-text">
+<p>As a member of the software industry, I want user stories to focus
+more on the problem definition, so that we can make better choices
+around how to implement a solution.</p>
+
+<p>Or should I say:</p>
+
+<p>As a member of the software industry, it’s easy to decide on a
+solution or implementation details too quickly, without a good
+understanding of the problem we are trying to solve. This leads to
+suboptimal software for the end user, technical debt, and rework that
+could have been avoided. I propose that we change the user story
+format to focus more on the problem definition, and less on a single
+solution.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/software-processes/better-user-stories/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></h2>
+      <small class="meta">
+        <span class="post-date">21 Nov, 2020</span>
+        <span class="bleet">
+          —
+          This is a
+          <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+        </span>
+        —
+        Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
       </small>
     </header>
 
     
 
     <div class="post-content body-text">
-<p>There is one feature of the Objective-C language that I really love: the method
-naming. Let me explain with an example.</p>
-
-<p>Here is a nasty call to a C function from the Win32 API that has 12 arguments:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hwnd</span> <span class="o">=</span> <span class="n">CreateWindowEx</span><span class="p">(</span><span class="n">WS_EX_LAYERED</span><span class="p">,</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">),</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"World"</span><span class="p">),</span>
-                      <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
-                      <span class="mi">10</span><span class="p">,</span> 
-                      <span class="mi">10</span><span class="p">,</span>
-                      <span class="mi">400</span><span class="p">,</span> 
-                      <span class="mi">400</span><span class="p">,</span>
-                      <span class="nb">NULL</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">,</span>
-                      <span class="n">hInstance</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Pick an argument, any argument. What does it do? You can probably guess a
-couple of them, but basically you’re forced to look up the documentation. Sure,
-12 arguments is a bit excessive, but even three or for argument functions can
-be ambiguous. What if you’re trying to understand a function call that is being
-passed three number literals as arguments? Even if you know the function,
-you’ll probably have to look up the documentation just to remember the order of
-the arguments.</p>
-
-<p>Now for the equivalent in Objective C:</p>
+<p>This is a short parable I came up while discussing linters, in
+response to someone asking if I think it’s good to be inconsistent.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">
+      <a class="btn btn-default more" href="/blog/software-design/consistent-hammer-man/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a></h2>
+      <small class="meta">
+        <span class="post-date">09 Nov, 2020</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/private.jpg">
+
+    <div class="post-content body-text">
+<p>Why use <code>private</code> at all? What is the benefit of trying to stop other
+people from using code that works perfectly well? It’s to reduce
+future maintenance costs by discouraging coupling to unstable
+dependencies.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/software-design/what-is-the-purpose-of-private/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a></h2>
+      <small class="meta">
+        <span class="post-date">31 Oct, 2020</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/random-stuff/">Miscellaneous</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/bleat.jpg">
+
+    <div class="post-content body-text">
+<p>Today I want to coin the term <em>bleet</em>. It’s a type of short-form
+writing somewhere between a blog post and a tweet.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/random-stuff/bleeting-for-fun-and-profit/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">What's Stopping You From Coding Like This?</a></h2>
+      <small class="meta">
+        <span class="post-date">23 Sep, 2020</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/random-stuff/">Miscellaneous</a>
+      </small>
+    </header>
+
+    
+
+    <div class="post-content body-text">
+<p>I made a <a href="https://gist.github.com/tomdalling/2540a1c785d51da2bf0d57164bd26d96">quick-and-dirty Ruby script</a> that animates the <a href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar">GitHub
+contributions calendar</a>, for the express purpose of making this
+satirical video:</p>
+
+<figure class="youtube">
+  <iframe src="https://www.youtube.com/embed/5wbtCyZTbTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</figure>
+
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/random-stuff/whats-stopping-you-from-coding-like-this/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

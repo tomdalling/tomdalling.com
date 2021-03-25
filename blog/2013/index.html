@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: April 2010 — Tom Dalling</title>
+    <title>2013 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/04/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2013/">
 </head>
 
   <body>
@@ -50,58 +50,138 @@
 
         <main class="col-md-8"><div class="post-list">
   <h1>
-    <span class="title">Archives: April 2010</span>
+    <span class="title">2013 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">For Those Who Have Never Used Objective-C</a></h2>
+      <h2><a href="/blog/modern-opengl/07-more-lighting-ambient-specular-attenuation-gamma/">Modern OpenGL 07 – More Lighting: Ambient, Specular, Attenuation, Gamma</a></h2>
       <small class="meta">
-        <span class="post-date">28 Apr, 2010</span>
+        <span class="post-date">18 Apr, 2013</span>
         
         —
-        Category: <a class="category" href="/blog/category/coding-styleconventions/">Coding Style/Conventions</a>
+        Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
       </small>
     </header>
 
-    
+    <img class="listed-main-image" src="/images/posts/modern-opengl-07/main-image.png">
 
     <div class="post-content body-text">
-<p>There is one feature of the Objective-C language that I really love: the method
-naming. Let me explain with an example.</p>
-
-<p>Here is a nasty call to a C function from the Win32 API that has 12 arguments:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hwnd</span> <span class="o">=</span> <span class="n">CreateWindowEx</span><span class="p">(</span><span class="n">WS_EX_LAYERED</span><span class="p">,</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">),</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"World"</span><span class="p">),</span>
-                      <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
-                      <span class="mi">10</span><span class="p">,</span> 
-                      <span class="mi">10</span><span class="p">,</span>
-                      <span class="mi">400</span><span class="p">,</span> 
-                      <span class="mi">400</span><span class="p">,</span>
-                      <span class="nb">NULL</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">,</span>
-                      <span class="n">hInstance</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Pick an argument, any argument. What does it do? You can probably guess a
-couple of them, but basically you’re forced to look up the documentation. Sure,
-12 arguments is a bit excessive, but even three or for argument functions can
-be ambiguous. What if you’re trying to understand a function call that is being
-passed three number literals as arguments? Even if you know the function,
-you’ll probably have to look up the documentation just to remember the order of
-the arguments.</p>
-
-<p>Now for the equivalent in Objective C:</p>
+<p>In this article we will continue to implement lighting. We will implement the
+ambient and specular components of the Phong reflection model, attenuation, and
+gamma correction.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">
+      <a class="btn btn-default more" href="/blog/modern-opengl/07-more-lighting-ambient-specular-attenuation-gamma/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/modern-opengl/06-diffuse-point-lighting/">Modern OpenGL 06 – Diffuse Point Lighting</a></h2>
+      <small class="meta">
+        <span class="post-date">23 Mar, 2013</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/modern-opengl-06/main-image.png">
+
+    <div class="post-content body-text">
+<p>This is the first article covering lighting. We will begin our lighting
+adventure by implementing per-pixel, diffuse lighting with a single point
+light. In later articles we will implement ambient and specular reflection,
+directional lights, spotlights, attenuation, and using multiple lights.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/modern-opengl/06-diffuse-point-lighting/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/modern-opengl/05-model-assets-and-instances/">Modern OpenGL 05 – Model Assets &amp; Instances</a></h2>
+      <small class="meta">
+        <span class="post-date">08 Feb, 2013</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/modern-opengl-05.png">
+
+    <div class="post-content body-text">
+<p>In this article, we will be refactoring the code to be more like a 3D
+engine/framework. Specifically, we will be replacing some of the globals with
+structs that represent “assets” and “instances.” At the end, we will have a
+single wooden crate asset, and five instances of that asset arranged to spell
+out “Hi” in 3D.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/modern-opengl/05-model-assets-and-instances/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/modern-opengl/04-cameras-vectors-and-input/">Modern OpenGL 04 - Cameras, Vectors &amp; Input</a></h2>
+      <small class="meta">
+        <span class="post-date">21 Jan, 2013</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/modern-opengl-04/main-image.png">
+
+    <div class="post-content body-text">
+<p>In this article, we will be consolidating the matrix and camera knowledge from
+the previous article into the new <code>tdogl::Camera</code> class, which will be a
+first-person shooter type of camera. Then, we will connect the camera to
+keyboard and mouse input, so we can move within the 3D scene and look around.
+This will involve learning a bit of vector math. We will also learn about
+inverting matrices, which was not mentioned in the previous article.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/modern-opengl/04-cameras-vectors-and-input/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/random-stuff/using-git-for-hacky-archive-deduplication/">Using Git For Hacky Archive Deduplication</a></h2>
+      <small class="meta">
+        <span class="post-date">12 Jan, 2013</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/random-stuff/">Miscellaneous</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/git-logo.png">
+
+    <div class="post-content body-text">
+<p>Have you ever wished that <code>tar</code> or <code>zip</code> would deduplicate files when creating
+an archive? Well here’s a hacky solution using <a href="http://git-scm.com/">git</a>.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/random-stuff/using-git-for-hacky-archive-deduplication/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

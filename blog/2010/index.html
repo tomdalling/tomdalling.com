@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: April 2010 — Tom Dalling</title>
+    <title>2010 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/04/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/">
 </head>
 
   <body>
@@ -50,12 +50,119 @@
 
         <main class="col-md-8"><div class="post-list">
   <h1>
-    <span class="title">Archives: April 2010</span>
+    <span class="title">2010 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
+    <header>
+      <h2><a href="/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/">How To Set Up A Secure Git Server At Home (OSX)</a></h2>
+      <small class="meta">
+        <span class="post-date">03 Dec, 2010</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      </small>
+    </header>
+
+    
+
+    <div class="post-content body-text">
+<p>In this article I’m going to show you, step by step, how to set up an OSX
+machine to provide secure access to git repositories over the internet via ssh.
+This was tested on OSX 10.6.</p>
+
+<p><a href="http://github.com">github</a> provides git repository hosting with a lovely interface. If github
+isn’t feasible, then this article will help you set up something similar,
+unfortunately without the nice interface.</p>
+
+<p>I assume that you already have git installed. If not, install the latest
+version from <a href="http://git-scm.com">the git website</a>.</p>
+
+<p>We will be walking through the following steps:</p>
+
+<ul>
+  <li>Give the server a static IP address on the local network</li>
+  <li>Set up port forwarding on the router</li>
+  <li>Getting dynamic DNS</li>
+  <li>Add a user named “git” to the server</li>
+  <li>Setting up ssh securely on the client computers</li>
+  <li>Setting up ssh securely on the server</li>
+  <li>Making a bare git repository</li>
+  <li>Using your new git server</li>
+</ul>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">How Cocoa Bindings Work (via KVC and KVO)</a></h2>
+      <small class="meta">
+        <span class="post-date">05 Nov, 2010</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
+      </small>
+    </header>
+
+    
+
+    <div class="post-content body-text">
+<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
+have an understanding of the underlying concepts, bindings aren’t too hard. In
+this article, I’m going to explain the concepts behind bindings from the ground
+up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO),
+and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">Why performSelector: Is More Dangerous Than I Thought</a></h2>
+      <small class="meta">
+        <span class="post-date">14 May, 2010</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
+      </small>
+    </header>
+
+    
+
+    <div class="post-content body-text">
+<p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
+test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
+about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
+it dawned on me that <code>performSelector:</code> <strong>was corrupting memory</strong>. It was
+particularly hard to track down because the crash would happen a couple of
+lines <em>after</em> the call to <code>performSelector:</code>, when the corrupted memory was
+actually accessed.</p>
+
+<p>I’ve never had a problem with <code>performSelector:</code> before, but this time I was
+using it a little differently. The return value of the selector was an
+<code>NSRect</code>.</p>
+
+<p>Now for the gory explanation.</p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
     <header>
       <h2><a href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">For Those Who Have Never Used Objective-C</a></h2>
       <small class="meta">
@@ -102,6 +209,37 @@ the arguments.</p>
 
     <footer>
       <a class="btn btn-default more" href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/software-design/solid-class-design-the-interface-segregation-principle/">SOLID Class Design: The Interface Segregation Principle</a></h2>
+      <small class="meta">
+        <span class="post-date">18 Feb, 2010</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/isp.jpg">
+
+    <div class="post-content body-text">
+<p>This is that last part of a five part series about <a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod" title="Principles of OOD">SOLID class design
+principles</a> by <a href="http://www.objectmentor.com/omTeam/martin_r.html">Robert C. Martin</a>. The SOLID principles focus on achieving
+code that is maintainable, robust, and reusable. In this post, I will discuss
+the Interface Segregation Principle.</p>
+
+<blockquote>
+  <p><strong>The Interface Segregation Principle (ISP)</strong>: <em>Clients should not be forced
+to depend upon interfaces that they do not use</em>.</p>
+</blockquote>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/software-design/solid-class-design-the-interface-segregation-principle/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

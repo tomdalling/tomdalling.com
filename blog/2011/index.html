@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: April 2010 — Tom Dalling</title>
+    <title>2011 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/04/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2011/">
 </head>
 
   <body>
@@ -50,58 +50,52 @@
 
         <main class="col-md-8"><div class="post-list">
   <h1>
-    <span class="title">Archives: April 2010</span>
+    <span class="title">2011 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">For Those Who Have Never Used Objective-C</a></h2>
+      <h2><a href="/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">Const Correctness For NSString (And Pointers In General)</a></h2>
       <small class="meta">
-        <span class="post-date">28 Apr, 2010</span>
+        <span class="post-date">16 Dec, 2011</span>
         
         —
-        Category: <a class="category" href="/blog/category/coding-styleconventions/">Coding Style/Conventions</a>
+        Category: <a class="category" href="/blog/category/coding-tips/">Coding Tips</a>
       </small>
     </header>
 
     
 
     <div class="post-content body-text">
-<p>There is one feature of the Objective-C language that I really love: the method
-naming. Let me explain with an example.</p>
+<p>So you’re implementing a new notification and you want the name to be a
+constant. Easy, right?</p>
 
-<p>Here is a nasty call to a C function from the Win32 API that has 12 arguments:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hwnd</span> <span class="o">=</span> <span class="n">CreateWindowEx</span><span class="p">(</span><span class="n">WS_EX_LAYERED</span><span class="p">,</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">),</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"World"</span><span class="p">),</span>
-                      <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
-                      <span class="mi">10</span><span class="p">,</span> 
-                      <span class="mi">10</span><span class="p">,</span>
-                      <span class="mi">400</span><span class="p">,</span> 
-                      <span class="mi">400</span><span class="p">,</span>
-                      <span class="nb">NULL</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">,</span>
-                      <span class="n">hInstance</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">);</span>
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Pick an argument, any argument. What does it do? You can probably guess a
-couple of them, but basically you’re forced to look up the documentation. Sure,
-12 arguments is a bit excessive, but even three or for argument functions can
-be ambiguous. What if you’re trying to understand a function call that is being
-passed three number literals as arguments? Even if you know the function,
-you’ll probably have to look up the documentation just to remember the order of
-the arguments.</p>
+<p>If that’s how you do constants, you’re not doing it quite right. Try assign a
+new value to the alleged constant and watch in horror as the compiler doesn’t
+stop you.</p>
 
-<p>Now for the equivalent in Objective C:</p>
+<p>This is because when you type <code>const NSString*</code>, the compiler interprets that
+as <strong>a pointer to a constant <code>NSString</code></strong>. <code>NSString</code> is already an immutable
+object, so making a constant <code>NSString</code> doesn’t do anything except maybe cause
+some compiler errors/warnings later when you try to use it. What you’re really
+after is <strong>a constant pointer to an <code>NSString</code></strong>. It’s ever so subtly
+different, and written like so:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Don’t feel bad. It’s a common mistake. I used to do it until Rob Napier
+<a href="http://stackoverflow.com/questions/1937685/static-nsstring-usage-vs-inline-nsstring-constants/1937727#1937727" title="Static NSString usage vs inline NSString constants">schooled me</a>, and now I’m passin’ on the learnin’ to you.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">
+      <a class="btn btn-default more" href="/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: April 2010 — Tom Dalling</title>
+    <title>2015 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/04/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2015/">
 </head>
 
   <body>
@@ -50,58 +50,60 @@
 
         <main class="col-md-8"><div class="post-list">
   <h1>
-    <span class="title">Archives: April 2010</span>
+    <span class="title">2015 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">For Those Who Have Never Used Objective-C</a></h2>
+      <h2><a href="/blog/software-design/fizzbuzz-in-too-much-detail/">FizzBuzz In Too Much Detail</a></h2>
       <small class="meta">
-        <span class="post-date">28 Apr, 2010</span>
+        <span class="post-date">26 Apr, 2015</span>
         
         —
-        Category: <a class="category" href="/blog/category/coding-styleconventions/">Coding Style/Conventions</a>
+        Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
       </small>
     </header>
 
-    
+    <img class="listed-main-image" src="/images/posts/fizzbuzz/main-image.jpg">
 
     <div class="post-content body-text">
-<p>There is one feature of the Objective-C language that I really love: the method
-naming. Let me explain with an example.</p>
-
-<p>Here is a nasty call to a C function from the Win32 API that has 12 arguments:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hwnd</span> <span class="o">=</span> <span class="n">CreateWindowEx</span><span class="p">(</span><span class="n">WS_EX_LAYERED</span><span class="p">,</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">),</span>
-                      <span class="n">TEXT</span><span class="p">(</span><span class="s">"World"</span><span class="p">),</span>
-                      <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
-                      <span class="mi">10</span><span class="p">,</span> 
-                      <span class="mi">10</span><span class="p">,</span>
-                      <span class="mi">400</span><span class="p">,</span> 
-                      <span class="mi">400</span><span class="p">,</span>
-                      <span class="nb">NULL</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">,</span>
-                      <span class="n">hInstance</span><span class="p">,</span> 
-                      <span class="nb">NULL</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Pick an argument, any argument. What does it do? You can probably guess a
-couple of them, but basically you’re forced to look up the documentation. Sure,
-12 arguments is a bit excessive, but even three or for argument functions can
-be ambiguous. What if you’re trying to understand a function call that is being
-passed three number literals as arguments? Even if you know the function,
-you’ll probably have to look up the documentation just to remember the order of
-the arguments.</p>
-
-<p>Now for the equivalent in Objective C:</p>
+<p>I know. FizzBuzz has been done to death. But I want to use it as a familiar
+base upon which we can explore some of the common tradeoffs involved in writing
+and maintaining software. In this article, I’ll show multiple implementations
+of FizzBuzz, all designed to achieve different goals, and discuss the
+implications of each.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/">
+      <a class="btn btn-default more" href="/blog/software-design/fizzbuzz-in-too-much-detail/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
+      <h2><a href="/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/">Making Fruity Bat (a Flappy Bird clone) in Ruby</a></h2>
+      <small class="meta">
+        <span class="post-date">22 Feb, 2015</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/ruby/">Ruby</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/fruity-bat.png">
+
+    <div class="post-content body-text">
+<p>Today I live-streamed the making of Fruity Bat (a Flappy Bird clone) in
+Ruby using the <code>gosu</code> gem. Watch the videos below, and check out the code on
+github: <a href="https://github.com/tomdalling/fruity_bat">https://github.com/tomdalling/fruity_bat</a></p>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>
