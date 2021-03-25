@@ -18,6 +18,7 @@ foreman start
 
  - [ ] Check that URLs are being rendered correctly into every page
  - [ ] Remove Disqus. It's injecting a bunch of spammy ads.
+ - [ ] Add unique id to assets for cache busting
 
 ## Testing Stuff
 
