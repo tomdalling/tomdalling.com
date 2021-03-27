@@ -19,12 +19,12 @@
 
   <body>
 
-    <nav class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
-      <div class="container tw-space-x-8">
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="container tw-space-x-8">
         <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
         <a href="/blog/" class="tw-text-black">Blog</a>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
     <div class="container">
 
@@ -68,149 +68,131 @@ and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
 </div>
 </main>
 
-        <div class="col-md-4 sidebar">
+        <div class="col-md-4 sidebar tw-text-center md:tw-text-left">
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Subscribe</div>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <a href="/blog/feed/">
-                  <i class="fa fa-rss"></i> RSS
-                </a>
-              </li>
-              <li class="list-group-item">
-                <a href="https://twitter.com/tom_dalling">
-                  <i class="fa fa-twitter"></i> Twitter
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+          <ul class="tw-space-y-2">
+            <li>
+              <a href="/blog/feed/">
+                <i class="fa fa-rss"></i> RSS
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/tom_dalling">
+                <i class="fa fa-twitter"></i> Twitter
+              </a>
+            </li>
+          </ul>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Recent Posts</div>
-            <ul class="list-group recent-posts">
-              
-            <li class="list-group-item">
-                <a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a>
-              </li>
-<li class="list-group-item">
-                <a href="/blog/software-processes/better-user-stories/">Better User Stories</a>
-              </li>
-<li class="list-group-item">
-                <a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a>
-              </li>
-<li class="list-group-item">
-                <a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a>
-              </li>
-<li class="list-group-item">
-                <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a>
-              </li>
+          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+          <ul class="recent-posts tw-space-y-2">
+            
+          <li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
+<li><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></li>
+<li><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></li>
+<li><a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a></li>
+<li><a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a></li>
 </ul>
-          </div>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Blog Categories</div>
-            <ul class="list-group categories">
-              
-            <li class="list-group-item">
-                <a href="/blog/cocoa/" class="category">Cocoa</a>
-                (<span class="post-count">5</span>
-                <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
-                (<span class="post-count">3</span>
-                <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/coding-tips/" class="category">Coding Tips</a>
-                (<span class="post-count">4</span>
-                <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
-                (<span class="post-count">3</span>
-                <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
-                (<span class="post-count">10</span>
-                <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/ruby/" class="category">Ruby</a>
-                (<span class="post-count">2</span>
-                <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/software-design/" class="category">Software Design</a>
-                (<span class="post-count">11</span>
-                <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/software-processes/" class="category">Software Processes</a>
-                (<span class="post-count">2</span>
-                <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/testing/" class="category">Testing</a>
-                (<span class="post-count">1</span>
-                <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/web/" class="category">Web</a>
-                (<span class="post-count">1</span>
-                <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
-              </li>
+          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+          <ul class="categories tw-space-y-2">
+            
+          <li>
+              <a href="/blog/cocoa/" class="category">Cocoa</a>
+              (<span class="post-count">5</span>
+              <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+              (<span class="post-count">3</span>
+              <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+              (<span class="post-count">4</span>
+              <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+              (<span class="post-count">3</span>
+              <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+              (<span class="post-count">10</span>
+              <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/ruby/" class="category">Ruby</a>
+              (<span class="post-count">2</span>
+              <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/software-design/" class="category">Software Design</a>
+              (<span class="post-count">11</span>
+              <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/software-processes/" class="category">Software Processes</a>
+              (<span class="post-count">2</span>
+              <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/testing/" class="category">Testing</a>
+              (<span class="post-count">1</span>
+              <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
+<li>
+              <a href="/blog/web/" class="category">Web</a>
+              (<span class="post-count">1</span>
+              <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+            </li>
 </ul>
-          </div>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Blog Archives</div>
-            <ul class="list-group archives">
-              
-            <li class="list-group-item">
-                <a href="/blog/2021/" class="year">2021</a>
-                (<span class="post-count">1</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2020/" class="year">2020</a>
-                (<span class="post-count">5</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2016/" class="year">2016</a>
-                (<span class="post-count">1</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2015/" class="year">2015</a>
-                (<span class="post-count">2</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2014/" class="year">2014</a>
-                (<span class="post-count">3</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2013/" class="year">2013</a>
-                (<span class="post-count">5</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2012/" class="year">2012</a>
-                (<span class="post-count">10</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2011/" class="year">2011</a>
-                (<span class="post-count">1</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2010/" class="year">2010</a>
-                (<span class="post-count">5</span>)
-              </li>
-<li class="list-group-item">
-                <a href="/blog/2009/" class="year">2009</a>
-                (<span class="post-count">9</span>)
-              </li>
+          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+          <ul class="archives tw-space-y-2">
+            
+          <li>
+              <a href="/blog/2021/" class="year">2021</a>
+              (<span class="post-count">1</span>)
+            </li>
+<li>
+              <a href="/blog/2020/" class="year">2020</a>
+              (<span class="post-count">5</span>)
+            </li>
+<li>
+              <a href="/blog/2016/" class="year">2016</a>
+              (<span class="post-count">1</span>)
+            </li>
+<li>
+              <a href="/blog/2015/" class="year">2015</a>
+              (<span class="post-count">2</span>)
+            </li>
+<li>
+              <a href="/blog/2014/" class="year">2014</a>
+              (<span class="post-count">3</span>)
+            </li>
+<li>
+              <a href="/blog/2013/" class="year">2013</a>
+              (<span class="post-count">5</span>)
+            </li>
+<li>
+              <a href="/blog/2012/" class="year">2012</a>
+              (<span class="post-count">10</span>)
+            </li>
+<li>
+              <a href="/blog/2011/" class="year">2011</a>
+              (<span class="post-count">1</span>)
+            </li>
+<li>
+              <a href="/blog/2010/" class="year">2010</a>
+              (<span class="post-count">5</span>)
+            </li>
+<li>
+              <a href="/blog/2009/" class="year">2009</a>
+              (<span class="post-count">9</span>)
+            </li>
 </ul>
-          </div>
 
         </div>
       </div>
