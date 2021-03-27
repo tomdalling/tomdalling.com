@@ -22,7 +22,7 @@ module Statue
     end
 
     def reset
-      # nothing to do here
+      template.reset
     end
 
     def modified_since?(mtime)
