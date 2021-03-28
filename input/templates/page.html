@@ -19,90 +19,90 @@
   <body>
 
     <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
-      <nav class="container tw-space-x-8">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
         <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
         <a href="/blog/" class="tw-text-black">Blog</a>
       </nav>
     </header>
 
-    <div class="container">
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
 
-      <div class="row">
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4">
+        Content of page goes here
+      </main>
 
-        <main class="col-md-8">
-          Content of page goes here
-        </main>
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
 
-        <div class="col-md-4 sidebar tw-text-center md:tw-text-left">
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
 
-          <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
-          <ul class="tw-space-y-2">
-            <li>
-              <a href="/blog/feed/">
-                <i class="fa fa-rss"></i> RSS
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com/tom_dalling">
-                <i class="fa fa-twitter"></i> Twitter
-              </a>
-            </li>
-          </ul>
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          <li><a href="/blog/whatever/">Whatever</a></li>
+        </ul>
 
-          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
-          <ul class="recent-posts tw-space-y-2">
-            <li><a href="/blog/whatever/">Whatever</a></li>
-          </ul>
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          <li>
+            <a href="/category/cocoa" class="category">Cocoa</a>
+            (<span class="post-count">13</span>
+            <a class="feed" href="/category/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+        </ul>
 
-          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
-          <ul class="categories tw-space-y-2">
-            <li>
-              <a href="/category/cocoa" class="category">Cocoa</a>
-              (<span class="post-count">13</span>
-              <a class="feed" href="/category/cocoa/feed/"><i class="fa fa-rss"></i></a>)
-            </li>
-          </ul>
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          <li>
+            <a href="/archives/2014/" class="year">2014</a>
+            (<span class="post-count">1</span>)
+          </li>
+        </ul>
 
-          <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
-          <ul class="archives tw-space-y-2">
-            <li>
-              <a href="/archives/2014/" class="year">2014</a>
-              (<span class="post-count">1</span>)
-            </li>
-          </ul>
+      </aside>
 
-        </div>
-      </div>
+    </div>
 
-      <footer class="page-footer">
-        <p>&copy; 2009 &ndash; <span class="current-year">2014</span> Tom Dalling</p>
+    <footer class="page-footer">
+      <p>&copy; 2009 &ndash; <span class="current-year">2014</span> Tom Dalling</p>
 
-        <p class="social">
-          <a href="https://twitter.com/tom_dalling">
-            <i class="fa fa-lg fa-twitter"></i>
-          </a>
-          <a href="https://github.com/tomdalling">
-            <i class="fa fa-lg fa-github"></i>
-          </a>
-          <a href="https://stackoverflow.com/users/108105/tom-dalling">
-            <i class="fa fa-lg fa-stack-overflow"></i>
-          </a>
-          <a href="mailto:tom at tomdalling com">
-            <i class="fa fa-lg fa-envelope"></i>
-          </a>
-        </p>
-      </footer>
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom at tomdalling com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
 
-      <script src="/bundles/all.js"></script>
-      <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          tex2jax: {
-            inlineMath: [['$$','$$']],
-            displayMath: [['[blockmath]', '[/blockmath]']]
-          }
-        });
-      </script>
-      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </body>
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
 </html>

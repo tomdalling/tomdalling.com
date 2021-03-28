@@ -25,3 +25,8 @@ h1, h2, h3 {
 h1, h2, h3, h4, h5, h6 {
   @apply tw-font-bold;
 }
+
+/* don't go above xl size (makes main content text too long) */
+.tw-container {
+  @apply tw-max-w-screen-xl !important;
+}
