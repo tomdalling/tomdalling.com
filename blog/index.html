@@ -39,6 +39,126 @@
   
 <article class="post post-listed">
     <header>
+      <h2><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></h2>
+      <small class="meta">
+        <span class="post-date">10 May, 2021</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/mentoring/">Mentoring Notes</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/floorplan.jpg">
+
+    <div class="post-content body-text">
+<h2>Rule Of Thumb</h2>
+
+<p>Start with high-level tests, and step down to lower-levels when the
+implementation is stable.</p>
+
+<h2>Background</h2>
+
+<p>There are different kinds of tests, and each kind can be placed on a
+continuum from high-level to low-level. High-level tests cover a
+larger portion of the codebase, and tend to exercise application
+features in a way that is closer to how a real user would.
+Low level tests cover small units of the codebase, often
+in isolation, and tend to exercise programmatic interfaces of internal
+implementation details.</p>
+
+<p>In the context of a Rails application, the kinds of tests can be
+roughly ordered:</p>
+
+<ol>
+  <li>
+<em>Highest</em>: System/feature/end-to-end tests</li>
+  <li>Request/controller tests</li>
+  <li>Tests for commands, interactors, background jobs, or other business logic</li>
+  <li>Tests for individual models, views, or other small components</li>
+  <li>
+<em>Lowest</em>: Isolated unit tests for individual classes, often POROs,
+where all dependencies have been mocked out</li>
+</ol>
+
+<h2>Rationale</h2>
+
+<p>As with everything, choosing between high- and low-level tests
+involves trade-offs.</p>
+
+<p>The benefits of higher-level tests are:</p>
+
+<ul>
+  <li>We get higher confidence that the functionality actually works for
+real users.</li>
+  <li>Refactoring and experimentation are easier because we can change all
+the implementation details without having to change the test.</li>
+  <li>Fewer tests are required because each test covers a larger area of
+the code.</li>
+</ul>
+
+<p>The costs of higher-level tests are:</p>
+
+<ul>
+  <li>The tests take longer to run, and can make the test suite slow.</li>
+  <li>Edge cases and error scenarios are harder to test, and are often
+neglected as a result.</li>
+  <li>The tests are more complicated, and harder to debug when they
+fail.</li>
+</ul>
+
+<p>Higher-level tests are better at the beginning, when the exact details
+of the implementation are still being explored. Our understanding of
+requirements increases as we work, which means that we understand the
+<em>least</em> at the start, and the <em>most</em> at the end. This is why the
+ability to refactor is important. The first implementation will not be
+optimal, so we want the ability to make big changes easily while still
+having confidence that everything connects together in a way that
+works.</p>
+
+<p>Lower-level tests are better for covering all the different edge cases
+precisely. They are simpler and faster, which makes it easier to write
+a lot of them, but there are a couple of drawbacks. They make
+refactoring harder by coupling to implementation details, meaning that
+changing the implementation often requires rewriting all those little
+tests. And while they give high confidence that the individual parts
+work correctly, they do not give much confidence that all the parts
+are integrated together in a way that works properly for the user.</p>
+
+<h2>Example Scenario</h2>
+
+<p>Let’s say we are implementing a small new feature in a Rails
+application.</p>
+
+<p>Writing a single “happy path” system test does not take very long, and
+it will drive out the majority of the implementation details. It will
+exercise views, controllers, models, database migrations,
+interactors/command objects — maybe even background jobs, external
+third-party services, and new libraries.</p>
+
+<p>In typical TDD fashion, we can repeatedly rerun the test while
+exploring different approaches to the implementation. Once it passes,
+we are free to change all of the implementation details. And after
+deciding on an approach, we can run the test while refactoring —
+cleaning up and refining the new code.</p>
+
+<p>By this point we’re happy with the general design of the
+implementation, and we’re confident that it works for the most
+straight-forward use case, but we’re <em>not</em> confident that it is robust
+against all the other use cases and error scenarios. This is where we
+might step down to model validation tests, to cover some error cases
+— or maybe a test at the interactor level, to cover a scenario where
+a third-party service responds in a different way. These tests will
+hamper refactoring, but hopefully most of the refactoring was already
+done before this point.</p>
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/mentoring/start-with-high-level-tests/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article><article class="post post-listed">
+    <header>
       <h2><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></h2>
       <small class="meta">
         <span class="post-date">08 Mar, 2021</span>
@@ -296,31 +416,6 @@ github: <a href="https://github.com/tomdalling/fruity_bat">https://github.com/to
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>
-  </article><article class="post post-listed">
-    <header>
-      <h2><a href="/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/">Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights</a></h2>
-      <small class="meta">
-        <span class="post-date">01 Nov, 2014</span>
-        
-        —
-        Category: <a class="category" href="/blog/category/modern-opengl/">Modern OpenGL Series</a>
-      </small>
-    </header>
-
-    <img class="listed-main-image" src="/images/posts/modern-opengl-08/main-image.png">
-
-    <div class="post-content body-text">
-<p>In this article, we will be adding directional lights, spotlights, and allowing
-for multiple lights instead of just one. This is the final article on lighting
-– at least for a while.</p>
-
-</div>
-
-    <footer>
-      <a class="btn btn-default more" href="/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
   </article>
 </div>
 </main>
@@ -344,11 +439,11 @@ for multiple lights instead of just one. This is the final article on lighting
         <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
         <ul class="recent-posts tw-space-y-2">
           
-        <li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
+        <li><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></li>
+<li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
 <li><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></li>
 <li><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></li>
 <li><a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a></li>
-<li><a href="/blog/random-stuff/bleeting-for-fun-and-profit/">Bleeting For Fun And Profit</a></li>
 </ul>
 
         <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
@@ -368,6 +463,11 @@ for multiple lights instead of just one. This is the final article on lighting
             <a href="/blog/coding-tips/" class="category">Coding Tips</a>
             (<span class="post-count">4</span>
             <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
           </li>
 <li>
             <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
@@ -411,7 +511,7 @@ for multiple lights instead of just one. This is the final article on lighting
           
         <li>
             <a href="/blog/2021/" class="year">2021</a>
-            (<span class="post-count">1</span>)
+            (<span class="post-count">2</span>)
           </li>
 <li>
             <a href="/blog/2020/" class="year">2020</a>

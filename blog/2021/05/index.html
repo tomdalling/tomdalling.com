@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Archives: May 2021 — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2021/05/">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
+  <h1>
+    <span class="title">Archives: May 2021</span>
+    
+  </h1>
+
+  
+<article class="post post-listed">
+    <header>
+      <h2><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></h2>
+      <small class="meta">
+        <span class="post-date">10 May, 2021</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/mentoring/">Mentoring Notes</a>
+      </small>
+    </header>
+
+    <img class="listed-main-image" src="/images/posts/floorplan.jpg">
+
+    <div class="post-content body-text">
+<h2>Rule Of Thumb</h2>
+
+<p>Start with high-level tests, and step down to lower-levels when the
+implementation is stable.</p>
+
+<h2>Background</h2>
+
+<p>There are different kinds of tests, and each kind can be placed on a
+continuum from high-level to low-level. High-level tests cover a
+larger portion of the codebase, and tend to exercise application
+features in a way that is closer to how a real user would.
+Low level tests cover small units of the codebase, often
+in isolation, and tend to exercise programmatic interfaces of internal
+implementation details.</p>
+
+<p>In the context of a Rails application, the kinds of tests can be
+roughly ordered:</p>
+
+<ol>
+  <li>
+<em>Highest</em>: System/feature/end-to-end tests</li>
+  <li>Request/controller tests</li>
+  <li>Tests for commands, interactors, background jobs, or other business logic</li>
+  <li>Tests for individual models, views, or other small components</li>
+  <li>
+<em>Lowest</em>: Isolated unit tests for individual classes, often POROs,
+where all dependencies have been mocked out</li>
+</ol>
+
+<h2>Rationale</h2>
+
+<p>As with everything, choosing between high- and low-level tests
+involves trade-offs.</p>
+
+<p>The benefits of higher-level tests are:</p>
+
+<ul>
+  <li>We get higher confidence that the functionality actually works for
+real users.</li>
+  <li>Refactoring and experimentation are easier because we can change all
+the implementation details without having to change the test.</li>
+  <li>Fewer tests are required because each test covers a larger area of
+the code.</li>
+</ul>
+
+<p>The costs of higher-level tests are:</p>
+
+<ul>
+  <li>The tests take longer to run, and can make the test suite slow.</li>
+  <li>Edge cases and error scenarios are harder to test, and are often
+neglected as a result.</li>
+  <li>The tests are more complicated, and harder to debug when they
+fail.</li>
+</ul>
+
+<p>Higher-level tests are better at the beginning, when the exact details
+of the implementation are still being explored. Our understanding of
+requirements increases as we work, which means that we understand the
+<em>least</em> at the start, and the <em>most</em> at the end. This is why the
+ability to refactor is important. The first implementation will not be
+optimal, so we want the ability to make big changes easily while still
+having confidence that everything connects together in a way that
+works.</p>
+
+<p>Lower-level tests are better for covering all the different edge cases
+precisely. They are simpler and faster, which makes it easier to write
+a lot of them, but there are a couple of drawbacks. They make
+refactoring harder by coupling to implementation details, meaning that
+changing the implementation often requires rewriting all those little
+tests. And while they give high confidence that the individual parts
+work correctly, they do not give much confidence that all the parts
+are integrated together in a way that works properly for the user.</p>
+
+<h2>Example Scenario</h2>
+
+<p>Let’s say we are implementing a small new feature in a Rails
+application.</p>
+
+<p>Writing a single “happy path” system test does not take very long, and
+it will drive out the majority of the implementation details. It will
+exercise views, controllers, models, database migrations,
+interactors/command objects — maybe even background jobs, external
+third-party services, and new libraries.</p>
+
+<p>In typical TDD fashion, we can repeatedly rerun the test while
+exploring different approaches to the implementation. Once it passes,
+we are free to change all of the implementation details. And after
+deciding on an approach, we can run the test while refactoring —
+cleaning up and refining the new code.</p>
+
+<p>By this point we’re happy with the general design of the
+implementation, and we’re confident that it works for the most
+straight-forward use case, but we’re <em>not</em> confident that it is robust
+against all the other use cases and error scenarios. This is where we
+might step down to model validation tests, to cover some error cases
+— or maybe a test at the interactor level, to cover a scenario where
+a third-party service responds in a different way. These tests will
+hamper refactoring, but hopefully most of the refactoring was already
+done before this point.</p>
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/mentoring/start-with-high-level-tests/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article>
+</div>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></li>
+<li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
+<li><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></li>
+<li><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></li>
+<li><a href="/blog/software-design/what-is-the-purpose-of-private/">What Is The Purpose Of Private?</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">11</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2021</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>
