@@ -5,8 +5,10 @@
 
 ## Rule Of Thumb
 
-Start with high-level tests, and step down to lower-levels when the
+Start with high-level tests, and step down to lower levels when the
 implementation is stable.
+
+<!--more-->
 
 ## Background
 
@@ -90,7 +92,7 @@ implementation, and we're confident that it works for the most
 straight-forward use case, but we're _not_ confident that it is robust
 against all the other use cases and error scenarios. This is where we
 might step down to model validation tests, to cover some error cases
---- or maybe a test at the interactor level, to cover a scenario where
-a third-party service responds in a different way. These tests will
-hamper refactoring, but hopefully most of the refactoring was already
-done before this point.
+--- or maybe tests at the interactor level, to cover all the different
+ways a dependency could affect the outcome. These tests will hamper
+refactoring to some extent, but hopefully the largest refactorings
+have already been done before this point.
