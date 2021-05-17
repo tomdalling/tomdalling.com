@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Write Detailed RSpec Example Descriptions</title>
+      <link>https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<h2>Rule Of Thumb</h2>
+
+<p>RSpec examples should have enough detail in the descriptions to
+rewrite them from scratch.</p>
+]]></description>
+      <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
+    </item>
+    <item>
       <title>Start With High-Level Tests</title>
       <link>https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<h2>Rule Of Thumb</h2>

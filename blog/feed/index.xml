@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Write Detailed RSpec Example Descriptions</title>
+      <link>https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<h2>Rule Of Thumb</h2>
+
+<p>RSpec examples should have enough detail in the descriptions to
+rewrite them from scratch.</p>
+]]></description>
+      <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
+    </item>
+    <item>
       <title>Start With High-Level Tests</title>
       <link>https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<h2>Rule Of Thumb</h2>
@@ -133,17 +145,6 @@ implications of each.</p>
       <pubDate>Sun, 26 Apr 2015 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Design]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.fizzbuzz</guid>
-    </item>
-    <item>
-      <title>Making Fruity Bat (a Flappy Bird clone) in Ruby</title>
-      <link>https://www.tomdalling.com/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>Today I live-streamed the making of Fruity Bat (a Flappy Bird clone) in
-Ruby using the <code>gosu</code> gem. Watch the videos below, and check out the code on
-github: <a href="https://github.com/tomdalling/fruity_bat">https://github.com/tomdalling/fruity_bat</a></p>
-]]></description>
-      <pubDate>Sun, 22 Feb 2015 00:00:00 -0000</pubDate>
-      <category><![CDATA[Ruby]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.making-fruity-bat</guid>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Write Detailed RSpec Example Descriptions — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/">
+<meta property="og:title" content="Write Detailed RSpec Example Descriptions">
+<meta property="og:url" content="https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/microscope.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/mentoring/write-detailed-rspec-example-descriptions/">Write Detailed RSpec Example Descriptions</a></h1>
+    <small class="meta">
+      <span class="post-date">17 May, 2021</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/mentoring/">Mentoring Notes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-05-17_write-detailed-rspec-example-descriptions.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/microscope.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<h2>Rule Of Thumb</h2>
+
+<p>RSpec examples should have enough detail in the descriptions to
+rewrite them from scratch.</p>
+
+<!--more-->
+
+<h2>Background</h2>
+
+<p>In the early days of automated testing there was some test code, which
+would exercise the implementation code, and make assertions about the
+results — something like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">test_addition</span>
+  <span class="n">assert</span><span class="p">(</span><span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="n">assert</span><span class="p">(</span><span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Some time in the early 2000s a slightly different style of testing
+evolved called behaviour-driven development (BDD), which produced
+RSpec and Cucumber.</p>
+
+<p>To oversimplify, what makes BDD different is the conceptual shift from
+writing <em>tests</em> to writing <em>specifications</em> (<em>specs</em> for short). A
+test is anything that exercises the implementation and makes
+assertions about the results, whereas a spec is a detailed description
+of desired behaviour. The test above might be written in RSpec like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UInt8</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'adds unsigned 8-bit integers'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'wraps when addition results in an overflow'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">1</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'raises an error when given an integer outside the unsigned 8-bit range'</span> <span class="k">do</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="n">subject</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="n">subject</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>It’s relatively common to see RSpec used to write <em>tests</em>, not
+<em>specs</em>. For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UInt8</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'works'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">1</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="no">UInt8</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2>Rationale</h2>
+
+<p>This rule of thumb — that each RSpec example description should
+contain enough detail to rewrite it from scratch — is one way to
+ensure that you’re writing specs, not just tests.</p>
+
+<p>Imagine that the subject under test and all the example bodies were
+deleted. If the RSpec file was written in proper BDD style, we should
+be able to rewrite them based on the example descriptions alone. The
+implementation may not be exactly the same, but all of the desired
+behaviours should be there.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UInt8</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'adds unsigned 8-bit integers'</span>
+  <span class="n">it</span> <span class="s1">'wraps when addition results in an overflow'</span>
+  <span class="n">it</span> <span class="s1">'raises an error when given an integer outside the unsigned 8-bit range'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>But if the RSpec file is being used as a simple test, it would be
+impossible to know what the desired behaviours were.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UInt8</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'works'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The purpose of BDD, and the intention behind RSpec, is to capture a
+specification of desired behaviour. So one reason to write detailed
+example descriptions in RSpec is that you’re using the tool the way it
+was intended to be used.</p>
+
+<p>Without going too deep into the rationale behind BDD, there are a few
+other benefits.</p>
+
+<p>When an example fails, a good description will tell you which is
+broken: the example or the implementation. Without an understanding of
+the intended behaviour, it’s easier to accidentally “fix” a failing
+example by making it pass when the implementation produces incorrect
+results. This is more likely to happen when the correct behaviour is
+ambiguous.</p>
+
+<p>RSpec example descriptions also function as a kind of documentation
+between developers, communicating how parts of the codebase work.
+RSpec’s <code>documentation</code> formatter is evidence of this. If you’re
+writing specs in a BDD style, the output of this formatter should be
+an understandable list of behaviours…</p>
+
+<pre><code>&gt; rspec --format documentation
+
+UInt8
+  adds unsigned 8-bit integers
+  wraps when addition results in an overflow
+  raises an error when given an integer outside the unsigned 8-bit range
+
+Finished in 0.00149 seconds (files took 0.10574 seconds to load)
+3 examples, 0 failures
+</code></pre>
+
+<p>… not a list of method names and “works correctly”.</p>
+
+<pre><code>UInt8
+  #add
+    adds correctly
+  #subtract
+    works
+</code></pre>
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
+      </p>
+</div>
+
+    
+
+
+    
+
+  </footer>
+</article>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/mentoring/write-detailed-rspec-example-descriptions/">Write Detailed RSpec Example Descriptions</a></li>
+<li><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></li>
+<li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
+<li><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></li>
+<li><a href="/blog/software-design/consistent-hammer-man/">Consistent Hammer Man</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">11</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2021</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>
