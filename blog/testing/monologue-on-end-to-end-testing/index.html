@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Monologue On End-To-End Testing — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/testing/monologue-on-end-to-end-testing/">
+<meta property="og:title" content="Monologue On End-To-End Testing">
+<meta property="og:url" content="https://www.tomdalling.com/blog/testing/monologue-on-end-to-end-testing/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/server-rack.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/testing/monologue-on-end-to-end-testing/">Monologue On End-To-End Testing</a></h1>
+    <small class="meta">
+      <span class="post-date">31 May, 2021</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/testing/">Testing</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-05-31_monologue-on-end-to-end-testing.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/server-rack.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<p>I wanted to write down some of my thoughts on end-to-end testing,
+mainly to help clarify my own thinking.</p>
+
+<!--more-->
+
+<h2>What Is The Goal Of Testing?</h2>
+
+<p>Let’s start from the beginning. Why do we test at all?</p>
+
+<p>Software tends to become broken over time. Things are constantly
+changing, and every change has the potential to break things.</p>
+
+<p>Broken software has a variety of costly consequences that we would
+rather avoid:</p>
+
+<ul>
+  <li>Real-world effects that range from mild inconvenience to loss of
+human life, depending on domain</li>
+  <li>Time and money spent to remedy the situation</li>
+  <li>Reputational damage to the business, which can be difficult to fix
+even with time and money</li>
+</ul>
+
+<p>Testing is one way to avoid or minimise these consequences.</p>
+
+<p>Testing doesn’t <em>prevent</em> broken software, per se. More accurately:
+testing <em>detects</em> broken software earlier, reducing the cost. The same
+defect might take a few seconds to fix if detected immediately as the
+developer introduced it, or many person-hours of work if detected at
+in later QA stage before deployment, or incredible amounts of time and
+money if detected after being deployed to production for a few weeks.</p>
+
+<h2>The High/Low Continuum</h2>
+
+<p>There are a variety of different ways that software can be tested,
+and they can roughly be placed on a continuum from “low-level” to
+“high-level”.</p>
+
+<p>Broadly speaking, moving a test higher up the continuum makes it more
+“real”, which gives higher confidence but is more expensive. To put it
+another way, it reduces the likelihood of false positives (i.e.
+passing when a defect exists) but also increases the cost of writing,
+maintaining, and running the test. Conversely, moving a test lower
+down the continuum makes it cheaper but less likely to detect defects.</p>
+
+<p>So for the same investment, we can get:</p>
+
+<ul>
+  <li>lots of less-reliable tests; or</li>
+  <li>a small number of more-reliable tests; or</li>
+  <li>something in between</li>
+</ul>
+
+<h3>Lowest Level: Isolated Unit Tests</h3>
+
+<p>At the lowest level, we have isolated unit tests. These test a
+single unit of code <em>without</em> its dependencies. For example, this
+might test a single function, with all of its dependencies replaced
+with test doubles.</p>
+
+<p>These are:</p>
+
+<ul>
+  <li>quick to write</li>
+  <li>easy to understand</li>
+  <li>cheap to maintain (individually, but maybe not in aggregate)</li>
+  <li>very fast to run</li>
+</ul>
+
+<p>But you get what you pay for — unit tests do not provide much
+confidence that the entire system works appropriately in production
+for real users.</p>
+
+<h3>Mid Level: Integrated Tests</h3>
+
+<p>The next step up are tests of groups of units, with some or all of
+their real dependencies in place. For example, this might be a test of
+a command class like <code>PublishBlogPost</code>, which checks that the
+database (a dependency) is modified as expected.</p>
+
+<p>Compared to isolated unit tests, these:</p>
+
+<ul>
+  <li>take longer to write, due to setup code</li>
+  <li>are harder to understand, because they cover a larger area of code
+and check distant side effects of dependencies</li>
+  <li>are more likely to produce false negatives (i.e. failing when there is no
+defect), due to being coupled to more of the codebase</li>
+  <li>give greater confidence that the functionality being tested works
+appropriately in production for real users</li>
+</ul>
+
+<h3>Highest Level: Production</h3>
+
+<p>A test at the very highest level would exercise the software exactly
+how real users would. There would be no difference between what the
+test sees and what real users see. You probably already have a test
+environment up and running for this this, called something like
+“production”. Humans exercising production is the ultimate test
+of any software system — either it really works, or it really
+doesn’t.</p>
+
+<p>The drawback of testing in production is the cost. Back near the start
+I said that the aim of testing is to reduce costs by detecting defects
+earlier, so it might sound a bit ridiculous to test at the final and
+most expensive stage. And it can be, but there are approaches like A/B
+testing and feature flags which are economical, and sometimes the best
+choice. If you reframe “testing in production” as “monitoring and
+alerting”, suddenly it sounds a lot more sensible.</p>
+
+<p>Testing in production is not what I’m trying to cover here, although
+it is an interesting topic. Let me summarise by stealing a graphic
+from some <a href="https://erikbern.com/2021/04/19/software-infrastructure-2.0-a-wishlist.html">scientific research by Erik Bernhardsson</a>.</p>
+
+<p><img src="/images/posts/end-to-end/test-in-production.png" alt="testing in production"></p>
+
+<h2>End-To-End Testing</h2>
+
+<p>Coming back to the intended topic: end-to-end testing, in my mind, is
+supposed to be as high up the continuum as it can be without using
+real human users or production. The idea is to boot up the entire
+system, and exercise it in a way that is as realistic as possible
+while being fully automated.</p>
+
+<p>Why? To detect problems earlier than production, with a high level of
+confidence, at a reasonable price. We could get a higher level of
+confidence before production in other ways, but they tend to involve
+humans, which makes them too expensive to run dozens of times per day.
+We could get cheaper tests by moving down the continuum, but we would
+also lose confidence. End-to-end tests will pick up defects that
+lower-level tests can not.</p>
+
+<h3>When To Use Them</h3>
+
+<p>Giving high confidence but also having a relatively high price,
+end-to-end tests are best suited to situations where high confidence
+is desirable enough to pay the high price.</p>
+
+<p>Let’s say we run an image sharing website. It’s probably quite
+important that users are able to sign up, upload an image, and share a
+link to that image. It would be a major problem if any part of that
+workflow was broken, considering that it’s the primary use case of the
+software. This is a good candidate for end-to-end testing. The test
+set up might be nasty and complicated. It might take 30 seconds to
+run. It might give false negatives and need to be fixed up on a
+semi-regular basis. But I image that we’re probably happy to pay that
+price for confidence that our image sharing site can share images.</p>
+
+<p>However, if <em>every</em> test was that expensive, we would quickly run into
+problems. The test suite would take so long to run, and be so hard to
+work with, that developers would just abandon it in an attempt to get
+any work done.</p>
+
+<p>So, I think the best approach is to write end-to-end tests for a small
+number of highly important workflows. When it comes to the numerous
+edge cases and finer details, end-to-end tests are cost prohibitive,
+so for those it’s better to step down to one of the lower levels.</p>
+
+<p>Another good candidate is anything that charges money. Customers get
+pissed off when they pay for something and it doesn’t work. They also
+don’t like being overcharged. And the business really doesn’t like
+when their ability to generate revenue is broken. These defects are
+fairly high on the list of things the business wants to avoid, so it
+might make sense to write tests for the amounts charged in various
+realistic scenarios.</p>
+
+<h3>Dos</h3>
+
+<ul>
+  <li>
+    <p>Run background jobs as part of the tests. This is what happens in
+production, so it should happen in end-to-end tests too.</p>
+  </li>
+  <li>
+    <p>Travel forward in time, where appropriate. For example: exercise a
+feature, wind the clock forward to the end of the billing period,
+and check that the invoice is as expected. Users also time travel as
+part of their real workflows, albeit at the slower rate of
+one second per second.</p>
+  </li>
+  <li>
+    <p>Test communication with external dependencies. You might be
+confident that the user can see an invoice for the correct amount,
+but are you confident that the system actually charged that amount?
+That part is kind of important too, even though it’s invisible
+to the user. Wherever the software communicates with an external
+system, such as a payment processor, you should be testing that
+communication too.</p>
+  </li>
+</ul>
+
+<h3>Don’ts</h3>
+
+<ul>
+  <li>
+    <p>Avoid mocking/stubbing as much as possible. Remember, the purpose is
+to simulate a production environment as closely as possible, and
+every mock/stub introduces behaviour that doesn’t exist in
+production, lowering confidence. If you really want to mock/stub
+something, consider writing a lower-level test instead, since they
+are cheaper. See “External Dependencies” below for a counterpoint to
+this.</p>
+  </li>
+  <li>
+    <p>Don’t test internal state. It’s easy to peek at database records in
+a test, but the goal is to test from the user’s perspective for
+increased confidence, and users don’t have direct access to the
+database. Try to access that information via the UI, like a user
+would. An exception to this is possibly the initial state of the
+system before the test starts, which may be difficult to set up
+exclusively via the UI.</p>
+  </li>
+  <li>
+    <p>Don’t write too many. It’s tempting to write end-to-end tests for
+everything, to get that high confidence, but they are comparatively
+expensive. Be wary of the test suite run time, and how much time
+developers are spending maintaining the end-to-end tests.</p>
+  </li>
+  <li>
+    <p>Don’t tolerate flaky tests. Things like headless browsers used in
+end-to-end tests do tend to be more flaky in general, but you should
+still be aiming to have zero false negatives. Flapping or
+super-brittle tests cause developers to stop paying attention to
+test failures.</p>
+  </li>
+  <li>
+    <p>Be wary of complexity creep. End-to-end tests will contain more code
+than other kinds of tests, but they shouldn’t be difficult to read.
+You can’t be confident in a test that you don’t understand.</p>
+  </li>
+</ul>
+
+<h3>External Dependencies</h3>
+
+<p>The most realistic way to test external dependencies is to
+actually hit them from the tests. This is usually not feasible,
+though.</p>
+
+<p>The next best thing is to use some kind of sandbox system provided by
+the creators of the dependency. Most dependencies will not have
+sandboxes, unfortunately.</p>
+
+<p>The next most realistic option is to configure the system with a
+replacement dependency. For example, if we’re talking about sending
+emails via SMTP, it’s possible to point the system at a different SMTP
+server for testing purposes. Most dependencies are not that easy to
+replace, however.</p>
+
+<p>It’s a common situation to integrate with an external system that:</p>
+
+<ul>
+  <li>has side effects that make it unsuitable for automated tests</li>
+  <li>doesn’t provide any kind of sandbox environment</li>
+  <li>has a custom REST API</li>
+</ul>
+
+<p>This severely limits options for realistic testing.</p>
+
+<p>We could write a separate web app that implements their custom API.
+This is not unheard of (e.g. <a href="https://github.com/stripe/stripe-mock">stripe-mock</a>) but is a lot of effort
+and not necessarily a realistic simulation of production.</p>
+
+<p>In this situation I think it makes sense to design an adapter
+interface for the dependency within the codebase, and swap out the
+real adapter for a test adapter. Test adapters run faster, are less
+flaky, don’t require an internet connection, and can make testing
+different kinds of scenarios a whole lot easier. I’m a big fan of this
+approach, despite recommending to avoid mocking in general. It’s less
+realistic, but has so many other advantages that I’m generally happy
+to make that trade-off. Similar to the common saying “don’t mock what
+you own”, my view is that mocking is acceptable <em>at the boundaries</em>
+but undesirable for internals.</p>
+
+<p>Test adapter behaviour can easily fall out of sync with the real
+adapter, and some amount of effort should be spent guarding against
+this. This is the point where contract testing (e.g.
+<a href="https://pact.io/">Pact</a>) becomes useful. This is also a good
+candidate for testing in production, if the adapter can’t
+realistically be tested in any other environment.</p>
+
+<p>I should also mention that the primary database for a web application is
+typically <em>not</em> an external dependency, even if it runs on separate
+servers. If a database is controlled by some third party, or is
+perhaps write-only, then I can see how it could be viewed as an
+external dependency. But if the developers of the web app are writing
+migrations, then the database is an internal implementation detail and
+therefore should not be queried by end-to-end tests.</p>
+
+<h2>Conclusion</h2>
+
+<p>Of all the different kinds of automated tests, end-to-end tests give
+the highest level of confidence, short of testing in production. They
+will detect integration defects that lower-level tests can not.
+Their main drawback is that they are relatively expensive, and as such
+should only be used sparingly, for workflows important enough to
+justify the cost.</p>
+
+<p>The test environment should mimic production as closely as possible,
+so mocking should be avoided. The exception to this is at the
+boundaries of the system, where mocking out external dependencies is
+advantageous enough to justify the reduction in confidence.</p>
+
+<p>Tests should exercise the system from the boundaries, in a way that is
+as similar as possible to how the live production system is used. This
+typically means driving a headless browser. Tests should not be
+peaking into the database, or checking that specific functions were
+run, because this does not simulate realistic usage.</p>
+
+<p>The UI is not the only interface at the boundary. Communication with
+external systems should also be tested, to ensure that the software
+produces the expected side effects (e.g. sending emails) and handles
+programmatic users (e.g. API clients, webhooks) appropriately too.</p>
+
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
+      </p>
+</div>
+
+    
+
+
+    
+
+  </footer>
+</article>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/testing/monologue-on-end-to-end-testing/">Monologue On End-To-End Testing</a></li>
+<li><a href="/blog/mentoring/write-detailed-rspec-example-descriptions/">Write Detailed RSpec Example Descriptions</a></li>
+<li><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></li>
+<li><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></li>
+<li><a href="/blog/software-processes/better-user-stories/">Better User Stories</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">11</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">4</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2021</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>

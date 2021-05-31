@@ -10,6 +10,16 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Monologue On End-To-End Testing</title>
+      <link>https://www.tomdalling.com/blog/testing/monologue-on-end-to-end-testing/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>I wanted to write down some of my thoughts on end-to-end testing,
+mainly to help clarify my own thinking.</p>
+]]></description>
+      <pubDate>Mon, 31 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Testing]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.monologue-on-end-to-end-testing</guid>
+    </item>
+    <item>
       <title>Write Detailed RSpec Example Descriptions</title>
       <link>https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<h2>Rule Of Thumb</h2>
@@ -132,19 +142,6 @@ Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
       <pubDate>Fri, 12 Feb 2016 00:00:00 -0000</pubDate>
       <category><![CDATA[Ruby]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.pure-function-as-an-object</guid>
-    </item>
-    <item>
-      <title>FizzBuzz In Too Much Detail</title>
-      <link>https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>I know. FizzBuzz has been done to death. But I want to use it as a familiar
-base upon which we can explore some of the common tradeoffs involved in writing
-and maintaining software. In this article, I’ll show multiple implementations
-of FizzBuzz, all designed to achieve different goals, and discuss the
-implications of each.</p>
-]]></description>
-      <pubDate>Sun, 26 Apr 2015 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Design]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.fizzbuzz</guid>
     </item>
   </channel>
 </rss>
