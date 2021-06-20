@@ -10,6 +10,42 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>GitHub Workflow For Automated Gem Releases</title>
+      <link>https://www.tomdalling.com/blog/software-processes/github-workflow-for-automated-gem-releases/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>This is a quick look at the recent CI/release automation I wrote for
+the <a href="https://github.com/tomdalling/byebug-skipper">byebug-skipper</a> gem.</p>
+
+<figure class="youtube">
+  <iframe src="https://www.youtube.com/embed/fmWgh2qsLlc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</figure>
+
+
+<h2>Links</h2>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/commits/youtube-video">Commits from the video</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.github/workflows/release.yml">The “Release Gem” GitHub workflow</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.versionrc.js">Config</a>
+for <a href="https://github.com/conventional-changelog/standard-version">standard-version</a>,
+which is what bumps the version and updates the changelog using the
+commit history.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.github/workflows/ci.yml#L23-L26">CI step</a>
+that ensures commit messages have the correct format</p>
+  </li>
+</ul>
+]]></description>
+      <pubDate>Sun, 20 Jun 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.github-workflow-for-automated-gem-releases</guid>
+    </item>
+    <item>
       <title>Monologue On End-To-End Testing</title>
       <link>https://www.tomdalling.com/blog/testing/monologue-on-end-to-end-testing/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I wanted to write down some of my thoughts on end-to-end testing,
@@ -131,17 +167,6 @@ satirical video:</p>
       <pubDate>Wed, 23 Sep 2020 00:00:00 -0000</pubDate>
       <category><![CDATA[Miscellaneous]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.whats-stopping-you-from-coding-like-this</guid>
-    </item>
-    <item>
-      <title>The Pure Function As An Object (PFAAO) Ruby Pattern</title>
-      <link>https://www.tomdalling.com/blog/ruby/pure-function-as-an-object-PFAAO-pattern/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>In this article, I want to demonstrate a nice way to write functional-style code in Ruby.
-It is a way to write non-trivial pure functions, without a bunch of weird non-idiomatic code.
-Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
-]]></description>
-      <pubDate>Fri, 12 Feb 2016 00:00:00 -0000</pubDate>
-      <category><![CDATA[Ruby]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.pure-function-as-an-object</guid>
     </item>
   </channel>
 </rss>

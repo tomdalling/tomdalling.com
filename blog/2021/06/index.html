@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Start With High-Level Tests — Tom Dalling</title>
+    <title>Archives: June 2021 — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,11 +14,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/">
-<meta property="og:title" content="Start With High-Level Tests">
-<meta property="og:url" content="https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/">
-<meta property="og:image" content="https://www.tomdalling.com/images/posts/floorplan.jpg">
-<meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2021/06/">
 </head>
 
   <body>
@@ -32,151 +28,65 @@
 
     <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
 
-      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
+  <h1>
+    <span class="title">Archives: June 2021</span>
+    
+  </h1>
 
-  <header>
-    <h1><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></h1>
-    <small class="meta">
-      <span class="post-date">10 May, 2021</span>
-      
-      —
-      Category: <a class="category" href="/blog/category/mentoring/">Mentoring Notes</a>
-      —
-      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-05-10_start-with-high-level-tests.md">on GitHub</a>
-    </small>
-    <div class="main-image">
-      <img src="/images/posts/floorplan.jpg" class="img-responsive">
-      
-    </div>
-  </header>
-
-  <div class="post-content body-text">
-<h2>Rule Of Thumb</h2>
-
-<p>Start with high-level tests, and step down to lower levels when the
-implementation is stable.</p>
-
-<!--more-->
-
-<h2>Background</h2>
-
-<p>There are different kinds of tests, and each kind can be placed on a
-continuum from high-level to low-level. High-level tests cover a
-larger portion of the codebase, and tend to exercise application
-features in a way that is closer to how a real user would.
-Low level tests cover small units of the codebase, often
-in isolation, and tend to exercise programmatic interfaces of internal
-implementation details.</p>
-
-<p>In the context of a Rails application, the kinds of tests can be
-roughly ordered:</p>
-
-<ol>
-  <li>
-<em>Highest</em>: System/feature/end-to-end tests</li>
-  <li>Request/controller tests</li>
-  <li>Tests for commands, interactors, background jobs, or other business logic</li>
-  <li>Tests for individual models, views, or other small components</li>
-  <li>
-<em>Lowest</em>: Isolated unit tests for individual classes, often POROs,
-where all dependencies have been mocked out</li>
-</ol>
-
-<h2>Rationale</h2>
-
-<p>As with everything, choosing between high- and low-level tests
-involves trade-offs.</p>
-
-<p>The benefits of higher-level tests are:</p>
-
-<ul>
-  <li>We get higher confidence that the functionality actually works for
-real users.</li>
-  <li>Refactoring and experimentation are easier because we can change all
-the implementation details without having to change the test.</li>
-  <li>Fewer tests are required because each test covers a larger area of
-the code.</li>
-</ul>
-
-<p>The costs of higher-level tests are:</p>
-
-<ul>
-  <li>The tests take longer to run, and can make the test suite slow.</li>
-  <li>Edge cases and error scenarios are harder to test, and are often
-neglected as a result.</li>
-  <li>The tests are more complicated, and harder to debug when they
-fail.</li>
-</ul>
-
-<p>Higher-level tests are better at the beginning, when the exact details
-of the implementation are still being explored. Our understanding of
-requirements increases as we work, which means that we understand the
-<em>least</em> at the start, and the <em>most</em> at the end. This is why the
-ability to refactor is important. The first implementation will not be
-optimal, so we want the ability to make big changes easily while still
-having confidence that everything connects together in a way that
-works.</p>
-
-<p>Lower-level tests are better for covering all the different edge cases
-precisely. They are simpler and faster, which makes it easier to write
-a lot of them, but there are a couple of drawbacks. They make
-refactoring harder by coupling to implementation details, meaning that
-changing the implementation often requires rewriting all those little
-tests. And while they give high confidence that the individual parts
-work correctly, they do not give much confidence that all the parts
-are integrated together in a way that works properly for the user.</p>
-
-<h2>Example Scenario</h2>
-
-<p>Let’s say we are implementing a small new feature in a Rails
-application.</p>
-
-<p>Writing a single “happy path” system test does not take very long, and
-it will drive out the majority of the implementation details. It will
-exercise views, controllers, models, database migrations,
-interactors/command objects — maybe even background jobs, external
-third-party services, and new libraries.</p>
-
-<p>In typical TDD fashion, we can repeatedly rerun the test while
-exploring different approaches to the implementation. Once it passes,
-we are free to change all of the implementation details. And after
-deciding on an approach, we can run the test while refactoring —
-cleaning up and refining the new code.</p>
-
-<p>By this point we’re happy with the general design of the
-implementation, and we’re confident that it works for the most
-straight-forward use case, but we’re <em>not</em> confident that it is robust
-against all the other use cases and error scenarios. This is where we
-might step down to model validation tests, to cover some error cases
-— or maybe tests at the interactor level, to cover all the different
-ways a dependency could affect the outcome. These tests will hamper
-refactoring to some extent, but hopefully the largest refactorings
-have already been done before this point.</p>
-</div>
-
-  <footer>
-    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
-      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
-
-      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
-        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
-        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
-        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
-      </p>
-
-      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
-        <em>Found a mistake?</em> Pull requests are welcome on
-        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
-      </p>
-</div>
+  
+<article class="post post-listed">
+    <header>
+      <h2><a href="/blog/software-processes/github-workflow-for-automated-gem-releases/">GitHub Workflow For Automated Gem Releases</a></h2>
+      <small class="meta">
+        <span class="post-date">20 Jun, 2021</span>
+        
+        —
+        Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      </small>
+    </header>
 
     
 
+    <div class="post-content body-text">
+<p>This is a quick look at the recent CI/release automation I wrote for
+the <a href="https://github.com/tomdalling/byebug-skipper">byebug-skipper</a> gem.</p>
 
-    
+<figure class="youtube">
+  <iframe src="https://www.youtube.com/embed/fmWgh2qsLlc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</figure>
 
-  </footer>
-</article>
+
+<h2>Links</h2>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/commits/youtube-video">Commits from the video</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.github/workflows/release.yml">The “Release Gem” GitHub workflow</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.versionrc.js">Config</a>
+for <a href="https://github.com/conventional-changelog/standard-version">standard-version</a>,
+which is what bumps the version and updates the changelog using the
+commit history.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/tomdalling/byebug-skipper/blob/7d784e6d4ec71f21405082ccf09626b21f5597e7/.github/workflows/ci.yml#L23-L26">CI step</a>
+that ensures commit messages have the correct format</p>
+  </li>
+</ul>
+
+</div>
+
+    <footer>
+      <a class="btn btn-default more" href="/blog/software-processes/github-workflow-for-automated-gem-releases/">
+        Read full post <i class="fa fa-angle-double-right"></i>
+      </a>
+    </footer>
+  </article>
+</div>
 </main>
 
       <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
