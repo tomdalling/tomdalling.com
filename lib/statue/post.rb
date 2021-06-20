@@ -125,6 +125,7 @@ module Statue
       class MainImage
         value_semantics do
           uri Pathname, coerce: PathnameCoercer
+          visible? Bool(), default: true
           artist Either(Artist, nil), coerce: true, default: nil
         end
 
@@ -134,6 +135,10 @@ module Statue
           else
             obj
           end
+        end
+
+        def show?
+          visible? && uri
         end
       end
 

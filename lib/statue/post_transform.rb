@@ -32,7 +32,7 @@ module Statue
     private
 
       def transform_main_image(main_image)
-        if main_image.nil?
+        unless main_image&.show?
           remove!
           return
         end

@@ -15,7 +15,7 @@ module Statue
         at('header a.category', p.category.human_name, href: p.category.uri)
         at('header .bleet') { remove! unless p.bleet? }
         at('.listed-main-image') do
-          if p.main_image&.uri
+          if p.main_image&.show?
             attrs!(src: p.main_image.uri)
           else
             remove!
