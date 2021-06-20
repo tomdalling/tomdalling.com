@@ -13,7 +13,7 @@
     "webpack-cli": "^4.5.0"
   },
   "resolutions": {
-    "is-svg": "^4.2.2"
+    "css-what": "^5.0.1"
   },
   "scripts": {
     "build-dev": "webpack",
