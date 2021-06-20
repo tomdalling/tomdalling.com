@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/dry-rb/dry-configurable.git
+  revision: c9209cefc071a3a405a7200554493778a5159d2b
+  branch: master
+  specs:
+    dry-configurable (0.13.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.6)
+
+GIT
   remote: https://github.com/hanami/controller.git
   revision: 6e3d271998a53bb802ece49f3446aa2a905d86ae
   branch: main
@@ -26,9 +35,6 @@ GEM
     daemons (1.4.0)
     debug_inspector (1.1.0)
     dry-cli (0.7.0)
-    dry-configurable (0.12.1)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5.0)
     dry-core (0.6.0)
       concurrent-ruby (~> 1.0)
     dry-inflector (0.2.0)
@@ -104,6 +110,7 @@ DEPENDENCIES
   binding_of_caller
   byebug
   dry-cli
+  dry-configurable!
   dry-inflector
   hanami-controller!
   kramdown
