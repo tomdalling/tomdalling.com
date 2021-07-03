@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thoughts On Schema Library Design — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/thoughts-on-schema-library-design/">
+<meta property="og:title" content="Thoughts On Schema Library Design">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/thoughts-on-schema-library-design/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/floorplan.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/software-design/thoughts-on-schema-library-design/">Thoughts On Schema Library Design</a></h1>
+    <small class="meta">
+      <span class="post-date">03 Jul, 2021</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-07-03_thoughts-on-schema-library-design.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/floorplan.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<p>It’s that time of year again. It seems like about once a year I get
+interested designing a schema library. This post is a collection of my
+latest ideas and design goals, mostly based on what I’ve learnt from
+the previous three or four implementations.</p>
+
+<p>This topic is probably interesting to a tiny subset of developers, and
+super boring to everyone else. I’ve tried to write this post in a way
+that is accessible to a wider developer audience, but you have been
+warned!</p>
+
+<p><!--more--></p>
+
+<h2>WTF Is A Schema Library</h2>
+
+<p>The word “schema” comes from the ancient Greek for “form” or “shape”.
+In computery terms, a schema is a data structure that describes the
+shape of data. Schemas are metadata: data about data. They are
+typically used to filter/validate/coerce values in some way.</p>
+
+<p>The fastest way for me to demonstrate the concept is probably to just
+show a few different implementations.</p>
+
+<p><a href="https://www.npmjs.com/package/prop-types">React <code>PropTypes</code></a> are schemas that do type checking on
+React component properties.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">AuthorComponent</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+  <span class="na">isVerified</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">bool</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Database table schemas describe the columns of a database table. In
+PostgreSQL this can be <a href="https://www.postgresql.org/docs/current/information-schema.html">queried like a table</a>, so it’s kind of
+a table of data that describes the shape of other tables.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">column_name</span><span class="p">,</span> <span class="n">data_type</span>
+<span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span>
+<span class="k">WHERE</span> <span class="k">table_name</span> <span class="o">=</span> <span class="s1">'authors'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<pre><code> column_name | data_type
+-------------+-----------
+id           | integer
+name         | text
+is_verified  | boolean
+(4 ROWS)
+</code></pre>
+
+<p>Making our way into Ruby land, <a href="https://edgeguides.rubyonrails.org/action_controller_overview.html#strong-parameters">Rails Strong Parameters</a> are (in my
+opinion very poor) schemas that describe the structure of request
+parameters.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">params</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="p">{</span> <span class="ss">emails: </span><span class="p">[]</span> <span class="p">},</span>
+              <span class="ss">friends: </span><span class="p">[</span> <span class="ss">:name</span><span class="p">,</span>
+                         <span class="p">{</span> <span class="ss">family: </span><span class="p">[</span> <span class="ss">:name</span> <span class="p">],</span> <span class="ss">hobbies: </span><span class="p">[]</span> <span class="p">}])</span>
+</code></pre></div></div>
+
+<p>The <a href="https://github.com/zendesk/stronger_parameters">stronger_parameters gem</a> is a more-featureful alternative to
+Strong Parameters, and looks a lot more like a typical schema library.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">params</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Parameters</span><span class="p">.</span><span class="nf">string</span><span class="p">.</span><span class="nf">required</span><span class="p">,</span> <span class="c1"># will not accept a nil or a non-String</span>
+  <span class="ss">is_verified: </span><span class="no">Parameters</span><span class="p">.</span><span class="nf">boolean</span>   <span class="c1"># optional, may be omitted</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>I think the best schema library in Ruby is currently <a href="https://dry-rb.org/gems/dry-schema/">dry-schema</a>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">AuthorSchema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:is_verified</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:bool?</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>To summarize, what all these implementations have in common is that
+they describe the structure and/or types (i.e. the “shape”) of complex
+values.</p>
+
+<p>On the off chance that this appears on Hacker News or any other
+wretched hive of scum and vapidity, I should address the “lol dynlang
+people reinventing compilers badly” reaction. There is a lot of
+overlap between type systems and schemas libraries, but schemas are
+primarily designed for checking user input, not function signatures.
+Let me know when you’re running your compiler in production to handle
+web requests.</p>
+
+<h2>Schemas In Web Apps</h2>
+
+<p>The typical use case for a web app is to sanitise inputs before
+actually performing a request. My current view is that this can be
+broken down into three distinct phases or steps:</p>
+
+<ol>
+  <li>Coercion</li>
+  <li>Constraint checking</li>
+  <li>Validation</li>
+</ol>
+
+<p>These need to happen in order, and ideally should report failures in a
+standardised way.</p>
+
+<h3>Step 1. Coercion</h3>
+
+<p>Coercion is the process of converting a value to its “real” type. How
+do we know what the “real” type is? The schema tells us.</p>
+
+<p>For example, web forms submit everything as strings, so if you want an
+integer you need to do string-to-integer coercion.</p>
+
+<p>Similarly, we do string-to-time coercion quite often. If you’ve
+ever parsed an input string into a date/time object, you’ve
+implemented a kind of coercion.</p>
+
+<p>Like the other steps, this can fail. Not all strings can be converted
+into an integer in a sane way. There will be more on failures later.</p>
+
+<h3>Step 2. Constraint checking</h3>
+
+<p>Just converting a value to the right <em>class</em> doesn’t necessarily mean
+it’s the right <em>type</em>. For example, the string <code>"-1"</code> can be coerced
+to the integer <code>-1</code>, but that’s still not a valid value if the type is
+supposed to be an <em>unsigned</em> integer (i.e. a non-negative integer).</p>
+
+<p>This constraint checking step narrows down the set of valid values
+from <em>everything</em> (e.g. all integers) to a <em>subset</em> (e.g. non-negative
+integers).</p>
+
+<p>As another example, a schema library might differentiate between
+<em>any string</em> and <em>strings with a specific format</em>. Let’s say we’re
+writing a JSON web API that takes UUIDs as input. They will probably
+come in as strings, but we don’t want to accept any old string, we only
+want to accept strings that have the correct UUID format. The format is
+a constraint that reduces the infinite set of all strings down to a
+finite subset of valid strings.</p>
+
+<h3>Step 3. Validation</h3>
+
+<p>These are business rules. If an integer value represents money to
+send, you might validate that there are sufficient funds to cover the
+amount.</p>
+
+<p>This is outside the scope of a schema library <strong>but</strong> failures are
+usually rendered/handled in the same way across all steps. This brings
+us to…</p>
+
+<h2>Working With Failures</h2>
+
+<p>Schema failures and validation failures should be compatible, or at
+least easy to map from one to the other, because all three steps
+happen on the same pipeline. A piece of user input enters the
+application, and needs to be cleaned up, converted, sanitised and
+checked before it makes its way further into the system.</p>
+
+<p>Ideally, failures at any point in the pipeline get returned to the
+requester in a consistent, unified way. We don’t want to be writing
+three independent ways to render failures just because we’re using
+three different libraries. That means that all the different parts of
+the pipeline need to play nice together, when it comes to returning
+information about failures.</p>
+
+<p>For example, Rails apps tend to be built around <code>ActiveModel::Errors</code>,
+so when schema validation fails it probably makes sense that the
+schema library returns <code>ActiveModel::Errors</code> objects (ew) or returns
+something that can be mapped to an <code>ActiveModel::Errors</code> object
+without losing fidelity.</p>
+
+<p>Raising an exception with a single message string is not good enough.
+At a minimum, I would expect:</p>
+
+<ul>
+  <li>The ability to get <em>all</em> the failures, not just the first one that
+was encountered.</li>
+  <li>I18n compatibility, for human interfaces</li>
+  <li>Symbolic, namespaced error names with machine-readable details, for
+computer interfaces</li>
+  <li>Enough structural information that the failure can be associated
+with the exact input field that produced the failure, within a
+complex form</li>
+</ul>
+
+<h2>Why Make A Distinction Between Validation And Constraint Checking?</h2>
+
+<p>Personally, I think general-purpose input validation is outside the
+scope of a schema library. You have to draw the line somewhere.</p>
+
+<p>In my mind, schemas are intuitively good for simple checks like:</p>
+
+<ul>
+  <li>Is this an integer?</li>
+  <li>Is it non-negative?</li>
+  <li>Is this a <code>Hash</code>?</li>
+  <li>Is this hash missing any required keys?</li>
+  <li>Is this a string?</li>
+  <li>Is the string empty?</li>
+</ul>
+
+<p>These are all easy checks that can be applied to a single value. They
+are the kind of thing one might expect from a type system, and schema
+libraries are kind of type systems if you squint your eyes and tilt
+your head slightly.</p>
+
+<blockquote class="pull-right">
+  Don't hurt me, Haskell people. I'm just joking in the category of
+  endofunctors of 𝑋, with product ✕ replaced by
+  composition of endofunctors and unit set by the identity
+  endofunctor.
+</blockquote>
+
+<p>What one would <em>not</em> normally expect from a type system is that the
+type of one variable depends on the <em>run-time value</em> of a different
+variable, or that type checking requires access to a database. Yes,
+there are fancy type systems with dependent types that can do these
+kind of things, but they are not widely used. I mean, they are so
+obscure that even <em>Haskell</em> doesn’t have that capability, and nobody
+actually uses Haskell, they just say that they do.</p>
+
+<p>The story is different when it comes to general-purpose validation.
+Checking a value against something in the database is absolutely
+necessary, and checking two separate values against each other is
+common (e.g. validating that <code>starts_at</code> is earlier than <code>ends_at</code>). I
+would rather leave this higher-level business logic to some other
+library that specialises in that functionality.</p>
+
+<p>There is no reason that a lower-level schema library and a
+higher-level validation library can’t work together. Schema libraries
+are a bad fit for business logic, and validation libraries are usually
+too cumbersome for lots of pedantic type checking, so they actually
+complement each other quite well. Rails has both Strong Parameters and
+model validations, and together they work… passably.</p>
+
+<h2>Coercion Is Context-Dependent</h2>
+
+<p>Constraint checking (Step 2) is universal. A non-negative integer is a
+non-negative integer, regardless of whether it came from a JSON API, a
+web form, CLI arguments, etc. The same is true for validation (Step 3)
+— it doesn’t matter <em>how</em> you requested a money transfer, there are
+either sufficient funds or there are not.</p>
+
+<p>But the same is not true for coercion (Step 1). Coercion is
+context-dependent, and that has implications for designing a schema
+library.</p>
+
+<blockquote class="pull-right">
+  Apple's bug was caused by type inference <em>without</em> a schema.
+  Schema-based coercion would have never converted <code>lastName</code> to a
+  boolean, because the schema would have indicated that <code>lastName</code>
+  should be a string. That's their whole purpose.
+</blockquote>
+
+<p>As an example, let’s say we have a schema for a boolean value. If the
+input comes from a JSON request body then no coercion is necessary,
+because JSON can represent <code>true</code> and <code>false</code> natively. Not only is it
+unnecessary, it’s probably also undesirable. If a client provides a
+string where it should have provided a boolean, that’s a mistake that
+the client should be made aware of. Silently coercing strings to
+booleans is how Rachel True got locked out of her iCloud account for
+six months with the error message “cannot set value `true` to
+property `lastName`”.</p>
+
+<figure class="naked">
+  <blockquote class="twitter-tweet">
+    <a href="https://twitter.com/RachelTrue/status/1365461618977476610">https://twitter.com/RachelTrue/status/1365461618977476610</a>
+  </blockquote>
+</figure>
+
+
+<p>But if that boolean input comes from a checkbox in a web form, then
+coercion is a must, and it’s also kind of complicated. Firstly, the
+value comes in as a string. The default string is <code>"on"</code>, but it can
+actually be set to <em>anything</em>. That’s right, the strings <code>"off"</code> and
+<code>"false"</code> could actually indicate that the checkbox was checked. So
+what string gets sent when the checkbox is unchecked? That’s a trick
+question — the browser doesn’t send anything, as if the form had no
+checkbox at all. But wait, is this a Rails app? Because Rails adds
+hidden form inputs that only get submitted if the checkbox is
+unchecked, so the string <code>"0"</code> should be interpreted as <code>false</code>.</p>
+
+<p>Things went from <em>no</em> coercion to <em>woah</em> coercion, real fast. And the
+schema shouldn’t be concerned about any of this. There absolutely
+should not be a <code>JSONBoolean</code> type and <code>WebFormBoolean</code> type. A
+<code>Boolean</code> is a <code>Boolean</code> — where the input comes from is irrelevant.</p>
+
+<p>One of the mistakes I made in previous designs was treating schema
+objects as if they were functions that could be applied to input —
+something like this:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">RSchema</span><span class="p">.</span><span class="nf">define</span> <span class="p">{</span> <span class="n">boolean</span> <span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">validate</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+<span class="n">result</span><span class="p">.</span><span class="nf">value</span> <span class="c1">#=&gt; true</span>
+</code></pre></div></div>
+
+<p>This is a mistake because it assumes that there could be a single
+implementation of coercion that is correct for all situations, when in
+reality there are many different ways to coerce a boolean, and the
+correct choice depends on the context.</p>
+
+<p>To avoid this mistake next time, I plan to…</p>
+
+<h2>Consider Schemas As Data Structures</h2>
+
+<blockquote class="pull-right">
+  Don't hurt me, object-oriented people. I'm just making a joke using
+  the polymorphic joke builder interface encapsulating the concrete
+  joke builder implementation that I got from the abstract joke
+  builder factory which got setter-injected by the DI framework. I
+  specifically used setter instead of constructor injection so nobody
+  can accuse me of using immutability.
+</blockquote>
+
+<p>OOP teaches us that good code combines encapsulated state (instance
+variables) with behaviour that is privy to that state (methods). Not
+to go on a rant, but that’s a bunch of poppycock and flapdoodle. As
+Freud once said, “sometimes a data structure is just a data structure”.</p>
+
+<p>Probably the primary application of schemas is validating input, but
+there are several useful applications.</p>
+
+<ul>
+  <li>Various different flavours of coercion</li>
+  <li>User input validation</li>
+  <li>Code generation</li>
+  <li>Automated API documentation</li>
+  <li>Generating random valid inputs for property-based testing</li>
+  <li>Versioning structured data (e.g. event payloads)</li>
+  <li>Run-time assertions</li>
+  <li>Conversion to other schema formats (e.g. JSON Schema)</li>
+</ul>
+
+<p>That is way too many responsibilities to cram into a single class, if
+we were to use one class per type.</p>
+
+<p>The solution to this design problem is pretty simple, in hindsight.
+Just stop thinking of schemas as objects. Think of them as data
+structures, and think of every application as a function that takes
+the schema as an argument.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># no</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">coerce_json</span><span class="p">(</span><span class="n">json_input</span><span class="p">)</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">coerce_web</span><span class="p">(</span><span class="n">form_input</span><span class="p">)</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">coerce_cli</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">validate</span><span class="p">(</span><span class="n">coerced_input</span><span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">to_documentation</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">random_value</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">to_json_schema</span>
+
+<span class="c1"># yes (pseudocode)</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">coerce_json</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">coerce_web</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">coerced_input</span> <span class="o">=</span> <span class="n">coerce_cli</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">coerced_input</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">generate_documentation_for</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">generate_random_value_for</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">json_schema_for</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This solves a lot of design problems I have previously created for
+myself. I’m kind of kicking myself for not realising this earlier.
+There are plenty of examples of people doing this already (e.g. JSON
+Schema). I was blinded by focusing too much on the validation use
+case.</p>
+
+<p>Next time, I’m not going to implement any kind of validation behaviour
+on schema classes (or any other kind of feature). The single
+responsibility of a schema will be to <em>represent</em> a type, as a simple
+tree structure. There will probably be some behaviour for traversing
+the tree using a common interface, but that’s about all it needs.</p>
+
+<p>Coercion, validation, and all the other features can then be
+implemented separately, as independent functions. Some of those
+functions will be complicated — coercion, for example, requires
+walking two tree structures in synchrony (the schema and the
+input), triple dispatch (applying behaviour based on the kind of
+coercion, the kind of schema, and the kind of input), and building a
+complex return value (see <em>Working With Failures</em> above) — but I
+think decomposing the functionality this way will be a huge
+simplification overall.</p>
+
+<p>I’m toying with a proof-of-concept implementation, and it’s looking
+good so far. I want to keep an eye on performance — not too many
+allocations, and doing coercion and validation with a single
+traversal of the input/schema tree (instead of two traversals). The
+other tricky part is making everything extensible, so that
+user-defined types can opt-in to functionality in a piecemeal way.
+Defining a new type from scratch should be easy, and shouldn’t require
+implementing functionality that you don’t intend to use — that is,
+if you don’t intend to use your new type for validation, you shouldn’t
+be forced to write any code related to validation.</p>
+
+<h2>Summary</h2>
+
+<p>What I’m looking for from a schema library is:</p>
+
+<ul>
+  <li>
+    <p>a suite of built-in types that represent the most common stuff like
+strings, numbers, arrays and hashes</p>
+  </li>
+  <li>
+    <p>the ability to add custom types to the suite <em>easily</em>, and have the
+custom types be 100% as powerful as the built-in ones</p>
+  </li>
+  <li>
+    <p>when implementing custom types, to be able to only implement the
+functionality I intend to use, ignoring the features I don’t
+care about</p>
+  </li>
+  <li>
+    <p>a suite of built-in coercion behaviours, and the ability to add
+custom implementations that are just as powerful</p>
+  </li>
+  <li>
+    <p>the ability to reuse a single schema across multiple different
+contexts, with different kinds of coercion behaviour</p>
+  </li>
+  <li>
+    <p>context-independent constraint checking, that goes beyond just
+looking at a value’s class</p>
+  </li>
+  <li>
+    <p>rich failure details, that can be integrated into various different
+validation failure workflows (e.g. <code>ActiveModel::Errors</code> in Rails)
+without losing fidelity</p>
+  </li>
+  <li>
+    <p>an extensible way to implement new <em>applications</em> for schemas, such
+that one gem could provide this new feature, a completely separate
+gem could provide some custom types, and a third gem could provide
+the integration between the new feature and the custom types</p>
+  </li>
+  <li>
+    <p>the ability to treat schemas as simple data structures, that can be
+converted to, and imported from, other formats (e.g. JSON Schema)</p>
+  </li>
+  <li>
+    <p>good performance, in terms of memory allocations and efficient
+traversal of the input/schema tree</p>
+  </li>
+</ul>
+
+<p>I’m not aware of any schema library that meets all these criteria, in
+any programming language. Even Clojure’s <a href="https://github.com/plumatic/schema">schema</a> and
+<a href="https://clojure.org/about/spec">spec</a> libraries, considered by some to be best in class, do
+not tick all the boxes. I know, because I’ve tried to steal parts of
+their design to improve my own, and discovered that they have the
+exact same limitations I was running into.</p>
+
+<p>I’m in the very early stages of progress towards this ideal schema
+library. I’ve been tinkering with a proof of concept design in
+Ruby recently. There are still some unknowns to iron out, but it’s
+looking promising at the moment. This is no announcement or guarantee
+that I will finish and release a library, but it’s a topic that I keep
+coming back to year after year, so maybz it will happen some day.</p>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
+      </p>
+</div>
+
+    
+
+
+    
+
+  </footer>
+</article>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/software-design/thoughts-on-schema-library-design/">Thoughts On Schema Library Design</a></li>
+<li><a href="/blog/software-processes/github-workflow-for-automated-gem-releases/">GitHub Workflow For Automated Gem Releases</a></li>
+<li><a href="/blog/testing/monologue-on-end-to-end-testing/">Monologue On End-To-End Testing</a></li>
+<li><a href="/blog/mentoring/write-detailed-rspec-example-descriptions/">Write Detailed RSpec Example Descriptions</a></li>
+<li><a href="/blog/mentoring/start-with-high-level-tests/">Start With High-Level Tests</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">12</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">6</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2021</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>
