@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The Tip Of The Inputberg — Tom Dalling</title>
+    <title>Context, Costs, and Benefits — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,10 +14,10 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/">
-<meta property="og:title" content="The Tip Of The Inputberg">
-<meta property="og:url" content="https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/">
-<meta property="og:image" content="https://www.tomdalling.com/images/posts/inputberg.jpg">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/random-stuff/context-costs-and-benefits/">
+<meta property="og:title" content="Context, Costs, and Benefits">
+<meta property="og:url" content="https://www.tomdalling.com/blog/random-stuff/context-costs-and-benefits/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/woodworking.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -35,89 +35,109 @@
       <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
 
   <header>
-    <h1><a href="/blog/testing/the-tip-of-the-inputberg/">The Tip Of The Inputberg</a></h1>
+    <h1><a href="/blog/random-stuff/context-costs-and-benefits/">Context, Costs, and Benefits</a></h1>
     <small class="meta">
-      <span class="post-date">08 Mar, 2021</span>
+      <span class="post-date">20 Jul, 2022</span>
       <span class="bleet">
         —
         This is a
         <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
       </span>
       —
-      Category: <a class="category" href="/blog/category/testing/">Testing</a>
+      Category: <a class="category" href="/blog/category/random-stuff/">Miscellaneous</a>
       —
-      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2021-03-08_the-tip-of-the-inputberg.md">on GitHub</a>
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2022-07-20_context-costs-and-benefits.md">on GitHub</a>
     </small>
     <div class="main-image">
-      <img src="/images/posts/inputberg.jpg" class="img-responsive">
+      <img src="/images/posts/woodworking.jpg" class="img-responsive">
       
     </div>
   </header>
 
   <div class="post-content body-text">
-<p>Why did Apple not test what happens when a user supplies “True” as
-their last name? Is it incompetence?</p>
+<p>When is “measure twice, cut once” bad advice?</p>
 
-<figure class="naked">
-  <blockquote class="twitter-tweet">
-    <a href="https://twitter.com/JPaulGibson/status/1368182852668583948">https://twitter.com/JPaulGibson/status/1368182852668583948</a>
-  </blockquote>
-</figure>
+<p>One of my hobbies is complaining about the tendency of software developers to view choices as binary, moralistic decisions.
+Measuring twice is obviously correct, and anyone who doesn’t do it is an unprofessional, evil wood waster.
+Either that or double measurers are a bunch of know-nothing shysters selling snake oil for exorbitant consulting fees.
+This black-and-white thinking is a mental shortcut that many animals take,
+but sometimes it’s nice to apply a little more intellectual rigour than a Pomeranian.</p>
 
-
-<p>I don’t think so. I think the explanation is simpler: it’s not
-feasible. It’s highly impractical, if not computationally impossible,
-to test every input.</p>
+<p>I’d like us to think less in terms of <em>right</em> and <em>wrong</em> when it comes to technical decisions,
+and think more in terms of <em>context</em>, <em>costs</em> and <em>benefits</em>.</p>
 
 <!--more-->
 
-<p><em>Out of the Tar Pit</em> (Moseley &amp; Marks, 2006) explains the issue:</p>
+<p><em>Context</em> is the entire situation around the decision.
+Are we cutting wood, or writing code?
+If we’re cutting wood, are we making cabinets or furniture?
+If we’re making cabinets, are we fitting out one kitchen or every apartment in a 15 story building?
+The answers to these questions could have a dramatic effect on which option is best.
+It’s rare that one option is better than the others <em>regardless of the situation</em>.
+Context matters.</p>
+
+<p>With the context in mind, we can try to predict the consequences of a decision.
+The positive consequences are the <em>benefits</em>, and the negative consequences are the <em>costs</em>.
+Measuring twice reduces the probability of wasting time and wood due to incorrect cuts, but it’s not free —
+it takes more time than measuring once.
+Why not measure three times, or four times, or 600 times?
+Because, at some point, the cost of measuring outweighs the benefits.
+Viewing choices as either “right” or “wrong” obscures the fact that we’re making <em>tradeoffs</em> between the desirable and undesirable consequences.
+The best choice will still have negatives, and the worst choice has positives too.
+Every choice is a tradeoff between costs and benefits.</p>
+
+<p>So,
+let’s say I’ve decided to get into woodworking as a hobby,
+I want to make a table for the first time,
+and I’m using some expensive mahogany.
+Should I measure twice?
+The cost of measuring might add up to a minute or two of my time.
+The probability that I make an incorrect cut is high, and the materials are expensive.
+In this context, measuring twice looks like a good choice.
+I might even be inclined to measure three or four times.</p>
+
+<p>But what if I’m building a manufacturing line to produce 50,000 chairs for IKEA,
+the measurement lasers are 99.99% accurate,
+and making the lasers double-check everything would add two weeks to the production run?
+Now the cost of measuring is higher, and the benefits are greatly reduced.
+In this context, measuring twice looks like a bad choice.</p>
+
+<p>To answer my original question,
+“measure twice, cut once” is bad advice <em>in contexts where the cost of measuring outweighs benefits gained from making fewer incorrect cuts</em>.</p>
+
+<p>That’s my default view on all technologies, really.</p>
+
+<ul>
+  <li>“Is <em>[tech]</em> good?” Yes, in contexts where the benefits are greater than the costs.</li>
+  <li>“Is <em>[tech]</em> bad?” Yes, in contexts where the costs are greater than the benefits.</li>
+  <li>“<em>[tech]</em> is superior/inferior.” In what contexts?</li>
+  <li>“<em>[tech]</em> is bad because of <em>[cost]</em>.” What are the benefits?</li>
+  <li>“<em>[tech]</em> is good because of <em>[benefit]</em>.”
+<a href="https://knowyourmeme.com/memes/ive-won-but-at-what-cost">But</a>
+<a href="https://youtu.be/DYvhC_RdIwQ">at</a>
+<a href="https://twitter.com/thomasfuchs/status/1106282842068316162">what</a>
+<a href="https://youtu.be/8Dld5kFWGCc?t=740">cost?</a>
+</li>
+</ul>
+
+<p>Good judgement is not just having a big list of the “right” things and another of the “wrong” things —
+it involves assessing the choices against the situation, and then accurately predicting the most important consequences.</p>
 
 <blockquote>
-  <p>The key problem with testing is that a test (of any kind) that uses
-one particular set of inputs tells you nothing at all about the
-behaviour of the system or component when it is given a different
-set of inputs. The huge number of different possible inputs usually
-rules out the possibility of testing them all.</p>
+  <p>“LISP programmers know the value of everything and the cost of
+nothing” – Alan Perlis</p>
 </blockquote>
 
-<p>And goes on to quote Dijkstra:</p>
+<hr>
 
-<blockquote>
-  <p>testing is hopelessly inadequate… (it) can be used very
-effectively to show the presence of bugs but never to show their
-absence.</p>
-</blockquote>
+<p>Now for something completely unrelated: is agile better than waterfall?
+Should all code have tests?
+Is JavaScript a bad programming language?
+Are type-checked programming languages superior to dynamic languages?
+Which is the best editor out of VSCode, Vim, and Emacs?
+Tabs or spaces?
+I’ll leave these questions as homework for the reader.</p>
 
-<p>Consider a simple function that adds together two 8-bit integers.
-There are 65,536 possible inputs to this function. When was the last
-time you tested 65,536 different inputs for a single, simple function?</p>
-
-<p>It <em>is</em> possible for a computer to generate and test 65,536 inputs.
-But what if those 8-bit integers were instead 32-bit integers? The
-number of possible inputs would then be 18,446,744,073,709,551,616.
-Even if we could test one million inputs per second, it would take 585
-<em>millennia</em> for the test suite to finish. I don’t know about you, but
-I’m expected to produce more than one function every half a million
-years. And this function only adds two integers. The string <code>"True"</code>,
-by the way, is typically represented with at least 40 bits.</p>
-
-<p>This means that, invariably, <em>the vast majority of inputs will never
-be tested</em>. You can rely on this fact in the same way that you can
-rely on the sun rising in the morning.</p>
-
-<p>I’m not saying that it’s impossible to have caught this bug with a
-test. There are dozens of practical ways this could have been
-prevented. I’m saying that it’s wholly unsurprising that this bug was
-not detected, and it is not a sign of incompetence that there is no
-test for the input value <code>"True"</code> in the last name field.</p>
-
-<p>As Dijkstra said, it is <em>not possible</em> for tests to prove that there
-are no bugs. Every test suite only checks the tip of the inputberg.
-Keep this in mind the next time you hear someone glibly claim that
-“there should have been a test for that”.</p>
-
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 
   <footer>
