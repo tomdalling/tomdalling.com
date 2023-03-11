@@ -1,0 +1,33 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR=$(dirname "$0")
+FILENAME="input/posts/$(date -I)_todo.md"
+
+cat << MARKDOWN > "$SCRIPT_DIR/../$FILENAME"
+{:title "TODO"
+ :main-image {:uri "/images/posts/sprout.jpg"}
+ :tags [:bleet]
+ :category :mentoring}
+
+Teaser content goes here, before the comment below.
+
+<!--more-->
+
+## Categories
+
+- cocoa
+- coding-styleconventions
+- coding-tips
+- mentoring
+- modern-opengl
+- random-stuff
+- ruby
+- software-design
+- software-processes
+- testing
+- web
+
+MARKDOWN
+
+echo "$FILENAME"
