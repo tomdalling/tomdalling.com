@@ -3,8 +3,8 @@ module Statue
     attr_reader :outputs
 
     def initialize(outputs:)
-      super()
       @outputs = outputs
+      super()
     end
 
     def handle(req, resp)
@@ -15,7 +15,7 @@ module Statue
         puts "Rendering #{path}"
 
         resp.status = 200
-        resp.format = path.extname.delete_prefix('.')
+        resp.format = path.extname.delete_prefix('.').to_sym
         resp.body = render(output)
       else
         resp.status = 404

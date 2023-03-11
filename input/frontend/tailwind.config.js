@@ -7,5 +7,5 @@ module.exports = {
       code: ['Fira Code', 'monospace'],
     },
   },
-  purge: ['./../../output/**/*.html'],
+  content: ['./../../output/**/*.html'],
 }
