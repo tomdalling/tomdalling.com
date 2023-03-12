@@ -86,28 +86,28 @@ you don’t.</p>
 <p>You can see all of these problems in in a typical SQLAlchemy query:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dirty_col</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">species</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">num_dirty_occurrences</span>
-<span class="n">db</span><span class="p">.</span><span class="n">species</span><span class="p">.</span><span class="n">update</span><span class="p">()</span>\
-    <span class="p">.</span><span class="n">values</span><span class="p">(</span>
+<span class="n">db</span><span class="p">.</span><span class="n">species</span><span class="p">.</span><span class="nf">update</span><span class="p">()</span>\
+    <span class="p">.</span><span class="nf">values</span><span class="p">(</span>
         <span class="n">num_dirty_occurrences</span><span class="o">=</span><span class="p">(</span><span class="n">dirty_col</span> <span class="o">+</span> <span class="n">newly_dirty</span><span class="p">),</span>
-        <span class="n">needs_vetting_since</span><span class="o">=</span><span class="n">func</span><span class="p">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="p">).</span><span class="n">where</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">species</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="nb">id</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s">'id'</span><span class="p">])</span>\
-    <span class="p">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">needs_vetting_since</span><span class="o">=</span><span class="n">func</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+    <span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">species</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="nb">id</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s">'id'</span><span class="p">])</span>\
+    <span class="p">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre></div></div>
 
 <h2>Underscores Make Spaces And Other Symbols Harder To See</h2>
 
 <p>Compare this code written with underscores:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i_am_the</span> <span class="o">=</span> <span class="n">very_model_of</span><span class="p">(</span><span class="n">a_modern_major</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i_am_the</span> <span class="o">=</span> <span class="nf">very_model_of</span><span class="p">(</span><span class="n">a_modern_major</span><span class="p">)</span>
 <span class="n">general_ive</span><span class="p">.</span><span class="n">information_vegetable</span> <span class="o">=</span> <span class="n">animal_and_mineral</span>
-<span class="n">i_know_the</span><span class="p">(</span><span class="n">kings_of</span><span class="p">,</span> <span class="n">england_and</span><span class="p">,</span> <span class="n">i_quote</span><span class="p">,</span> <span class="n">the_fights</span><span class="p">,</span> <span class="n">historical</span><span class="p">)</span>
+<span class="nf">i_know_the</span><span class="p">(</span><span class="n">kings_of</span><span class="p">,</span> <span class="n">england_and</span><span class="p">,</span> <span class="n">i_quote</span><span class="p">,</span> <span class="n">the_fights</span><span class="p">,</span> <span class="n">historical</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>To this identical code, translated into camel caps:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iAmThe</span> <span class="o">=</span> <span class="n">veryModelOf</span><span class="p">(</span><span class="n">aModernMajor</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iAmThe</span> <span class="o">=</span> <span class="nf">veryModelOf</span><span class="p">(</span><span class="n">aModernMajor</span><span class="p">)</span>
 <span class="n">generalIve</span><span class="p">.</span><span class="n">informationVegetable</span> <span class="o">=</span> <span class="n">animalAndMineral</span>
-<span class="n">iKnowThe</span><span class="p">(</span><span class="n">kingsOf</span><span class="p">,</span> <span class="n">englandAnd</span><span class="p">,</span> <span class="n">iQuote</span><span class="p">,</span> <span class="n">theFights</span><span class="p">,</span> <span class="n">historical</span><span class="p">)</span>
+<span class="nf">iKnowThe</span><span class="p">(</span><span class="n">kingsOf</span><span class="p">,</span> <span class="n">englandAnd</span><span class="p">,</span> <span class="n">iQuote</span><span class="p">,</span> <span class="n">theFights</span><span class="p">,</span> <span class="n">historical</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>I would argue that the camel caps code is more readable. The underscores look

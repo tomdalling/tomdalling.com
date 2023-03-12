@@ -114,7 +114,7 @@ file example:</p>
     <span class="o">~</span><span class="n">FileClose</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">_file</span><span class="o">-&gt;</span><span class="n">close</span><span class="p">();</span>
     <span class="p">}</span>
-<span class="nl">private:</span>
+<span class="k">private</span><span class="o">:</span>
     <span class="n">File</span><span class="o">*</span> <span class="n">_file</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -147,25 +147,25 @@ that closes itself:</p>
         <span class="p">}</span>
     <span class="p">}</span>
     
-    <span class="kt">void</span> <span class="n">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">_file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
     <span class="p">}</span>
     
-    <span class="kt">bool</span> <span class="n">isOpen</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">isOpen</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">_file</span><span class="p">.</span><span class="n">isOpen</span><span class="p">();</span>
     <span class="p">}</span>
     
-    <span class="kt">void</span> <span class="n">close</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">close</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span><span class="p">(</span><span class="n">_file</span><span class="p">.</span><span class="n">isOpen</span><span class="p">()){</span>
             <span class="n">_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
         <span class="p">}</span>
     <span class="p">}</span>
     
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">readLine</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">readLine</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">_file</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
     <span class="p">}</span>
     
-<span class="nl">private:</span>
+<span class="k">private</span><span class="o">:</span>
     <span class="n">File</span> <span class="n">_file</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -197,11 +197,11 @@ twice, and we don’t even have to check if the file is open.</p>
         <span class="n">_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
     <span class="p">}</span>
     
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">readLine</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">readLine</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">_file</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
     <span class="p">}</span>
     
-<span class="nl">private:</span>
+<span class="k">private</span><span class="o">:</span>
     <span class="n">File</span> <span class="n">_file</span><span class="p">;</span>
 <span class="p">};</span>
 
