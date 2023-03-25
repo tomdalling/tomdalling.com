@@ -10,6 +10,19 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Agile Is A Glass Cannon</title>
+      <link>https://www.tomdalling.com/blog/software-processes/agile-is-a-glass-cannon/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>A recent shower though of mine is that agile software development
+might be similar to the strategic concept of a <a href="https://en.wiktionary.org/wiki/glass_cannon"><em>glass
+cannon</em></a> in gaming —
+specifically, that it’s a high-risk high-reward strategy where the risk can be
+mitigated by skill/experience.</p>
+]]></description>
+      <pubDate>Sat, 25 Mar 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.agile-is-a-glass-cannon</guid>
+    </item>
+    <item>
       <title>Marketing Yourself As A Junior Engineer</title>
       <link>https://www.tomdalling.com/blog/mentoring/marketing-yourself-as-a-junior-engineer/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<blockquote>
@@ -182,16 +195,6 @@ solution.</p>
       <pubDate>Mon, 07 Dec 2020 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.better-user-stories</guid>
-    </item>
-    <item>
-      <title>Consistent Hammer Man</title>
-      <link>https://www.tomdalling.com/blog/software-design/consistent-hammer-man/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>This is a short parable I came up while discussing linters, in
-response to someone asking if I think it’s good to be inconsistent.</p>
-]]></description>
-      <pubDate>Sat, 21 Nov 2020 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Design]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.consistent-hammer-man</guid>
     </item>
   </channel>
 </rss>
