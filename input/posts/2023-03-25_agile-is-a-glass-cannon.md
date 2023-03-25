@@ -3,7 +3,7 @@
  :tags [:bleet]
  :category :software-processes}
 
-A recent shower though of mine is that agile software development
+A recent shower thought of mine is that agile software development
 might be similar to the strategic concept of a [_glass
 cannon_](https://en.wiktionary.org/wiki/glass_cannon) in gaming ---
 specifically, that it's a high-risk high-reward strategy where the risk can be
