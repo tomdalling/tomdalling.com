@@ -1,5 +1,5 @@
 {:title "Against Must-Haves (Part One)"
- :main-image {:uri "/images/posts/bucket-chickens.jpg"}
+ :main-image {:uri "/images/posts/bucket-chickens-1.jpg"}
  :tags [:bleet]
  :category :software-processes}
 
@@ -126,3 +126,6 @@ there are better alternatives.
 If you're upset about yet another engineer complaining about non-engineering
 roles then stay tuned for the next installment of this series, where I complain
 about how engineers abuse bucketed priority systems too.
+
+Read: [Against Must Haves (Part
+Two)](/blog/software-processes/against-must-haves-part-two/)
