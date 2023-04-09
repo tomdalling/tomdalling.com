@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Against Must-Haves (Part Two) — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/against-must-haves-part-two/">
+<meta property="og:title" content="Against Must-Haves (Part Two)">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/against-must-haves-part-two/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/bucket-chickens-2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/software-processes/against-must-haves-part-two/">Against Must-Haves (Part Two)</a></h1>
+    <small class="meta">
+      <span class="post-date">08 Apr, 2023</span>
+      <span class="bleet">
+        —
+        This is a
+        <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+      </span>
+      —
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2023-04-08_against-must-haves-part-two.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/bucket-chickens-2.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<p>In part two of this series, we’re going to look at how the must-have priority
+bucket leads engineering to make bad decisions.</p>
+
+<!--more-->
+
+<h2>Recap</h2>
+
+<p>In <a href="/blog/software-processes/against-must-haves-part-one/">part one</a> we:</p>
+
+<ul>
+  <li>looked at what bucketed prioritisation is</li>
+  <li>defined “must-haves” as the first, and highest-priority, bucket</li>
+  <li>divided people’s roles into the rough categories of “builders” and “specifiers”</li>
+  <li>demonstrated how the must-have bucket creates perverse incentives for
+specifiers</li>
+</ul>
+
+<h2>A Tale Of Builders And Buckets</h2>
+
+<p>Imagine you’re an engineer working in a bucketed priority system. Let’s say that
+the specifiers have gone and done specified, and produced a set of requirements
+divided into three buckets: must-haves, nice-to-haves, and things to consider
+doing in the future. Now it’s time to start building.</p>
+
+<p>Where are you going to start? You’re going to start by looking at the
+must-haves, and ignoring everything else. This is prioritisation working as
+intended. So far, so good.</p>
+
+<p>There are a bunch of different things in the must-have bucket, so how do you
+decided which one to start with? In a system of bucketed prioritisation, the
+priority of a requirement is determined by the bucket that it sits in. Since all
+the requirements you’re looking at are in the same bucket, they are all equal in
+terms of priority, and so therefore <em>the order in which they are built is
+irrelevant</em>. These are the non-negotiables, right? They all <em>must</em> get done
+within the given time frame, so what difference does ordering make? Through the
+office window you see a raven cawing as if it’s laughing at you. In its nest
+there are several expensive-looking keycaps, and you could have sworn that it
+was sporting some kind of neck beard.</p>
+
+<p>One of the cards says we should consider using AI for part of it. That sounds
+like it might be an interesting learning experience. In another card, the
+designer has included a Figma mock-up with some cool animations. That might be
+fun to implement. Some cards look boring, or difficult, or both. Your colleague
+just picked up the animation card. Dang. Better grab the AI card before someone
+else does.</p>
+
+<p>So you start investigating how you’re going to do the AI, make a proof of
+concept implementation using a new AWS service, and then start building it into
+the project properly. After a few cycles it’s done, but it’s not really useable
+yet because it depends on parts of the project that haven’t been built. You head
+back to the list of must-haves, and find another interesting card to get started
+on.</p>
+
+<p>It’s been a few months now, and the specifiers have started becoming antsy in
+meetings. They are getting worried that the project might not be delivered on
+time, and say that they’re not seeing much progress. That’s annoying. You’ve
+been working hard, and you know all the other builders have been working hard
+too. You point out all the hard work that went into the AI. The specifiers ask
+where they can see that feature. You tell them that you gave a demo about it two
+weeks ago. They say they liked the demo, but ask how they can actually use it in
+the app. You show them the screen, but say that they’re not going to be able to
+use it properly until a couple of other cards are finished. They ask when those
+other cards are going to be finished. You say that someone will pick it up soon,
+and that everyone is working as fast as possible, focusing only on the
+must-haves.</p>
+
+<p>The specifiers say that they want more confidence around delivery, and suggest
+that builders take some time to put accurate estimates on each of the remaining
+cards. You ask why more must-have cards are being added every week if we’re
+worried about delivery. You’re told that those cards are important, and that
+they can’t be nice-to-haves because it doesn’t look like there will be any time
+left for nice-to-haves. You say that if there’s no time to do a card, labelling
+it a must-have isn’t going to magically create more time for it. They say the
+must-haves must get done, and that’s why they’re called “must-haves”. The raven
+is back cawing outside the window — it’s neck beard more prominent than ever.</p>
+
+<p>As the deadline draws near, it has become crystal clear that the must-haves are
+not going to be done on time. After many hours of estimation meetings, the
+numbers just don’t add up, and even if they did, a significant proportion of the
+cards are taking longer than estimated. The builders get criticised for giving
+inaccurate estimates, so now they add lots of padding to each estimate, which
+makes the roadmap (a.k.a. the fancy Gantt chart) so incredibly long that the
+specifiers start updating their resumes. Even with the padding, a couple of
+cards have unearthed major technical obstacles that only became apparent after
+they were started recently, and these threaten to blow up the already-disastrous
+schedule.</p>
+
+<p>The specifiers enter the third stage of grief: bargaining. They are asking you
+whether you think you could work really hard and meet the deadline if they
+removed a bunch of the must-have cards. It turns out that the non-negotiables
+are, in fact, negotiable after all. The specifiers make a new bucket — the
+must-have must-haves — which contains only the must-haves that are really
+really important.</p>
+
+<p>But now you’re indignant. You don’t want to cooperate with the specifiers. They
+told you that the cards were must-haves, and you trusted them, but when you
+worked on those cards they turned around and said you’ve been wasting time on
+low-priority work. Someone even said that the AI feature you implemented doesn’t
+work well, and used it as an example of builders wasting time. They’ve been
+dragging you away from doing actual work and into pointless estimation meetings,
+pressuring you to give over-optimistic estimates, and then criticising you for
+being slow and not estimating accurately. The entire team is demoralised
+because, even though nobody will say it out loud, they all know that the
+deadline is impossible, and yet they’re still expected to put in overtime
+indefinitely. This project is a death march.</p>
+
+<p>The project runs over schedule by a factor of two. The end product is a steaming
+pile of shit, and it’s questionable whether it’s even fit for purpose. The
+builders and the specifiers both place the blame on the other’s incompetence.
+The people with the highest employability — usually the ones with the
+strongest skill sets — quit the company. Maybe one or two of the specifiers
+get fired, too.</p>
+
+<p>You morph into a raven, peck the keycaps off your mechanical keyboard, and fly
+off into the sunset to be one with nature.</p>
+
+<h2>Whose Fault Is It Anyway?</h2>
+
+<p>Plenty of things went wrong in the story above. The specifiers made some bad
+decisions, but I think that the responsibility for this situation mostly lands
+on the builders — specifically engineering management.</p>
+
+<p>The typical specifier does not understand the technical details and technical
+risks involved in building software. That’s not their job. And if they did
+understand, engineers would become easily replaceable and their salaries would
+fall through the floor. For example, part of the job of marketing and sales
+people is to understand what the customers want, so they are able to provide
+great input when deciding what to build. It is not, however, part of their job
+to know <em>how</em> to build those things, which is why it’s not uncommon for them to
+come up with ideas that are wildly expensive or literally impossible. And that’s
+fine. Not every idea is feasible.</p>
+
+<p>It’s also often not specifiers’ job to understand <em>delivery</em> risk, although it
+is highly desirable. Product people often don’t have a good sense for whether
+building any given feature will be easy peasy lemon squeezy, or stressed
+depressed lemon zest. That’s because there are knowns and unknowns that are
+deeply technical in nature, and only the people actually building the software
+have a hope of identifying where the landmines are. Product people with deep
+technical knowledge are incredible assets, but also exceedingly hard to find and
+probably outside of your price range.</p>
+
+<p>So then who is actually responsible for the delivery of quality, working
+software? Whose job is it to deal with these deeply technical unknowns and the
+risks they pose? The most practical choice is engineering. Engineering is in the
+best position to understand and mitigate delivery risk — less so the individual
+engineers writing the code, and more so engineering management/leadership.
+Engineering management is the interface between the specifiers and the builders,
+and it is their job to ensure that delivery happens smoothly.</p>
+
+<p>This is why I believe that non-technical engineering managers are generally a
+bad idea — but that’s a topic for another time.</p>
+
+<h2>How Buckets Are Involved</h2>
+
+<p>The main issue with prioritisation by bucket is that each individual bucket is
+unprioritised. Buckets are prioritised against each other — e.g. must-haves
+are higher priority than nice-to-haves — but the things within a bucket are
+not. To the naive observer, all the must-haves appear to be equal in terms of
+importance, and therefore the order in which they get done should not matter.
+This is a natural and logical conclusion to arrive at, but it couldn’t be
+further from the truth, and it’s the source of the problems in the story above.</p>
+
+<p>If you tell a bunch of engineers to complete a collection of tasks, they are
+going to cherry-pick the things that are <em>easy</em> or <em>interesting</em>.</p>
+
+<p>Easy things, by definition, are low-risk in terms of delivery. If they involved
+unknowns then they wouldn’t be easy. Cherry-picking the easy things causes all
+the high-risk tasks to be deferred until near the end of the project. So the
+point at which everyone discovers the devastating, unforeseen problems that
+threaten to tank the whole project is just before the deadline. It should be
+obvious why this is a terrible approach to delivering software. Bucketed
+prioritisation systems naturally lead people to make this mistake.</p>
+
+<p>Cherry-picking the <em>interesting</em> things causes a different problem. I mentioned
+earlier that it’s a mistake to assume that the must-haves are all equal in terms
+of priority. Despite the name, the “must-haves” are going vary in importance,
+from absolutely critical down to things that should be nice-to-haves. Working in
+order of decreasing interest means that interesting less-important things are
+done before boring more-important things. This wouldn’t be an issue if all the
+things get done in time, but that rarely happens. Usually what happens is that
+new ideas are added to the bucket faster than the things in the bucket are
+getting completed, meaning that the bucket is effectively infinite. The
+consequence of ignoring the boring high-priority stuff is that, as you approach
+the deadline, the software has a lot of cool features but it doesn’t actually do
+what it was intended to do. The first 90% of the engineering budget gets
+squandered on random shit that the engineers think is cool, then the second 90%
+of the engineering budget is a mad rush to try and make it fit for purpose,
+resulting in late, poor-quality, ineffective software. This problem is a natural
+consequence of bucketed prioritisation too.</p>
+
+<h2>Up Next</h2>
+
+<p>Hopefully by this point I’ve demonstrated why and how bucketed prioritisation
+drives poor outcomes. I’ve served up a heapin’ helpin’ o’ problems without even
+a side of solutions, so in the next article I’m going to suggest some tactics
+designed to avoid the pitfalls covered so far. Hint: it won’t involve buckets.</p>
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
+      </p>
+</div>
+
+    
+
+
+    
+
+  </footer>
+</article>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/software-processes/against-must-haves-part-two/">Against Must-Haves (Part Two)</a></li>
+<li><a href="/blog/software-processes/against-must-haves-part-one/">Against Must-Haves (Part One)</a></li>
+<li><a href="/blog/software-processes/agile-is-a-glass-cannon/">Agile Is A Glass Cannon</a></li>
+<li><a href="/blog/mentoring/marketing-yourself-as-a-junior-engineer/">Marketing Yourself As A Junior Engineer</a></li>
+<li><a href="/blog/random-stuff/context-costs-and-benefits/">Context, Costs, and Benefits</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">12</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">6</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2023/" class="year">2023</a>
+            (<span class="post-count">4</span>)
+          </li>
+<li>
+            <a href="/blog/2022/" class="year">2022</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">6</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2023</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>

@@ -10,6 +10,16 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Against Must-Haves (Part Two)</title>
+      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-two/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In part two of this series, we’re going to look at how the must-have priority
+bucket leads engineering to make bad decisions.</p>
+]]></description>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-two</guid>
+    </item>
+    <item>
       <title>Against Must-Haves (Part One)</title>
       <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-one/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Categorising requirements into buckets like “must-haves” and “nice-to-haves” is
@@ -165,27 +175,6 @@ implementation is stable.</p>
       <pubDate>Mon, 10 May 2021 00:00:00 -0000</pubDate>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.start-with-high-level-tests</guid>
-    </item>
-    <item>
-      <title>The Tip Of The Inputberg</title>
-      <link>https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>Why did Apple not test what happens when a user supplies “True” as
-their last name? Is it incompetence?</p>
-
-<figure class="naked">
-  <blockquote class="twitter-tweet">
-    <a href="https://twitter.com/JPaulGibson/status/1368182852668583948">https://twitter.com/JPaulGibson/status/1368182852668583948</a>
-  </blockquote>
-</figure>
-
-
-<p>I don’t think so. I think the explanation is simpler: it’s not
-feasible. It’s highly impractical, if not computationally impossible,
-to test every input.</p>
-]]></description>
-      <pubDate>Mon, 08 Mar 2021 00:00:00 -0000</pubDate>
-      <category><![CDATA[Testing]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.the-tip-of-the-inputberg</guid>
     </item>
   </channel>
 </rss>
