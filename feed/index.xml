@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Nugs And Negative Failure Demand</title>
+      <link>https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In this article I’m going to take a look at software quality as a way to
+differentiate between junior, mid-level, and senior software engineers, through
+the lens of <em>failure demand</em>, purely so that I can introduce a new concept that
+I thought up on a walk today, which I’m calling <em>negative failure demand</em>.</p>
+]]></description>
+      <pubDate>Sun, 03 Sep 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.nugs-and-negative-failure-demand</guid>
+    </item>
+    <item>
       <title>Against Must-Haves (Part Two)</title>
       <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-two/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In part two of this series, we’re going to look at how the must-have priority
@@ -163,18 +175,6 @@ rewrite them from scratch.</p>
       <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
-    </item>
-    <item>
-      <title>Start With High-Level Tests</title>
-      <link>https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<h2>Rule Of Thumb</h2>
-
-<p>Start with high-level tests, and step down to lower levels when the
-implementation is stable.</p>
-]]></description>
-      <pubDate>Mon, 10 May 2021 00:00:00 -0000</pubDate>
-      <category><![CDATA[Mentoring Notes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.start-with-high-level-tests</guid>
     </item>
   </channel>
 </rss>

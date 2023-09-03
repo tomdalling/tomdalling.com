@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SOLID Class Design: The Single Responsibility Principle — Tom Dalling</title>
+    <title>Nugs And Negative Failure Demand — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,10 +22,10 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/">
-<meta property="og:title" content="SOLID Class Design: The Single Responsibility Principle">
-<meta property="og:url" content="https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/">
-<meta property="og:image" content="https://www.tomdalling.com/images/posts/srp.jpg">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/">
+<meta property="og:title" content="Nugs And Negative Failure Demand">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/pcb.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -43,137 +43,219 @@
       <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
 
   <header>
-    <h1><a href="/blog/software-design/solid-class-design-the-single-responsibility-principle/">SOLID Class Design: The Single Responsibility Principle</a></h1>
+    <h1><a href="/blog/software-processes/nugs-and-negative-failure-demand/">Nugs And Negative Failure Demand</a></h1>
     <small class="meta">
-      <span class="post-date">12 Nov, 2009</span>
+      <span class="post-date">03 Sep, 2023</span>
       
       —
-      Category: <a class="category" href="/blog/category/software-design/">Software Design</a>
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
       —
-      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2009-11-12_solid-class-design-the-single-responsibility-principle.markdown">on GitHub</a>
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2023-09-03_nugs-and-negative-failure-demand.md">on GitHub</a>
     </small>
     <div class="main-image">
-      <img src="/images/posts/srp.jpg" class="img-responsive">
-      <span class="credit">Image courtesy of <a class="artist" href="http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx">Derick Bailey</a>.</span>
+      <img src="/images/posts/pcb.jpg" class="img-responsive">
+      
     </div>
   </header>
 
   <div class="post-content body-text">
-<p>This is part one of a five part series about <a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod" title="The Principles of OOD">SOLID class design principles</a>
-by <a href="http://www.objectmentor.com/omTeam/martin_r.html">Robert C. Martin</a>. The SOLID principles focus on achieving code that is
-maintainable, robust, and reusable. In this post, I will discuss the Single
-Responsibility Principle.</p>
-
-<blockquote>
-  <p><strong>The Single Responsibility Principle (SRP)</strong>: <em>A class should have one, and only one, reason to change</em>.</p>
-</blockquote>
+<p>In this article I’m going to take a look at software quality as a way to
+differentiate between junior, mid-level, and senior software engineers, through
+the lens of <em>failure demand</em>, purely so that I can introduce a new concept that
+I thought up on a walk today, which I’m calling <em>negative failure demand</em>.</p>
 
 <!--more-->
 
-<p>The SRP is roughly the same as having “high <a href="http://en.wikipedia.org/wiki/Cohesion_%28computer_science%29" title="Cohesion (computer science)">cohesion</a>”. A class is said to
-have high cohesion if it’s behaviours are highly related, and strongly focused.
-The SRP states that a class should be cohesive to the point that it has a
-single responsibility, where a responsibility is defined as “a reason for
-change.”</p>
+<h2>Caveats</h2>
 
-<h2>The Benefits</h2>
+<p>To pre-empt people getting angry at me, I want to be clear on a few points:</p>
 
 <ul>
   <li>
-    <p><strong>The class is easier to understand</strong><br>
-When the class only does “one thing”, its interface usually has a small
-number of methods that are fairly self explanatory. It should also have a
-small number of member variables (less than seven-ish).</p>
+    <p>Failure demand is not the <em>only</em> thing that distinguishes
+juniors/mids/seniors. There are lots of things, and this is just one of them.
+The model presented here is one tool, not the entire toolkit.</p>
   </li>
   <li>
-    <p><strong>The class is easier to maintain</strong><br>
-Changes are isolated, reducing the chance of breaking other unrelated areas
-of the software. As programming errors are inversely proportional to
-complexity, being easier to understand makes the code less prone to bugs.</p>
+    <p>Like all models, this one has flaws and limitations, and as such should be
+considered critically. All models are wrong, but some are useful. The map is
+not the territory.</p>
   </li>
   <li>
-    <p><strong>The class is more reusable</strong><br>
-If a class has multiple responsibilities, and only one of those is needed
-in another area of the software, then the other unnecessary
-responsibilities hinder reusability. Having a single responsibility means
-the class should be reusable without modification.</p>
+    <p>Not all juniors/mids/seniors behave exactly as described here. People are
+individuals, not categories, and should be considered on an objective,
+case-by-case basis. Sometimes juniors act like seniors, and vice versa. I have
+personally witnessed a junior handedly outperforming a senior before. There is
+plenty of variability.</p>
   </li>
 </ul>
 
-<h2>An Example</h2>
+<p>Also, this is a bit long. I would have written a shorter article, but I didn’t
+have the time.</p>
 
-<p>Consider a class called <code>XMLExporter</code>. <code>XMLExporter</code> takes a <code>Document</code> object,
-and exports it into a different file format for another application. Ignoring
-error handling, the class may look something like this:</p>
+<h2>What Is Failure Demand?</h2>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">XMLExporter</span> <span class="p">{</span>
-<span class="nl">private:</span>
-    <span class="n">URL</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">String</span> <span class="n">_exportDocumentToXML</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="nl">public:</span>
-    <span class="kt">void</span> <span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">};</span>
+<p>Let’s first look at <em>demand</em>. Loosely speaking, demand is a measure of customers
+knocking on your door and saying “I have money that I would like to exchange for
+something of yours”. Demand is (usually) proportional to the amount of goods and
+services a business provides. For a bakery, that translates to bread sold, but
+for a service business like a cleaner it (largely) translates to <em>employee time</em>
+sold.</p>
 
-<span class="kt">void</span> <span class="n">XMLExporter</span><span class="o">::</span><span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">String</span> <span class="n">xmlFileContent</span> <span class="o">=</span> <span class="n">_exportDocumentToXML</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
-    <span class="n">URL</span> <span class="n">fileURL</span> <span class="o">=</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">xmlFileContent</span><span class="p">.</span><span class="n">writeToURL</span><span class="p">(</span><span class="n">fileURL</span><span class="p">);</span>
-    <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="p">}</span>
+<p><em>Failure demand</em> is a kind of demand that comes <em>not</em> from customers wanting to
+purchase something, but from customers seeking a remedy to a <em>failing</em> of the
+business. Some examples include:</p>
 
-<span class="c1">// ... (code ommitted)</span>
+<ul>
+  <li>
+    <p>a customer asking for a new loaf of bread because they one they just purchased
+was mouldy</p>
+  </li>
+  <li>
+    <p>a customer asking for a cleaner to return because someone was not cleaned
+properly</p>
+  </li>
+  <li>
+    <p>a customer interacting with support (consuming employee time) because the
+software they purchased is not user-friendly enough for them to be able to
+work it out by themselves</p>
+  </li>
+</ul>
 
-</code></pre></div></div>
+<h2>How Does It Apply To Software Engineering?</h2>
 
-<p>There are at least two reasons for change (a.k.a. responsibilities) in the
-<code>XMLExporter</code> class. The class needs to be modified if the GUI changes —
-for example, if an options dialog is added. Also, the class needs to be
-modified if the XML format changes, or the <code>Document</code> needs to be exported
-differently.</p>
+<p>Failure demand could apply to software engineering in a few different ways, but
+what I want to focus on specifically here is: when engineers produce software
+that results in future costs for the business <em>due to poor quality</em>. Those costs
+could be:</p>
 
-<p>To apply the SRP to the <code>XMLExporter</code> class, it must be split into two classes.
-One class will handle the GUI, and the other will only handle the conversion to
-XML. Here is a possible application of the SRP:</p>
+<ul>
+  <li>
+    <p>increased burden on customer support due to poor UX</p>
+  </li>
+  <li>
+    <p>a litany of bugs that consume the time of various different people across the
+business, including engineers</p>
+  </li>
+  <li>
+    <p>maintenance costs of supporting poorly-designed features, which often can’t be
+removed or fixed after customers come to rely on them</p>
+  </li>
+</ul>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/********* XMLConverter ************/</span>
-<span class="k">class</span> <span class="nc">XMLConverter</span> <span class="p">{</span>
-<span class="nl">public:</span>
-    <span class="n">String</span> <span class="n">convertDocumentToXML</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">}</span>
+<p>This is similar to, but not quite the same concept as, technical debt.</p>
 
-<span class="c1">// ... (code ommitted)</span>
+<h2>Juniors</h2>
 
-<span class="cm">/********* XMLExporter ************/</span>
-<span class="k">class</span> <span class="nc">XMLExporter</span> <span class="p">{</span>
-<span class="nl">private:</span>
-    <span class="n">URL</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="kt">void</span> <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="nl">public:</span>
-    <span class="kt">void</span> <span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">);</span>
-<span class="p">};</span>
+<p>Without a good environment, it’s not uncommon for a junior software engineer to
+spend one month producing software that results in several months of failure
+demand for the business. And let’s face it, creating a good environment is
+particularly difficult — most businesses don’t do it well.</p>
 
-<span class="kt">void</span> <span class="n">XMLExporter</span><span class="o">::</span><span class="n">exportDocument</span><span class="p">(</span><span class="n">Document</span> <span class="n">doc</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">XMLConverter</span> <span class="n">converter</span><span class="p">;</span>
-    <span class="n">String</span> <span class="n">xmlFileContent</span> <span class="o">=</span> <span class="n">converter</span><span class="p">.</span><span class="n">convertDocumentToXML</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
-    <span class="n">URL</span> <span class="n">fileURL</span> <span class="o">=</span> <span class="n">_runSaveDialog</span><span class="p">();</span>
-    <span class="n">xmlFileContent</span><span class="p">.</span><span class="n">writeToURL</span><span class="p">(</span><span class="n">fileURL</span><span class="p">);</span>
-    <span class="n">_showSuccessDialog</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Typically you would expect that the value produced by an engineer would be
+greater than the salary they’re paid. Otherwise the business is running at a
+loss, which is not sustainable. Well, in some situations, the value produced by
+an engineer might not only be below their salary — it can be below
+<em>zero</em>. That is, even if they worked for free you’d still be losing money.</p>
 
-<span class="c1">// ... (code ommitted)</span>
+<p>Juniors are a longer-term investment. If you’re expecting the same result at
+half the price, then you’re setting yourself up for a rude awakening. It might
+sound smart to get a month of engineering work at a cheaper, junior rate, but it
+sounds less smart when you account for a month of a senior engineer to fix it —
+not to mention all the other costs of shipping low-quality software.</p>
 
-</code></pre></div></div>
+<p>Now is a good time to read the caveats section above, if you haven’t already.</p>
 
-<p>N.B. The above code demonstrates the SRP <em>only</em>, and actually violates some of
-the other four SOLID class design principles.</p>
+<h2>Seniors</h2>
 
-<p>By extracting the <code>XMLConverter</code> class from <code>XMLExporter</code>, the two reasons for
-change are separated from each other. Note that separating the GUI from the
-converter has resulted in a model-view-controller type of structure.</p>
+<p>One of the hallmarks of a senior engineer is their ability to see into the
+future and make decently accurate guesses as to the maintenance costs of their
+decisions. To put it another way: seniors should be able to anticipate and avert
+failure demand.</p>
 
+<p>Top-quality software is software that employees don’t hear about. It doesn’t
+need to be debugged because there are no bugs. Customers never ask for support
+because it’s intuitive to use. Engineers don’t need to change it or even read
+the code when they add new functionality because it’s designed to be extensible
+without modification. It just keeps working, and nobody has to think about it.
+This is what senior engineers should be able to produce.</p>
+
+<h2>Mids</h2>
+
+<p>Mids are half-way between juniors and seniors.</p>
+
+<p>Fresh mids still produce a sizable amount of failure demand, but less so than
+juniors. Usually the reduction is accomplished by copying patterns from
+more-senior engineers, without necessarily understanding the reasoning behind
+them.</p>
+
+<p>Mids approaching senior should have started honing their farsight, and
+have significantly reduced the failure demand that they produce.</p>
+
+<h2>Nugs</h2>
+
+<p>So juniors tend to produce a relatively large amount of failure demand, which
+decreases as they gain experience. This might lead you to believe that the ideal
+— i.e. what the seniorest of the senior produce — is zero failure demand.
+But I would argue that S-tier engineers can actually go beyond zero, and into
+the negatives. This brings us to the new concept I wanted to introduce: negative
+failure demand.</p>
+
+<p>It’s one thing to be able to foresee and avoid failure demand in your own code.
+Done perfectly, that would get you to zero. To go beyond zero, into the
+negatives, you also need the ability to foresee and prevent failure demand in
+<em>other team members’ code that hasn’t been written yet</em>.</p>
+
+<p>To demonstrate, let’s take bugs as an example of engineering failure demand. We
+can write code that contains some bugs, or no bugs. But how can we write code
+with a negative number of bugs? Well, imagine if it was possible to write a
+negative bug — a <em>nug</em>, if you will. You write your nug, and commit it into
+the codebase. Initially, it does nothing. But the next time any engineer
+introduces a new bug, the nug cancels it out, resulting in no new bug being
+introduced. Wouldn’t that be amazing? The good news is that this is already how
+software engineering works, in a manner of speaking.</p>
+
+<p>Good software is not only good at the point it’s released — it should be
+robust, and <em>remain</em> good after being extended and modified by other
+engineers. If the wheels fall off as soon as someone else touches the code, then
+you need to keep working on that senior farsight. <em>Really</em> good code is strong
+enough to survive multiple juniors extending it, and actually guides them to
+produce higher-quality work than they otherwise would have, purely by virtue
+of the design and structure. This is what I mean by negative failure demand.
+It’s quality work that’s <em>infectious</em>, and propagates that quality into the
+future.</p>
+
+<h2>Nugs In Practice</h2>
+
+<p>The way that you write a nug is by:</p>
+
+<ol>
+  <li>Anticipating what changes might be made in the future</li>
+  <li>Analysing the likely mistakes an engineer would make while implementing those
+changes</li>
+  <li>Designing/structuring the current implementation such that those mistakes are
+impossible, or at least difficult, to make</li>
+</ol>
+
+<p>This is what senior engineers should be doing already, especially the seniory
+seniors.</p>
+
+<p>In practice, negative failure demand work takes the shape of things like:</p>
+
+<ul>
+  <li>libraries and frameworks</li>
+  <li>library-like and framework-like parts of the codebase, which are only ever
+used internally and never extracted</li>
+  <li>linters</li>
+  <li>continuous integration pipelines</li>
+  <li>mentorship and education</li>
+</ul>
+
+<p>All of the above are leveraged ways to improve quality — that is, they make
+other people more effective at their work <em>without</em> the author having to be
+involved in that work. For example, adding a linter rule can prevent a whole
+class of bugs for <em>all</em> engineers working in the codebase, even future engineers
+that haven’t been hired yet. Don’t get me started on linters, though.</p>
 </div>
 
   <footer>
@@ -195,23 +277,6 @@ converter has resulted in a model-view-controller type of structure.</p>
     
 
 
-    
-      <h2>Comments</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript" id="disqus_script">
-        var disqus_shortname = "tomdalling";
-        var disqus_identifier = "232 http://tomdalling.com/?p=232";
-        var disqus_title = "SOLID Class Design: The Single Responsibility Principle";
-        var disqus_url = "https://www.tomdalling.com/blog/software-design/solid-class-design-the-single-responsibility-principle/";
-
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
-</noscript>
     
 
   </footer>
