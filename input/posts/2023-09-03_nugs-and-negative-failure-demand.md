@@ -48,10 +48,10 @@ business. Some examples include:
 - a customer asking for a new loaf of bread because they one they just purchased
   was mouldy
 
-- a customer asking for a cleaner to return because someone was not cleaned
+- a customer asking for a cleaner to return because something was not cleaned
   properly
 
-- a customer interacting with support (consuming employee time) because the
+- a customer interacting with support (i.e. consuming employee time) because the
   software they purchased is not user-friendly enough for them to be able to
   work it out by themselves
 
