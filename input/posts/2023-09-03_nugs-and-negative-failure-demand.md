@@ -148,7 +148,7 @@ introduced. Wouldn't that be amazing? The good news is that this is already how
 software engineering works, in a manner of speaking.
 
 Good software is not only good at the point it's released --- it should be
-robust, and _remain_ good after being extended and modified by other
+robust, and _remains_ good after being extended and modified by other
 engineers. If the wheels fall off as soon as someone else touches the code, then
 you need to keep working on that senior farsight. _Really_ good code is strong
 enough to survive multiple juniors extending it, and actually guides them to
@@ -162,10 +162,10 @@ Nugs In Practice
 
 The way that you write a nug is by:
 
-1. Anticipating what changes might be made in the future
-2. Analysing the likely mistakes an engineer would make while implementing those
+1. anticipating what changes might be made in the future
+2. analysing the likely mistakes an engineer would make while implementing those
    changes
-3. Designing/structuring the current implementation such that those mistakes are
+3. designing/structuring the current implementation such that those mistakes are
    impossible, or at least difficult, to make
 
 This is what senior engineers should be doing already, especially the seniory
