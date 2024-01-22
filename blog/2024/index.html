@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>2011 Archives — Tom Dalling</title>
+    <title>2024 Archives — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,7 +22,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2011/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2024/">
 </head>
 
   <body>
@@ -38,52 +38,44 @@
 
       <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
   <h1>
-    <span class="title">2011 Archives</span>
+    <span class="title">2024 Archives</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">Const Correctness For NSString (And Pointers In General)</a></h2>
+      <h2><a href="/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/">Ditch The Umbrella And Grab Some Sunnies</a></h2>
       <small class="meta">
-        <span class="post-date">16 Dec, 2011</span>
-        
+        <span class="post-date">22 Jan, 2024</span>
+        <span class="bleet">
+          —
+          This is a
+          <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+        </span>
         —
-        Category: <a class="category" href="/blog/category/coding-tips/">Coding Tips</a>
+        Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
       </small>
     </header>
 
-    
+    <img class="listed-main-image" src="/images/posts/deal-with-it-guy.png">
 
     <div class="post-content body-text">
-<p>So you’re implementing a new notification and you want the name to be a
-constant. Easy, right?</p>
+<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
+supposed to keep all the distractions away from the team: the short-lived whims
+and fancies of various stakeholders, vague plans that are going to change
+several times before being solidified — all that stuff. Distractions are
+poisonous to good software, so hiding them should help the team deliver more and
+better software. A large part of this is true.</p>
 
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>If that’s how you do constants, you’re not doing it quite right. Try assign a
-new value to the alleged constant and watch in horror as the compiler doesn’t
-stop you.</p>
-
-<p>This is because when you type <code>const NSString*</code>, the compiler interprets that
-as <strong>a pointer to a constant <code>NSString</code></strong>. <code>NSString</code> is already an immutable
-object, so making a constant <code>NSString</code> doesn’t do anything except maybe cause
-some compiler errors/warnings later when you try to use it. What you’re really
-after is <strong>a constant pointer to an <code>NSString</code></strong>. It’s ever so subtly
-different, and written like so:</p>
-
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>Don’t feel bad. It’s a common mistake. I used to do it until Rob Napier
-<a href="http://stackoverflow.com/questions/1937685/static-nsstring-usage-vs-inline-nsstring-constants/1937727#1937727" title="Static NSString usage vs inline NSString constants">schooled me</a>, and now I’m passin’ on the learnin’ to you.</p>
+<p>However, I would like to argue here that behaving like an umbrella is probably
+not a good thing. Umbrellas are shields that block rain. And what are these EMs
+blocking? Hopefully distractions, but also <em>information</em> and <em>reality</em>.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">
+      <a class="btn btn-default more" href="/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

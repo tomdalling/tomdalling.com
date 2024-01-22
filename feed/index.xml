@@ -10,6 +10,24 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Ditch The Umbrella And Grab Some Sunnies</title>
+      <link>https://www.tomdalling.com/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
+supposed to keep all the distractions away from the team: the short-lived whims
+and fancies of various stakeholders, vague plans that are going to change
+several times before being solidified — all that stuff. Distractions are
+poisonous to good software, so hiding them should help the team deliver more and
+better software. A large part of this is true.</p>
+
+<p>However, I would like to argue here that behaving like an umbrella is probably
+not a good thing. Umbrellas are shields that block rain. And what are these EMs
+blocking? Hopefully distractions, but also <em>information</em> and <em>reality</em>.</p>
+]]></description>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.ditch-the-umbrella-and-grab-some-sunnies</guid>
+    </item>
+    <item>
       <title>Nugs And Negative Failure Demand</title>
       <link>https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article I’m going to take a look at software quality as a way to
@@ -163,18 +181,6 @@ mainly to help clarify my own thinking.</p>
       <pubDate>Mon, 31 May 2021 00:00:00 -0000</pubDate>
       <category><![CDATA[Testing]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.monologue-on-end-to-end-testing</guid>
-    </item>
-    <item>
-      <title>Write Detailed RSpec Example Descriptions</title>
-      <link>https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<h2>Rule Of Thumb</h2>
-
-<p>RSpec examples should have enough detail in the descriptions to
-rewrite them from scratch.</p>
-]]></description>
-      <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
-      <category><![CDATA[Mentoring Notes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
     </item>
   </channel>
 </rss>
