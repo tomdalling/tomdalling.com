@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: May 2010 — Tom Dalling</title>
+    <title>High Performance Requires Process — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,7 +22,11 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/05/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/">
+<meta property="og:title" content="High Performance Requires Process">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/high-performance-requires-process.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
   <body>
@@ -36,50 +40,156 @@
 
     <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
 
-      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
-  <h1>
-    <span class="title">Archives: May 2010</span>
-    
-  </h1>
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
 
-  
-<article class="post post-listed">
-    <header>
-      <h2><a href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">Why performSelector: Is More Dangerous Than I Thought</a></h2>
-      <small class="meta">
-        <span class="post-date">14 May, 2010</span>
-        
-        —
-        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
-      </small>
-    </header>
+  <header>
+    <h1><a href="/blog/software-processes/high-performance-requires-process/">High Performance Requires Process</a></h1>
+    <small class="meta">
+      <span class="post-date">03 Mar, 2024</span>
+      
+      —
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2024-03-03_high-performance-requires-process.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/high-performance-requires-process.jpg" class="img-responsive">
+      
+    </div>
+  </header>
 
-    
+  <div class="post-content body-text">
+<p>Processes are a prerequisite for high-performance in software engineering teams
+due to their ability to amplify the skill of the team. I believe there exists no
+team, given that there is little to no process to begin with, whose performance
+could not be improved by adding appropriate process.</p>
 
-    <div class="post-content body-text">
-<p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
-test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
-about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
-it dawned on me that <code>performSelector:</code> <strong>was corrupting memory</strong>. It was
-particularly hard to track down because the crash would happen a couple of
-lines <em>after</em> the call to <code>performSelector:</code>, when the corrupted memory was
-actually accessed.</p>
+<!--more-->
 
-<p>I’ve never had a problem with <code>performSelector:</code> before, but this time I was
-using it a little differently. The return value of the selector was an
-<code>NSRect</code>.</p>
+<h2>Reasoning</h2>
 
-<p>Now for the gory explanation.</p>
+<p>The performance of software engineering teams, and individual software
+engineers, is affected by process: the procedures or steps followed by team
+members in their day-to-day workflows. This should not be contentious.</p>
 
+<p>Neither should it be contentious to assert that process has the ability to
+destroy productivity. This should be painfully obvious to any software engineer
+with a few years of experience — particularly those who have worked in larger
+companies, or who have reported to non-technical managers.</p>
+
+<p>The potentially contentious claim I want to make here is that process also has
+the ability to <em>amplify</em> team productivity. The way I’m going to argue this is
+by appealing to common sense while exploring the counterfactual: that process
+can not improve performance.</p>
+
+<p>If it were true that process does not have the ability to improve the
+performance of a team, then we could infer that:</p>
+
+<ul>
+  <li>process can, at best, have no impact on performance</li>
+  <li>therefore process can only be a hindrance — it either negatively impacts
+performance or it’s a waste of time</li>
+  <li>therefore the removal of process can only be positive for team performance</li>
+  <li>therefore team performance is optimised by the complete removal of process —
+a.k.a. anarchy</li>
+</ul>
+
+<p>Based on your experience and common sense, does it stand to reason that anarchy
+is the pinnacle of software engineering team performance? Does it sound correct
+to you that there exists no process that could be of benefit to a team with
+absolutely zero processes?</p>
+
+<p>In my personal experience, anarchy is a predictor of poor performance. It seems
+quite obvious to me that anarchy can not possibly be optimal. Even when I’m
+working alone on a personal project, I still follow <em>some</em> processes, because
+they help me do better than I could do otherwise.</p>
+
+<p>If you reject the position that anarchy is optimal, then you accept the position
+that optimal performance can only be achieved with process.</p>
+
+<h2>A Simple Model: Process As A Coefficient</h2>
+
+<p>Think of process as a coefficient — that is, a number that multiplies another
+number — and think of team performance as the product of process and skill.</p>
+
+<p>A process which requires all engineers to stop working is a coefficient of zero.
+Zero multiplied by any skill level produces zero performance.</p>
+
+<p>A bad process is a coefficient less than one. It reduces the skill of the team,
+resulting in worse performance. For example, adding a 0.5 coefficient process
+would cut the team’s performance in half, and removing it would double
+performance.</p>
+
+<p>A neutral process is a coefficient of one. It doesn’t hurt, but it doesn’t help
+either, so it’s basically just unnecessary complexity.</p>
+
+<p>A good process has a coefficient greater than one. It amplifies the skill of the
+team, resulting in better performance than would be possible otherwise. The
+point of this article is that good processes do indeed exist.</p>
+
+<h2>Who Cares?</h2>
+
+<p>To some software engineers, I’m sure it’s plainly obvious that a good team
+requires good process. If you’re one of those people, then reading this was
+probably a waste of time. Soz, lol. You can stop now.</p>
+
+<p>Some people may truly believe that anarchy is indeed optimal for performance in
+software engineering teams. How you could arrive at this stance is completely
+baffling to me, so I would love to hear your reasoning. If this is you, you can
+also stop reading at this point.</p>
+
+<p>This article is for everyone else. It’s for the people who shoot down the mere
+suggestion that their team might benefit from some kind of new process, without
+even attempting to evaluate the pros and cons. If this is you, then I’d argue
+that you’re making two mistakes.</p>
+
+<p>The first mistake is being irrational. You’re incorrectly treating your emotions
+as a source of truth. I understand where this emotional reaction comes from, but
+the reality is that some processes are bad and some are good. Knee-jerk
+rejection of all process is unproductive and unprofessional. The analytical part
+of your mind can be used for more than just code, you know.</p>
+
+<p>The second mistake is worse: selfishness. Maybe you’ve correctly identified that
+adopting a particular process would be an inconvenience for you personally.
+That’s definitely a factor to consider, but it’s not the most important one.
+Assuming that the process doesn’t violate ethical boundaries, the law, or your
+employment agreement, the most important factor is the overall benefit to the
+<em>team</em>. Kneecapping the entire team just to suit your own preferences is kind of
+the definition of selfishness. This behaviour is toxic, and I would hope that it
+would be considered unacceptable by any decent engineering manager, and dealt
+with accordingly.</p>
+
+<p>So if you find yourself in this camp sometimes, please reconsider blindly acting
+on your gut. Think about the effect on the team as a whole, and criticise the
+process from that perspective. Or just give it a go and evaluate the results.
+Ask that the process be reviewed after a couple of weeks before deciding to
+adopt it permanently. There are plenty of avenues for productive disagreement
+— take those avenues instead.</p>
 </div>
 
-    <footer>
-      <a class="btn btn-default more" href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
-  </article>
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com/whatever">GitHub</a>.
+      </p>
 </div>
+
+    
+
+
+    
+
+  </footer>
+</article>
 </main>
 
       <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">

@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: May 2010 — Tom Dalling</title>
+    <title>Archives: March 2024 — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,7 +22,7 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2010/05/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/2024/03/">
 </head>
 
   <body>
@@ -38,43 +38,34 @@
 
       <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
   <h1>
-    <span class="title">Archives: May 2010</span>
+    <span class="title">Archives: March 2024</span>
     
   </h1>
 
   
 <article class="post post-listed">
     <header>
-      <h2><a href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">Why performSelector: Is More Dangerous Than I Thought</a></h2>
+      <h2><a href="/blog/software-processes/high-performance-requires-process/">High Performance Requires Process</a></h2>
       <small class="meta">
-        <span class="post-date">14 May, 2010</span>
+        <span class="post-date">03 Mar, 2024</span>
         
         —
-        Category: <a class="category" href="/blog/category/cocoa/">Cocoa</a>
+        Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
       </small>
     </header>
 
-    
+    <img class="listed-main-image" src="/images/posts/high-performance-requires-process.jpg">
 
     <div class="post-content body-text">
-<p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
-test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
-about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
-it dawned on me that <code>performSelector:</code> <strong>was corrupting memory</strong>. It was
-particularly hard to track down because the crash would happen a couple of
-lines <em>after</em> the call to <code>performSelector:</code>, when the corrupted memory was
-actually accessed.</p>
-
-<p>I’ve never had a problem with <code>performSelector:</code> before, but this time I was
-using it a little differently. The return value of the selector was an
-<code>NSRect</code>.</p>
-
-<p>Now for the gory explanation.</p>
+<p>Processes are a prerequisite for high-performance in software engineering teams
+due to their ability to amplify the skill of the team. I believe there exists no
+team, given that there is little to no process to begin with, whose performance
+could not be improved by adding appropriate process.</p>
 
 </div>
 
     <footer>
-      <a class="btn btn-default more" href="/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/">
+      <a class="btn btn-default more" href="/blog/software-processes/high-performance-requires-process/">
         Read full post <i class="fa fa-angle-double-right"></i>
       </a>
     </footer>

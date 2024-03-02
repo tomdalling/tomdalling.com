@@ -10,6 +10,18 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>High Performance Requires Process</title>
+      <link>https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Processes are a prerequisite for high-performance in software engineering teams
+due to their ability to amplify the skill of the team. I believe there exists no
+team, given that there is little to no process to begin with, whose performance
+could not be improved by adding appropriate process.</p>
+]]></description>
+      <pubDate>Sun, 03 Mar 2024 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.high-performance-requires-process</guid>
+    </item>
+    <item>
       <title>Ditch The Umbrella And Grab Some Sunnies</title>
       <link>https://www.tomdalling.com/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
