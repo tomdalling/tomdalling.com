@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7X96B4HGF4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7X96B4HGF4');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Against Must-Haves (Part Three) — Tom Dalling</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&amp;family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+    <meta name="twitter:site" content="@tom_dalling">
+    <meta name="twitter:creator" content="@tom_dalling">
+    <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/software-processes/against-must-haves-part-three/">
+<meta property="og:title" content="Against Must-Haves (Part Three)">
+<meta property="og:url" content="https://www.tomdalling.com/blog/software-processes/against-must-haves-part-three/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/bucket-chickens-3.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+  <body>
+
+    <header class="tw-mb-6 tw-py-2 tw-bg-gray-100 tw-border-b tw-border-gray-200 tw-font-title">
+      <nav class="tw-container tw-mx-auto max-w-screen-xl tw-space-x-8 tw-px-4">
+        <a href="/" class="tw-text-xl tw-text-black">Tom Dalling</a>
+        <a href="/blog/" class="tw-text-black">Blog</a>
+      </nav>
+    </header>
+
+    <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
+
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/software-processes/against-must-haves-part-three/">Against Must-Haves (Part Three)</a></h1>
+    <small class="meta">
+      <span class="post-date">22 Feb, 2025</span>
+      <span class="bleet">
+        —
+        This is a
+        <a href="/blog/random-stuff/bleeting-for-fun-and-profit/">bleet</a>
+      </span>
+      —
+      Category: <a class="category" href="/blog/category/software-processes/">Software Processes</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2025-02-22_against-must-haves-part-three.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/bucket-chickens-3.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<p>In this, the third and final part of this series, I’m going to present some
+recommendations for avoiding the pitfalls covered in the previous two parts.</p>
+
+<!--more-->
+
+<h2>Recap</h2>
+
+<p>In <a href="/blog/software-processes/against-must-haves-part-one/">part one</a> we:</p>
+
+<ul>
+  <li>looked at what bucketed prioritisation is</li>
+  <li>defined “must-haves” as the first, and highest-priority, bucket</li>
+  <li>divided people’s roles into the rough categories of “builders” and “specifiers”</li>
+  <li>demonstrated how the must-have bucket creates perverse incentives for
+specifiers</li>
+</ul>
+
+<p>In <a href="/blog/software-processes/against-must-haves-part-two/">part two</a> we:</p>
+
+<ul>
+  <li>told a harrowing but all-too-relatable tale about a software project gone
+wrong, largely due to bucketed prioritisation</li>
+  <li>looked at why the fault mostly lies with engineering management</li>
+  <li>explained how bucketed prioritisation leads to cherry-picking, which is an
+unnecessarily high-risk approach to software delivery and often makes projects
+go BOOM</li>
+</ul>
+
+<h2>Tom’s Top Ten Tips for Tip-Top Trioritisation</h2>
+
+<p>One of the reasons it’s taken me so long to write this third part of the series
+is that it’s easy for this to turn into an article about how to run a software
+engineering team properly, which is a topic too massive for me to cover well
+in one article. So instead I’m going to structure this as a click-baity top ten
+list of tips, which is much easier for me to actually write and publish.</p>
+
+<h2>Tip 1: Stop using buckets</h2>
+
+<p>Take your MoSCoW prioritization framework and place it gently but firmly in the
+bin. Buckets don’t work. Maybe they are OK as a quick way to group things while
+brainstorming, but get rid of them before any builders start building.</p>
+
+<p>Instead, you should…</p>
+
+<h2>Tip 2: Give the backlog a linear ordering</h2>
+
+<p>If the problems stem from things within each bucket being unprioritised, then
+just prioritise all the things. Have one list from highest priority to lowest
+priority. And when you have that, what use are buckets?</p>
+
+<p>A linear ordering of upcoming work avoids <em>so many</em> of the common problems
+software engineering teams face, and not just problems with prioritisation.</p>
+
+<h2>Tip 3: Prioritise by risk</h2>
+
+<p>“Risk” is another very broad concept. It’s basically a probably of something bad
+happening. There are several different kinds of risk relevant to software
+engineering teams, and I think it’s a fantastic exercise to learn about all of
+them, but I’ll narrow it down to just a couple of the most pertinent ones here.</p>
+
+<p>Schedule risk is the risk that you’ll run over schedule. You can mitigate this
+risk by identifying the things the team is hasn’t really put thought into, and
+working on them <em>early</em> to get a more accurate understanding of how long they
+will take. You don’t have to <em>finish</em> them straight away, but you should work on
+them until the schedule risk is sufficiently mitigated.</p>
+
+<p>Feasibility risk is the risk that what you want to do is not possible. You can
+mitigate this risk by identifying the things that could turn out to be major
+blockers for the project, and working on them <em>early</em> to confirm whether or not
+the blockers will materialise. These are things that you really want to discover
+as early as possible in the project.</p>
+
+<p>Value risk is the risk that customers don’t really care about what you’re
+building, and won’t buy/use it when it’s released. You can mitigate this risk by
+running small experiments and releasing things <em>early</em>, to gather evidence that
+you’re on the right course and make adjustments if necessary.</p>
+
+<p>Other types of risks you should consider during prioritisation, in no particular
+order, are: business viability risk, usability risk, brand risk, compliance
+risk, operational risk, and security risk.</p>
+
+<p>I could go on forever on this topic, but my general advice is to think of it
+this way: if your list of upcoming work is all low risk, then the success of the
+project is more-or-less guaranteed. By definition, effectively mitigating risk
+means that bad things are unlikely to happen.</p>
+
+<p>By focusing on driving the project into a low-risk state as soon as possible,
+one of two things will happen: you’ll either mitigate all the major risks and
+have a nice easy project to finish off, or you’ll discover some kind of
+major landmine quickly. Both of these are great outcomes.</p>
+
+<h2>Tip 4: Put it into production immediately</h2>
+
+<p>The only way to fully de-risk something is to deploy it to production, release it
+to real users, and see it work as intended. There is no environment like
+production.</p>
+
+<p>Incrementally delivering real, working software solves so many problems for a
+software engineering team. Besides being the ultimate form of de-risking, it goes
+a long way towards making stakeholders happy, and giving them confidence in the
+team and the success of the project. It makes the relationship between the
+builders and the specifiers much smoother.</p>
+
+<p>It’s not always possible to go fully into production with every little change,
+but that doesn’t mean you should give up on the concept. Things like deploying
+behind feature flags and staff-only releases are almost as good, and certainly a
+lot better than building in isolation.</p>
+
+<p>Releasing is scary. It’s when you find out whether you’ve messed it up. That’s
+why people’s default inclination is usually to build and polish in isolation
+for as long as possible, where there are no consequences. This is a mistake,
+which takes conscious effort to overcome.</p>
+
+<h2>Tip 5: Give the authority to change the backlog to a single person</h2>
+
+<p>Prioritisation is a highly collaborative process, and naturally involves quite a
+bit of conflict. Different stakeholders have different needs, aren’t really
+aware of each others’ needs, and typically default to believing that their needs
+are more important than everyone else’s. Without clear authority given to a
+single person, it’s like throwing a rotisserie chicken into a pack of hungry
+wolves.</p>
+
+<p>Having a linear ordering for the backlog helps a lot here. Nobody can just throw
+their request into the “must have” bucket anymore. If someone wants to push in
+line and get their work done sooner, they need to start at the top of the
+backlog and directly compare their request to the things that have already been
+identified as being the highest priorities, and make an argument to the person
+with authority as to why this request is more important. This leads to much
+better decision making, and also happier, better-informed stakeholders. It’s
+like… having a park ranger divide up the rotisserie chicken fairly for the
+wolves, based on… how hungry each wolf is. I dunno. TODO: better metaphor.</p>
+
+<h2>Tip 6: Don’t let the builders cherry-pick</h2>
+
+<p>Ordering work in a smart, deliberate way is completely pointless if nobody
+follows the ordering.</p>
+
+<p>If you’ve prioritised by risk, all of the difficult, ambiguous, yucky work is
+going to be at the top of the backlog. The engineers <em>will</em> try to wriggle out
+of this and write some fun code instead. This is going to happen no matter what
+process you say you have, so be prepared for it. It’s the responsibility of the
+whole team, but particularly engineering management, to prevent this from
+happening.</p>
+
+<p>I do want to quickly mention that engineers do more than just work a product
+backlog. Just because they’re not doing product work doesn’t necessarily mean
+that they’re cherry-picking. The engineering manager or technical lead should be
+able to tell the difference. This is another reason why I think non-technical
+engineering managers are a bad idea — they can’t tell when the engineers are
+taking them for a ride.</p>
+
+<h2>Tip 7: Treat work in progress as the absolute highest priority</h2>
+
+<p>Another common problem, somewhat related to cherry-picking, is when the builders
+get frustrated by work that is difficult, ambiguous, and yucky, decide that they
+are blocked, and pick up new work hoping that it will be less frustrating. Then
+the next thing turns out to be harder than it looked too, so they pick up a
+third thing. And on and on it goes, constantly starting things but never
+finishing them, until everything grinds to a halt.</p>
+
+<p>I’m going to gloss over the reasons, but it’s important to keep work in progress
+to a minimum. There should be an upper limit to the number of things the team is
+actively working on at the same time.</p>
+
+<p>There is a common saying that I’m fond of that applies here: stop starting,
+start finishing. I also have a personal saying: if you feel blocked, you’re
+probably not. Usually there is some action that could be taken to move the work
+forward, that for whatever reason the builder has chosen not to do, but which
+would be a better choice than picking up new work.</p>
+
+<h2>Tip 8: Try to break everything down into cards that take roughly 1-3 days</h2>
+
+<p>For cards shorter than one day, the administrative overhead of prioritisation
+can be a bit much. Cards longer than three days have a bunch of potential
+problems. Sometimes they get blocked and work stops but it’s not obvious that
+that’s what has happened. Sometimes specifiers use never-ending cards as a way
+to bypass prioritisation, constantly adding new requirements after the card has
+been picked up. Sometimes builders use long cards as a way to cherry-pick,
+taking a huge chunk of work and then doing all the easy and fun parts first.
+Large cards also tend to bundle together low-priority and high-priority work,
+which would be better split up and prioritised separately. And they get in the
+way of changing direction when needed, because builders are tied up with work
+in progress instead of picking up new priorities.</p>
+
+<p>Having a standard card size in combination with an upper limit on work in
+progress <em>forces</em> the team to deliver a steady stream of output. It should be
+easy to demonstrate what the team has produced every week, and obvious when work
+gets stuck.</p>
+
+<p>This is also my preferred way to do estimation. It’s both easier and more
+accurate to break things down, count the cards, and multiply by 3 days, than it
+is to estimate large chunks of work that all vary in size — not that I’m a
+huge fan of estimation to begin with.</p>
+
+<h2>Tip 9: Break work down into vertical slices</h2>
+
+<p>If the team is working in priority order, staying under the work in progress
+limits, and all the cards are roughly the same smallish size, then the only
+thing left that can mess up delivery is working in horizontal slices. Horizontal
+slices bad. Vertical slices good.</p>
+
+<p>To simplify, the difference between a vertical and horizontal slice is whether
+you can actually use the software after the card is done. If the card is
+something like “do the database migrations” then no, that’s not usable software,
+which indicates it’s a horizontal slice. If the card is something like “add
+button for deleting widget” and the button actually works, then that’s a
+vertical slice because it’s real working software for users.</p>
+
+<p>Vertical slicing is a topic that I strongly believe in and have written about
+previously, so I’ve already got a two-part test for evaluating whether work is a
+vertical slice or not, and here it is:</p>
+
+<ol>
+  <li>
+    <p>The value test: Does this change, by itself, deliver some kind of value to
+the user? The answer must be yes. Refactoring is exempt from this test
+because, by definition, users should not see any observable differences after
+refactoring.</p>
+  </li>
+  <li>
+    <p>The completeness test: If this was the final change that was ever deployed
+for the project, and nobody was allowed to work on the project ever again,
+would deploying this change leave the software in a broken or incomplete
+state for users? The answer must be no. If the change requires other future
+changes in order to work properly, that means it’s not fully integrated and
+is therefore some kind of horizontal slice.</p>
+  </li>
+</ol>
+
+<h2>Tip 10: Don’t put too much effort into the bottom of the backlog</h2>
+
+<p>The backlog is going to grow and change a lot over the course of the project.
+If you put a bunch of effort into planning, specifying, and prioritising
+everything up front, a lot of that effort is going to be wasted when things
+change.</p>
+
+<p>At any given time, you only need to know the next few highest-priority things
+— maybe just the things that are expected to be started in the next two weeks
+or so. Beyond that, it’s good to have a rough ordering for the purposes of
+communicating with stakeholders, but these are likely to change a fair bit and
+so they’re not worth putting a lot of effort into.</p>
+
+<p>The thing at the top of the backlog should be adequately specified and ready to
+go right now. The next couple of things should be fleshed out pretty well,
+because they could get picked up soon. The next few things after that can just
+be some rough notes, because they’re not going to get picked up any time soon.
+And the rest… meh. Empty cards with just a title is fine. They can get
+specified when they’re closer to being picked up, which might never happen.</p>
+
+<h2>That’s A Wrap</h2>
+
+<p>Phew. Trilogy over, finally. I hope you’ve had an interesting read, and maybe
+found something useful to try on your next project.</p>
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Subscribe via RSS</a>
+        <span class="tw-flex-none tw-px-8 tw-py-4 tw-text-pink-800">or</span>
+        <a href="https://twitter.com/tom_dalling" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 hover:tw-text-white">Follow on Twitter</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com">GitHub</a>.
+      </p>
+</div>
+
+    
+
+
+    
+
+  </footer>
+</article>
+</main>
+
+      <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
+
+        <div class="tw-text-lg tw-font-title tw-mb-1">Subscribe</div>
+        <ul class="tw-space-y-2">
+          <li>
+            <a href="/blog/feed/">
+              <i class="fa fa-rss"></i> RSS
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/tom_dalling">
+              <i class="fa fa-twitter"></i> Twitter
+            </a>
+          </li>
+        </ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Recent Posts</div>
+        <ul class="recent-posts tw-space-y-2">
+          
+        <li><a href="/blog/software-processes/against-must-haves-part-three/">Against Must-Haves (Part Three)</a></li>
+<li><a href="/blog/software-processes/high-performance-requires-process/">High Performance Requires Process</a></li>
+<li><a href="/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/">Ditch The Umbrella And Grab Some Sunnies</a></li>
+<li><a href="/blog/software-processes/nugs-and-negative-failure-demand/">Nugs And Negative Failure Demand</a></li>
+<li><a href="/blog/software-processes/against-must-haves-part-two/">Against Must-Haves (Part Two)</a></li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Categories</div>
+        <ul class="categories tw-space-y-2">
+          
+        <li>
+            <a href="/blog/cocoa/" class="category">Cocoa</a>
+            (<span class="post-count">5</span>
+            <a class="feed" href="/blog/cocoa/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-styleconventions/" class="category">Coding Style/Conventions</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/coding-styleconventions/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/coding-tips/" class="category">Coding Tips</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/coding-tips/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/mentoring/" class="category">Mentoring Notes</a>
+            (<span class="post-count">3</span>
+            <a class="feed" href="/blog/mentoring/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/random-stuff/" class="category">Miscellaneous</a>
+            (<span class="post-count">4</span>
+            <a class="feed" href="/blog/random-stuff/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/modern-opengl/" class="category">Modern OpenGL Series</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/modern-opengl/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/ruby/" class="category">Ruby</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/ruby/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-design/" class="category">Software Design</a>
+            (<span class="post-count">12</span>
+            <a class="feed" href="/blog/software-design/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/software-processes/" class="category">Software Processes</a>
+            (<span class="post-count">10</span>
+            <a class="feed" href="/blog/software-processes/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/testing/" class="category">Testing</a>
+            (<span class="post-count">2</span>
+            <a class="feed" href="/blog/testing/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+<li>
+            <a href="/blog/web/" class="category">Web</a>
+            (<span class="post-count">1</span>
+            <a class="feed" href="/blog/web/feed/"><i class="fa fa-rss"></i></a>)
+          </li>
+</ul>
+
+        <div class="tw-text-lg tw-font-title tw-mb-1 tw-mt-6">Archives</div>
+        <ul class="archives tw-space-y-2">
+          
+        <li>
+            <a href="/blog/2025/" class="year">2025</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2024/" class="year">2024</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2023/" class="year">2023</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2022/" class="year">2022</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2021/" class="year">2021</a>
+            (<span class="post-count">6</span>)
+          </li>
+<li>
+            <a href="/blog/2020/" class="year">2020</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2016/" class="year">2016</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2015/" class="year">2015</a>
+            (<span class="post-count">2</span>)
+          </li>
+<li>
+            <a href="/blog/2014/" class="year">2014</a>
+            (<span class="post-count">3</span>)
+          </li>
+<li>
+            <a href="/blog/2013/" class="year">2013</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2012/" class="year">2012</a>
+            (<span class="post-count">10</span>)
+          </li>
+<li>
+            <a href="/blog/2011/" class="year">2011</a>
+            (<span class="post-count">1</span>)
+          </li>
+<li>
+            <a href="/blog/2010/" class="year">2010</a>
+            (<span class="post-count">5</span>)
+          </li>
+<li>
+            <a href="/blog/2009/" class="year">2009</a>
+            (<span class="post-count">9</span>)
+          </li>
+</ul>
+
+      </aside>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2009 – <span class="current-year">2025</span> Tom Dalling</p>
+
+      <p class="social">
+        <a href="https://twitter.com/tom_dalling">
+          <i class="fa fa-lg fa-twitter"></i>
+        </a>
+        <a href="https://github.com/tomdalling">
+          <i class="fa fa-lg fa-github"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/108105/tom-dalling">
+          <i class="fa fa-lg fa-stack-overflow"></i>
+        </a>
+        <a href="mailto:tom%20at%20tomdalling%20com">
+          <i class="fa fa-lg fa-envelope"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="/bundles/all.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$$','$$']],
+          displayMath: [['[blockmath]', '[/blockmath]']]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>

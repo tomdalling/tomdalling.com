@@ -10,6 +10,16 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Against Must-Haves (Part Three)</title>
+      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-three/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In this, the third and final part of this series, I’m going to present some
+recommendations for avoiding the pitfalls covered in the previous two parts.</p>
+]]></description>
+      <pubDate>Sat, 22 Feb 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-three</guid>
+    </item>
+    <item>
       <title>High Performance Requires Process</title>
       <link>https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Processes are a prerequisite for high-performance in software engineering teams
