@@ -1,10 +1,10 @@
 {:title "Against Must-Haves (Part Three)"
  :main-image {:uri "/images/posts/bucket-chickens-3.jpg"}
- :tags [:bleet]
  :category :software-processes}
 
-In this, the third and final part of this series, I'm going to present some
-recommendations for avoiding the pitfalls covered in the previous two parts.
+In this, the third and final part of this series, I'm going to present 10
+recommendations for avoiding the pitfalls of using bucketed prioritisation (e.g.
+must haves, nice to haves, etc.), covered in the previous two parts.
 
 <!--more-->
 
@@ -41,7 +41,7 @@ list of tips, which is much easier for me to actually write and publish.
 
 ## Tip 1: Stop using buckets
 
-Take your MoSCoW prioritization framework and place it gently but firmly in the
+Take your MoSCoW prioritisation framework and place it gently but firmly in the
 bin. Buckets don't work. Maybe they are OK as a quick way to group things while
 brainstorming, but get rid of them before any builders start building.
 
@@ -58,7 +58,7 @@ software engineering teams face, and not just problems with prioritisation.
 
 ## Tip 3: Prioritise by risk
 
-"Risk" is another very broad concept. It's basically a probably of something bad
+Risk is a very broad topic. It's basically a probably of something bad
 happening. There are several different kinds of risk relevant to software
 engineering teams, and I think it's a fantastic exercise to learn about all of
 them, but I'll narrow it down to just a couple of the most pertinent ones here.
@@ -114,7 +114,7 @@ lot better than building in isolation.
 Releasing is scary. It's when you find out whether you've messed it up. That's
 why people's default inclination is usually to build and polish in isolation
 for as long as possible, where there are no consequences. This is a mistake,
-which takes conscious effort to overcome.
+and takes conscious effort to overcome.
 
 ## Tip 5: Give the authority to change the backlog to a single person
 
@@ -195,7 +195,7 @@ gets stuck.
 This is also my preferred way to do estimation. It's both easier and more
 accurate to break things down, count the cards, and multiply by 3 days, than it
 is to estimate large chunks of work that all vary in size --- not that I'm a
-huge fan of estimation to begin with.
+huge fan of estimation to begin with, but that's another story.
 
 ## Tip 9: Break work down into vertical slices
 
@@ -208,7 +208,7 @@ To simplify, the difference between a vertical and horizontal slice is whether
 you can actually use the software after the card is done. If the card is
 something like "do the database migrations" then no, that's not usable software,
 which indicates it's a horizontal slice. If the card is something like "add
-button for deleting widget" and the button actually works, then that's a
+button for deleting widgets" and the button actually works, then that's a
 vertical slice because it's real working software for users.
 
 Vertical slicing is a topic that I strongly believe in and have written about

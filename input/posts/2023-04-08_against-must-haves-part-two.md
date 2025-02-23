@@ -199,3 +199,6 @@ Hopefully by this point I've demonstrated why and how bucketed prioritisation
 drives poor outcomes. I've served up a heapin' helpin' o' problems without even
 a side of solutions, so in the next article I'm going to suggest some tactics
 designed to avoid the pitfalls covered so far. Hint: it won't involve buckets.
+
+Read: [Against Must Haves (Part
+Three)](/blog/software-processes/against-must-haves-part-three/)
