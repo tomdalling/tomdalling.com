@@ -12,6 +12,8 @@ Sometimes gifts are utilitarian, like getting socks for Christmas. They are not
 the most exciting thing to receive, but you kind of need them as part of your
 normal day-to-day life, and you'll get use out of them.
 
+<!--more-->
+
 Some gifts are kind of useless. You said you liked coffee so someone got you a
 little home espresso machine, but they didn't know you've already got a $6,000
 La Marzocco sitting on your kitchen island. Regardless, you feel thankful for
