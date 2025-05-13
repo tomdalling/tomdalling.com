@@ -25,6 +25,7 @@ module Statue
       'random-stuff' => "Miscellaneous",
       'testing' => "Testing",
       'mentoring' => "Mentoring Notes",
+      'management' => "Management",
     }.map { new(machine_name: _1, human_name: _2) }
   end
 end
