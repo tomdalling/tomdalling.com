@@ -10,6 +10,19 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>The Difference Between Management And Leadership</title>
+      <link>https://www.tomdalling.com/blog/management/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>The tl;dr is that management is a set of powers and accountabilities that the
+ role confers upon you, whereas leadership is the ability to motivate followers.
+ Anyone can be a leader, and teams run on leadership not management. Management
+ is not necessarily bad, but management without leadership is pretty dang
+ terrible! Also management is like the nervous system of an octopus.</p>
+]]></description>
+      <pubDate>Tue, 13 May 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Management]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.the-difference-between-management-and-leadership</guid>
+    </item>
+    <item>
       <title>Feedback Is Literally A Gift</title>
       <link>https://www.tomdalling.com/blog/random-stuff/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Feedback is a gift.</p>
@@ -138,24 +151,6 @@ believe increase your chance of success.</p>
       <pubDate>Sun, 05 Feb 2023 00:00:00 -0000</pubDate>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.marketing-yourself-as-a-junior-engineer</guid>
-    </item>
-    <item>
-      <title>Context, Costs, and Benefits</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/context-costs-and-benefits/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>When is “measure twice, cut once” bad advice?</p>
-
-<p>One of my hobbies is complaining about the tendency of software developers to view choices as binary, moralistic decisions.
-Measuring twice is obviously correct, and anyone who doesn’t do it is an unprofessional, evil wood waster.
-Either that or double measurers are a bunch of know-nothing shysters selling snake oil for exorbitant consulting fees.
-This black-and-white thinking is a mental shortcut that many animals take,
-but sometimes it’s nice to apply a little more intellectual rigour than a Pomeranian.</p>
-
-<p>I’d like us to think less in terms of <em>right</em> and <em>wrong</em> when it comes to technical decisions,
-and think more in terms of <em>context</em>, <em>costs</em> and <em>benefits</em>.</p>
-]]></description>
-      <pubDate>Wed, 20 Jul 2022 00:00:00 -0000</pubDate>
-      <category><![CDATA[Miscellaneous]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.context-costs-and-benefits</guid>
     </item>
   </channel>
 </rss>
