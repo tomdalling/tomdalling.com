@@ -10,6 +10,16 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Work In Thin Vertical Slices</title>
+      <link>https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Work should be completed in a series of small changes, where each change is a
+polished, fully-working improvement.</p>
+]]></description>
+      <pubDate>Sat, 12 Jul 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.work-in-thin-vertical-slices</guid>
+    </item>
+    <item>
       <title>The Difference Between Management And Leadership</title>
       <link>https://www.tomdalling.com/blog/management/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>The tl;dr is that management is a set of powers and accountabilities that the
@@ -126,31 +136,6 @@ mitigated by skill/experience.</p>
       <pubDate>Sat, 25 Mar 2023 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.agile-is-a-glass-cannon</guid>
-    </item>
-    <item>
-      <title>Marketing Yourself As A Junior Engineer</title>
-      <link>https://www.tomdalling.com/blog/mentoring/marketing-yourself-as-a-junior-engineer/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<blockquote>
-  <p>If you know the enemy and know yourself, you need not fear the result
-of a hundred battles. If you know yourself but not the enemy, for
-every victory gained you will also suffer a defeat. If you know
-neither the enemy nor yourself, you will succumb in every battle.</p>
-
-  <p>— Sun Tzu, <em>The Art of War</em></p>
-</blockquote>
-
-<p>Applying for a junior engineering position, or any job, is an exercise
-in marketing and sales. You are the product, and the employer is a
-potential customer. To market and sell anything effectively, you need
-to understand how the customer thinks.</p>
-
-<p>In this article, I want to explore a bit of employer psychology when
-it comes to hiring juniors, and give some suggestions that I
-believe increase your chance of success.</p>
-]]></description>
-      <pubDate>Sun, 05 Feb 2023 00:00:00 -0000</pubDate>
-      <category><![CDATA[Mentoring Notes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.marketing-yourself-as-a-junior-engineer</guid>
     </item>
   </channel>
 </rss>

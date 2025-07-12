@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Const Correctness For NSString (And Pointers In General) — Tom Dalling</title>
+    <title>Work In Thin Vertical Slices — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,10 +22,11 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">
-<meta property="og:title" content="Const Correctness For NSString (And Pointers In General)">
-<meta property="og:url" content="https://www.tomdalling.com/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">
-<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/">
+<meta property="og:title" content="Work In Thin Vertical Slices">
+<meta property="og:url" content="https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/thin-slices.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
   <body>
@@ -42,43 +43,150 @@
       <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
 
   <header>
-    <h1><a href="/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/">Const Correctness For NSString (And Pointers In General)</a></h1>
+    <h1><a href="/blog/mentoring/work-in-thin-vertical-slices/">Work In Thin Vertical Slices</a></h1>
     <small class="meta">
-      <span class="post-date">16 Dec, 2011</span>
+      <span class="post-date">12 Jul, 2025</span>
       
       —
-      Category: <a class="category" href="/blog/category/coding-tips/">Coding Tips</a>
+      Category: <a class="category" href="/blog/category/mentoring/">Mentoring Notes</a>
       —
-      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2011-12-16_const-correctness-for-nsstring-and-pointers-in-general.markdown">on GitHub</a>
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2025-07-12_work-in-thin-vertical-slices.md">on GitHub</a>
     </small>
-    
+    <div class="main-image">
+      <img src="/images/posts/thin-slices.jpg" class="img-responsive">
+      
+    </div>
   </header>
 
   <div class="post-content body-text">
-<p>So you’re implementing a new notification and you want the name to be a
-constant. Easy, right?</p>
-
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>If that’s how you do constants, you’re not doing it quite right. Try assign a
-new value to the alleged constant and watch in horror as the compiler doesn’t
-stop you.</p>
-
-<p>This is because when you type <code>const NSString*</code>, the compiler interprets that
-as <strong>a pointer to a constant <code>NSString</code></strong>. <code>NSString</code> is already an immutable
-object, so making a constant <code>NSString</code> doesn’t do anything except maybe cause
-some compiler errors/warnings later when you try to use it. What you’re really
-after is <strong>a constant pointer to an <code>NSString</code></strong>. It’s ever so subtly
-different, and written like so:</p>
-
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">VTMyNewNotification</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>Don’t feel bad. It’s a common mistake. I used to do it until Rob Napier
-<a href="http://stackoverflow.com/questions/1937685/static-nsstring-usage-vs-inline-nsstring-constants/1937727#1937727" title="Static NSString usage vs inline NSString constants">schooled me</a>, and now I’m passin’ on the learnin’ to you.</p>
+<p>Work should be completed in a series of small changes, where each change is a
+polished, fully-working improvement.</p>
 
 <!--more-->
+
+<h2>What is a “horizontal slice”?</h2>
+
+<p><em>Horizontal</em> slices are the individual layers of the system, e.g. the front end
+is a horizontal slice, and so is the back end. These are the opposite of
+vertical slices. Working in horizontal slices looks like:</p>
+
+<ol>
+  <li>First I’ll deploy the database migration</li>
+  <li>Then I’ll write the model with some unit tests</li>
+  <li>Then I’ll make the front end, even though it’s not hooked up to anything</li>
+  <li>Then I’ll write the controller that connects the front end to the model</li>
+  <li>Then I’m done</li>
+</ol>
+
+<h2>What is a “vertical slice”?</h2>
+
+<p>In contrast, <em>vertical</em> slices are pieces of functionality that are fully
+complete, and provide some kind of value. Working in vertical slices looks like:</p>
+
+<ol>
+  <li>First I’ll add the new page with basic information about a Foo</li>
+  <li>Then I’ll add a new section to the page with extra information about the Foo’s status</li>
+  <li>Then I’ll add a button to the page that marks the Foo as “completed”</li>
+  <li>Then I’ll add a new page that lists all the Foos</li>
+  <li>Then I’m done</li>
+</ol>
+
+<p>Each vertical slice cuts across <em>all</em> of the horizontal slices. For example,
+each vertical slice includes <em>both</em> the front end <em>and</em> the back end.</p>
+
+<h2>Why?</h2>
+
+<p>Horizontal slices are notorious for the problems they cause, compared to
+vertical slices.</p>
+
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Horizontal Slices</th>
+      <th>Vertical Slices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>All value is delivered at the very end of the project. Changes are useless until the final step is completed.</td>
+      <td>Value is delivered immediately and consistently over the duration of the project. Users get a little bit of useful functionality at every step.</td>
+    </tr>
+    <tr>
+      <td>There is no good indication of whether the project is on the right track or not.</td>
+      <td>It’s easy to evaluate whether the project is making progress towards the desired outcome or not.</td>
+    </tr>
+    <tr>
+      <td>Developers don’t receive feedback, and so have no reason to change course if they are heading in a bad direction.</td>
+      <td>Developers received feedback early and often, which makes it easier to tell if the project is achieving the intended outcome. Feedback can be used to quickly change course if needed.</td>
+    </tr>
+    <tr>
+      <td>When problems are inevitably discovered, they are discovered late and often lead to large amounts of wasted time and rework. The final step is often the one with the most risk, and can have the ability to tank the entire project.</td>
+      <td>When problems are inevitably discovered, they are found early and rework is minimal. Vertical slices can be prioritised based on risk, allowing the project to be validated and de-risked before too much work has been wasted.</td>
+    </tr>
+    <tr>
+      <td>The horizontal layers have a tendency to not integrate together well. The layers are “completed” independently without knowing exactly how they will interface with other layers, and often need considerable rework once it becomes clear how they will actually be used.</td>
+      <td>The horizontal layers are always fully integrated. They are extended whenever new functionality is clearly needed, which makes it easier to design a good interface. Horizontal layers are only completed at the very end of the project, when all of the use cases have been implemented.</td>
+    </tr>
+    <tr>
+      <td>Horizontal slices are difficult to review. How can you determine whether code is good or correct if you can’t see how it will be used?</td>
+      <td>Vertical slices are easier to review well, because all the related changes are together in one PR and you can see how all the new code is used.</td>
+    </tr>
+    <tr>
+      <td>Horizontally-sliced projects can’t be easily stopped. The only options are to keep going until the end, or to abandon all the unusable work and potentially leave a bunch of technical debt in the codebase.</td>
+      <td>Vertically-sliced projects can be stopped at any time. If the results are achieved faster than expected or priorities change, all the work to date is “finished” and providing value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>How To Do It</h2>
+
+<p>The short version is to just look for a little bit of value you could deliver to
+the user, and make that change in a single, well-polished, fully-complete PR.</p>
+
+<p>The long version is that you can identify whether a change or PR is a thin
+vertical slice if it passes three tests:</p>
+
+<ol>
+  <li>
+    <p><strong>The value test:</strong> Does this change, by itself, deliver some kind of value?
+The answer must be yes. Refactoring is exempt from this test because,
+by definition, users should not see any observable differences after
+refactoring.</p>
+  </li>
+  <li>
+    <p><strong>The completeness test:</strong>  If this was the final change that was ever deployed
+for the project, and nobody was allowed to work on the project ever again,
+would deploying this change leave the software in a broken or incomplete
+state? The answer must be no. If the change requires other future
+changes in order to work properly, that means it’s not fully integrated and
+is therefore some kind of horizontal slice.</p>
+  </li>
+  <li>
+    <p><strong>The thin test:</strong> Are there any smaller vertical slices that could be extracted
+from this change? The answer <em>should usually</em> be no, because smaller steps
+are generally better than larger steps.</p>
+  </li>
+</ol>
+
+<h2>Examples Of Horizontal Slices</h2>
+
+<p>Horizontal slices are, for example, PRs that:</p>
+
+<ul>
+  <li>Add a bunch of UI that doesn’t do anything yet, with the intention to make it
+actually work later (frontend without the backend)</li>
+  <li>Add a bunch of classes/models that can’t be accessed by users yet, with the
+intention to add UI for it later (backend without the frontend)</li>
+  <li>Don’t have tests, because those will be written latter</li>
+  <li>Add database columns that will be used in future PRs</li>
+</ul>
+
+<h2>Further Resources</h2>
+
+<ul>
+  <li><a href="https://kellysutton.com/2018/07/20/the-teeth.html">The Teeth</a></li>
+  <li><a href="https://basecamp.com/shapeup/3.2-chapter-11">Shape Up - Get One Piece Done</a></li>
+</ul>
 </div>
 
   <footer>
@@ -98,23 +206,6 @@ different, and written like so:</p>
     
 
 
-    
-      <h2>Comments</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript" id="disqus_script">
-        var disqus_shortname = "tomdalling";
-        var disqus_identifier = "552 http://tomdalling.com/blog/?p=552";
-        var disqus_title = "Const Correctness For NSString (And Pointers In General)";
-        var disqus_url = "https://www.tomdalling.com/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/";
-
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
-</noscript>
     
 
   </footer>
