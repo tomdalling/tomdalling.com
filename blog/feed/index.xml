@@ -10,6 +10,16 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Milestones As Talking Points</title>
+      <link>https://www.tomdalling.com/blog/software-processes/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Recently someone said to me “stakeholders only care about milestones,” and
+something clicked for me.</p>
+]]></description>
+      <pubDate>Sun, 13 Jul 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.milestones-as-talking-points</guid>
+    </item>
+    <item>
       <title>Work In Thin Vertical Slices</title>
       <link>https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Work should be completed in a series of small changes, where each change is a
@@ -123,19 +133,6 @@ incentives it produces.</p>
       <pubDate>Sat, 01 Apr 2023 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-one</guid>
-    </item>
-    <item>
-      <title>Agile Is A Glass Cannon</title>
-      <link>https://www.tomdalling.com/blog/software-processes/agile-is-a-glass-cannon/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>A recent shower thought of mine is that agile software development
-might be similar to the strategic concept of a <a href="https://en.wiktionary.org/wiki/glass_cannon"><em>glass
-cannon</em></a> in gaming —
-specifically, that it’s a high-risk high-reward strategy where the risk can be
-mitigated by skill/experience.</p>
-]]></description>
-      <pubDate>Sat, 25 Mar 2023 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Processes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.agile-is-a-glass-cannon</guid>
     </item>
   </channel>
 </rss>
