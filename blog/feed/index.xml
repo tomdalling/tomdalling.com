@@ -10,6 +10,23 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Subclinical Bullying And Grace</title>
+      <link>https://www.tomdalling.com/blog/mentoring/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In medicine there is the concept of a disease being “subclinical”, and I think
+the concept can apply to bullying in the workplace.</p>
+
+<p>Every workplace has a threshold for bad behaviour, and subclinical bullying is
+bad behaviour which doesn’t cross the threshold. Much like how a doctor often
+won’t treat a subclinical disease, your manager often won’t address subclinical
+bullying. There are lots of reasons why this might be the case, for better or
+for worse. One of those reasons might be that your manager is showing grace,
+which can feel unfair, but is also important for a healthy team dynamic.</p>
+]]></description>
+      <pubDate>Sat, 07 Feb 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.subclinical_bullying_and_grace</guid>
+    </item>
+    <item>
       <title>Tom's Philosophy Of Project Management For Software Development</title>
       <link>https://www.tomdalling.com/blog/software-processes/toms-philosophy-of-project-management-for-software-development/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Below is an excerpt from <em>Tom’s Expectations For Project Management</em> — a
@@ -125,18 +142,6 @@ blocking? Hopefully distractions, but also <em>information</em> and <em>reality<
       <pubDate>Mon, 22 Jan 2024 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.ditch-the-umbrella-and-grab-some-sunnies</guid>
-    </item>
-    <item>
-      <title>Nugs And Negative Failure Demand</title>
-      <link>https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>In this article I’m going to take a look at software quality as a way to
-differentiate between junior, mid-level, and senior software engineers, through
-the lens of <em>failure demand</em>, purely so that I can introduce a new concept that
-I thought up on a walk today, which I’m calling <em>negative failure demand</em>.</p>
-]]></description>
-      <pubDate>Sun, 03 Sep 2023 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Processes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.nugs-and-negative-failure-demand</guid>
     </item>
   </channel>
 </rss>
