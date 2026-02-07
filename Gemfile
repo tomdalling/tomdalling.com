@@ -14,6 +14,8 @@ gem 'memery'
 gem 'addressable'
 gem 'pry'
 gem 'dry-cli'
+gem 'base64'
+gem 'bigdecimal'
 
 # dev server
 gem 'thin'
