@@ -10,6 +10,35 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>People Third Leadership</title>
+      <link>https://www.tomdalling.com/blog/management/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>You may have heard managers describe themselves as having a <em>people first</em>
+leadership style. It’s so incredibly safe. Who has ever got in trouble for
+declaring themselves to put people above all else in some vague, detail-free
+fashion? How could anyone argue against it? Well hold my weave because I’m going
+in.</p>
+
+<p>Looking at how it plays out in practice, stripped of its emotional appeal,
+“people first” <em>could</em> be seen as a euphemism for discrimination and plundering
+the common good. That’s bad.</p>
+
+<p>I’m going to compare and contrast it with something I call <em>people third
+leadership</em>, which has the following set of priorities:</p>
+
+<ol>
+  <li>Ethics (Universal Principles)</li>
+  <li>The Business (The Commons)</li>
+  <li>People (Individual Interests)</li>
+</ol>
+
+<p>I’m going to argue that by placing people third, we actually create a better
+environment for them.</p>
+]]></description>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Management]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.people-third-leadership</guid>
+    </item>
+    <item>
       <title>Subclinical Bullying And Grace</title>
       <link>https://www.tomdalling.com/blog/mentoring/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In medicine there is the concept of a disease being “subclinical”, and I think
@@ -124,24 +153,6 @@ could not be improved by adding appropriate process.</p>
       <pubDate>Sun, 03 Mar 2024 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.high-performance-requires-process</guid>
-    </item>
-    <item>
-      <title>Ditch The Umbrella And Grab Some Sunnies</title>
-      <link>https://www.tomdalling.com/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
-supposed to keep all the distractions away from the team: the short-lived whims
-and fancies of various stakeholders, vague plans that are going to change
-several times before being solidified — all that stuff. Distractions are
-poisonous to good software, so hiding them should help the team deliver more and
-better software. A large part of this is true.</p>
-
-<p>However, I would like to argue here that behaving like an umbrella is probably
-not a good thing. Umbrellas are shields that block rain. And what are these EMs
-blocking? Hopefully distractions, but also <em>information</em> and <em>reality</em>.</p>
-]]></description>
-      <pubDate>Mon, 22 Jan 2024 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Processes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.ditch-the-umbrella-and-grab-some-sunnies</guid>
     </item>
   </channel>
 </rss>
