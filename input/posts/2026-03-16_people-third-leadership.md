@@ -113,12 +113,12 @@ in aggregate.
 It's not intuitive that being third provides the greatest benefit to the people
 involved, but it works via two mechanisms:
 
-- Fairness: In a "people first" system, success often depends on political
+- _Fairness:_ In a "people first" system, success often depends on political
   alignment, likability, or being part of the favored group. A "people third"
   system aims to remove this source of discrimination by explicitly placing
   ethics above "people".
 
-- Maintaining the shared resource: Prioritising the health of the thing that
+- _Maintaining the shared resource:_ Prioritising the health of the thing that
   pays everyone's salaries results in long-term benefits for everyone, rather
   than short-term benefits for a select few at the expense of everyone else.
 
