@@ -104,7 +104,7 @@ integrity.
 
 ## Conclusion
 
-_People third leadership_ is not an anti-people stance; it is an
+_People third leadership_ is not an anti-people stance --- it is an
 anti-discrimination and anti-freeloader stance. It suggests that the best way to
 serve people is to consider ethics first, the health of the business second, and
 only then consider individual interests. This affords people the best outcomes,
