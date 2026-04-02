@@ -86,8 +86,6 @@ Frontmatter is **EDN** (Clojure-like syntax), not YAML:
 - `:disqus-id` — optional legacy Disqus ID (Disqus is being removed)
 - Output URL: `/blog/{slug}/`
 
-**Categories** (defined as symbols): `:cocoa`, `:coding-styleconventions`, `:coding-tips`, `:management`, `:mentoring`, `:modern-opengl`, `:random-stuff`, `:ruby`, `:software-design`, `:software-processes`, `:testing`, `:web`
-
 ## Deployment
 
 GitHub Actions (`.github/workflows/main.yml`) runs on push to `main`:

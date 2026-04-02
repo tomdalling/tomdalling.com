@@ -49,7 +49,7 @@ module Statue
       def duplicate_outputs
         uniq_merge([
           mvc_article_duplicate,
-          category_archive_duplicates,
+          tag_archive_duplicates,
           post_under_category_duplicates,
         ])
       end
@@ -63,9 +63,9 @@ module Statue
         )
       end
 
-      def category_archive_duplicates
+      def tag_archive_duplicates
         uniq_merge(
-          categories.flat_map do |cat|
+          tags.flat_map do |cat|
             [
               # old path: blog/category/X
               duplicate_output(
@@ -257,7 +257,7 @@ module Statue
       end
 
       memoize def tag_archives
-        posts.flat_map(&:tags).uniq.map do |tag|
+        tags.map do |tag|
           TagArchive.new(
             tag: tag,
             posts: posts.select { _1.tagged?(tag) },
@@ -265,8 +265,8 @@ module Statue
         end.sort
       end
 
-      memoize def categories
-        posts.map(&:deprecated_category).uniq
+      memoize def tags
+        posts.flat_map(&:tags).uniq
       end
 
       memoize def post_indexes
