@@ -67,13 +67,25 @@ module Statue
         uniq_merge(
           categories.flat_map do |cat|
             [
+              # old path: blog/category/X
               duplicate_output(
-                canonical: "blog/#{cat.machine_name}/index.html",
+                canonical: "blog/tagged/#{cat.machine_name}/index.html",
                 duplicate: "blog/category/#{cat.machine_name}/index.html",
               ),
+              # old path: blog/X
               duplicate_output(
-                canonical: "blog/#{cat.machine_name}/feed/index.xml",
+                canonical: "blog/tagged/#{cat.machine_name}/index.html",
+                duplicate: "blog/#{cat.machine_name}/index.html",
+              ),
+              # same for feed
+              duplicate_output(
+                canonical: "blog/tagged/#{cat.machine_name}/feed/index.xml",
                 duplicate: "blog/category/#{cat.machine_name}/feed/index.xml",
+              ),
+              # same for feed
+              duplicate_output(
+                canonical: "blog/tagged/#{cat.machine_name}/feed/index.xml",
+                duplicate: "blog/#{cat.machine_name}/feed/index.xml",
               ),
             ]
           end
@@ -171,7 +183,7 @@ module Statue
           transform: PageTransform.new(
             recent_posts: posts.take(5),
             yearly_archives: yearly_archives,
-            category_archives: category_archives,
+            tag_archives: tag_archives,
           ),
         )
       end
@@ -244,10 +256,11 @@ module Statue
           .sort
       end
 
-      memoize def category_archives
+      # TODO: all tags, not just deprecated category
+      memoize def tag_archives
         posts
           .group_by(&:deprecated_category)
-          .map { CategoryArchive.new(category: _1, posts: _2) }
+          .map { TagArchive.new(tag: _1, posts: _2) }
           .sort
       end
 
@@ -257,7 +270,7 @@ module Statue
 
       memoize def post_indexes
         [recent_post_index] +
-          category_archives.map(&:post_index) +
+          tag_archives.map(&:post_index) +
           monthly_archives.map(&:post_index) +
           yearly_archives.map(&:post_index)
       end

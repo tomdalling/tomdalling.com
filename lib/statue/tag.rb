@@ -1,12 +1,12 @@
 module Statue
-  class Category
+  class Tag
     value_semantics do
       human_name String
       machine_name String
     end
 
     def uri
-      "/blog/category/#{machine_name}/"
+      "/blog/tagged/#{machine_name}/"
     end
 
     def self.lookup(name)
@@ -26,6 +26,7 @@ module Statue
       'testing' => "Testing",
       'mentoring' => "Mentoring Notes",
       'management' => "Management",
+      'bleet' => "Bleet",
     }.map { new(machine_name: _1, human_name: _2) }
   end
 end

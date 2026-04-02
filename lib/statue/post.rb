@@ -150,7 +150,7 @@ module Statue
         value_semantics do
           title String
           disqus_id Either(String, nil)
-          deprecated_category Category, coerce: true
+          deprecated_category Tag, coerce: true
           tags ArrayOf(Symbol), default: []
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
@@ -158,7 +158,7 @@ module Statue
 
         def self.coerce_deprecated_category(obj)
           if obj.is_a?(String)
-            Category.lookup(obj) || obj
+            Tag.lookup(obj) || obj
           else
             obj
           end

@@ -1,12 +1,12 @@
 module Statue
   class PageTransform < DOMTransform
-    attr_reader :recent_posts, :yearly_archives, :category_archives
+    attr_reader :recent_posts, :yearly_archives, :tag_archives
 
-    def initialize(recent_posts:, yearly_archives:, category_archives:)
+    def initialize(recent_posts:, yearly_archives:, tag_archives:)
       super()
       @recent_posts = recent_posts
       @yearly_archives = yearly_archives
-      @category_archives = category_archives
+      @tag_archives = tag_archives
     end
 
     private
@@ -31,7 +31,7 @@ module Statue
           at('.post-count', archive.size)
         end
 
-        clone_each('ul.categories li', category_archives) do |archive|
+        clone_each('ul.categories li', tag_archives) do |archive|
           at('a.category', archive.human_name, href: archive.uri)
           at('a.feed', href: archive.feed_uri)
           at('.post-count', archive.size)

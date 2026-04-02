@@ -12,7 +12,8 @@ module Statue
 
       clone_each('article', post_index.posts) do |p|
         at('h2 a', p.title, href: p.uri)
-        at('header a.category', p.deprecated_category.human_name, href: p.deprecated_category.uri)
+        # TODO: all tags, not just deprecated_category
+        at('header a.tag', p.deprecated_category.human_name, href: p.deprecated_category.uri)
         at('header .bleet') { remove! unless p.bleet? }
         at('.listed-main-image') do
           if p.main_image&.show?

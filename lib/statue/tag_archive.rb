@@ -1,12 +1,12 @@
 module Statue
-  class CategoryArchive
+  class TagArchive
     value_semantics do
-      category Category
+      tag Tag
       posts ArrayOf(Post)
     end
 
     def path
-      Pathname("blog/") / category.machine_name / 'index.html'
+      Pathname("blog/tagged/") / tag.machine_name / 'index.html'
     end
 
     def uri
@@ -22,16 +22,16 @@ module Statue
     end
 
     def human_name
-      category.human_name
+      tag.human_name
     end
 
     def <=>(other)
-      category.human_name <=> other.category.human_name
+      tag.human_name <=> other.tag.human_name
     end
 
     def post_index
       @post_index ||= PostIndex.new(
-        title: "Category: #{human_name}",
+        title: "Tag: #{human_name}",
         posts: posts,
         path: path,
       )

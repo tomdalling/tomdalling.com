@@ -5,7 +5,8 @@ module Statue
 
       at(:header) do
         at('.main-image') { transform_main_image(post.main_image) }
-        at('a.category', post.deprecated_category.human_name, href: post.deprecated_category.uri)
+        # TODO: all tags, not just deprecated_category
+        at('a.tag', post.deprecated_category.human_name, href: post.deprecated_category.uri)
         at('.bleet') { remove! unless post.bleet? }
       end
 
