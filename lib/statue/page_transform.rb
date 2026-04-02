@@ -31,8 +31,8 @@ module Statue
           at('.post-count', archive.size)
         end
 
-        clone_each('ul.categories li', tag_archives) do |archive|
-          at('a.category', archive.human_name, href: archive.uri)
+        clone_each('ul.tag-archives li', tag_archives) do |archive|
+          at('a.tag', archive.human_name, href: archive.uri)
           at('a.feed', href: archive.feed_uri)
           at('.post-count', archive.size)
         end
