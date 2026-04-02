@@ -653,7 +653,7 @@ coefficient:</p>
 <p>Inside <code>LoadWoodenCrateAsset</code> we set the new material variables:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gWoodenCrate</span><span class="p">.</span><span class="n">shininess</span> <span class="o">=</span> <span class="mf">80.0</span><span class="p">;</span>
-<span class="n">gWoodenCrate</span><span class="p">.</span><span class="n">specularColor</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
+<span class="n">gWoodenCrate</span><span class="p">.</span><span class="n">specularColor</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>A shininess value of 80 means the crates will be very shiny. The specular color
@@ -661,8 +661,8 @@ is set to white, which is the most common specular color.</p>
 
 <p>Inside <code>AppMain</code> we set the new light variables:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gLight</span><span class="p">.</span><span class="n">attenuation</span> <span class="o">=</span> <span class="mf">0.2</span><span class="n">f</span><span class="p">;</span>
-<span class="n">gLight</span><span class="p">.</span><span class="n">ambientCoefficient</span> <span class="o">=</span> <span class="mf">0.005</span><span class="n">f</span><span class="p">;</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gLight</span><span class="p">.</span><span class="n">attenuation</span> <span class="o">=</span> <span class="mf">0.2f</span><span class="p">;</span>
+<span class="n">gLight</span><span class="p">.</span><span class="n">ambientCoefficient</span> <span class="o">=</span> <span class="mf">0.005f</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>Setting the ambient coefficient to 0.005 means that the minimum brightness is

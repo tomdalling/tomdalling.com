@@ -599,9 +599,9 @@ is held down or not. The new <code>Update</code> function looks like this:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// update the scene based on the time elapsed since last update</span>
 <span class="kt">void</span> <span class="nf">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//rotate the cube</span>
-    <span class="k">const</span> <span class="n">GLfloat</span> <span class="n">degreesPerSecond</span> <span class="o">=</span> <span class="mf">180.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">GLfloat</span> <span class="n">degreesPerSecond</span> <span class="o">=</span> <span class="mf">180.0f</span><span class="p">;</span>
     <span class="n">gDegreesRotated</span> <span class="o">+=</span> <span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">degreesPerSecond</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">gDegreesRotated</span> <span class="o">&gt;</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">)</span> <span class="n">gDegreesRotated</span> <span class="o">-=</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">gDegreesRotated</span> <span class="o">&gt;</span> <span class="mf">360.0f</span><span class="p">)</span> <span class="n">gDegreesRotated</span> <span class="o">-=</span> <span class="mf">360.0f</span><span class="p">;</span>
 
     <span class="c1">//move position of camera based on WASD keys</span>
     <span class="k">const</span> <span class="kt">float</span> <span class="n">moveSpeed</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="c1">//units per second</span>
@@ -791,7 +791,7 @@ has moved every frame, while also stopping the mouse from leaving the window.
 Add this code to the bottom of the <code>Update</code> function:</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//rotate camera based on mouse movement</span>
-<span class="k">const</span> <span class="kt">float</span> <span class="n">mouseSensitivity</span> <span class="o">=</span> <span class="mf">0.1</span><span class="n">f</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">float</span> <span class="n">mouseSensitivity</span> <span class="o">=</span> <span class="mf">0.1f</span><span class="p">;</span>
 <span class="kt">double</span> <span class="n">mouseX</span><span class="p">,</span> <span class="n">mouseY</span><span class="p">;</span>
 <span class="n">glfwGetCursorPos</span><span class="p">(</span><span class="n">gWindow</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mouseX</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mouseY</span><span class="p">);</span>
 <span class="n">gCamera</span><span class="p">.</span><span class="n">offsetOrientation</span><span class="p">(</span><span class="n">mouseSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">mouseY</span><span class="p">,</span> <span class="n">mouseSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">mouseX</span><span class="p">);</span>
@@ -842,10 +842,10 @@ scroll amount:</p>
 <p>Now, for every frame we render, we use the <code>gScrollY</code> value to change the field of view.
 This happens at the bottom of the <code>Update</code> function:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">float</span> <span class="n">zoomSensitivity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="n">f</span><span class="p">;</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">float</span> <span class="n">zoomSensitivity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2f</span><span class="p">;</span>
 <span class="kt">float</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="n">gCamera</span><span class="p">.</span><span class="n">fieldOfView</span><span class="p">()</span> <span class="o">+</span> <span class="n">zoomSensitivity</span> <span class="o">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">gScrollY</span><span class="p">;</span>
-<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">;</span>
-<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&gt;</span> <span class="mf">130.0</span><span class="n">f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">130.0</span><span class="n">f</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&lt;</span> <span class="mf">5.0f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">5.0f</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="n">fieldOfView</span> <span class="o">&gt;</span> <span class="mf">130.0f</span><span class="p">)</span> <span class="n">fieldOfView</span> <span class="o">=</span> <span class="mf">130.0f</span><span class="p">;</span>
 <span class="n">gCamera</span><span class="p">.</span><span class="n">setFieldOfView</span><span class="p">(</span><span class="n">fieldOfView</span><span class="p">);</span>
 <span class="n">gScrollY</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </code></pre></div></div>

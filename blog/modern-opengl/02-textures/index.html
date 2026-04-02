@@ -284,9 +284,9 @@ represent (middle,top), (left,bottom), and (right,bottom) in that order.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GLfloat</span> <span class="n">vertexData</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">//  X     Y     Z       U     V</span>
-     <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
-     <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
+     <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+     <span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
@@ -362,9 +362,9 @@ function. This is what the code used to look like:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Put the three triangle vertices into the VBO</span>
 <span class="n">GLfloat</span> <span class="n">vertexData</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">//  X     Y     Z</span>
-     <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
-     <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span>
+     <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+     <span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span>
 <span class="p">};</span>
 
 <span class="c1">// connect the xyz to the "vert" attribute of the vertex shader</span>
@@ -377,9 +377,9 @@ function. This is what the code used to look like:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Put the three triangle vertices (XYZ) and texture coordinates (UV) into the VBO</span>
 <span class="n">GLfloat</span> <span class="n">vertexData</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">//  X     Y     Z       U     V</span>
-     <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
-     <span class="mf">0.8</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>   <span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span>
+     <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+     <span class="mf">0.8f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>   <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="c1">// connect the xyz to the "vert" attribute of the vertex shader</span>

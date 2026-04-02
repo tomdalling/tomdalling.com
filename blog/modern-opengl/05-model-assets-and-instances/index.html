@@ -263,7 +263,7 @@ GLuint gVBO = 0;
 <span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">gWindow</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="kt">double</span> <span class="n">gScrollY</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
 <span class="n">tdogl</span><span class="o">::</span><span class="n">Camera</span> <span class="n">gCamera</span><span class="p">;</span>
-<span class="n">GLfloat</span> <span class="n">gDegreesRotated</span> <span class="o">=</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">;</span>
+<span class="n">GLfloat</span> <span class="n">gDegreesRotated</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>The deleted globals are all part of the <code>ModelAsset</code> struct now. We only have a
@@ -344,9 +344,9 @@ see how that is done.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Update</span><span class="p">(</span><span class="kt">float</span> <span class="n">secondsElapsed</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//rotate the first instance in `gInstances`</span>
-    <span class="k">const</span> <span class="n">GLfloat</span> <span class="n">degreesPerSecond</span> <span class="o">=</span> <span class="mf">180.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">GLfloat</span> <span class="n">degreesPerSecond</span> <span class="o">=</span> <span class="mf">180.0f</span><span class="p">;</span>
     <span class="n">gDegreesRotated</span> <span class="o">+=</span> <span class="n">secondsElapsed</span> <span class="o">*</span> <span class="n">degreesPerSecond</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">gDegreesRotated</span> <span class="o">&gt;</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">)</span> <span class="n">gDegreesRotated</span> <span class="o">-=</span> <span class="mf">360.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">gDegreesRotated</span> <span class="o">&gt;</span> <span class="mf">360.0f</span><span class="p">)</span> <span class="n">gDegreesRotated</span> <span class="o">-=</span> <span class="mf">360.0f</span><span class="p">;</span>
     <span class="n">gInstances</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">rotate</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(),</span> <span class="n">gDegreesRotated</span><span class="p">,</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
 
     <span class="c1">//...</span>
