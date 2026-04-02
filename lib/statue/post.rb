@@ -46,7 +46,7 @@ module Statue
     end
 
     def bleet?
-      tags.include?(:bleet)
+      tags.map(&:machine_name).include?('bleet')
     end
 
     def date
@@ -151,7 +151,7 @@ module Statue
           title String
           disqus_id Either(String, nil)
           deprecated_category Tag, coerce: true
-          tags ArrayOf(Symbol), default: []
+          tags ArrayOf(Tag), default: [], coerce: true
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
         end
@@ -159,6 +159,16 @@ module Statue
         def self.coerce_deprecated_category(obj)
           if obj.is_a?(String)
             Tag.lookup(obj) || obj
+          else
+            obj
+          end
+        end
+
+        def self.coerce_tags(obj)
+          if obj.is_a?(Array)
+            obj.map do |e|
+              e.is_a?(Symbol) ? Tag.lookup(e.to_s) : e
+            end
           else
             obj
           end
