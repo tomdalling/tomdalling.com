@@ -124,12 +124,15 @@ module Statue
         current_node.replace(current_node.children)
       end
 
-      def clone_each(css_specifier, collection)
+      def clone_each(css_specifier, collection, separator: nil)
         node = at(css_specifier)
         parent = node.parent
 
-        collection.each do |thing|
+        collection.each_with_index do |thing, idx|
           new_node = node.clone
+          if idx > 0 && separator
+            node.add_previous_sibling(coerce_to_node_set(separator))
+          end
           node.add_previous_sibling(new_node)
           with_current_node(new_node) do
             yield thing
