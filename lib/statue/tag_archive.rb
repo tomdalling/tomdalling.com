@@ -6,7 +6,7 @@ module Statue
     end
 
     def path
-      Pathname("blog/tagged/") / tag.machine_name / 'index.html'
+      Pathname(tag.uri.delete_prefix('/')) / 'index.html'
     end
 
     def uri
