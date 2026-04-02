@@ -6,8 +6,10 @@ FILENAME="input/posts/$(date -I)_todo.md"
 
 cat << MARKDOWN > "$SCRIPT_DIR/../$FILENAME"
 {:title "TODO"
- :main-image {:uri "/images/posts/sprout.jpg"}
- :tags [:bleet]}
+ :main-image {:uri "/images/posts/XXXXXX.jpg"
+              :artist {:name "Person McPerson"
+                       :url "https://unsplash.com/photos/a-black-and-white-photo-of-a-large-ship-sSBZcdyCzxs"}}
+ :tags [:bleet :management]}
 
 Teaser content goes here, before the comment below.
 
