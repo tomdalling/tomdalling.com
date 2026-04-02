@@ -2,7 +2,7 @@
  :main-image {:uri "/images/posts/sunrise.jpg"
               :artist {:name "Artem Sapegin"
                        :url "https://unsplash.com/photos/mountains-and-tree-range-during-golden-hour-8c6eS43iq1o"}}
- :tags [:bleet]
+ :tags [:bleet :mentoring :management]
  :deprecated-category :mentoring}
 
 In medicine there is the concept of a disease being "subclinical", and I think

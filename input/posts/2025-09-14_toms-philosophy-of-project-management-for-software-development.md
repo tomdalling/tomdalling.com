@@ -1,5 +1,6 @@
 {:title "Tom's Philosophy Of Project Management For Software Development"
  :main-image {:uri "/images/posts/tech-path.jpg"}
+ :tags [:software-processes :management :mentoring]
  :deprecated-category :software-processes}
 
 Below is an excerpt from _Tom's Expectations For Project Management_ --- a
