@@ -256,12 +256,13 @@ module Statue
           .sort
       end
 
-      # TODO: all tags, not just deprecated category
       memoize def tag_archives
-        posts
-          .group_by(&:deprecated_category)
-          .map { TagArchive.new(tag: _1, posts: _2) }
-          .sort
+        posts.flat_map(&:tags).uniq.map do |tag|
+          TagArchive.new(
+            tag: tag,
+            posts: posts.select { _1.tagged?(tag) },
+          )
+        end.sort
       end
 
       memoize def categories

@@ -17,6 +17,11 @@ module Statue
       (frontmatter.tags + [deprecated_category].compact).uniq
     end
 
+    def tagged?(tag)
+      raise ArgumentError unless tag.is_a?(Tag)
+      tags.include?(tag)
+    end
+
     def machine_name
       basename.partition('_').last
     end
