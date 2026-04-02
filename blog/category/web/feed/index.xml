@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/web/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/web/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Thoughts On Bootstrap</title>
-      <link>https://www.tomdalling.com/blog/web/thoughts-on-bootstrap/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/thoughts-on-bootstrap/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>You may have noticed that I redesigned the site recently. The new design uses
 <a href="http://getbootstrap.com/">Boostrap</a>, mainly to make the site work better on tablets and phones. This
 post will be about the good and the bad parts of my recent encounter with

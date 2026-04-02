@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/software-processes/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/software-processes/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Tom's Philosophy Of Project Management For Software Development</title>
-      <link>https://www.tomdalling.com/blog/software-processes/toms-philosophy-of-project-management-for-software-development/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/toms-philosophy-of-project-management-for-software-development/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Below is an excerpt from <em>Tom’s Expectations For Project Management</em> — a
 private document written for engineers who report to me and who are running
 projects in a technical lead role, which lists out a set of project management
@@ -23,7 +23,7 @@ responsibilities and expectations.</p>
     </item>
     <item>
       <title>Leprechauns, Root Causes, And Other Fairy Tales</title>
-      <link>https://www.tomdalling.com/blog/software-processes/leprechauns-root-causes-and-other-fairy-tails/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/leprechauns-root-causes-and-other-fairy-tails/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>This is a short talk I gave a while ago about how complex systems fail, and root
 cause analysis. Transcript is below.</p>
 
@@ -37,17 +37,18 @@ cause analysis. Transcript is below.</p>
     </item>
     <item>
       <title>Milestones As Talking Points</title>
-      <link>https://www.tomdalling.com/blog/software-processes/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Recently someone said to me “stakeholders only care about milestones,” and
 something clicked for me.</p>
 ]]></description>
       <pubDate>Sun, 13 Jul 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.milestones-as-talking-points</guid>
     </item>
     <item>
       <title>Against Must-Haves (Part Three)</title>
-      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-three/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-three/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this, the third and final part of this series, I’m going to present 10
 recommendations for avoiding the pitfalls of using bucketed prioritisation (e.g.
 must haves, nice to haves, etc.), covered in the previous two parts.</p>
@@ -58,7 +59,7 @@ must haves, nice to haves, etc.), covered in the previous two parts.</p>
     </item>
     <item>
       <title>High Performance Requires Process</title>
-      <link>https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Processes are a prerequisite for high-performance in software engineering teams
 due to their ability to amplify the skill of the team. I believe there exists no
 team, given that there is little to no process to begin with, whose performance
@@ -70,7 +71,7 @@ could not be improved by adding appropriate process.</p>
     </item>
     <item>
       <title>Ditch The Umbrella And Grab Some Sunnies</title>
-      <link>https://www.tomdalling.com/blog/software-processes/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
 supposed to keep all the distractions away from the team: the short-lived whims
 and fancies of various stakeholders, vague plans that are going to change
@@ -83,12 +84,13 @@ not a good thing. Umbrellas are shields that block rain. And what are these EMs
 blocking? Hopefully distractions, but also <em>information</em> and <em>reality</em>.</p>
 ]]></description>
       <pubDate>Mon, 22 Jan 2024 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.ditch-the-umbrella-and-grab-some-sunnies</guid>
     </item>
     <item>
       <title>Nugs And Negative Failure Demand</title>
-      <link>https://www.tomdalling.com/blog/software-processes/nugs-and-negative-failure-demand/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/nugs-and-negative-failure-demand/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article I’m going to take a look at software quality as a way to
 differentiate between junior, mid-level, and senior software engineers, through
 the lens of <em>failure demand</em>, purely so that I can introduce a new concept that
@@ -100,29 +102,31 @@ I thought up on a walk today, which I’m calling <em>negative failure demand</e
     </item>
     <item>
       <title>Against Must-Haves (Part Two)</title>
-      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-two/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-two/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In part two of this series, we’re going to look at how the must-have priority
 bucket leads engineering to make bad decisions.</p>
 ]]></description>
       <pubDate>Sat, 08 Apr 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-two</guid>
     </item>
     <item>
       <title>Against Must-Haves (Part One)</title>
-      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-one/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-one/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Categorising requirements into buckets like “must-haves” and “nice-to-haves” is
 a common approach to prioritisation in software projects. In my opinion, this is
 a bad way to priortise work, for reasons which become clear when you look at the
 incentives it produces.</p>
 ]]></description>
       <pubDate>Sat, 01 Apr 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-one</guid>
     </item>
     <item>
       <title>Agile Is A Glass Cannon</title>
-      <link>https://www.tomdalling.com/blog/software-processes/agile-is-a-glass-cannon/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/agile-is-a-glass-cannon/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>A recent shower thought of mine is that agile software development
 might be similar to the strategic concept of a <a href="https://en.wiktionary.org/wiki/glass_cannon"><em>glass
 cannon</em></a> in gaming —
@@ -130,12 +134,13 @@ specifically, that it’s a high-risk high-reward strategy where the risk can be
 mitigated by skill/experience.</p>
 ]]></description>
       <pubDate>Sat, 25 Mar 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.agile-is-a-glass-cannon</guid>
     </item>
     <item>
       <title>GitHub Workflow For Automated Gem Releases</title>
-      <link>https://www.tomdalling.com/blog/software-processes/github-workflow-for-automated-gem-releases/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/github-workflow-for-automated-gem-releases/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>This is a quick look at the recent CI/release automation I wrote for
 the <a href="https://github.com/tomdalling/byebug-skipper">byebug-skipper</a> gem.</p>
 
@@ -171,7 +176,7 @@ that ensures commit messages have the correct format</p>
     </item>
     <item>
       <title>Better User Stories</title>
-      <link>https://www.tomdalling.com/blog/software-processes/better-user-stories/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/better-user-stories/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>As a member of the software industry, I want user stories to focus
 more on the problem definition, so that we can make better choices
 around how to implement a solution.</p>
@@ -192,7 +197,7 @@ solution.</p>
     </item>
     <item>
       <title>How To Set Up A Secure Git Server At Home (OSX)</title>
-      <link>https://www.tomdalling.com/blog/software-processes/how-to-set-up-a-secure-git-server-at-home-osx/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/how-to-set-up-a-secure-git-server-at-home-osx/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article I’m going to show you, step by step, how to set up an OSX
 machine to provide secure access to git repositories over the internet via ssh.
 This was tested on OSX 10.6.</p>

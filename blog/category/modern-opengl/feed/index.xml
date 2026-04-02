@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/modern-opengl/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/modern-opengl/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, &amp; Multiple Lights</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/08-even-more-lighting-directional-lights-spotlights-multiple-lights/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/08-even-more-lighting-directional-lights-spotlights-multiple-lights/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will be adding directional lights, spotlights, and allowing
 for multiple lights instead of just one. This is the final article on lighting
 – at least for a while.</p>
@@ -22,7 +22,7 @@ for multiple lights instead of just one. This is the final article on lighting
     </item>
     <item>
       <title>OpenGL in 2014</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/opengl-in-2014/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/opengl-in-2014/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Valve is investing in OpenGL to hedge themselves against Microsoft. Some
 well-known developers have written about the deficiencies in the API. A few
 competing, proprietary APIs have popped up. In an effort to remain competitive,
@@ -36,7 +36,7 @@ couple of years.</p>
     </item>
     <item>
       <title>Explaining Homogeneous Coordinates &amp; Projective Geometry</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/explaining-homogenous-coordinates-and-projective-geometry/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article I’m going to explain homogeneous coordinates (a.k.a. 4D
 coordinates) as simply as I can. In previous articles, we’ve used 4D vectors
 for matrix multiplication, but I’ve never really defined what the fourth
@@ -54,7 +54,7 @@ will take some time.</p>
     </item>
     <item>
       <title>Modern OpenGL 07 – More Lighting: Ambient, Specular, Attenuation, Gamma</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/07-more-lighting-ambient-specular-attenuation-gamma/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/07-more-lighting-ambient-specular-attenuation-gamma/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article we will continue to implement lighting. We will implement the
 ambient and specular components of the Phong reflection model, attenuation, and
 gamma correction.</p>
@@ -65,7 +65,7 @@ gamma correction.</p>
     </item>
     <item>
       <title>Modern OpenGL 06 – Diffuse Point Lighting</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/06-diffuse-point-lighting/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/06-diffuse-point-lighting/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>This is the first article covering lighting. We will begin our lighting
 adventure by implementing per-pixel, diffuse lighting with a single point
 light. In later articles we will implement ambient and specular reflection,
@@ -77,7 +77,7 @@ directional lights, spotlights, attenuation, and using multiple lights.</p>
     </item>
     <item>
       <title>Modern OpenGL 05 – Model Assets &amp; Instances</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/05-model-assets-and-instances/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/05-model-assets-and-instances/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will be refactoring the code to be more like a 3D
 engine/framework. Specifically, we will be replacing some of the globals with
 structs that represent “assets” and “instances.” At the end, we will have a
@@ -90,7 +90,7 @@ out “Hi” in 3D.</p>
     </item>
     <item>
       <title>Modern OpenGL 04 - Cameras, Vectors &amp; Input</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/04-cameras-vectors-and-input/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/04-cameras-vectors-and-input/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will be consolidating the matrix and camera knowledge from
 the previous article into the new <code>tdogl::Camera</code> class, which will be a
 first-person shooter type of camera. Then, we will connect the camera to
@@ -104,7 +104,7 @@ inverting matrices, which was not mentioned in the previous article.</p>
     </item>
     <item>
       <title>Modern OpenGL 03 - Matrices, Depth Buffering, Animation</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/03-matrices-depth-buffering-animation/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/03-matrices-depth-buffering-animation/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will replace our immobile 2D triangle with a spinning 3D
 cube. The end result will look like this:</p>
 
@@ -130,7 +130,7 @@ over time, such as animation.</p>
     </item>
     <item>
       <title>Modern OpenGL 02 - Textures</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/02-textures/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/02-textures/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, we will be adding a texture to the triangle. This will involve
 adding new variables to the vertex and fragment shaders, creating and using
 texture objects, and learning a bit about texture units and texture
@@ -147,7 +147,7 @@ a jpg, png, or bmp file into video memory, for use in the shaders. Also, the
     </item>
     <item>
       <title>Modern OpenGL 01 - Getting Started in Xcode, Visual C++, and Linux</title>
-      <link>https://www.tomdalling.com/blog/modern-opengl/01-getting-started-in-xcode-and-visual-cpp/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/01-getting-started-in-xcode-and-visual-cpp/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Welcome to the first of a series of articles about modern OpenGL.  All the code
 will be open source, and downloadable from github:
 <a href="https://github.com/tomdalling/opengl-series">https://github.com/tomdalling/opengl-series</a>.</p>

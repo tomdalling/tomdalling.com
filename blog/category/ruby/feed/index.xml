@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/ruby/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/ruby/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>The Pure Function As An Object (PFAAO) Ruby Pattern</title>
-      <link>https://www.tomdalling.com/blog/ruby/pure-function-as-an-object-PFAAO-pattern/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/pure-function-as-an-object-PFAAO-pattern/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this article, I want to demonstrate a nice way to write functional-style code in Ruby.
 It is a way to write non-trivial pure functions, without a bunch of weird non-idiomatic code.
 Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
@@ -22,7 +22,7 @@ Also, the acronym is PFAAO, which I think sounds pretty cool.</p>
     </item>
     <item>
       <title>Making Fruity Bat (a Flappy Bird clone) in Ruby</title>
-      <link>https://www.tomdalling.com/blog/ruby/fruity-bat-flappy-bird-clone-in-ruby/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/fruity-bat-flappy-bird-clone-in-ruby/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Today I live-streamed the making of Fruity Bat (a Flappy Bird clone) in
 Ruby using the <code>gosu</code> gem. Watch the videos below, and check out the code on
 github: <a href="https://github.com/tomdalling/fruity_bat">https://github.com/tomdalling/fruity_bat</a></p>

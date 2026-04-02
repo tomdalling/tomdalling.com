@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/coding-tips/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/coding-tips/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>When A Café Is Not A Café – A Short Lesson In Unicode Featuring NSString</title>
-      <link>https://www.tomdalling.com/blog/coding-tips/when-a-cafe-is-not-a-cafe-a-short-lesson-in-unicode-featuring-nsstring/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/when-a-cafe-is-not-a-cafe-a-short-lesson-in-unicode-featuring-nsstring/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Let’s start with two exotic strings (console output is in the code comments):</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span><span class="o">*</span> <span class="n">apples</span> <span class="o">=</span> <span class="n">NSGetFrenchWord</span><span class="p">();</span>
@@ -39,7 +39,7 @@
     </item>
     <item>
       <title>Const Correctness For NSString (And Pointers In General)</title>
-      <link>https://www.tomdalling.com/blog/coding-tips/const-correctness-for-nsstring-and-pointers-in-general/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/const-correctness-for-nsstring-and-pointers-in-general/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>So you’re implementing a new notification and you want the name to be a
 constant. Easy, right?</p>
 
@@ -69,7 +69,7 @@ different, and written like so:</p>
     </item>
     <item>
       <title>Coding Tip: Replace Complicated Conditions With Boolean Variables</title>
-      <link>https://www.tomdalling.com/blog/coding-tips/coding-tip-replace-complicated-conditions-with-boolean-variables/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/coding-tip-replace-complicated-conditions-with-boolean-variables/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Consider the following if statement:</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">dragOperation</span> <span class="o">!=</span> <span class="n">NSDragOperationCopy</span> <span class="o">&amp;&amp;</span> <span class="n">NSPointInRect</span><span class="p">(</span><span class="n">currentMouseLocation</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">)){</span>
@@ -88,7 +88,7 @@ easy remedy:</p>
     </item>
     <item>
       <title>Coding Tip: Have A Single Exit Point</title>
-      <link>https://www.tomdalling.com/blog/coding-tips/coding-tip-have-a-single-exit-point/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/coding-tip-have-a-single-exit-point/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Having one exit point (return) from a function is a good thing. Here is an
 example of a single exit point:</p>
 

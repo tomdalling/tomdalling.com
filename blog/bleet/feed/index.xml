@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+  <channel>
+    <title>Tom Dalling</title>
+    <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/bleet/feed/" rel="self" type="application/rss+xml"/>
+    <description>Web &amp; software developer</description>
+    <language>en</language>
+    <generator>Tom Dalling's fingertips</generator>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>Subclinical Bullying And Grace</title>
+      <link>https://www.tomdalling.com/blog/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In medicine there is the concept of a disease being “subclinical”, and I think
+the concept can apply to bullying in the workplace.</p>
+
+<p>Every workplace has a threshold for bad behaviour, and subclinical bullying is
+bad behaviour which doesn’t cross the threshold. Much like how a doctor often
+won’t treat a subclinical disease, your manager often won’t address subclinical
+bullying. There are lots of reasons why this might be the case, for better or
+for worse. One of those reasons might be that your manager is showing grace,
+which can feel unfair, but is also important for a healthy team dynamic.</p>
+]]></description>
+      <pubDate>Sat, 07 Feb 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.subclinical_bullying_and_grace</guid>
+    </item>
+    <item>
+      <title>Milestones As Talking Points</title>
+      <link>https://www.tomdalling.com/blog/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Recently someone said to me “stakeholders only care about milestones,” and
+something clicked for me.</p>
+]]></description>
+      <pubDate>Sun, 13 Jul 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.milestones-as-talking-points</guid>
+    </item>
+    <item>
+      <title>Ditch The Umbrella And Grab Some Sunnies</title>
+      <link>https://www.tomdalling.com/blog/ditch-the-umbrella-and-grab-some-sunnies/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Engineering Managers (EMs) are sometimes said to be “shit umbrellas”. They are
+supposed to keep all the distractions away from the team: the short-lived whims
+and fancies of various stakeholders, vague plans that are going to change
+several times before being solidified — all that stuff. Distractions are
+poisonous to good software, so hiding them should help the team deliver more and
+better software. A large part of this is true.</p>
+
+<p>However, I would like to argue here that behaving like an umbrella is probably
+not a good thing. Umbrellas are shields that block rain. And what are these EMs
+blocking? Hopefully distractions, but also <em>information</em> and <em>reality</em>.</p>
+]]></description>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.ditch-the-umbrella-and-grab-some-sunnies</guid>
+    </item>
+    <item>
+      <title>Against Must-Haves (Part Two)</title>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-two/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>In part two of this series, we’re going to look at how the must-have priority
+bucket leads engineering to make bad decisions.</p>
+]]></description>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-two</guid>
+    </item>
+    <item>
+      <title>Against Must-Haves (Part One)</title>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-one/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Categorising requirements into buckets like “must-haves” and “nice-to-haves” is
+a common approach to prioritisation in software projects. In my opinion, this is
+a bad way to priortise work, for reasons which become clear when you look at the
+incentives it produces.</p>
+]]></description>
+      <pubDate>Sat, 01 Apr 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-one</guid>
+    </item>
+    <item>
+      <title>Agile Is A Glass Cannon</title>
+      <link>https://www.tomdalling.com/blog/agile-is-a-glass-cannon/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>A recent shower thought of mine is that agile software development
+might be similar to the strategic concept of a <a href="https://en.wiktionary.org/wiki/glass_cannon"><em>glass
+cannon</em></a> in gaming —
+specifically, that it’s a high-risk high-reward strategy where the risk can be
+mitigated by skill/experience.</p>
+]]></description>
+      <pubDate>Sat, 25 Mar 2023 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Processes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.agile-is-a-glass-cannon</guid>
+    </item>
+    <item>
+      <title>Context, Costs, and Benefits</title>
+      <link>https://www.tomdalling.com/blog/context-costs-and-benefits/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>When is “measure twice, cut once” bad advice?</p>
+
+<p>One of my hobbies is complaining about the tendency of software developers to view choices as binary, moralistic decisions.
+Measuring twice is obviously correct, and anyone who doesn’t do it is an unprofessional, evil wood waster.
+Either that or double measurers are a bunch of know-nothing shysters selling snake oil for exorbitant consulting fees.
+This black-and-white thinking is a mental shortcut that many animals take,
+but sometimes it’s nice to apply a little more intellectual rigour than a Pomeranian.</p>
+
+<p>I’d like us to think less in terms of <em>right</em> and <em>wrong</em> when it comes to technical decisions,
+and think more in terms of <em>context</em>, <em>costs</em> and <em>benefits</em>.</p>
+]]></description>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Miscellaneous]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.context-costs-and-benefits</guid>
+    </item>
+    <item>
+      <title>The Tip Of The Inputberg</title>
+      <link>https://www.tomdalling.com/blog/the-tip-of-the-inputberg/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Why did Apple not test what happens when a user supplies “True” as
+their last name? Is it incompetence?</p>
+
+<figure class="naked">
+  <blockquote class="twitter-tweet">
+    <a href="https://twitter.com/JPaulGibson/status/1368182852668583948">https://twitter.com/JPaulGibson/status/1368182852668583948</a>
+  </blockquote>
+</figure>
+
+
+<p>I don’t think so. I think the explanation is simpler: it’s not
+feasible. It’s highly impractical, if not computationally impossible,
+to test every input.</p>
+]]></description>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Testing]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.the-tip-of-the-inputberg</guid>
+    </item>
+    <item>
+      <title>Consistent Hammer Man</title>
+      <link>https://www.tomdalling.com/blog/consistent-hammer-man/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>This is a short parable I came up while discussing linters, in
+response to someone asking if I think it’s good to be inconsistent.</p>
+]]></description>
+      <pubDate>Sat, 21 Nov 2020 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
+      <category><![CDATA[Software Design]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.consistent-hammer-man</guid>
+    </item>
+  </channel>
+</rss>

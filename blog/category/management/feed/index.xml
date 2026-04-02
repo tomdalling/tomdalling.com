@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/management/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/management/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>People Third Leadership</title>
-      <link>https://www.tomdalling.com/blog/management/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>You may have heard managers describe themselves as having a <em>people first</em>
 leadership style. It’s so incredibly safe. Who has ever got in trouble for
 declaring themselves to put people above all else in some vague, detail-free
@@ -40,7 +40,7 @@ environment for them.</p>
     </item>
     <item>
       <title>The Difference Between Management And Leadership</title>
-      <link>https://www.tomdalling.com/blog/management/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>The tl;dr is that management is a set of powers and accountabilities that the
  role confers upon you, whereas leadership is the ability to motivate followers.
  Anyone can be a leader, and teams run on leadership not management. Management

@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/mentoring/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/mentoring/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Subclinical Bullying And Grace</title>
-      <link>https://www.tomdalling.com/blog/mentoring/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In medicine there is the concept of a disease being “subclinical”, and I think
 the concept can apply to bullying in the workplace.</p>
 
@@ -23,12 +23,13 @@ for worse. One of those reasons might be that your manager is showing grace,
 which can feel unfair, but is also important for a healthy team dynamic.</p>
 ]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.subclinical_bullying_and_grace</guid>
     </item>
     <item>
       <title>Work In Thin Vertical Slices</title>
-      <link>https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Work should be completed in a series of small changes, where each change is a
 polished, fully-working improvement.</p>
 ]]></description>
@@ -38,7 +39,7 @@ polished, fully-working improvement.</p>
     </item>
     <item>
       <title>Marketing Yourself As A Junior Engineer</title>
-      <link>https://www.tomdalling.com/blog/mentoring/marketing-yourself-as-a-junior-engineer/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/marketing-yourself-as-a-junior-engineer/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<blockquote>
   <p>If you know the enemy and know yourself, you need not fear the result
 of a hundred battles. If you know yourself but not the enemy, for
@@ -63,25 +64,27 @@ believe increase your chance of success.</p>
     </item>
     <item>
       <title>Write Detailed RSpec Example Descriptions</title>
-      <link>https://www.tomdalling.com/blog/mentoring/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<h2>Rule Of Thumb</h2>
 
 <p>RSpec examples should have enough detail in the descriptions to
 rewrite them from scratch.</p>
 ]]></description>
       <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Testing]]></category>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
     </item>
     <item>
       <title>Start With High-Level Tests</title>
-      <link>https://www.tomdalling.com/blog/mentoring/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<h2>Rule Of Thumb</h2>
 
 <p>Start with high-level tests, and step down to lower levels when the
 implementation is stable.</p>
 ]]></description>
       <pubDate>Mon, 10 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Testing]]></category>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.start-with-high-level-tests</guid>
     </item>

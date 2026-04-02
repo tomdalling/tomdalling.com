@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/coding-styleconventions/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/coding-styleconventions/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Why camelCaps Are Superior To_Underscores</title>
-      <link>https://www.tomdalling.com/blog/coding-styleconventions/why-camelcaps-are-superior-to_underscores/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/why-camelcaps-are-superior-to_underscores/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I’ve always preferred camel caps to underscores when it comes to naming
 conventions, but I’ve never really known why. Recently I’ve been writing a lot
 of Python, where the standard is to use underscores for most names, and now I
@@ -26,7 +26,7 @@ type of discussions.</p>
     </item>
     <item>
       <title>For Those Who Have Never Used Objective-C</title>
-      <link>https://www.tomdalling.com/blog/coding-styleconventions/for-those-who-have-never-used-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/for-those-who-have-never-used-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>There is one feature of the Objective-C language that I really love: the method
 naming. Let me explain with an example.</p>
 
@@ -62,7 +62,7 @@ the arguments.</p>
     </item>
     <item>
       <title>Why Inline Comments Are Generally a Bad Idea</title>
-      <link>https://www.tomdalling.com/blog/coding-styleconventions/why-inline-comments-are-generally-a-bad-idea/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/why-inline-comments-are-generally-a-bad-idea/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Bellow is a single function commented in two different ways. Which one is
 better?</p>
 

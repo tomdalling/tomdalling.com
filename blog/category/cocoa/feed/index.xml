@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/cocoa/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/cocoa/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>An In-depth Look At Manual Memory Management In Objective-C</title>
-      <link>https://www.tomdalling.com/blog/cocoa/an-in-depth-look-at-manual-memory-management-in-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/an-in-depth-look-at-manual-memory-management-in-objective-c/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>It feels like fleets of new developers dash themselves upon the rocky shores of
 Objective-C memory management every day on StackOverflow. I can’t bear to write
 the same answers over and over again, so this article will be my final,
@@ -49,7 +49,7 @@ the comments and I’ll expand the article to cover it.</p>
     </item>
     <item>
       <title>Gotchas With Grand Central Dispatch (libdispatch) And Blocks</title>
-      <link>https://www.tomdalling.com/blog/cocoa/gotchas-with-grand-central-dispatch-libdispatch-and-blocks/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/gotchas-with-grand-central-dispatch-libdispatch-and-blocks/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch" title="Grand Central Dispatch">GCD</a> is a nice replacement for the old
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorOnMainThread:withObject:waitUntilDone:">performSelectorOnMainThread:withObject:waitUntilDone:</a></code> methods
@@ -71,7 +71,7 @@ focus on some of those problems.</p>
     </item>
     <item>
       <title>How Cocoa Bindings Work (via KVC and KVO)</title>
-      <link>https://www.tomdalling.com/blog/cocoa/how-cocoa-bindings-work-via-kvc-and-kvo/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/how-cocoa-bindings-work-via-kvc-and-kvo/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Cocoa bindings can be a little confusing, especially to newcomers. Once you
 have an understanding of the underlying concepts, bindings aren’t too hard. In
 this article, I’m going to explain the concepts behind bindings from the ground
@@ -84,7 +84,7 @@ and finally explaining how Cocoa bindings are built on top of KVC and KVO.</p>
     </item>
     <item>
       <title>Why performSelector: Is More Dangerous Than I Thought</title>
-      <link>https://www.tomdalling.com/blog/cocoa/why-performselector-is-more-dangerous-than-i-thought/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/why-performselector-is-more-dangerous-than-i-thought/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I fixed a rather nasty bug today in <a href="http://github.com/tomdalling/AspectObjectiveC">AspectObjectiveC</a>. One particular unit
 test would crash with <code>EXC_BAD_ACCESS</code> every time. After learning far more
 about registers and ABIs than I ever wanted to know (thanks, <a href="http://www.sealiesoftware.com/blog/archive/2008/10/30/objc_explain_objc_msgSend_stret.html" title="[objc explain]: objc_msgSend_stret">Greg Parker</a>),
@@ -105,7 +105,7 @@ using it a little differently. The return value of the selector was an
     </item>
     <item>
       <title>Implementing Your Own Cocoa Bindings</title>
-      <link>https://www.tomdalling.com/blog/cocoa/implementing-your-own-cocoa-bindings/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/implementing-your-own-cocoa-bindings/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>This post is the result of investigation into a <a href="http://stackoverflow.com/questions/1169097/can-you-manually-implement-cocoa-bindings" title="Can you manually implement Cocoa bindings?">stackoverflow.com question of
 mine</a>.</p>
 

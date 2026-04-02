@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>People Third Leadership</title>
-      <link>https://www.tomdalling.com/blog/management/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>You may have heard managers describe themselves as having a <em>people first</em>
 leadership style. It’s so incredibly safe. Who has ever got in trouble for
 declaring themselves to put people above all else in some vague, detail-free
@@ -40,7 +40,7 @@ environment for them.</p>
     </item>
     <item>
       <title>Subclinical Bullying And Grace</title>
-      <link>https://www.tomdalling.com/blog/mentoring/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/subclinical_bullying_and_grace/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In medicine there is the concept of a disease being “subclinical”, and I think
 the concept can apply to bullying in the workplace.</p>
 
@@ -52,12 +52,13 @@ for worse. One of those reasons might be that your manager is showing grace,
 which can feel unfair, but is also important for a healthy team dynamic.</p>
 ]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Mentoring Notes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.subclinical_bullying_and_grace</guid>
     </item>
     <item>
       <title>Tom's Philosophy Of Project Management For Software Development</title>
-      <link>https://www.tomdalling.com/blog/software-processes/toms-philosophy-of-project-management-for-software-development/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/toms-philosophy-of-project-management-for-software-development/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Below is an excerpt from <em>Tom’s Expectations For Project Management</em> — a
 private document written for engineers who report to me and who are running
 projects in a technical lead role, which lists out a set of project management
@@ -69,7 +70,7 @@ responsibilities and expectations.</p>
     </item>
     <item>
       <title>Leprechauns, Root Causes, And Other Fairy Tales</title>
-      <link>https://www.tomdalling.com/blog/software-processes/leprechauns-root-causes-and-other-fairy-tails/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/leprechauns-root-causes-and-other-fairy-tails/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>This is a short talk I gave a while ago about how complex systems fail, and root
 cause analysis. Transcript is below.</p>
 
@@ -83,17 +84,18 @@ cause analysis. Transcript is below.</p>
     </item>
     <item>
       <title>Milestones As Talking Points</title>
-      <link>https://www.tomdalling.com/blog/software-processes/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/milestones-as-talking-points/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Recently someone said to me “stakeholders only care about milestones,” and
 something clicked for me.</p>
 ]]></description>
       <pubDate>Sun, 13 Jul 2025 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.milestones-as-talking-points</guid>
     </item>
     <item>
       <title>Work In Thin Vertical Slices</title>
-      <link>https://www.tomdalling.com/blog/mentoring/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/work-in-thin-vertical-slices/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Work should be completed in a series of small changes, where each change is a
 polished, fully-working improvement.</p>
 ]]></description>
@@ -103,7 +105,7 @@ polished, fully-working improvement.</p>
     </item>
     <item>
       <title>The Difference Between Management And Leadership</title>
-      <link>https://www.tomdalling.com/blog/management/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/the-difference-between-management-and-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>The tl;dr is that management is a set of powers and accountabilities that the
  role confers upon you, whereas leadership is the ability to motivate followers.
  Anyone can be a leader, and teams run on leadership not management. Management
@@ -116,7 +118,7 @@ polished, fully-working improvement.</p>
     </item>
     <item>
       <title>Feedback Is Literally A Gift</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Feedback is a gift.</p>
 
 <p>Some gifts are little treats for you to consume. Think of a box of chocolates.
@@ -133,7 +135,7 @@ normal day-to-day life, and you’ll get use out of them.</p>
     </item>
     <item>
       <title>Against Must-Haves (Part Three)</title>
-      <link>https://www.tomdalling.com/blog/software-processes/against-must-haves-part-three/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/against-must-haves-part-three/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>In this, the third and final part of this series, I’m going to present 10
 recommendations for avoiding the pitfalls of using bucketed prioritisation (e.g.
 must haves, nice to haves, etc.), covered in the previous two parts.</p>
@@ -144,7 +146,7 @@ must haves, nice to haves, etc.), covered in the previous two parts.</p>
     </item>
     <item>
       <title>High Performance Requires Process</title>
-      <link>https://www.tomdalling.com/blog/software-processes/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Processes are a prerequisite for high-performance in software engineering teams
 due to their ability to amplify the skill of the team. I believe there exists no
 team, given that there is little to no process to begin with, whose performance

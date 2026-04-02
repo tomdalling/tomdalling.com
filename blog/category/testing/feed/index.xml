@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/testing/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/testing/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Monologue On End-To-End Testing</title>
-      <link>https://www.tomdalling.com/blog/testing/monologue-on-end-to-end-testing/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/monologue-on-end-to-end-testing/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I wanted to write down some of my thoughts on end-to-end testing,
 mainly to help clarify my own thinking.</p>
 ]]></description>
@@ -20,8 +20,34 @@ mainly to help clarify my own thinking.</p>
       <guid isPermaLink="false">com.tomdalling.blog.monologue-on-end-to-end-testing</guid>
     </item>
     <item>
+      <title>Write Detailed RSpec Example Descriptions</title>
+      <link>https://www.tomdalling.com/blog/write-detailed-rspec-example-descriptions/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<h2>Rule Of Thumb</h2>
+
+<p>RSpec examples should have enough detail in the descriptions to
+rewrite them from scratch.</p>
+]]></description>
+      <pubDate>Mon, 17 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Testing]]></category>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.write-detailed-rspec-example-descriptions</guid>
+    </item>
+    <item>
+      <title>Start With High-Level Tests</title>
+      <link>https://www.tomdalling.com/blog/start-with-high-level-tests/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<h2>Rule Of Thumb</h2>
+
+<p>Start with high-level tests, and step down to lower levels when the
+implementation is stable.</p>
+]]></description>
+      <pubDate>Mon, 10 May 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Testing]]></category>
+      <category><![CDATA[Mentoring Notes]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.start-with-high-level-tests</guid>
+    </item>
+    <item>
       <title>The Tip Of The Inputberg</title>
-      <link>https://www.tomdalling.com/blog/testing/the-tip-of-the-inputberg/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/the-tip-of-the-inputberg/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Why did Apple not test what happens when a user supplies “True” as
 their last name? Is it incompetence?</p>
 
@@ -37,6 +63,7 @@ feasible. It’s highly impractical, if not computationally impossible,
 to test every input.</p>
 ]]></description>
       <pubDate>Mon, 08 Mar 2021 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Testing]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.the-tip-of-the-inputberg</guid>
     </item>

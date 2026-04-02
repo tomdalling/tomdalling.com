@@ -3,7 +3,7 @@
   <channel>
     <title>Tom Dalling</title>
     <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
-    <atom:link href="https://www.tomdalling.com/blog/random-stuff/feed/" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/random-stuff/feed/" rel="self" type="application/rss+xml"/>
     <description>Web &amp; software developer</description>
     <language>en</language>
     <generator>Tom Dalling's fingertips</generator>
@@ -11,7 +11,7 @@
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
       <title>Feedback Is Literally A Gift</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Feedback is a gift.</p>
 
 <p>Some gifts are little treats for you to consume. Think of a box of chocolates.
@@ -28,7 +28,7 @@ normal day-to-day life, and you’ll get use out of them.</p>
     </item>
     <item>
       <title>Context, Costs, and Benefits</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/context-costs-and-benefits/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/context-costs-and-benefits/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>When is “measure twice, cut once” bad advice?</p>
 
 <p>One of my hobbies is complaining about the tendency of software developers to view choices as binary, moralistic decisions.
@@ -41,12 +41,13 @@ but sometimes it’s nice to apply a little more intellectual rigour than a Pome
 and think more in terms of <em>context</em>, <em>costs</em> and <em>benefits</em>.</p>
 ]]></description>
       <pubDate>Wed, 20 Jul 2022 00:00:00 -0000</pubDate>
+      <category><![CDATA[Bleet]]></category>
       <category><![CDATA[Miscellaneous]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.context-costs-and-benefits</guid>
     </item>
     <item>
       <title>Bleeting For Fun And Profit</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/bleeting-for-fun-and-profit/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/bleeting-for-fun-and-profit/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Today I want to coin the term <em>bleet</em>. It’s a type of short-form
 writing somewhere between a blog post and a tweet.</p>
 ]]></description>
@@ -56,7 +57,7 @@ writing somewhere between a blog post and a tweet.</p>
     </item>
     <item>
       <title>What's Stopping You From Coding Like This?</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/whats-stopping-you-from-coding-like-this/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/whats-stopping-you-from-coding-like-this/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>I made a <a href="https://gist.github.com/tomdalling/2540a1c785d51da2bf0d57164bd26d96">quick-and-dirty Ruby script</a> that animates the <a href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar">GitHub
 contributions calendar</a>, for the express purpose of making this
 satirical video:</p>
@@ -71,7 +72,7 @@ satirical video:</p>
     </item>
     <item>
       <title>Using Git For Hacky Archive Deduplication</title>
-      <link>https://www.tomdalling.com/blog/random-stuff/using-git-for-hacky-archive-deduplication/?utm_source=rss&amp;utm_medium=rss</link>
+      <link>https://www.tomdalling.com/blog/using-git-for-hacky-archive-deduplication/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>Have you ever wished that <code>tar</code> or <code>zip</code> would deduplicate files when creating
 an archive? Well here’s a hacky solution using <a href="http://git-scm.com/">git</a>.</p>
 ]]></description>
