@@ -9,9 +9,13 @@ module Statue
 
     extend Forwardable
     def_delegators :frontmatter,
-      *%i(title deprecated_category tags disqus_id draft? main_image)
+      *%i(title deprecated_category disqus_id draft? main_image)
 
     def_delegator :markdown_file, :modified_since?
+
+    def tags
+      (frontmatter.tags + [deprecated_category].compact).uniq
+    end
 
     def machine_name
       basename.partition('_').last
