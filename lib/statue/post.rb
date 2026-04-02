@@ -18,6 +18,10 @@ module Statue
     end
 
     def path
+      Pathname.new("blog") / machine_name / 'index.html'
+    end
+
+    def old_categorised_path
       Pathname.new("blog") / category.machine_name / machine_name / 'index.html'
     end
 

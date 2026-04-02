@@ -50,12 +50,15 @@ module Statue
         uniq_merge([
           mvc_article_duplicate,
           category_archive_duplicates,
+          post_under_category_duplicates,
         ])
       end
 
+      # This was the URL from the first time the article was published, a long
+      # time ago, and it had a bunch of backlinks I wanted to preserve.
       def mvc_article_duplicate
         duplicate_output(
-          canonical: "blog/software-design/model-view-controller-explained/index.html",
+          canonical: "blog/model-view-controller-explained/index.html",
           duplicate: "software-design/model-view-controller-explained/index.html",
         )
       end
@@ -73,6 +76,19 @@ module Statue
                 duplicate: "blog/category/#{cat.machine_name}/feed/index.xml",
               ),
             ]
+          end
+        )
+      end
+
+      # Previously all blog posts URLs included the post's category. This puts a
+      # duplicate in the old location.
+      def post_under_category_duplicates
+        uniq_merge(
+          posts.map do |p|
+            duplicate_output(
+              canonical: p.path,
+              duplicate: p.old_categorised_path,
+            )
           end
         )
       end
