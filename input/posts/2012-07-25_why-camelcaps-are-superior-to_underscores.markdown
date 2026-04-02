@@ -1,7 +1,7 @@
 {:title "Why camelCaps Are Superior To_Underscores"
  :disqus-id "660 http://tomdalling.com/blog/?p=660"
  :main-image {:uri "/images/posts/camel-caps.jpg"}
- :category :coding-styleconventions}
+ :deprecated-category :coding-styleconventions}
 
 I've always preferred camel caps to underscores when it comes to naming
 conventions, but I've never really known why. Recently I've been writing a lot

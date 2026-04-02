@@ -1,7 +1,7 @@
 {:title "Using Git For Hacky Archive Deduplication"
  :disqus-id "980 http://tomdalling.com/?p=980"
  :main-image {:uri "/images/posts/git-logo.png"}
- :category :random-stuff}
+ :deprecated-category :random-stuff}
 
 Have you ever wished that `tar` or `zip` would deduplicate files when creating
 an archive? Well here's a hacky solution using [git][].

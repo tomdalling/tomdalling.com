@@ -1,6 +1,6 @@
 {:title "Implementing Your Own Cocoa Bindings"
  :disqus-id "119 http://tomdalling.com/?p=119"
- :category :cocoa}
+ :deprecated-category :cocoa}
 
 This post is the result of investigation into a [stackoverflow.com question of
 mine][].

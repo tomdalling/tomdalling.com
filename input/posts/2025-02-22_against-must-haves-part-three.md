@@ -1,6 +1,6 @@
 {:title "Against Must-Haves (Part Three)"
  :main-image {:uri "/images/posts/bucket-chickens-3.jpg"}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 In this, the third and final part of this series, I'm going to present 10
 recommendations for avoiding the pitfalls of using bucketed prioritisation (e.g.

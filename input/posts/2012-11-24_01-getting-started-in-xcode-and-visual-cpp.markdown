@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 01 - Getting Started in Xcode, Visual C++, and Linux"
  :disqus-id "729 http://tomdalling.com/?p=729"
  :main-image {:uri "/images/posts/modern-opengl-01.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 Welcome to the first of a series of articles about modern OpenGL.  All the code
 will be open source, and downloadable from github:

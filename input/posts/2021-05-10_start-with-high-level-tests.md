@@ -1,7 +1,7 @@
 {:title "Start With High-Level Tests"
  :main-image {:uri "/images/posts/floorplan.jpg"}
  :tags [:testing :mentoring]
- :category :mentoring}
+ :deprecated-category :mentoring}
 
 ## Rule Of Thumb
 

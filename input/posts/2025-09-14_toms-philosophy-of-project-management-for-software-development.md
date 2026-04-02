@@ -1,6 +1,6 @@
 {:title "Tom's Philosophy Of Project Management For Software Development"
  :main-image {:uri "/images/posts/tech-path.jpg"}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 Below is an excerpt from _Tom's Expectations For Project Management_ --- a
 private document written for engineers who report to me and who are running

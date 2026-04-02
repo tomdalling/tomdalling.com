@@ -1,7 +1,7 @@
 {:title "Against Must-Haves (Part One)"
  :main-image {:uri "/images/posts/bucket-chickens-1.jpg"}
  :tags [:bleet]
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 Categorising requirements into buckets like "must-haves" and "nice-to-haves" is
 a common approach to prioritisation in software projects. In my opinion, this is

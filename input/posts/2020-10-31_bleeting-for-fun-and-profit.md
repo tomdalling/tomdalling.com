@@ -1,6 +1,6 @@
 {:title "Bleeting For Fun And Profit"
  :main-image {:uri "/images/posts/bleat.jpg"}
- :category :random-stuff}
+ :deprecated-category :random-stuff}
 
 Today I want to coin the term _bleet_. It's a type of short-form
 writing somewhere between a blog post and a tweet.

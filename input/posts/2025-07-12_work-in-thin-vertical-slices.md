@@ -1,6 +1,6 @@
 {:title "Work In Thin Vertical Slices"
  :main-image {:uri "/images/posts/thin-slices.jpg"}
- :category :mentoring}
+ :deprecated-category :mentoring}
 
 Work should be completed in a series of small changes, where each change is a
 polished, fully-working improvement.

@@ -1,6 +1,6 @@
 {:title "Const Correctness For NSString (And Pointers In General)"
  :disqus-id "552 http://tomdalling.com/blog/?p=552"
- :category :coding-tips}
+ :deprecated-category :coding-tips}
 
 So you're implementing a new notification and you want the name to be a
 constant. Easy, right?

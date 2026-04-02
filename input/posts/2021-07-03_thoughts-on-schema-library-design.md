@@ -1,6 +1,6 @@
 {:title "Thoughts On Schema Library Design"
  :main-image {:uri "/images/posts/floorplan.jpg"}
- :category :software-design}
+ :deprecated-category :software-design}
 
 It's that time of year again. It seems like about once a year I get
 interested designing a schema library. This post is a collection of my

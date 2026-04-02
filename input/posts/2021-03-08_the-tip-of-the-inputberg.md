@@ -1,7 +1,7 @@
 {:title "The Tip Of The Inputberg"
  :main-image {:uri "/images/posts/inputberg.jpg"}
  :tags [:bleet]
- :category :testing}
+ :deprecated-category :testing}
 
 Why did Apple not test what happens when a user supplies "True" as
 their last name? Is it incompetence?

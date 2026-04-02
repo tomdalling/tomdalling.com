@@ -3,7 +3,7 @@
  :main-image {:uri "/images/posts/ruby.jpg"
               :artist {:name "Rob Lavinsky, iRocks.com"
                        :url "http://www.irocks.com/"}}
- :category :ruby}
+ :deprecated-category :ruby}
 
 In this article, I want to demonstrate a nice way to write functional-style code in Ruby.
 It is a way to write non-trivial pure functions, without a bunch of weird non-idiomatic code.

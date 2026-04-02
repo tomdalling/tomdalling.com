@@ -1,6 +1,6 @@
 {:title "Why NSOrderedSet Doesn't Inherit From NSSet - A Real‑life Example of the Liskov Substitution Principle"
  :disqus-id "627 http://tomdalling.com/blog/?p=627"
- :category :software-design}
+ :deprecated-category :software-design}
 
 There was an interesting question on StackOverflow this morning: [Why doesn't
 NSOrderedSet inherit from NSSet?][] It's interesting because the reason is so

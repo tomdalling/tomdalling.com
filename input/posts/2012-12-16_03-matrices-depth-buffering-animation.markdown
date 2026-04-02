@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 03 - Matrices, Depth Buffering, Animation"
  :disqus-id "879 http://tomdalling.com/?p=879"
  :main-image {:uri "/images/posts/modern-opengl-03/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article, we will replace our immobile 2D triangle with a spinning 3D
 cube. The end result will look like this: 

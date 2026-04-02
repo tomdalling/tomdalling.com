@@ -1,7 +1,7 @@
 {:title "Monologue On End-To-End Testing"
  :main-image {:uri "/images/posts/server-rack.jpg"}
  :tags [:testing]
- :category :testing}
+ :deprecated-category :testing}
 
 I wanted to write down some of my thoughts on end-to-end testing,
 mainly to help clarify my own thinking.

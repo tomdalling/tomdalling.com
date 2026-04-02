@@ -1,6 +1,6 @@
 {:title "High Performance Requires Process"
  :main-image {:uri "/images/posts/high-performance-requires-process.jpg"}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 Processes are a prerequisite for high-performance in software engineering teams
 due to their ability to amplify the skill of the team. I believe there exists no

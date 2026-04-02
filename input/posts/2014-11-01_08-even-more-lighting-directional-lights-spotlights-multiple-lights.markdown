@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 08 – Even More Lighting: Directional Lights, Spotlights, & Multiple Lights"
  :disqus-id "com.tomdalling.modern-opengl-series.08"
  :main-image {:uri "/images/posts/modern-opengl-08/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article, we will be adding directional lights, spotlights, and allowing
 for multiple lights instead of just one. This is the final article on lighting

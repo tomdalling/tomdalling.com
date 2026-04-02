@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 06 – Diffuse Point Lighting"
  :disqus-id "1139 http://tomdalling.com/?p=1139"
  :main-image {:uri "/images/posts/modern-opengl-06/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 This is the first article covering lighting. We will begin our lighting
 adventure by implementing per-pixel, diffuse lighting with a single point

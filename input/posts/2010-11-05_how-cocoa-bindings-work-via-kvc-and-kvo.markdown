@@ -1,6 +1,6 @@
 {:title "How Cocoa Bindings Work (via KVC and KVO)"
  :disqus-id "490 http://tomdalling.com/blog/?p=490"
- :category :cocoa}
+ :deprecated-category :cocoa}
 
 Cocoa bindings can be a little confusing, especially to newcomers. Once you
 have an understanding of the underlying concepts, bindings aren't too hard. In

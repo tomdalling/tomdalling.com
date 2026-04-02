@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 04 - Cameras, Vectors & Input"
  :disqus-id "989 http://tomdalling.com/?p=989"
  :main-image {:uri "/images/posts/modern-opengl-04/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article, we will be consolidating the matrix and camera knowledge from
 the previous article into the new `tdogl::Camera` class, which will be a

@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 07 – More Lighting: Ambient, Specular, Attenuation, Gamma"
  :disqus-id "1282 http://tomdalling.com/?p=1282"
  :main-image {:uri "/images/posts/modern-opengl-07/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article we will continue to implement lighting. We will implement the
 ambient and specular components of the Phong reflection model, attenuation, and

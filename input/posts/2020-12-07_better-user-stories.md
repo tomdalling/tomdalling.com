@@ -1,6 +1,6 @@
 {:title "Better User Stories"
  :main-image {:uri "/images/posts/booktube.jpg"}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 As a member of the software industry, I want user stories to focus
 more on the problem definition, so that we can make better choices

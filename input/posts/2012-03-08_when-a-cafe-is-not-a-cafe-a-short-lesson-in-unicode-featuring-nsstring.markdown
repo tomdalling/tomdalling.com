@@ -1,6 +1,6 @@
 {:title "When A Café Is Not A Café – A Short Lesson In Unicode Featuring NSString"
  :disqus-id "576 http://tomdalling.com/blog/?p=576"
- :category :coding-tips}
+ :deprecated-category :coding-tips}
 
 Let's start with two exotic strings (console output is in the code comments):
 

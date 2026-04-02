@@ -9,7 +9,7 @@ module Statue
 
     extend Forwardable
     def_delegators :frontmatter,
-      *%i(title category tags disqus_id draft? main_image)
+      *%i(title deprecated_category tags disqus_id draft? main_image)
 
     def_delegator :markdown_file, :modified_since?
 
@@ -22,7 +22,7 @@ module Statue
     end
 
     def old_categorised_path
-      Pathname.new("blog") / category.machine_name / machine_name / 'index.html'
+      Pathname.new("blog") / deprecated_category.machine_name / machine_name / 'index.html'
     end
 
     def uri
@@ -150,13 +150,13 @@ module Statue
         value_semantics do
           title String
           disqus_id Either(String, nil)
-          category Category, coerce: true
+          deprecated_category Category, coerce: true
           tags ArrayOf(Symbol), default: []
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
         end
 
-        def self.coerce_category(obj)
+        def self.coerce_deprecated_category(obj)
           if obj.is_a?(String)
             Category.lookup(obj) || obj
           else
@@ -176,7 +176,7 @@ module Statue
           new(
             title: edn.fetch(:title),
             disqus_id: edn.fetch(:'disqus-id', nil),
-            category: edn.fetch(:category).to_s,
+            deprecated_category: edn.fetch(:'deprecated-category').to_s,
             tags: edn.fetch(:tags, []),
             draft?: edn.fetch(:draft, false),
             main_image: edn.fetch(:'main-image', nil),

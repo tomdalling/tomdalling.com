@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 02 - Textures"
  :disqus-id "821 http://tomdalling.com/?p=821"
  :main-image {:uri "/images/posts/modern-opengl-02/main-image.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article, we will be adding a texture to the triangle. This will involve
 adding new variables to the vertex and fragment shaders, creating and using

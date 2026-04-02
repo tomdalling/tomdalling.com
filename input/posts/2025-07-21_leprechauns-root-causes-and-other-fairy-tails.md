@@ -1,5 +1,5 @@
 {:title "Leprechauns, Root Causes, And Other Fairy Tales"
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 This is a short talk I gave a while ago about how complex systems fail, and root
 cause analysis. Transcript is below.

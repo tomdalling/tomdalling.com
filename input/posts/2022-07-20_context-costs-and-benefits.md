@@ -1,7 +1,7 @@
 {:title "Context, Costs, and Benefits",
  :main-image {:uri "/images/posts/woodworking.jpg"}
  :tags [:bleet]
- :category :random-stuff}
+ :deprecated-category :random-stuff}
 
 When is "measure twice, cut once" bad advice?
 

@@ -3,7 +3,7 @@
  :main-image {:uri "/images/posts/explaining-homogeneous-coordinates/main-image.png"
               :artist {:name "Joachim Baecker"
                        :url "http://commons.wikimedia.org/wiki/File:Zentralprojektion.jpg"}}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article I'm going to explain homogeneous coordinates (a.k.a. 4D
 coordinates) as simply as I can. In previous articles, we've used 4D vectors

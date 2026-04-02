@@ -72,7 +72,7 @@ Frontmatter is **EDN** (Clojure-like syntax), not YAML:
 
 ```edn
 {:title "Post Title"
- :category :software-design
+ :deprecated-category :software-design
  :tags [:ruby :oop]
  :draft false
  :main-image {:uri "/images/posts/image.jpg"
@@ -84,7 +84,7 @@ Frontmatter is **EDN** (Clojure-like syntax), not YAML:
 - `:tags [:bleet ...]` — posts tagged `:bleet` are short-form "bleets"
 - `<!--more-->` — splits post into preview and full content
 - `:disqus-id` — optional legacy Disqus ID (Disqus is being removed)
-- Output URL: `/blog/{category}/{slug}/`
+- Output URL: `/blog/{slug}/`
 
 **Categories** (defined as symbols): `:cocoa`, `:coding-styleconventions`, `:coding-tips`, `:management`, `:mentoring`, `:modern-opengl`, `:random-stuff`, `:ruby`, `:software-design`, `:software-processes`, `:testing`, `:web`
 

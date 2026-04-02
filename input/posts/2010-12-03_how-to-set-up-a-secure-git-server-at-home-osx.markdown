@@ -1,6 +1,6 @@
 {:title "How To Set Up A Secure Git Server At Home (OSX)"
  :disqus-id "525 http://tomdalling.com/blog/?p=525"
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 In this article I'm going to show you, step by step, how to set up an OSX
 machine to provide secure access to git repositories over the internet via ssh.

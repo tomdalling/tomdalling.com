@@ -1,6 +1,6 @@
 {:title "Nugs And Negative Failure Demand"
  :main-image {:uri "/images/posts/pcb.jpg"}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 In this article I'm going to take a look at software quality as a way to
 differentiate between junior, mid-level, and senior software engineers, through

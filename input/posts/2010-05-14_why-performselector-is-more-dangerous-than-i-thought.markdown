@@ -1,6 +1,6 @@
 {:title "Why performSelector: Is More Dangerous Than I Thought"
  :disqus-id "425 http://tomdalling.com/?p=425"
- :category :cocoa}
+ :deprecated-category :cocoa}
 
 I fixed a rather nasty bug today in [AspectObjectiveC][]. One particular unit
 test would crash with `EXC_BAD_ACCESS` every time. After learning far more

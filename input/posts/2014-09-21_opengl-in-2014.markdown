@@ -3,7 +3,7 @@
  :main-image {:uri "/images/posts/opengl-in-2014/main-image.png"
               :artist {:name "Dhatfield"
                        :url "http://commons.wikimedia.org/wiki/File:Utah_teapot_simple_2.png"}}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 Valve is investing in OpenGL to hedge themselves against Microsoft. Some
 well-known developers have written about the deficiencies in the API. A few

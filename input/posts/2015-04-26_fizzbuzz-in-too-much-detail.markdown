@@ -1,7 +1,7 @@
 {:title "FizzBuzz In Too Much Detail"
  :disqus-id "com.tomdalling.blog.fizzbuzz"
  :main-image {:uri "/images/posts/fizzbuzz/main-image.jpg"}
- :category :software-design}
+ :deprecated-category :software-design}
 
 I know. FizzBuzz has been done to death. But I want to use it as a familiar
 base upon which we can explore some of the common tradeoffs involved in writing

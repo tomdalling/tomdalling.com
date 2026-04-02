@@ -1,6 +1,6 @@
 {:title "GitHub Workflow For Automated Gem Releases",
  :main-image {:uri "/images/posts/automated-gem-releases.jpg" :visible? false}
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 This is a quick look at the recent CI/release automation I wrote for
 the [byebug-skipper][] gem.

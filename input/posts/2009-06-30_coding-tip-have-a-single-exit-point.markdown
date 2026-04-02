@@ -1,6 +1,6 @@
 {:title "Coding Tip: Have A Single Exit Point"
  :disqus-id "75 http://tomdalling.com/?p=75"
- :category :coding-tips}
+ :deprecated-category :coding-tips}
 
 Having one exit point (return) from a function is a good thing. Here is an
 example of a single exit point:

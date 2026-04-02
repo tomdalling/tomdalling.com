@@ -1,6 +1,6 @@
 {:title "Why Inline Comments Are Generally a Bad Idea"
  :disqus-id "208 http://tomdalling.com/?p=208"
- :category :coding-styleconventions}
+ :deprecated-category :coding-styleconventions}
 
 Bellow is a single function commented in two different ways. Which one is
 better?

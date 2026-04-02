@@ -1,6 +1,6 @@
 {:title "Thoughts On Bootstrap"
  :disqus-id "697 http://tomdalling.com/?p=697"
- :category :web}
+ :deprecated-category :web}
 
 You may have noticed that I redesigned the site recently. The new design uses
 [Boostrap][], mainly to make the site work better on tablets and phones. This

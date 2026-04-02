@@ -1,7 +1,7 @@
 {:title "Milestones As Talking Points"
  :main-image {:uri "/images/posts/milestones.jpg"}
  :tags [:bleet]
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 Recently someone said to me "stakeholders only care about milestones," and
 something clicked for me.

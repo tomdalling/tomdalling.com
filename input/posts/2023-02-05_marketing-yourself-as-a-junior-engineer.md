@@ -1,6 +1,6 @@
 {:title "Marketing Yourself As A Junior Engineer"
  :main-image {:uri "/images/posts/sprout.jpg"}
- :category :mentoring}
+ :deprecated-category :mentoring}
 
 > If you know the enemy and know yourself, you need not fear the result
 > of a hundred battles. If you know yourself but not the enemy, for

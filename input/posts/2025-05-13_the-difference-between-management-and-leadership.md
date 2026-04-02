@@ -1,6 +1,6 @@
 {:title "The Difference Between Management And Leadership"
  :main-image {:uri "/images/posts/hands-with-ship-and-compass.jpg"}
- :category :management}
+ :deprecated-category :management}
 
  The tl;dr is that management is a set of powers and accountabilities that the
  role confers upon you, whereas leadership is the ability to motivate followers.

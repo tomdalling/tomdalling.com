@@ -246,13 +246,13 @@ module Statue
 
       memoize def category_archives
         posts
-          .group_by(&:category)
+          .group_by(&:deprecated_category)
           .map { CategoryArchive.new(category: _1, posts: _2) }
           .sort
       end
 
       memoize def categories
-        posts.map(&:category).uniq
+        posts.map(&:deprecated_category).uniq
       end
 
       memoize def post_indexes

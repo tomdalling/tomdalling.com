@@ -1,7 +1,7 @@
 {:title "Modern OpenGL 05 – Model Assets & Instances"
  :disqus-id "1104 http://tomdalling.com/?p=1104"
  :main-image {:uri "/images/posts/modern-opengl-05.png"}
- :category :modern-opengl}
+ :deprecated-category :modern-opengl}
 
 In this article, we will be refactoring the code to be more like a 3D
 engine/framework. Specifically, we will be replacing some of the globals with

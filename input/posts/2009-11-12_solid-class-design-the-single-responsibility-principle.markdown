@@ -3,7 +3,7 @@
               :artist {:name "Derick Bailey"
                        :url "http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx"}}
  :disqus-id "232 http://tomdalling.com/?p=232"
- :category :software-design}
+ :deprecated-category :software-design}
 
 This is part one of a five part series about [SOLID class design principles][]
 by [Robert C. Martin][]. The SOLID principles focus on achieving code that is

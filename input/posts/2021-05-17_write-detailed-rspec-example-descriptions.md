@@ -1,7 +1,7 @@
 {:title "Write Detailed RSpec Example Descriptions"
  :main-image {:uri "/images/posts/microscope.jpg"}
  :tags [:testing :mentoring]
- :category :mentoring}
+ :deprecated-category :mentoring}
 
 ## Rule Of Thumb
 

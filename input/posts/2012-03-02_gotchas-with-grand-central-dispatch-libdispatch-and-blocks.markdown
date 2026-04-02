@@ -1,6 +1,6 @@
 {:title "Gotchas With Grand Central Dispatch (libdispatch) And Blocks"
  :disqus-id "563 http://tomdalling.com/blog/?p=563"
- :category :cocoa}
+ :deprecated-category :cocoa}
 
 [GCD][] is a nice replacement for the old
 <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsobject_Class/Reference/Reference.html#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:">performSelectorInBackground:withObject:</a></code> and

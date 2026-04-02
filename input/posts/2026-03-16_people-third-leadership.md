@@ -2,7 +2,7 @@
  :main-image {:uri "/images/posts/ship.jpg"
               :artist {:name "János Szüdi"
                        :url "https://unsplash.com/photos/a-black-and-white-photo-of-a-large-ship-sSBZcdyCzxs"}}
- :category :management}
+ :deprecated-category :management}
 
 You may have heard managers describe themselves as having a _people first_
 leadership style. It's so incredibly safe. Who has ever got in trouble for

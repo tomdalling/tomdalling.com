@@ -1,7 +1,7 @@
 {:title "Agile Is A Glass Cannon"
  :main-image {:uri "/images/posts/glasswork.jpg"}
  :tags [:bleet]
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 A recent shower thought of mine is that agile software development
 might be similar to the strategic concept of a [_glass

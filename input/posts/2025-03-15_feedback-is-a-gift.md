@@ -1,6 +1,6 @@
 {:title "Feedback Is Literally A Gift"
  :main-image {:uri "/images/posts/feedback-is-a-gift.jpg"}
- :category :random-stuff}
+ :deprecated-category :random-stuff}
 
 Feedback is a gift.
 

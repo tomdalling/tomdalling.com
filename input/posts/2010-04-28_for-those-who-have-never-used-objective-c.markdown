@@ -1,6 +1,6 @@
 {:title "For Those Who Have Never Used Objective-C"
  :disqus-id "411 http://tomdalling.com/?p=411"
- :category :coding-styleconventions}
+ :deprecated-category :coding-styleconventions}
 
 There is one feature of the Objective-C language that I really love: the method
 naming. Let me explain with an example.

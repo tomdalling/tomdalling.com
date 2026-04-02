@@ -1,7 +1,7 @@
 {:title "Ditch The Umbrella And Grab Some Sunnies"
  :main-image {:uri "/images/posts/deal-with-it-guy.png"}
  :tags [:bleet]
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 Engineering Managers (EMs) are sometimes said to be "shit umbrellas". They are
 supposed to keep all the distractions away from the team: the short-lived whims

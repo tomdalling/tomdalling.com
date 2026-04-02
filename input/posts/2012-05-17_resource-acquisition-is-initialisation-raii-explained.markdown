@@ -1,6 +1,6 @@
 {:title "Resource Acquisition is Initialisation (RAII) Explained"
  :disqus-id "586 http://tomdalling.com/blog/?p=586"
- :category :software-design}
+ :deprecated-category :software-design}
 
 In the competition to make the worst acronym, [RAII][] probably comes second
 after [HATEOS][]. Nevertheless, it is an important concept because it allows

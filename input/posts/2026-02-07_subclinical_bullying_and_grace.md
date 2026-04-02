@@ -3,7 +3,7 @@
               :artist {:name "Artem Sapegin"
                        :url "https://unsplash.com/photos/mountains-and-tree-range-during-golden-hour-8c6eS43iq1o"}}
  :tags [:bleet]
- :category :mentoring}
+ :deprecated-category :mentoring}
 
 In medicine there is the concept of a disease being "subclinical", and I think
 the concept can apply to bullying in the workplace.

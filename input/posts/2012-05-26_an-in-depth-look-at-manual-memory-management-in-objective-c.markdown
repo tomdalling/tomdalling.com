@@ -1,6 +1,6 @@
 {:title "An In-depth Look At Manual Memory Management In Objective-C"
  :disqus-id "608 http://tomdalling.com/blog/?p=608"
- :category :cocoa}
+ :deprecated-category :cocoa}
 
 It feels like fleets of new developers dash themselves upon the rocky shores of
 Objective-C memory management every day on StackOverflow. I can't bear to write

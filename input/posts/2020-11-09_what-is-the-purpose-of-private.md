@@ -1,6 +1,6 @@
 {:title "What Is The Purpose Of Private?"
  :main-image {:uri "/images/posts/private.jpg"}
- :category :software-design}
+ :deprecated-category :software-design}
 
 Why use `private` at all? What is the benefit of trying to stop other
 people from using code that works perfectly well? It's to reduce

@@ -1,5 +1,5 @@
 {:title "What's Stopping You From Coding Like This?"
- :category :random-stuff}
+ :deprecated-category :random-stuff}
 
 I made a [quick-and-dirty Ruby script][gist] that animates the [GitHub
 contributions calendar][], for the express purpose of making this

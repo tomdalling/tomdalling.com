@@ -1,6 +1,6 @@
 {:title "Coding Tip: Replace Complicated Conditions With Boolean Variables"
  :disqus-id "196 http://tomdalling.com/?p=196"
- :category :coding-tips}
+ :deprecated-category :coding-tips}
 
 Consider the following if statement:
 

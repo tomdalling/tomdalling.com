@@ -1,7 +1,7 @@
 {:title "Against Must-Haves (Part Two)"
  :main-image {:uri "/images/posts/bucket-chickens-2.jpg"}
  :tags [:bleet]
- :category :software-processes}
+ :deprecated-category :software-processes}
 
 In part two of this series, we're going to look at how the must-have priority
 bucket leads engineering to make bad decisions.
