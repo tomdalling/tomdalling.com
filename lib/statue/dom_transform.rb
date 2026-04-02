@@ -127,15 +127,16 @@ module Statue
       def clone_each(css_specifier, collection)
         node = at(css_specifier)
         parent = node.parent
-        node.remove
 
         collection.each do |thing|
           new_node = node.clone
-          parent << new_node
+          node.add_previous_sibling(new_node)
           with_current_node(new_node) do
             yield thing
           end
         end
+
+        node.remove
       end
 
       def coerce_to_node_set(content)
