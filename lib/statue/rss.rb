@@ -13,18 +13,20 @@ module Statue
         url Addressable::URI
         description String
         published_at Time
-        category String
+        categories ArrayOf(String)
         guid GUID
       end
 
       def build(parent)
-        parent.item do
-          _1.title(title)
-          _1.link(url)
-          _1.description { parent.cdata(description.strip + "\n") }
-          _1.pubDate(published_at.rfc822)
-          _1.category { parent.cdata(category) }
-          _1.guid(guid.value, isPermaLink: guid.permalink?)
+        parent.item do |node|
+          node.title(title)
+          node.link(url)
+          node.description { parent.cdata(description.strip + "\n") }
+          node.pubDate(published_at.rfc822)
+          categories.each do |cat|
+            node.category { parent.cdata(cat) }
+          end
+          node.guid(guid.value, isPermaLink: guid.permalink?)
         end
       end
     end

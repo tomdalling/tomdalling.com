@@ -54,7 +54,7 @@ module Statue
           url: post.url.with_query('utm_source=rss&utm_medium=rss'),
           description: post.preview_html,
           published_at: Time.utc(post.date.year, post.date.month, post.date.day),
-          category: post.deprecated_category.human_name,
+          categories: post.tags.map(&:human_name),
           guid: RSS::GUID.new(value: post.unique_id, permalink?: false),
         )
       end
