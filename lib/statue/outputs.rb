@@ -96,7 +96,7 @@ module Statue
       # duplicate in the old location.
       def post_under_category_duplicates
         uniq_merge(
-          posts.map do |p|
+          posts.select(&:old_categorised_path).map do |p|
             duplicate_output(
               canonical: p.path,
               duplicate: p.old_categorised_path,

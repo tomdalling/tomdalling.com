@@ -31,7 +31,11 @@ module Statue
     end
 
     def old_categorised_path
-      Pathname.new("blog") / deprecated_category.machine_name / machine_name / 'index.html'
+      if deprecated_category
+        Pathname.new("blog") / deprecated_category.machine_name / machine_name / 'index.html'
+      else
+        nil
+      end
     end
 
     def uri
@@ -159,14 +163,16 @@ module Statue
         value_semantics do
           title String
           disqus_id Either(String, nil)
-          deprecated_category Tag, coerce: true
+          deprecated_category Either(Tag, nil), coerce: true
           tags ArrayOf(Tag), default: [], coerce: true
           draft? Bool()
           main_image Either(MainImage, nil), coerce: true, default: nil
         end
 
         def self.coerce_deprecated_category(obj)
-          if obj.is_a?(String)
+          if obj.is_a?(Symbol)
+            Tag.lookup(obj.to_s) || obj
+          elsif obj.is_a?(String)
             Tag.lookup(obj) || obj
           else
             obj
@@ -195,7 +201,7 @@ module Statue
           new(
             title: edn.fetch(:title),
             disqus_id: edn.fetch(:'disqus-id', nil),
-            deprecated_category: edn.fetch(:'deprecated-category').to_s,
+            deprecated_category: edn.fetch(:'deprecated-category', nil),
             tags: edn.fetch(:tags, []),
             draft?: edn.fetch(:draft, false),
             main_image: edn.fetch(:'main-image', nil),
