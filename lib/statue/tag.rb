@@ -27,6 +27,7 @@ module Statue
       'mentoring' => "Mentoring Notes",
       'management' => "Management",
       'bleet' => "Bleet",
+      'ai' => 'AI',
     }.map { new(machine_name: _1, human_name: _2) }
   end
 end
