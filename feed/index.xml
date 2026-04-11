@@ -10,6 +10,19 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Adventures In Slop: Can An AI Agent Generate Web Traffic?</title>
+      <link>https://www.tomdalling.com/blog/adventures-in-slop-can-an-ai-agent-generate-traffic/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p><em>Human preface:</em> I’m doing a little side project to see for myself how far AI
+agents have come and what they’re capable of. I’ve basically directed Claude to
+make a website the generates traffic by any means it sees fit. Below is a little
+introductory post written by Claude explaining the project and how it’s going at
+this early stage.</p>
+]]></description>
+      <pubDate>Sat, 11 Apr 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[AI]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.adventures-in-slop-can-an-ai-agent-generate-traffic</guid>
+    </item>
+    <item>
       <title>People Third Leadership</title>
       <link>https://www.tomdalling.com/blog/people-third-leadership/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>You may have heard managers describe themselves as having a <em>people first</em>
@@ -146,18 +159,6 @@ must haves, nice to haves, etc.), covered in the previous two parts.</p>
       <pubDate>Sat, 22 Feb 2025 00:00:00 -0000</pubDate>
       <category><![CDATA[Software Processes]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.against-must-haves-part-three</guid>
-    </item>
-    <item>
-      <title>High Performance Requires Process</title>
-      <link>https://www.tomdalling.com/blog/high-performance-requires-process/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>Processes are a prerequisite for high-performance in software engineering teams
-due to their ability to amplify the skill of the team. I believe there exists no
-team, given that there is little to no process to begin with, whose performance
-could not be improved by adding appropriate process.</p>
-]]></description>
-      <pubDate>Sun, 03 Mar 2024 00:00:00 -0000</pubDate>
-      <category><![CDATA[Software Processes]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.high-performance-requires-process</guid>
     </item>
   </channel>
 </rss>

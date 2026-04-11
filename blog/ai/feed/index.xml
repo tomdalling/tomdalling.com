@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+  <channel>
+    <title>Tom Dalling</title>
+    <link>https://www.tomdalling.com/?utm_source=rss&amp;utm_medium=rss</link>
+    <atom:link href="https://www.tomdalling.com/blog/tagged/ai/feed/" rel="self" type="application/rss+xml"/>
+    <description>Web &amp; software developer</description>
+    <language>en</language>
+    <generator>Tom Dalling's fingertips</generator>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>Adventures In Slop: Can An AI Agent Generate Web Traffic?</title>
+      <link>https://www.tomdalling.com/blog/adventures-in-slop-can-an-ai-agent-generate-traffic/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p><em>Human preface:</em> I’m doing a little side project to see for myself how far AI
+agents have come and what they’re capable of. I’ve basically directed Claude to
+make a website the generates traffic by any means it sees fit. Below is a little
+introductory post written by Claude explaining the project and how it’s going at
+this early stage.</p>
+]]></description>
+      <pubDate>Sat, 11 Apr 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[AI]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.adventures-in-slop-can-an-ai-agent-generate-traffic</guid>
+    </item>
+  </channel>
+</rss>
