@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: July 2009 — Tom Dalling</title>
+    <title>I Need To Give You Constructive Feedback — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,7 +22,11 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2009/07/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/i-need-to-give-you-constructive-feedback/">
+<meta property="og:title" content="I Need To Give You Constructive Feedback">
+<meta property="og:url" content="https://www.tomdalling.com/blog/i-need-to-give-you-constructive-feedback/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/chairs-on-beach.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
   <body>
@@ -36,64 +40,143 @@
 
     <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
 
-      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
-  <h1>
-    <span class="title">Archives: July 2009</span>
-    
-  </h1>
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
 
-  <article class="post post-listed">
-    <header>
-      <h2><a href="/blog/implementing-your-own-cocoa-bindings/">Implementing Your Own Cocoa Bindings</a></h2>
-      <small class="meta">
-        <span class="post-date">31 Jul, 2009</span>
-        
-        —
-        Tags: <a class="tag" href="/blog/tagged/cocoa/">Cocoa</a>
-      </small>
-    </header>
+  <header>
+    <h1><a href="/blog/i-need-to-give-you-constructive-feedback/">I Need To Give You Constructive Feedback</a></h1>
+    <small class="meta">
+      <span class="post-date">12 Apr, 2026</span>
+      
+      —
+      Tags: <a class="tag" href="/blog/tagged/management/">Management</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2026-04-12_i-need-to-give-you-constructive-feedback.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/chairs-on-beach.jpg" class="img-responsive">
+      <span class="credit">Image courtesy of <a class="artist" href="https://unsplash.com/photos/two-blue-beach-chairs-near-body-of-water-cEukkv42O40">Aaron Burden</a>.</span>
+    </div>
+  </header>
 
-    
+  <div class="post-content body-text">
+<p>If I’ve sent you this, it’s because I will eventually need to give you
+constructive feedback. Not necessarily right now, but it <em>is</em> going to happen.
+If I’m your manager I’m going to be giving you feedback fairly regularly because
+it’s a requirement of my job. And I want to set your mind at ease about it by
+explaining the process up front, and hopefully showing you that it’s no big
+deal.</p>
 
-    <div class="post-content body-text">
-<p>This post is the result of investigation into a <a href="http://stackoverflow.com/questions/1169097/can-you-manually-implement-cocoa-bindings" title="Can you manually implement Cocoa bindings?">stackoverflow.com question of
-mine</a>.</p>
+<!--more-->
 
-<p>So, you’ve created a spiffy <code>NSView</code> of your own, and have decided to make it
-compatible with bindings. Great! So you go and read the <a href="http://developer.apple.com/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/HowDoBindingsWork.html" title="How Do Bindings Work?">documentation</a>, and
-you look at mmalc’s GraphicsBindings examples. You override
-<code>bind:toObject:withKeyPath:options:</code> and everything works. But wait! Why isn’t
-the <code>NSWindowController</code> ever being deallocated anymore?</p>
+<h2>The Process</h2>
 
-<p>Now you’ve got a nasty retain cycle on your hands. You do a little research and
-discover that not only do <a href="http://www.cocoabuilder.com/archive/message/cocoa/2004/6/12/109600" title="Retain cycle problem with bindings &amp; NSWindowController">other people have the same problem</a>, but even
-<a href="http://theocacao.com/document.page/18" title="Bindings and File's Owner">Apple’s bindings used to have it</a> a few years ago. How did Apple fix the
-problem? With the magic, undocumented class <code>NSAutounbinder</code>, which <a href="http://www.google.com/search?q=nsautounbinder">nobody
-seems to know much about</a>.</p>
+<p>When I give you constructive feedback, it should follow these steps:</p>
 
-<p>Other people will tell you that you don’t need to override
-<code>bind:toObject:withKeyPath:options:</code> and that bindings work automatically. This
-is only a half truth. <code>NSObject</code> does provide an implementation of
-<code>bind:toObject:withKeyPath:options:</code>, but it only half works. Using the default
-<code>NSObject</code> implementation, changes in the model will update the view, but the
-reverse is not true. When the bound property of the view changes, nothing
-happens to the model.</p>
+<ol>
+  <li>Observations — I tell you what I saw</li>
+  <li>Clarification — You tell me if my observations are correct or not</li>
+  <li>Expectations — I tell you what I expected</li>
+  <li>Negotiation — You tell me if my expectations are reasonable or not</li>
+  <li>Agreement — We both agree on what is expected in the future</li>
+</ol>
 
-<p>So, what is a Cocoa developer to do? I’ll explain how to implement your own
-bindings that work exactly like Apple’s, with no retain cycles. <del>I haven’t
-found this solution anywhere else, so as far as I know, I’m the discoverer. I
-feel so special.</del> It has been <a href="http://www.cocoabuilder.com/archive/message/cocoa/2008/6/30/211682" title="Why aren't my bindings firing?">mentioned before</a> at least once. The solution
-is hard to find, though.</p>
+<p>That’s all there is to it. Nothing too scary.</p>
 
+<h2>Step 1: Observations</h2>
+
+<p>The goal of this step is to give you an accurate understanding of <em>my
+understanding</em> of what happened.</p>
+
+<p>I will try to be objective and stick to the facts. You will need to know what I
+observed for the next step.</p>
+
+<h2>Step 2: Clarification</h2>
+
+<p>The goal of this step is for us to both align on the reality of what happened.</p>
+
+<p>I may be missing important bits of information, or I may have misunderstood
+what happened. This step is your chance to clear up anything that doesn’t sound
+right from step one.</p>
+
+<p>This process doesn’t really work if we disagree on the facts of what happened,
+so it’s important that we find a set of facts that we both believe to be true.</p>
+
+<h2>Step 3: Expectations</h2>
+
+<p>The goal of this step is to give you a clear understanding of what I expected
+from you.</p>
+
+<p>I will try to be fair and set expectations that are appropriate and reasonable
+for your role. You will need to know my expectations for the next step.</p>
+
+<h2>Step 4: Negotiation</h2>
+
+<p>The goal of this step is to check that my expectations are fair and reasonable.</p>
+
+<p>I don’t pretend to be perfect, so I’m open to the possibility that my
+expectations are unreasonable. This step is your chance to clarify my
+expectations, ask for reasoning, and, if necessary, make an argument as to why
+my expectations should be different. If we’re both reasonable people, we can
+almost always arrive at something that we both find acceptable.</p>
+
+<h2>Step 5: Agreement</h2>
+
+<p>The goal of this step is to both agree on what the expectations are for the
+future.</p>
+
+<p>This is the end goal of the feedback process: to both be aligned on what the
+expectations are and commit to meeting them, so that there are no surprises in
+the future. I may write it down somewhere so that we can both refer back to it
+later.</p>
+
+<h2>My Promises To You</h2>
+
+<p>I promise that I will try to:</p>
+
+<ul>
+  <li>be objective and honest in my observations</li>
+  <li>be fair and reasonable with my expectations</li>
+  <li>stick to this process for giving feedback</li>
+</ul>
+
+<p>I am human though, and we’re a species known to make mistakes from time to time,
+but please do call me out if I’m not fulfilling the above promises so that I
+can get back on track.</p>
+
+<h2>What I Need From You</h2>
+
+<p>For this process to work, I need you to:</p>
+
+<ul>
+  <li>engage in discussion</li>
+  <li>engage in good faith</li>
+  <li>speak up and voice your disgreement, if you have any</li>
+</ul>
+
+<p>If you can do those three things, we can resolve any problem.</p>
 </div>
 
-    <footer>
-      <a class="btn btn-default more" href="/blog/implementing-your-own-cocoa-bindings/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
-  </article>
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 tw-max-w-52 hover:tw-text-white">Subscribe via RSS</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com">GitHub</a>.
+      </p>
 </div>
+
+    
+
+
+    
+
+  </footer>
+</article>
 </main>
 
       <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">
