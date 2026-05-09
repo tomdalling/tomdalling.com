@@ -19,7 +19,7 @@ gem 'bigdecimal'
 
 # dev server
 gem 'thin'
-gem 'hanami-controller', github: 'hanami/controller', branch: 'main'
+gem 'hanami-controller'
 gem 'rerun'
 gem 'better_errors'
 gem 'binding_of_caller'
