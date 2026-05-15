@@ -1,5 +1,6 @@
 AllCops:
   DisabledByDefault: true
+  TargetRubyVersion: 3.4
 
 Lint/Debugger:
   Enabled: true
