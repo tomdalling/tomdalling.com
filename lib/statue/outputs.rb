@@ -17,6 +17,7 @@ module Statue
 
       POSTS_DIR = Pathname.new('posts')
       PAGES_DIR = Pathname.new('pages')
+      PROJECTS_DIR = Pathname.new('projects')
       STATIC_DIR = Pathname.new('static')
       TEMPLATES_DIR = Pathname.new('templates')
 
@@ -45,6 +46,7 @@ module Statue
           post_index_outputs,
           feed_outputs,
           css_outputs,
+          projects_page_output,
         ])
       end
 
@@ -168,6 +170,13 @@ module Statue
         )
       end
 
+      def projects_page_output
+        {
+          Pathname.new('projects/index.html') =>
+            ProjectsPageOutput.new(projects, template: projects_page_template)
+        }
+      end
+
       # this is a bit of a hack to get the webpack output into the dev server
       def css_outputs
         {
@@ -221,6 +230,21 @@ module Statue
         end
       end
 
+      memoize def projects_page_template
+        LayoutTemplate.new(
+          page_template: page_template,
+          content_template: Template.new(
+            html_file: inputs.get!(TEMPLATES_DIR / 'projects-page.html'),
+            transform: ProjectsPageTransform.new,
+          )
+        ) do |_projects|
+          {
+            title: 'Projects',
+            canonical_path: 'projects/',
+          }
+        end
+      end
+
       memoize def post_content_transform
         PostContentTransform.new(
           modern_opengl_preamble_template: Template.new(
@@ -242,6 +266,10 @@ module Statue
 
       memoize def pages
         inputs.descendants_of(PAGES_DIR).map { Page.new(_1) }
+      end
+
+      memoize def projects
+        inputs.descendants_of(PROJECTS_DIR).map { Project.new(_1) }.sort
       end
 
       memoize def monthly_archives
