@@ -7,7 +7,7 @@ use BetterErrors::Middleware
 puts ">>> Booting outputs..."
 t = Time.now
 inputs = Statue::FileSet.new(Statue::INPUT_DIR)
-outputs = Statue::Outputs.for(inputs)
+outputs = Statue::Outputs.for(inputs, include_drafts: true)
 puts "<<< Outputs booted in #{Time.now-t} seconds"
 
 run Statue::DevServer.new(outputs: outputs)

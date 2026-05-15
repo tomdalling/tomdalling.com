@@ -2,8 +2,8 @@ module Statue
   class Outputs
     include Memery
 
-    def self.for(inputs)
-      new(inputs).outputs
+    def self.for(inputs, include_drafts:)
+      new(inputs, include_drafts:).outputs
     end
 
     def outputs
@@ -21,9 +21,11 @@ module Statue
       TEMPLATES_DIR = Pathname.new('templates')
 
       attr_reader :inputs
+      def include_drafts? = @include_drafts
 
-      def initialize(inputs)
+      def initialize(inputs, include_drafts:)
         @inputs = inputs
+        @include_drafts = include_drafts
       end
 
       def uniq_merge(hashes)
@@ -235,6 +237,7 @@ module Statue
         inputs.descendants_of(POSTS_DIR)
           .map { Post.new(_1, content_transform: post_content_transform) }
           .sort
+          .then { include_drafts? ? _1 : _1.reject(&:draft?) }
       end
 
       memoize def pages

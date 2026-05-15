@@ -4,6 +4,7 @@ module Statue
       value_semantics do
         output_dir AbsolutePathname, coerce: Pathname.method(:new)
         once? Bool(), default: true
+        include_drafts? Bool()
       end
     end
 
@@ -39,7 +40,7 @@ module Statue
 
         # TODO: smarter handling of outputs, watch for file changes
         inputs = FileSet.new(input_dir)
-        outputs = Outputs.for(inputs)
+        outputs = Outputs.for(inputs, include_drafts: config.include_drafts?)
         existing_outputs = FileSet.new(output_dir)
 
         # write outputs
