@@ -3,6 +3,6 @@
 $(sleep 4 && open http://localhost:5023/) &
 
 bundle exec rerun \
-  --pattern '{Gemfile.lock,config.ru,lib/**/*}' \
+  --pattern '{Gemfile.lock,config.ru,lib/**/*,input/**/*}' \
   --background \
   -- bundle exec thin start -p 5023
