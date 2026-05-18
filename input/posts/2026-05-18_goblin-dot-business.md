@@ -1,5 +1,4 @@
 {:title "Goblin Dot Business"
- :draft true
  :main-image {:uri "/images/posts/business-goblin.jpg"}
  :tags [:random-stuff :ai]}
 
