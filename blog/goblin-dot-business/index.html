@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Archives: July 2021 — Tom Dalling</title>
+    <title>Goblin Dot Business — Tom Dalling</title>
     <link rel="stylesheet" href="/style.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -22,7 +22,11 @@
     <meta name="twitter:site" content="@tom_dalling">
     <meta name="twitter:creator" content="@tom_dalling">
     <link rel="alternate" type="application/rss+xml" title="Tom Dalling" href="https://www.tomdalling.com/blog/feed/">
-  <link rel="canonical" href="https://www.tomdalling.com/blog/2021/07/">
+  <link rel="canonical" href="https://www.tomdalling.com/blog/goblin-dot-business/">
+<meta property="og:title" content="Goblin Dot Business">
+<meta property="og:url" content="https://www.tomdalling.com/blog/goblin-dot-business/">
+<meta property="og:image" content="https://www.tomdalling.com/images/posts/business-goblin.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
   <body>
@@ -37,46 +41,173 @@
 
     <div class="tw-container tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row">
 
-      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><div class="post-list">
-  <h1>
-    <span class="title">Archives: July 2021</span>
+      <main class="tw-flex-1 tw-min-w-0 tw-px-4"><article class="post post-single">
+
+  <header>
+    <h1><a href="/blog/goblin-dot-business/">Goblin Dot Business</a></h1>
+    <small class="meta">
+      <span class="post-date">18 May, 2026</span>
+      
+      —
+      Tags: <a class="tag" href="/blog/tagged/random-stuff/">Miscellaneous</a>, <a class="tag" href="/blog/tagged/ai/">AI</a>
+      —
+      Suggest changes <a class="post-github" href="https://github.com/tomdalling/tomdalling.com/tree/main/input/posts/2026-05-18_goblin-dot-business.md">on GitHub</a>
+    </small>
+    <div class="main-image">
+      <img src="/images/posts/business-goblin.jpg" class="img-responsive">
+      
+    </div>
+  </header>
+
+  <div class="post-content body-text">
+<p>Business Goblin (left) is a character created by friend and colleague Matthew
+Grey (right). Originally drawn for an internal presentation, he represents
+greedy unscrupulous businesses selling fake AI hype without the ability to
+follow through on their promises. After the presentation, Business Goblin took
+on a bit of a life of his own, appearing around the office as a life-sized
+coreflute cutout.</p>
+
+<p>Recently, after a couple of Friday evening beers, a small group of collegues and
+I asked the question: what if you could email Business Goblin and he actually
+emailed you back? I happened to be looking for an LLM-related side project, and
+so 24 hours later <a href="https://goblin.business/">https://goblin.business/</a> was up and
+running.</p>
+
+<p>Send him an email and see what he has to say.</p>
+
+<!--more-->
+
+<h2>LLM Learnings</h2>
+
+<p>I did this project to learn more about integrating LLMs into software. Here are
+some of the things I learned in the process:</p>
+
+<ul>
+  <li>
+    <p>Dumber models can be better at certain tasks than smarter models. Opus 4.7
+kinda sucked at pretending to be a goblin, but Hauku 4.5 pretty much nailed
+it.</p>
+  </li>
+  <li>
+    <p>You can use an expensive LLM to tune the usage of a cheaper LLM. I
+had kind of accidentally arrived at the Temu version of Andrej Karpathy’s
+<a href="https://github.com/karpathy/autoresearch">Autoresearch</a>, where I asked Claude
+Code (Opus 4.7) to tune the email generation (Haiku 4.5).</p>
+  </li>
+  <li>
+    <p>Related to the above point, getting good results out of a clanker agent really
+requires solid feedback loops. TDD, type checking, linting tools, et cetera
+are more important than ever.</p>
+  </li>
+  <li>
+    <p>There is this thing called “few shotting”, which is where you include a few
+example inputs and outputs in the prompt for the LLM to learn from before
+giving it the <em>real</em> input and getting it to generate something. This results
+in better output for certain kinds of tasks, e.g. generating emails from a
+goblin CEO.</p>
+  </li>
+  <li>
+    <p>Anthropic has a pre-paid pricing model for LLM API requests, in contrast to
+most cloud providers. I like that.</p>
+  </li>
+  <li>
+    <p>Cheap models are pretty cheap. $5 USD per million output tokens isn’t too bad,
+considering I’m only outputting about 400 tokens per email. That’s a lot of
+emails per dollar.</p>
+  </li>
+  <li>
+    <p>But when you’re paying per token, you probably want to think real hard about
+your rate limits. I’ve architected the project so that it can’t cost more
+than ~$2 USD per day.</p>
+  </li>
+  <li>
+    <p>There is no <em>reliable</em> defense against prompt injection! This is pretty wild
+and concerning!</p>
+  </li>
+</ul>
+
+<h2>Other Kinds Of Learnings</h2>
+
+<p>Some other things I learned are:</p>
+
+<ul>
+  <li>
+    <p><a href="https://purelymail.com/">Purelymail</a> is a product that exists, and I can use
+it for whatever silly projects I want for a flat fee of $10 USD per year.
+Unlimited custom domains for no extra fee is pretty cool.</p>
+  </li>
+  <li>
+    <p><a href="https://dokploy.com/">Dokploy</a> is ok but kinda janky. It’s described as a
+“self-hosted Heroku” type of product, which <em>it is</em>, but the UX/DX isn’t
+polished and I ran into bugs and gaps in documentation a few times.</p>
+  </li>
+  <li>
+    <p><a href="https://tailscale.com/">Tailscale</a> exists, and lets you set up a little VPN
+for free, with nice and polished UX. I hadn’t heard of it before, and I was
+impressed.</p>
+  </li>
+  <li>
+    <p>Python has types now. I haven’t written any Python in hot minute. Looks
+decent.</p>
+  </li>
+  <li>
+    <p>Avoiding spam filters is tricky, especially for a new domain. If you do the
+proper SMTP headers, the DNS records, and chant the forbidden phrase while
+lighting a red candle at midnight, eventually Gmail will let your emails
+through.</p>
+  </li>
+  <li>
+    <p>It’s fun watching people you know interacting with your software.</p>
+  </li>
+</ul>
+
+<h2>What It Done Cost</h2>
+
+<p>I was also interested to learn the cheapest possible way to deploy a lil joke
+project into production. The breakdown is:</p>
+
+<ul>
+  <li>Domain (NearlyFreeSpeech): $14 USD/year.</li>
+  <li>VPS (Linode): ~$10 USD/month. Could be slightly cheaper if I wasn’t using
+Dokploy.</li>
+  <li>Email hosting (Purelymail): $10 USD/year. Bargain.</li>
+  <li>LLM API (Claude):
+    <ul>
+      <li>Minimum credit purchase: it says $5 USD now, but I swear it was about $20
+USD when I did it.</li>
+      <li>Credits per month: depends on how many emails the goblin gets, but should
+be less than $1 per month.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>So all up it costs about $220 AUD (~$156 USD) per year, or ~$18 AUD (~$13 USD)
+per month. Slightly more than I’d like to pay for a dumb joke, but not terrible
+considering I can use the VPS and email hosting for other projects at no
+additional cost.</p>
+</div>
+
+  <footer>
+    <div class="tw-rounded-3xl tw-bg-pink-100 tw-p-8 tw-my-16 tw-text-center tw-bg-opacity-50">
+      <p class="tw-text-2xl tw-uppercase tw-text-pink-900 tw-font-black tw-mb-4">Enjoy this?</p>
+
+      <p class="tw-flex tw-flex-col sm:tw-flex-row tw-justify-center tw-item-center sm:tw-items-baseline">
+        <a href="/feed/" class="tw-flex-1 tw-bg-pink-500 tw-py-3 tw-px-4 tw-rounded-lg tw-text-pink-100 tw-ring-2 tw-ring-pink-300 tw-max-w-52 hover:tw-text-white">Subscribe via RSS</a>
+      </p>
+
+      <p class="tw-text-center tw-mt-4 tw-mb-0 tw-text-pink-900">
+        <em>Found a mistake?</em> Pull requests are welcome on
+        <a href="https://github.com/tomdalling/tomdalling.com">GitHub</a>.
+      </p>
+</div>
+
     
-  </h1>
 
-  <article class="post post-listed">
-    <header>
-      <h2><a href="/blog/thoughts-on-schema-library-design/">Thoughts On Schema Library Design</a></h2>
-      <small class="meta">
-        <span class="post-date">03 Jul, 2021</span>
-        
-        —
-        Tags: <a class="tag" href="/blog/tagged/software-design/">Software Design</a>
-      </small>
-    </header>
 
-    <img class="listed-main-image" src="/images/posts/floorplan.jpg">
+    
 
-    <div class="post-content body-text">
-<p>It’s that time of year again. It seems like about once a year I get
-interested designing a schema library. This post is a collection of my
-latest ideas and design goals, mostly based on what I’ve learnt from
-the previous three or four implementations.</p>
-
-<p>This topic is probably interesting to a tiny subset of developers, and
-super boring to everyone else. I’ve tried to write this post in a way
-that is accessible to a wider developer audience, but you have been
-warned!</p>
-
-<p></p>
-</div>
-
-    <footer>
-      <a class="btn btn-default more" href="/blog/thoughts-on-schema-library-design/">
-        Read full post <i class="fa fa-angle-double-right"></i>
-      </a>
-    </footer>
-  </article>
-</div>
+  </footer>
+</article>
 </main>
 
       <aside class="tw-px-4 tw-text-center lg:tw-text-left lg:tw-w-1/3 tw-flex-none">

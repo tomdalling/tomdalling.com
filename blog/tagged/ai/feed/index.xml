@@ -10,6 +10,29 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Goblin Dot Business</title>
+      <link>https://www.tomdalling.com/blog/goblin-dot-business/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Business Goblin (left) is a character created by friend and colleague Matthew
+Grey (right). Originally drawn for an internal presentation, he represents
+greedy unscrupulous businesses selling fake AI hype without the ability to
+follow through on their promises. After the presentation, Business Goblin took
+on a bit of a life of his own, appearing around the office as a life-sized
+coreflute cutout.</p>
+
+<p>Recently, after a couple of Friday evening beers, a small group of collegues and
+I asked the question: what if you could email Business Goblin and he actually
+emailed you back? I happened to be looking for an LLM-related side project, and
+so 24 hours later <a href="https://goblin.business/">https://goblin.business/</a> was up and
+running.</p>
+
+<p>Send him an email and see what he has to say.</p>
+]]></description>
+      <pubDate>Mon, 18 May 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Miscellaneous]]></category>
+      <category><![CDATA[AI]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.goblin-dot-business</guid>
+    </item>
+    <item>
       <title>Adventures In Slop: Can An AI Agent Generate Web Traffic?</title>
       <link>https://www.tomdalling.com/blog/adventures-in-slop-can-an-ai-agent-generate-traffic/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p><em>Human preface:</em> I’m doing a little side project to see for myself how far AI

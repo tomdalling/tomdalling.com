@@ -10,6 +10,29 @@
     <sy:updatePeriod>daily</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
+      <title>Goblin Dot Business</title>
+      <link>https://www.tomdalling.com/blog/goblin-dot-business/?utm_source=rss&amp;utm_medium=rss</link>
+      <description><![CDATA[<p>Business Goblin (left) is a character created by friend and colleague Matthew
+Grey (right). Originally drawn for an internal presentation, he represents
+greedy unscrupulous businesses selling fake AI hype without the ability to
+follow through on their promises. After the presentation, Business Goblin took
+on a bit of a life of his own, appearing around the office as a life-sized
+coreflute cutout.</p>
+
+<p>Recently, after a couple of Friday evening beers, a small group of collegues and
+I asked the question: what if you could email Business Goblin and he actually
+emailed you back? I happened to be looking for an LLM-related side project, and
+so 24 hours later <a href="https://goblin.business/">https://goblin.business/</a> was up and
+running.</p>
+
+<p>Send him an email and see what he has to say.</p>
+]]></description>
+      <pubDate>Mon, 18 May 2026 00:00:00 -0000</pubDate>
+      <category><![CDATA[Miscellaneous]]></category>
+      <category><![CDATA[AI]]></category>
+      <guid isPermaLink="false">com.tomdalling.blog.goblin-dot-business</guid>
+    </item>
+    <item>
       <title>I Need To Give You Constructive Feedback</title>
       <link>https://www.tomdalling.com/blog/i-need-to-give-you-constructive-feedback/?utm_source=rss&amp;utm_medium=rss</link>
       <description><![CDATA[<p>If I’ve sent you this, it’s because I will eventually need to give you
@@ -145,23 +168,6 @@ polished, fully-working improvement.</p>
       <pubDate>Tue, 13 May 2025 00:00:00 -0000</pubDate>
       <category><![CDATA[Management]]></category>
       <guid isPermaLink="false">com.tomdalling.blog.the-difference-between-management-and-leadership</guid>
-    </item>
-    <item>
-      <title>Feedback Is Literally A Gift</title>
-      <link>https://www.tomdalling.com/blog/feedback-is-a-gift/?utm_source=rss&amp;utm_medium=rss</link>
-      <description><![CDATA[<p>Feedback is a gift.</p>
-
-<p>Some gifts are little treats for you to consume. Think of a box of chocolates.
-You enjoy them and then they’re gone, but you remember the thought that was put
-into them.</p>
-
-<p>Sometimes gifts are utilitarian, like getting socks for Christmas. They are not
-the most exciting thing to receive, but you kind of need them as part of your
-normal day-to-day life, and you’ll get use out of them.</p>
-]]></description>
-      <pubDate>Sat, 15 Mar 2025 00:00:00 -0000</pubDate>
-      <category><![CDATA[Miscellaneous]]></category>
-      <guid isPermaLink="false">com.tomdalling.blog.feedback-is-a-gift</guid>
     </item>
   </channel>
 </rss>
